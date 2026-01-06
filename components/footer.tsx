@@ -1,31 +1,40 @@
-import { GithubIcon, DiscordIcon, QQIcon, ProductHuntIcon, BilibiliIcon, YoutubeIcon, XiaohongshuIcon } from '@/lib/icons';
+import {
+  GithubIcon,
+  DiscordIcon,
+  QQIcon,
+  ProductHuntIcon,
+  BilibiliIcon,
+  YoutubeIcon,
+  XiaohongshuIcon,
+} from '@/lib/icons';
 
 interface FooterProps {
   lang: string;
 }
 
-const communityLinks: { name: string; href: string; icon: React.ReactNode }[] = [
-  {
-    name: 'GitHub',
-    href: 'https://github.com/DearVa/Everywhere',
-    icon: GithubIcon,
-  },
-  {
-    name: 'Discord',
-    href: 'https://discord.gg/5fyg6nE3yn',
-    icon: DiscordIcon,
-  },
-  {
-    name: 'QQ',
-    href: 'https://qm.qq.com/cgi-bin/qm/qr?k=wp9aDBBnLc7pYATqT99tB-N2ZP2ETmJC&jump_from=webapi&authKey=97qUJfsQoI70dUNcgBZ0C3HCZeiEn8inLT7pzg8x+KinbQwfIrHFu3dB2+aHMbRD',
-    icon: QQIcon,
-  },
-  {
-    name: 'Product Hunt',
-    href: 'https://www.producthunt.com/products/everywhere',
-    icon: ProductHuntIcon,
-  }
-];
+const communityLinks: { name: string; href: string; icon: React.ReactNode }[] =
+  [
+    {
+      name: 'GitHub',
+      href: 'https://github.com/DearVa/Everywhere',
+      icon: GithubIcon,
+    },
+    {
+      name: 'Discord',
+      href: 'https://discord.gg/5fyg6nE3yn',
+      icon: DiscordIcon,
+    },
+    {
+      name: 'QQ',
+      href: 'https://qm.qq.com/cgi-bin/qm/qr?k=wp9aDBBnLc7pYATqT99tB-N2ZP2ETmJC&jump_from=webapi&authKey=97qUJfsQoI70dUNcgBZ0C3HCZeiEn8inLT7pzg8x+KinbQwfIrHFu3dB2+aHMbRD',
+      icon: QQIcon,
+    },
+    {
+      name: 'Product Hunt',
+      href: 'https://www.producthunt.com/products/everywhere',
+      icon: ProductHuntIcon,
+    },
+  ];
 
 const followUsLinks: { name: string; href: string; icon: React.ReactNode }[] = [
   {
@@ -46,21 +55,21 @@ const followUsLinks: { name: string; href: string; icon: React.ReactNode }[] = [
 ];
 
 const relatedProjectLinks: { label: string; href: string }[] = [
-  { 
-    label: 'LiveMarkdown.Avalonia', 
-    href: 'https://github.com/DearVa/LiveMarkdown.Avalonia' 
-  }
+  {
+    label: 'LiveMarkdown.Avalonia',
+    href: 'https://github.com/DearVa/LiveMarkdown.Avalonia',
+  },
 ];
 
 const sylinkoLinks: { label: string; href: string }[] = [
-  { 
-    label: 'Official Website', 
-    href: 'https://sylinko.com' 
+  {
+    label: 'Official Website',
+    href: 'https://sylinko.com',
   },
   {
     label: 'Contact Us',
     href: 'mailto:contact@sylinko.com',
-  }
+  },
 ];
 
 interface FooterTranslation {
@@ -97,7 +106,7 @@ interface FooterTranslation {
   copyright: {
     prefix: string;
     suffix: string;
-  }
+  };
 }
 
 const translations: Record<string, FooterTranslation> = {
@@ -125,17 +134,17 @@ const translations: Record<string, FooterTranslation> = {
         title: 'About Sylinko',
         officialWebsite: 'Official Website',
         ContactUs: 'Contact Us',
-      }
+      },
     },
     license: {
       prefix: 'Released under the ',
       linkText: 'Business Source License 1.1',
-      suffix: '.'
+      suffix: '.',
     },
     copyright: {
       prefix: 'Copyright © ',
       suffix: ' Sylinko Inc. All rights reserved.',
-    }
+    },
   },
   'zh-CN': {
     sections: {
@@ -161,18 +170,18 @@ const translations: Record<string, FooterTranslation> = {
         title: '关于 Sylinko',
         officialWebsite: '官方网站',
         ContactUs: '联系我们',
-      }
+      },
     },
     license: {
       prefix: '基于 ',
       linkText: 'Business Source License 1.1',
-      suffix: ' 许可发布'
+      suffix: ' 许可发布',
     },
     copyright: {
       prefix: '版权所有 © ',
       suffix: ' Sylinko Inc. 保留所有权利。',
-    }
-  }
+    },
+  },
 };
 
 // ============================================
@@ -186,7 +195,6 @@ export function Footer({ lang }: FooterProps) {
       <div className="mx-auto max-w-[1400px] px-6 py-12">
         {/* Top: Links Grid */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-4 lg:gap-x-12">
-          
           {/* Section 1: Community & Follow Us (Icons) */}
           <div className="flex flex-col gap-6">
             <div>
@@ -209,7 +217,7 @@ export function Footer({ lang }: FooterProps) {
                 ))}
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
                 {t.sections.followUs.title}
@@ -312,13 +320,13 @@ export function Footer({ lang }: FooterProps) {
 
         {/* Bottom: License and Copyright */}
         <div className="border-fd-border flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row">
-           <p className="text-fd-muted-foreground text-xs">
+          <p className="text-fd-muted-foreground text-xs">
             {t.license.prefix}
-            <a 
-              href="https://github.com/DearVa/Everywhere/blob/main/LICENSE" 
-              target="_blank" 
+            <a
+              href="https://github.com/DearVa/Everywhere/blob/main/LICENSE"
+              target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-fd-foreground transition-colors underline decoration-fd-muted-foreground/50 hover:decoration-fd-foreground"
+              className="hover:text-fd-foreground decoration-fd-muted-foreground/50 hover:decoration-fd-foreground underline transition-colors"
             >
               {t.license.linkText}
             </a>

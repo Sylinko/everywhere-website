@@ -23,7 +23,7 @@ const { provider } = defineI18nUI(i18n, {
       nextPage: '下一页',
       previousPage: '上一页',
       tocNoHeadings: '目录为空',
-    }
+    },
   },
 });
 
@@ -31,18 +31,18 @@ const titleMap: Record<
   string,
   { default: string; template: string; description: string }
 > = {
-  en: {
+  'en-US': {
     default: 'Every moment, Every place. Your AI: Everywhere',
     template: '%s | Everywhere',
     description:
       'Liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
   },
-  zh: {
+  'zh-CN': {
     default: 'Everywhere - 随时随地，智能相伴',
     template: '%s | Everywhere',
     description:
       '将 AI 从浏览器标签页和独立应用中解放出来，使其成为您操作系统中无处不在的原生能力。',
-  }
+  },
 };
 
 export async function generateMetadata({
@@ -74,9 +74,7 @@ export async function generateMetadata({
       'Automation',
       'Workflow Enhancement',
     ],
-    authors: [
-      { name: 'Sylinko', url: 'https://sylinko.com' },
-    ],
+    authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
     creator: 'Sylinko',
     alternates: {
       languages: {

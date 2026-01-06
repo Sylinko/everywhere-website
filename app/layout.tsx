@@ -24,7 +24,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
       <head>
         <meta charSet="utf-8" />
       </head>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex min-h-screen flex-col">
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

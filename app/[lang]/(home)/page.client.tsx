@@ -106,13 +106,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-brand text-brand-foreground hover:bg-brand-200',
-        secondary: 'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent',
+        secondary:
+          'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent',
       },
     },
     defaultVariants: {
       variant: 'primary',
     },
-  },
+  }
 );
 
 const cardVariants = cva('rounded-2xl text-sm p-6 bg-origin-border shadow-lg', {
@@ -269,13 +270,16 @@ export function FeatureSection({
 
   return (
     <section className="mx-auto mt-24 max-w-[1400px] px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {items.map((item, idx) => {
           const Icon = icons[idx] || Box;
           return (
             <div
               key={idx}
-              className={cn(cardVariants(), 'flex flex-col justify-center h-full')}
+              className={cn(
+                cardVariants(),
+                'flex h-full flex-col justify-center'
+              )}
             >
               <div>
                 <div
@@ -302,24 +306,40 @@ export function ModelProviderSection({
   description,
   learnMoreDesc,
   models,
-  lang
+  lang,
 }: {
   title: string;
   description: string;
   learnMoreDesc: string;
-  models: { iconUrl: string; link: string; title: string; inversedIconColor?: boolean }[];
+  models: {
+    iconUrl: string;
+    link: string;
+    title: string;
+    inversedIconColor?: boolean;
+  }[];
   lang: string;
 }) {
   const numberOfRows = 5;
 
   return (
-    <section className="mx-auto mt-24 max-w-[1400px] px-4 overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+    <section className="mx-auto mt-24 max-w-[1400px] overflow-hidden px-4">
+      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Left Card: Title & Desc */}
-        <div className={cn(cardVariants(), 'flex flex-col justify-center pr-12')}>
-          <h3 className={cn(headingVariants({ variant: 'h3', className: 'mb-3' }))}>{title}</h3>
+        <div
+          className={cn(cardVariants(), 'flex flex-col justify-center pr-12')}
+        >
+          <h3
+            className={cn(
+              headingVariants({ variant: 'h3', className: 'mb-3' })
+            )}
+          >
+            {title}
+          </h3>
           <p className="text-muted-foreground text-lg">{description}</p>
-          <Link href={getLocalePath(lang, '/docs/model-provider')} className={cn(buttonVariants(), 'justify-start mt-6 w-fit')}>
+          <Link
+            href={getLocalePath(lang, '/docs/model-provider')}
+            className={cn(buttonVariants(), 'mt-6 w-fit justify-start')}
+          >
             <div className="inline-flex items-center gap-2">
               <span>{learnMoreDesc}</span>
               <ArrowRight className="size-4" />
@@ -328,7 +348,7 @@ export function ModelProviderSection({
         </div>
 
         {/* Right: Carousel */}
-        <div className="relative flex flex-col justify-center rounded-2xl border bg-background py-8 lg:col-span-2 overflow-hidden">
+        <div className="bg-background relative flex flex-col justify-center overflow-hidden rounded-2xl border py-8 lg:col-span-2">
           <div className="flex flex-col gap-5">
             {Array.from({ length: numberOfRows }).map((_, rowIndex) => {
               const centerIndex = Math.floor(numberOfRows / 2); // 2
@@ -347,13 +367,13 @@ export function ModelProviderSection({
               ];
               // Triple for infinite scroll
               const seamlessModels = [...rotated, ...rotated, ...rotated];
-              
+
               const duration = 60 - dist * 10; // Center (dist=0) is slowest (60s), edges (dist=2) are fastest (40s)
 
               return (
                 <div
                   key={rowIndex}
-                  className="flex w-max animate-infinite-scroll gap-4"
+                  className="animate-infinite-scroll flex w-max gap-4"
                   style={
                     {
                       opacity,
@@ -363,10 +383,13 @@ export function ModelProviderSection({
                   }
                 >
                   {seamlessModels.map((model, i) => (
-                    <Link key={i} href={model.link} target="_blank" rel="noopener noreferrer">
-                      <div
-                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl border bg-card shrink-0 shadow-sm"
-                      >
+                    <Link
+                      key={i}
+                      href={model.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="bg-card flex shrink-0 items-center justify-center gap-2 rounded-xl border px-4 py-2 shadow-sm">
                         <Image
                           src={model.iconUrl}
                           alt={model.title}
@@ -374,10 +397,10 @@ export function ModelProviderSection({
                           height={16}
                           className={cn(
                             'size-5',
-                            model.inversedIconColor && 'dark:filter dark:invert'
+                            model.inversedIconColor && 'dark:invert dark:filter'
                           )}
                         />
-                        <span className="font-medium text-sm text-card-foreground">
+                        <span className="text-card-foreground text-sm font-medium">
                           {model.title}
                         </span>
                       </div>
@@ -413,11 +436,17 @@ export function SponsorsSection({
 }: {
   title: string;
   description: string;
-  sponsors: { title: string; iconPath: string; scale?: number; link: string; themeDifferentiated?: boolean; }[];
+  sponsors: {
+    title: string;
+    iconPath: string;
+    scale?: number;
+    link: string;
+    themeDifferentiated?: boolean;
+  }[];
 }) {
   return (
     <section className="mx-auto mt-16 max-w-[1400px] px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Left: SVGs */}
         <div className="grid grid-cols-2 gap-4">
           {sponsors.map((sponsor, idx) => (
@@ -426,7 +455,7 @@ export function SponsorsSection({
               href={sponsor.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center rounded-xl border bg-card hover:shadow-md transition-shadow"
+              className="bg-card flex items-center justify-center rounded-xl border transition-shadow hover:shadow-md"
             >
               {sponsor.themeDifferentiated ? (
                 <>
@@ -442,16 +471,16 @@ export function SponsorsSection({
                     alt={sponsor.title}
                     width={150 * (sponsor.scale || 1)}
                     height={75 * (sponsor.scale || 1)}
-                    className="object-contain hidden dark:block"
+                    className="hidden object-contain dark:block"
                   />
                 </>
               ) : (
                 <Image
                   src={`${sponsor.iconPath}.svg`}
                   alt={sponsor.title}
-                    width={150 * (sponsor.scale || 1)}
-                    height={75 * (sponsor.scale || 1)}
-                  className="object-contain sponsor-img auto-gray"
+                  width={150 * (sponsor.scale || 1)}
+                  height={75 * (sponsor.scale || 1)}
+                  className="sponsor-img auto-gray object-contain"
                 />
               )}
             </a>
@@ -459,8 +488,19 @@ export function SponsorsSection({
         </div>
 
         {/* Right: Text Card */}
-        <div className={cn(cardVariants(), 'flex flex-col justify-center rounded-2xl border bg-muted/5 p-8')}>
-          <h3 className={cn(headingVariants({ variant: 'h3', className: 'mb-3' }))}>{title}</h3>
+        <div
+          className={cn(
+            cardVariants(),
+            'bg-muted/5 flex flex-col justify-center rounded-2xl border p-8'
+          )}
+        >
+          <h3
+            className={cn(
+              headingVariants({ variant: 'h3', className: 'mb-3' })
+            )}
+          >
+            {title}
+          </h3>
           <p className="text-muted-foreground text-lg">{description}</p>
         </div>
       </div>
@@ -472,17 +512,23 @@ export function BoundlessSection({
   title,
   description,
   items,
-  lang
+  lang,
 }: {
   title: string;
   description: string;
-  items: { label: string; title: string; desc: string; warn?: string; imgName: string }[];
+  items: {
+    label: string;
+    title: string;
+    desc: string;
+    warn?: string;
+    imgName: string;
+  }[];
   lang: string;
 }) {
   return (
-    <section className="mx-auto mt-24 max-w-[1400px] px-4 mb-24">
-      <div className="text-center mx-auto mb-16">
-        <h2 className="text-2xl font-semibold md:text-3xl mb-4">{title}</h2>
+    <section className="mx-auto mt-24 mb-24 max-w-[1400px] px-4">
+      <div className="mx-auto mb-16 text-center">
+        <h2 className="mb-4 text-2xl font-semibold md:text-3xl">{title}</h2>
         <p className="text-muted-foreground text-lg">{description}</p>
       </div>
 
@@ -491,16 +537,16 @@ export function BoundlessSection({
           <div
             key={idx}
             className={cn(
-              'flex flex-col md:flex-row items-center gap-8 md:gap-16',
+              'flex flex-col items-center gap-8 md:flex-row md:gap-16',
               idx % 2 !== 0 && 'md:flex-row-reverse'
             )}
           >
             {/* Text Side */}
-            <div className="flex-1 flex flex-col gap-4 items-start text-left">
-              <span className="text-brand text-sm tracking-widest uppercase font-semibold">
+            <div className="flex flex-1 flex-col items-start gap-4 text-left">
+              <span className="text-brand text-sm font-semibold tracking-widest uppercase">
                 {item.label}
               </span>
-              <h3 className={cn(headingVariants({ variant: 'h3'}))}>
+              <h3 className={cn(headingVariants({ variant: 'h3' }))}>
                 {item.title}
               </h3>
               <p className="text-muted-foreground text-md leading-relaxed">
@@ -509,9 +555,15 @@ export function BoundlessSection({
             </div>
 
             {/* Image Side - Placeholder */}
-            <div className="flex-1 w-full rounded-2xl border bg-muted/10 flex items-center justify-center text-muted-foreground/50 text-xl font-medium relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Image src={`/showcases/${lang}/${item.imgName}`} alt={item.title} width={600} height={338} className="object-cover w-full h-full" />
+            <div className="bg-muted/10 text-muted-foreground/50 group relative flex w-full flex-1 items-center justify-center overflow-hidden rounded-2xl border text-xl font-medium">
+              <div className="from-brand/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <Image
+                src={`/showcases/${lang}/${item.imgName}`}
+                alt={item.title}
+                width={600}
+                height={338}
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
         ))}
@@ -533,25 +585,33 @@ export function CTASection({
 }) {
   return (
     <section className="mx-auto mt-24 mb-12 max-w-[1400px] px-4">
-      <div className="relative overflow-hidden rounded-3xl border bg-background/50 px-6 py-16 sm:px-16 md:py-24 text-center">
+      <div className="bg-background/50 relative overflow-hidden rounded-3xl border px-6 py-16 text-center sm:px-16 md:py-24">
         {/* Blurred Gradient Background */}
         <div
-          className="absolute inset-0 -z-10 opacity-20 dark:opacity-10 blur-3xl saturate-150"
+          className="absolute inset-0 -z-10 opacity-20 blur-3xl saturate-150 dark:opacity-10"
           style={{
             backgroundImage:
               'linear-gradient(to bottom right, var(--color-brand), var(--color-brand-alter-1), var(--color-brand-alter-2))',
           }}
         />
 
-        <h2 className={cn(headingVariants({ variant: 'h2' }), 'mb-6 relative z-10')}>
+        <h2
+          className={cn(
+            headingVariants({ variant: 'h2' }),
+            'relative z-10 mb-6'
+          )}
+        >
           {title}
         </h2>
-        <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10 font-light">
+        <p className="text-muted-foreground relative z-10 mx-auto mb-10 max-w-2xl text-lg font-light md:text-xl">
           {description}
         </p>
         <Link
           href={getLocalePath(lang, 'docs')}
-          className={cn(buttonVariants({ variant: 'primary' }), 'gap-2 px-8 py-4 text-lg shadow-lg relative z-10 items-center')}
+          className={cn(
+            buttonVariants({ variant: 'primary' }),
+            'relative z-10 items-center gap-2 px-8 py-4 text-lg shadow-lg'
+          )}
         >
           {actionText}
           <ArrowRight className="size-5" />

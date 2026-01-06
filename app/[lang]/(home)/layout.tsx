@@ -43,7 +43,7 @@ const i18nText: Record<
       text: 'Getting Started',
       desc: 'How to use and configure Everywhere.',
     },
-    'faq': {
+    faq: {
       text: 'FAQ',
       desc: 'Frequently Asked Questions about Everywhere.',
     },
@@ -55,12 +55,12 @@ const i18nText: Record<
       text: 'Chat Plugins',
       desc: 'Allow your assistant to accomplish more complex tasks.',
     },
-    'support': {
+    support: {
       text: 'Support',
-      desc: 'Get support from community or our team.'
-    }
+      desc: 'Get support from community or our team.',
+    },
   },
-  zh: {
+  'zh-CN': {
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
     pricing: { text: '定价', desc: '' },
@@ -68,7 +68,7 @@ const i18nText: Record<
       text: '快速开始',
       desc: '学习如何使用并配置 Everywhere。',
     },
-    'faq': {
+    faq: {
       text: '常见问题',
       desc: '关于 Everywhere 的常见问题解答。',
     },
@@ -80,11 +80,11 @@ const i18nText: Record<
       text: '聊天插件',
       desc: '让您的助手完成更复杂的任务。',
     },
-    'support': {
+    support: {
       text: '支持',
-      desc: '从社区或我们的团队获得支持。'
-    }
-  }
+      desc: '从社区或我们的团队获得支持。',
+    },
+  },
 };
 
 const getTexts = (lang: string) => i18nText[lang] || i18nText['en-US'];
@@ -192,8 +192,14 @@ export default async function Layout({
                   <MenuLinkItem item={navItems[1]} className="lg:col-start-2" />
                   <MenuLinkItem item={navItems[2]} className="lg:col-start-2" />
                   {/* Third column */}
-                  <MenuLinkItem item={navItems[3]} className="lg:col-start-3 lg:row-start-1" />
-                  <MenuLinkItem item={navItems[4]} className="lg:col-start-3 lg:row-start-2" />
+                  <MenuLinkItem
+                    item={navItems[3]}
+                    className="lg:col-start-3 lg:row-start-1"
+                  />
+                  <MenuLinkItem
+                    item={navItems[4]}
+                    className="lg:col-start-3 lg:row-start-2"
+                  />
                 </NavbarMenuContent>
               </NavbarMenu>
             ),

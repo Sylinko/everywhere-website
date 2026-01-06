@@ -22,7 +22,7 @@ export const logo = (
     height={20}
     className="size-5"
   />
-)
+);
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -36,6 +36,6 @@ export function baseOptions(): BaseLayoutProps {
         </>
       ),
     },
-    i18n: true
+    i18n: true,
   };
 }
