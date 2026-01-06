@@ -12,7 +12,7 @@
     "get-started/shortcuts",
     "get-started/faq",
     "---Model Providers---",
-    "model-provider/overview",
+    "model-provider/index",
     "model-provider/openai",
     "model-provider/anthropic",
     "model-provider/google",
@@ -22,7 +22,7 @@
     "model-provider/siliconcloud",
     "model-provider/ollama",
     "---Chat Plugins---",
-    "chat-plugin/overview",
+    "chat-plugin/index",
     "chat-plugin/visual-tree",
     "chat-plugin/web-browser"
   ]

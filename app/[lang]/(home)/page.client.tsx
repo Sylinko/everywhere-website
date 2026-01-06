@@ -572,7 +572,7 @@ export function CTASection({
         <Link
           href={getLocalePath(lang, 'docs')}
           className={cn(
-            buttonVariants({ variant: 'primary' }),
+            buttonVariants(),
             'relative z-10 items-center gap-2 px-8 py-4 text-lg shadow-lg'
           )}
         >
