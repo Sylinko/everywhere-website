@@ -1,0 +1,524 @@
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import { cva } from 'class-variance-authority';
+import Link from 'next/link';
+import { cn } from '@/lib/cn';
+import { Monitor, Layers, Laptop, Box, ArrowRight } from 'lucide-react';
+import { getLocalePath } from '@/lib/i18n';
+
+const GrainGradient = dynamic(
+  () => import('@paper-design/shaders-react').then((m) => m.GrainGradient),
+  { ssr: false }
+);
+
+type ShaderProfile = {
+  delayMs: number;
+  idleTimeoutMs: number;
+  softness: number;
+  intensity: number;
+  noise: number;
+  reduceMotion: boolean;
+};
+
+const DEFAULT_SHADER_PROFILE: ShaderProfile = {
+  delayMs: 500,
+  idleTimeoutMs: 1200,
+  softness: 1,
+  intensity: 0.85,
+  noise: 0.45,
+  reduceMotion: false,
+};
+
+function detectShaderProfile(): ShaderProfile {
+  if (typeof window === 'undefined') {
+    // Must be consistent between SSR and the client's first render.
+    return DEFAULT_SHADER_PROFILE;
+  }
+
+  const reduceMotion =
+    window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
+
+  const navAny = navigator as unknown as {
+    deviceMemory?: number;
+    hardwareConcurrency?: number;
+  };
+
+  const memory =
+    typeof navAny.deviceMemory === 'number' ? navAny.deviceMemory : 8;
+  const cores =
+    typeof navAny.hardwareConcurrency === 'number'
+      ? navAny.hardwareConcurrency
+      : 8;
+  const isSmallScreen =
+    window.matchMedia?.('(max-width: 1023px)')?.matches ?? false;
+
+  // Always render shaders, but adapt quality to reduce jank on low-end / small screens.
+  const lowEnd = memory <= 4 || cores <= 4;
+
+  if (reduceMotion) {
+    return {
+      delayMs: 350,
+      idleTimeoutMs: 1200,
+      softness: 1,
+      intensity: 0.55,
+      noise: 0.22,
+      reduceMotion: true,
+    };
+  }
+
+  if (lowEnd || isSmallScreen) {
+    return {
+      delayMs: 550,
+      idleTimeoutMs: 1600,
+      softness: 1,
+      intensity: 0.7,
+      noise: 0.28,
+      reduceMotion: false,
+    };
+  }
+
+  return {
+    delayMs: 250,
+    idleTimeoutMs: 1000,
+    softness: 1,
+    intensity: 0.9,
+    noise: 0.5,
+    reduceMotion: false,
+  };
+}
+
+const headingVariants = cva('font-medium tracking-tight', {
+  variants: {
+    variant: {
+      h2: 'text-3xl lg:text-4xl',
+      h3: 'text-xl lg:text-2xl',
+    },
+  },
+});
+
+const buttonVariants = cva(
+  'inline-flex justify-center px-5 py-3 rounded-full font-medium tracking-tight transition-colors',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-brand text-brand-foreground hover:bg-brand-200',
+        secondary: 'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+    },
+  },
+);
+
+const cardVariants = cva('rounded-2xl text-sm p-6 bg-origin-border shadow-lg', {
+  variants: {
+    variant: {
+      secondary: 'bg-brand-secondary text-brand-secondary-foreground',
+      default: 'border bg-fd-card',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+export function Hero() {
+  const { resolvedTheme } = useTheme();
+  const [showShaders, setShowShaders] = useState(false);
+  const [imageReady, setImageReady] = useState(false);
+  const [logoReady, setLogoReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  // Avoid hydration mismatch: the first client render must match SSR output.
+  const [profile, setProfile] = useState<ShaderProfile>(DEFAULT_SHADER_PROFILE);
+
+  const shaderColors = useMemo(
+    () =>
+      resolvedTheme === 'dark'
+        ? ['#06B6D4', '#8B5CF6', '#EC4899', '#1E3A8A00']
+        : ['#22D3EE', '#A78BFA', '#F9A8D4', '#DBEAFE20'],
+    [resolvedTheme]
+  );
+
+  useEffect(() => {
+    setMounted(true);
+    setProfile(detectShaderProfile());
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    let cancelled = false;
+    let idleId: number | undefined;
+    const start = () => {
+      if (!cancelled) setShowShaders(true);
+    };
+
+    const win = window as unknown as {
+      requestIdleCallback?: (
+        cb: () => void,
+        options?: { timeout?: number }
+      ) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    // Always keep the effect, but start it after first paint/idle to minimize jank.
+    const t = window.setTimeout(() => {
+      if (cancelled) return;
+      if (typeof win.requestIdleCallback === 'function') {
+        idleId = win.requestIdleCallback(start, {
+          timeout: profile.idleTimeoutMs,
+        });
+        return;
+      }
+      start();
+    }, profile.delayMs);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(t);
+      if (typeof idleId === 'number') {
+        win.cancelIdleCallback?.(idleId);
+      }
+    };
+  }, [mounted, profile.delayMs, profile.idleTimeoutMs]);
+
+  return (
+    <>
+      {/* Lightweight fallback while shader bundle loads */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'var(--hero-bg)',
+        }}
+      />
+
+      {showShaders && (
+        <GrainGradient
+          className={cn(
+            'absolute inset-0 duration-800',
+            profile.reduceMotion ? 'animate-none' : 'animate-fd-fade-in'
+          )}
+          colors={shaderColors}
+          colorBack="#00000000"
+          softness={profile.softness}
+          intensity={profile.intensity}
+          noise={profile.noise}
+          shape="corners"
+        />
+      )}
+
+      {/* Logo */}
+      {mounted && (
+        <div
+          className={cn(
+            'absolute hidden lg:top-[10%] lg:right-[10%] lg:block',
+            logoReady
+              ? 'animate-in fade-in zoom-in-95 duration-700'
+              : 'invisible'
+          )}
+        >
+          <Image
+            src="/Everywhere.webp"
+            alt="logo"
+            width={288}
+            height={288}
+            className="size-32 drop-shadow-2xl sm:size-40 md:size-56 lg:size-72"
+            onLoad={() => setLogoReady(true)}
+            priority
+          />
+        </div>
+      )}
+
+      {mounted && (
+        <Image
+          src={
+            resolvedTheme === 'dark'
+              ? '/assets/dashboard-dark.png'
+              : '/assets/dashboard-light.png'
+          }
+          alt="dashboard-preview"
+          width={1200}
+          height={800}
+          className={cn(
+            'absolute top-[460px] left-[20%] max-w-[1200px] rounded-xl border-2',
+            'lg:top-[400px]',
+            imageReady ? 'animate-in fade-in duration-400' : 'invisible'
+          )}
+          onLoad={() => setImageReady(true)}
+          loading="lazy"
+          fetchPriority="low"
+          sizes="(min-width: 1024px) 1200px, 100vw"
+        />
+      )}
+    </>
+  );
+}
+
+export function FeatureSection({
+  items,
+}: {
+  items: { title: string; desc: string; color: string; link: string }[];
+  linkText: string;
+}) {
+  const icons = [Monitor, Layers, Laptop, Box];
+
+  return (
+    <section className="mx-auto mt-24 max-w-[1400px] px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {items.map((item, idx) => {
+          const Icon = icons[idx] || Box;
+          return (
+            <div
+              key={idx}
+              className={cn(cardVariants(), 'flex flex-col justify-center')}
+            >
+              <div>
+                <div
+                  className={cn(
+                    'mb-4 inline-flex items-center justify-center rounded-lg',
+                    'bg-muted text-muted-foreground'
+                  )}
+                >
+                  <Icon className="size-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
+                <p className="text-muted-foreground">{item.desc}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+export function ModelProviderSection({
+  title,
+  description,
+  learnMoreDesc,
+  models,
+  lang
+}: {
+  title: string;
+  description: string;
+  learnMoreDesc: string;
+  models: { iconUrl: string; link: string; title: string; inversedIconColor?: boolean }[];
+  lang: string;
+}) {
+  const numberOfRows = 5;
+
+  return (
+    <section className="mx-auto mt-24 max-w-[1400px] px-4 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Left Card: Title & Desc */}
+        <div className={cn(cardVariants(), 'flex flex-col justify-center')}>
+          <h3 className={cn(headingVariants({ variant: 'h3', className: 'mb-3' }))}>{title}</h3>
+          <p className="text-muted-foreground text-lg">{description}</p>
+          <Link href={getLocalePath(lang, '/docs/model-provider')} className={cn(buttonVariants(), 'justify-start mt-6 w-fit')}>
+            <div className="inline-flex items-center gap-2">
+              <span>{learnMoreDesc}</span>
+              <ArrowRight className="size-4" />
+            </div>
+          </Link>
+        </div>
+
+        {/* Right: Carousel */}
+        <div className="relative flex flex-col justify-center rounded-2xl border bg-background py-8 lg:col-span-2 overflow-hidden">
+          <div className="flex flex-col gap-5">
+            {Array.from({ length: numberOfRows }).map((_, rowIndex) => {
+              const centerIndex = Math.floor(numberOfRows / 2); // 2
+              const dist = Math.abs(rowIndex - centerIndex);
+              // dist: 0 -> clear, 1 -> slight blur, 2 -> more blur
+
+              const opacity = 1 - dist * 0.25;
+              const blurAmount = dist * 1.5; // 0px, 1.5px, 3px
+
+              // Offset models to stagger
+              const offset = rowIndex * 3;
+              const safeModels = models.length > 0 ? models : [];
+              const rotated = [
+                ...safeModels.slice(offset % safeModels.length),
+                ...safeModels.slice(0, offset % safeModels.length),
+              ];
+              // Triple for infinite scroll
+              const seamlessModels = [...rotated, ...rotated, ...rotated];
+              
+              const duration = 60 - dist * 10; // Center (dist=0) is slowest (60s), edges (dist=2) are fastest (40s)
+
+              return (
+                <div
+                  key={rowIndex}
+                  className="flex w-max animate-infinite-scroll gap-4"
+                  style={
+                    {
+                      opacity,
+                      filter: `blur(${blurAmount}px)`,
+                      '--animation-duration': `${duration}s`,
+                    } as React.CSSProperties
+                  }
+                >
+                  {seamlessModels.map((model, i) => (
+                    <Link key={i} href={model.link} target="_blank" rel="noopener noreferrer">
+                      <div
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl border bg-card shrink-0 shadow-sm"
+                      >
+                        <Image
+                          src={model.iconUrl}
+                          alt={model.title}
+                          width={16}
+                          height={16}
+                          className={cn(
+                            'size-5',
+                            model.inversedIconColor && 'dark:filter dark:invert'
+                          )}
+                        />
+                        <span className="font-medium text-sm text-card-foreground">
+                          {model.title}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        @keyframes infinite-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-33.33%);
+          }
+        }
+        .animate-infinite-scroll {
+          animation: infinite-scroll var(--animation-duration) linear infinite;
+        }
+        .hover\\:pause:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+    </section>
+  );
+}
+
+export function SponsorsSection({
+  title,
+  description,
+  sponsors,
+}: {
+  title: string;
+  description: string;
+  sponsors: { title: string; iconPath: string; scale?: number; link: string; themeDifferentiated?: boolean; }[];
+}) {
+  return (
+    <section className="mx-auto mt-16 max-w-[1400px] px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Left: SVGs */}
+        <div className="grid grid-cols-2 gap-4">
+          {sponsors.map((sponsor, idx) => (
+            <a
+              key={idx}
+              href={sponsor.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-xl border bg-card hover:shadow-md transition-shadow"
+            >
+              {sponsor.themeDifferentiated ? (
+                <>
+                  <Image
+                    src={`${sponsor.iconPath}-light.svg`}
+                    alt={sponsor.title}
+                    width={150 * (sponsor.scale || 1)}
+                    height={75 * (sponsor.scale || 1)}
+                    className="object-contain dark:hidden"
+                  />
+                  <Image
+                    src={`${sponsor.iconPath}-dark.svg`}
+                    alt={sponsor.title}
+                    width={150 * (sponsor.scale || 1)}
+                    height={75 * (sponsor.scale || 1)}
+                    className="object-contain hidden dark:block"
+                  />
+                </>
+              ) : (
+                <Image
+                  src={`${sponsor.iconPath}.svg`}
+                  alt={sponsor.title}
+                    width={150 * (sponsor.scale || 1)}
+                    height={75 * (sponsor.scale || 1)}
+                  className="object-contain sponsor-img auto-gray"
+                />
+              )}
+            </a>
+          ))}
+        </div>
+
+        {/* Right: Text Card */}
+        <div className={cn(cardVariants(), 'flex flex-col justify-center rounded-2xl border bg-muted/5 p-8')}>
+          <h3 className={cn(headingVariants({ variant: 'h3', className: 'mb-3' }))}>{title}</h3>
+          <p className="text-muted-foreground text-lg">{description}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function BoundlessSection({
+  title,
+  description,
+  items,
+  lang
+}: {
+  title: string;
+  description: string;
+  items: { label: string; title: string; desc: string; warn?: string; imgName: string }[];
+  lang: string;
+}) {
+  return (
+    <section className="mx-auto mt-24 max-w-[1400px] px-4 mb-24">
+      <div className="text-center mx-auto mb-16">
+        <h2 className="text-2xl font-semibold md:text-3xl mb-4">{title}</h2>
+        <p className="text-muted-foreground text-lg">{description}</p>
+      </div>
+
+      <div className="flex flex-col gap-16">
+        {items.map((item, idx) => (
+          <div
+            key={idx}
+            className={cn(
+              'flex flex-col md:flex-row items-center gap-8 md:gap-16',
+              idx % 2 !== 0 && 'md:flex-row-reverse'
+            )}
+          >
+            {/* Text Side */}
+            <div className="flex-1 flex flex-col gap-4 items-start text-left">
+              <span className="text-brand text-sm tracking-widest uppercase font-semibold">
+                {item.label}
+              </span>
+              <h3 className={cn(headingVariants({ variant: 'h3'}))}>
+                {item.title}
+              </h3>
+              <p className="text-muted-foreground text-md leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+
+            {/* Image Side - Placeholder */}
+            <div className="flex-1 w-full rounded-2xl border bg-muted/10 flex items-center justify-center text-muted-foreground/50 text-xl font-medium relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Image src={`/showcases/${lang}/${item.imgName}`} alt={item.title} width={600} height={338} className="object-cover w-full h-full" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+@plugin 'tailwindcss-animate';
+
+@theme {
+  --spacing-fd-container: 1436px;
+
+  /* Pink theme color */
+  --color-brand: hsl(318, 70%, 55%);
+  --color-brand-foreground: white;
+  --color-brand-secondary: hsl(318, 75%, 65%);
+  --color-brand-secondary-foreground: hsl(318, 60%, 20%);
+  --color-brand-200: hsl(318, 65%, 75%);
+
+  /* Other theme colors */
+  --color-brand-alter-1: hsl(40, 40%, 50%);
+  --color-brand-alter-2: hsl(210, 86%, 68%);
+
+  /* Fumadocs UI theme color (for navigation, TOC, etc.) */
+  --color-fd-primary: hsl(318, 70%, 55%);
+  --color-fd-primary-foreground: white;
+
+  --color-fd-accent: hsl(218, 90%, 95%);
+
+  --color-landing-foreground: #333333;
+  --color-landing-foreground-200: #666666;
+
+  /* System fonts */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+}
+
+.dark {
+  --color-landing-foreground: #efefef;
+  --color-landing-foreground-200: #b3b3b3;
+
+  /* Pink theme color (dark mode) */
+  --color-brand: hsl(318, 61%, 69%);
+  --color-brand-secondary: hsl(318, 80%, 75%);
+  --color-brand-secondary-foreground: hsl(318, 60%, 10%);
+  --color-brand-foreground: black;
+  --color-brand-200: hsl(318, 80%, 85%);
+
+  /* Other theme colors */
+  --color-brand-alter-1: hsl(60, 63%, 66%);
+  --color-brand-alter-2: hsl(210, 86%, 68%);
+
+  /* Fumadocs UI theme color (for navigation, TOC, etc. - dark mode) */
+  --color-fd-primary: hsl(318, 61%, 69%);
+  --color-fd-primary-foreground: black;
+
+  --color-fd-accent: hsl(218, 40%, 20%);
+}
+
+@theme inline {
+  --default-mono-font-family: var(--font-mono);
+}
+
+body {
+  overscroll-behavior-y: none;
+  background-color: var(--color-fd-background);
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 1;
+}
+
+/* Homepage card enhanced styles */
+[data-card] {
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-card]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--color-brand);
+}
+
+/* Card icon container enhancement */
+[data-card] > div:first-child {
+  transition: all 0.3s ease;
+}
+
+[data-card]:hover > div:first-child {
+  transform: scale(1.1);
+  background-color: var(--color-brand);
+  color: var(--color-brand-foreground);
+}
+
+/* Cards grid layout optimization */
+.prose
+  :where([data-card]):not(
+    :where([class~='not-prose'], [class~='not-prose'] *)
+  ) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Auto-gray image filters by theme */
+:where(html:not(.dark)) .sponsor-img.auto-gray {
+  filter: none;
+}
+:where(html.dark) .sponsor-img.auto-gray {
+  filter: grayscale(100%) invert(1);
+}
+
+:root {
+  --hero-bg: radial-gradient(1200px 800px at 20% 15%, rgba(34,211,238,.25), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(167,139,250,.22), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(249,168,212,.18), transparent 60%);
+}
+
+.dark {
+  --hero-bg: radial-gradient(1200px 800px at 20% 15%, rgba(6,182,212,.28), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(139,92,246,.24), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(236,72,153,.18), transparent 60%);
+}
