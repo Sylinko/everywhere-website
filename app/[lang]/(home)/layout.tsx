@@ -131,7 +131,7 @@ export default async function Layout({
   return (
     <div className="flex min-h-screen flex-col">
       <HomeLayout
-        {...baseOptions()}
+        {...baseOptions(lang)}
         links={[
           // Mobile navigation
           {

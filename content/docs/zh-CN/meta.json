@@ -1,0 +1,29 @@
+{
+  "title": "文档",
+  "description": "Everywhere 文档",
+  "icon": "BookOpen",
+  "root": true,
+  "pages": [
+    "---开始---",
+    "./index",
+    "get-started/installation",
+    "get-started/quick-start",
+    "get-started/ai-assistant",
+    "get-started/shortcuts",
+    "get-started/faq",
+    "---模型提供商---",
+    "model-provider/overview",
+    "model-provider/openai",
+    "model-provider/anthropic",
+    "model-provider/google",
+    "model-provider/deepseek",
+    "model-provider/moonshot",
+    "model-provider/openrouter",
+    "model-provider/siliconcloud",
+    "model-provider/ollama",
+    "---聊天插件---",
+    "chat-plugin/overview",
+    "chat-plugin/visual-tree",
+    "chat-plugin/web-browser"
+  ]
+}

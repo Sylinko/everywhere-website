@@ -87,12 +87,6 @@ body {
   transition: all 0.3s ease;
 }
 
-[data-card]:hover > div:first-child {
-  transform: scale(1.1);
-  background-color: var(--color-brand);
-  color: var(--color-brand-foreground);
-}
-
 /* Cards grid layout optimization */
 .prose
   :where([data-card]):not(

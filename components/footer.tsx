@@ -95,7 +95,7 @@ interface FooterTranslation {
     aboutSylinko: {
       title: string;
       officialWebsite: string;
-      ContactUs: string;
+      contactUs: string;
     };
   };
   license: {
@@ -133,7 +133,7 @@ const translations: Record<string, FooterTranslation> = {
       aboutSylinko: {
         title: 'About Sylinko',
         officialWebsite: 'Official Website',
-        ContactUs: 'Contact Us',
+        contactUs: 'Contact Us',
       },
     },
     license: {
@@ -169,7 +169,7 @@ const translations: Record<string, FooterTranslation> = {
       aboutSylinko: {
         title: '关于 Sylinko',
         officialWebsite: '官方网站',
-        ContactUs: '联系我们',
+        contactUs: '联系我们',
       },
     },
     license: {
@@ -188,7 +188,7 @@ const translations: Record<string, FooterTranslation> = {
 // Footer Component
 // ============================================
 export function Footer({ lang }: FooterProps) {
-  const t = translations[lang] || translations.en;
+  const t = translations[lang] || translations['en-US'];
 
   return (
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">
@@ -311,7 +311,7 @@ export function Footer({ lang }: FooterProps) {
                   href="mailto:contact@sylinko.com"
                   className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                 >
-                  {t.sections.aboutSylinko.ContactUs}
+                  {t.sections.aboutSylinko.contactUs}
                 </a>
               </li>
             </ul>

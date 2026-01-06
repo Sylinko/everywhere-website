@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
+import { i18n } from './i18n';
 import { GithubIcon } from './icons';
 import type { LinkItemType } from 'fumadocs-ui/layouts/docs';
 
@@ -24,7 +25,7 @@ export const logo = (
   />
 );
 
-export function baseOptions(): BaseLayoutProps {
+export function baseOptions(locale: string): BaseLayoutProps {
   return {
     nav: {
       title: (
@@ -36,6 +37,6 @@ export function baseOptions(): BaseLayoutProps {
         </>
       ),
     },
-    i18n: true,
+    i18n,
   };
 }

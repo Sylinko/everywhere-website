@@ -4,31 +4,61 @@ import {
   DocsDescription,
   DocsPage,
   DocsTitle,
-} from 'fumadocs-ui/layouts/docs/page';
+  PageLastUpdate
+} from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
+import { LLMCopyButton, ViewOptions } from '@/components/page-actions';
 
-export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+const owner = 'Sylinko';
+const repo = 'everywhere-docs';
+const branch = 'main';
+
+export default async function Page(props: {
+  params: Promise<{ lang: string; slug?: string[] }>;
+}) {
+  const { slug, lang } = await props.params;
+  const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const MDX = page.data.body;
+  const MDX = page.data.body as any;
+  const lastModifiedTime = page.data.lastModified;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      tableOfContent={{
+        style: 'clerk',
+        enabled: !page.data.full,
+      }}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsDescription className="mb-2">
+        {page.data.description}
+      </DocsDescription>
+      <div className="mb-6 flex flex-row flex-wrap items-center gap-2 border-b pb-6">
+        <LLMCopyButton
+          markdownUrl={`/${lang}/llms.mdx/${page.slugs.join('/')}`}
+          lang={lang}
+        />
+        <ViewOptions
+          markdownUrl={`/${lang}/llms.mdx/${page.slugs.join('/')}`}
+          githubUrl={`https://github.com/${owner}/${repo}/blob/${branch}/content/docs/${page.path}`}
+          lang={lang}
+        />
+      </div>
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
+            a: createRelativeLink(source, page) as any,
           })}
         />
       </DocsBody>
+      
+      {lastModifiedTime && <PageLastUpdate date={lastModifiedTime} />}
     </DocsPage>
   );
 }
@@ -37,18 +67,16 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(
-  props: PageProps<'/docs/[[...slug]]'>
-): Promise<Metadata> {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+export async function generateMetadata(props: {
+  params: Promise<{ lang: string; slug?: string[] }>;
+}): Promise<Metadata> {
+  const { slug, lang } = await props.params;
+  const page = source.getPage(slug, lang);
   if (!page) notFound();
 
   return {
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: getPageImage(page).url,
-    },
+    openGraph: { images: getPageImage(page).url },
   };
 }

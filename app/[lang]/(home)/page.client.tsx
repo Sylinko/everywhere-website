@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { cva } from 'class-variance-authority';
+import { buttonVariants, cardVariants, headingVariants } from '@/components/variants';
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
 import { Monitor, Layers, Laptop, Box, ArrowRight } from 'lucide-react';
@@ -90,43 +90,6 @@ function detectShaderProfile(): ShaderProfile {
     reduceMotion: false,
   };
 }
-
-const headingVariants = cva('font-medium tracking-tight', {
-  variants: {
-    variant: {
-      h2: 'text-3xl lg:text-4xl',
-      h3: 'text-xl lg:text-2xl',
-    },
-  },
-});
-
-const buttonVariants = cva(
-  'inline-flex justify-center px-5 py-3 rounded-full font-medium tracking-tight transition-colors',
-  {
-    variants: {
-      variant: {
-        primary: 'bg-brand text-brand-foreground hover:bg-brand-200',
-        secondary:
-          'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
-  }
-);
-
-const cardVariants = cva('rounded-2xl text-sm p-6 bg-origin-border shadow-lg', {
-  variants: {
-    variant: {
-      secondary: 'bg-brand-secondary text-brand-secondary-foreground',
-      default: 'border bg-fd-card',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
 
 export function Hero() {
   const { resolvedTheme } = useTheme();
@@ -588,7 +551,7 @@ export function CTASection({
       <div className="bg-background/50 relative overflow-hidden rounded-3xl border px-6 py-16 text-center sm:px-16 md:py-24">
         {/* Blurred Gradient Background */}
         <div
-          className="absolute inset-0 -z-10 opacity-20 blur-3xl saturate-150 dark:opacity-10"
+          className="absolute inset-0 opacity-30 blur-3xl saturate-150"
           style={{
             backgroundImage:
               'linear-gradient(to bottom right, var(--color-brand), var(--color-brand-alter-1), var(--color-brand-alter-2))',

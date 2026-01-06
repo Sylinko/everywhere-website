@@ -1,0 +1,57 @@
+---
+title: Installation
+---
+
+import { getLocalePath } from '@/lib/i18n';
+
+<Callout type="info">
+Everywhere is an open-source project that can be downloaded and used directly from Github.
+</Callout>
+
+## System Requirements
+
+Currently, Everywhere only supports the Windows platform. (Minimum required version: 10.0.19041.0)
+
+<Callout type="warning" title="macOS Support">
+macOS version is under alpha testing and will be released in the near future.
+</Callout>
+
+<Callout type="warning" title="Linux Support">
+Linux version is under development supported by our community.
+</Callout>
+
+## Download
+
+<Cards>
+    <Card
+        href={getLocalePath('en-US', 'download')}
+        title="Go to Download Page"
+    >
+        Use Cloudflare CDN for faster downloads
+    </Card>
+    <Card
+        href="https://github.com/DearVa/Everywhere/releases"
+        title="Visit Github Releases"
+    >
+        Download historical versions
+    </Card>
+</Cards>
+
+In each release, you can download either the installer (`.exe`) or the portable (`.zip`) version. The two versions have no differences other than their packaging method.
+
+- The installer filename is `Everywhere-Windows-x64-Setup-v<version number>.exe`
+
+<Callout type="warning">
+The installer's setup wizard will automatically create and modify registry keys to record software installation information.
+</Callout>
+
+- The portable filename is `Everywhere-Windows-x64-v<version number>.zip`
+
+<Callout type="warning">
+The portable version and its software itself will not operate on the registry. version is under development and will be released in the future.
+</Callout>
+
+## Installation
+
+  - After downloading the installer's `.exe` file, you need to double-click to run the setup wizard. If you encounter a UAC (User Account Control) prompt, please select "Yes" to allow the installer to continue running.
+  - The portable `.zip` file needs to be unzipped into a folder after downloading, and then you can directly run the `Everywhere.Windows.exe` inside it.
