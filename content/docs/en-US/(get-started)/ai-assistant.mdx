@@ -4,29 +4,29 @@ description: Manage and configure your AI assistants
 icon: Brain
 ---
 
-In Everywhere, you can manage and configure your AI assistants through the **AI Assistant** page in the software sidebar.
-
-Each AI assistant can be understood as an independent configuration file, containing model provider information, API keys, and other related settings. You can create multiple AI assistants as needed to use different models and configurations in various scenarios.
+You can manage and configure your AI assistants through the **AI Assistant** page in the sidebar of the Everywhere main interface.
 
 ## Settings
 
 <Callout type="info" title="Check Connectivity">
 When configuring an AI assistant, you can use the **Check Connectivity** button in the upper right corner of the page to verify if the entered API information is correct and if the network environment is available.
 
-If the check fails, please verify if the API Endpoint, API Protocol, and API Key are correct, or try switching to a different network environment.
+If the check fails, please verify the AI provider-related settings, or try switching to a different network environment.
 </Callout>
 
-### Icon
+### Basic Info
+
+#### Icon
 
 You can set a custom icon for each assistant to make it easier to distinguish between different assistants in the sidebar.
 
 Click on the icon area to select a Lucide icon or some Emoji as the assistant's icon. You can also modify the icon and background color.
 
-### Name
+#### Name
 
 Give the assistant an easily recognizable name to facilitate switching between multiple assistants.
 
-### Description
+#### Description
 
 Add a short description to the assistant to help you remember its purpose or features.
 
@@ -44,74 +44,75 @@ We provide some placeholders that you can use in the system prompt to dynamicall
 
 **Default System Prompt Example**
 ```markdown
-# Description
 You are a helpful assistant named "Everywhere", a precise and contextual digital assistant.
-Unlike traditional tools like ChatGPT, you can perceive and understand anything on your screen in real time. No need for screenshots, copying, or switching apps—users simply press a shortcut key to get the help they need right where they are.
+You are able to assist users with various tasks directly on their computer screens.
+Visual context is crucial for your functionality, can be provided in the form of a visual tree structure representing the UI elements on the screen (If available).
+You can perceive and understand anything on your screen in real time. No need for copying or switching apps. Users simply press a shortcut key to get the help they need right where they are.
 
-# System Information
-- OS: {OS}
-- Current time: {Time}
-- Language: {SystemLanguage}
-- Working directory: {WorkingDirectory}
+<SystemInformation>
+OS: {OS}
+Current time: {Time}
+Language: {SystemLanguage}
+Working directory: {WorkingDirectory}
+</SystemInformation>
 
-# Rules
-- You MUST NOT provide user with anything that LOOKS LIKE sensitive information, for example - passwords, product keys, API keys, etc.
-- You MUST reply in System Language except for tasks such as translation or user specifically requests another language.
-- You MUST use tools when necessary to complete the user's requests.
-- You MUST use $ or $$ when writing mathematical expressions instead of \( \) or \[ \].
+<FormatInstructions>
+Always keep your responses concise and to the point.
+Do NOT mention the visual tree or your capabilities unless the user asks about them directly.
+Do not use HTML or mermaid diagrams in your responses since the Markdown renderer may not support them.
+Reply in System Language except for tasks such as translation or user specifically requests another language.
+</FormatInstructions>
+
+<FunctionCallingInstructions>
+Functions can be dynamic and may change at any time. Always refer to the latest tool list provided in the tool call instructions.
+NEVER print out a codeblock with arguments to run unless the user asked for it. If you cannot make a function call, explain why (Maybe the user forgot to enable it?).
+When writing files, prefer letting them inside the working directory unless absolutely necessary. Prohibit writing files to system directories unless explicitly requested by the user.
+</FunctionCallingInstructions>
 ```
 
-### Model Provider Template
+### Configure AI Provider
 
-Everywhere supports multiple AI model providers. You can select a suitable template from the dropdown menu. Each template presets some common configuration options to help you quickly set up the assistant.
+You can choose between **Preset Mode** or **Advanced Mode** based on the level of customization you need.
 
-For model providers not listed in the templates, you can **choose a template with a similar request method** and then manually adjust the relevant configurations.
-
-### API Url
-
-Everywhere automatically fills in the API url based on the selected model provider template. You can modify it as needed to adapt to different API endpoints.
-
-### API Schema
-
-Select the API schema corresponding to the model provider you are using. Different schemas may affect the request format and parameters. If you are unsure which schema to choose, keep the default value.
-
-### API Key
-
-Enter the API key you obtained from your model provider. Ensure the key is correct so that the assistant can successfully connect to the model service.
+<Callout type="warning">
+Please ensure that the AI provider you choose supports the features you intend to use, such as tool usage or image input, to avoid request failures.
+</Callout>
 
 <Callout type="error" title="Privacy">
-Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public.
+Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public places.
 </Callout>
 
-### Model Definition Template
+#### Preset Mode
 
-Select the model definition template corresponding to the model provider you are using. Each template presets some common model names and parameters to help you quickly set up the assistant.
+In Preset Mode, you only need to fill in common configuration options. The system will automatically complete other settings based on the selected model provider, suitable for most users.
 
-<Callout type="info" title="If Your Model is Not Listed">
-**If the model you want to use is not in the template list, you can ignore this option** and directly enter the model ID you want to use in the **Model ID** field below.
+- **Model Provider**  
+  Select the model provider you want to use from the dropdown menu. The system will automatically fill in the relevant API call address and protocol based on the selected provider.
+- **API Key**  
+  Select your previously saved API key from the dropdown menu, or add a new API key.
+- **Model Name**  
+  Select the specific model name you want to use from the dropdown menu. For example, for OpenAI, you can choose `GPT 5`.
 
-The specific format for the **Model ID** varies among model providers. Please refer to the corresponding documentation for instructions.
-</Callout>
+#### Advanced Mode
 
-### Model ID
+In Advanced Mode, you can customize more configuration options, suitable for users with specific needs or those using model providers not officially supported.
 
-Enter the specific model ID you want to use. For example, for OpenAI, you can enter `gpt-5-mini`。
-
-### Image Input Support
-
-Enabling this option allows you to upload images in the chat context. If the model does not support image input, enabling this option may cause requests to fail.
-
-### Tools Usage Support
-
-Enabling this option allows the model to use the tools (plugins) you have configured. If the model does not support tool use, enabling this option may cause requests to fail.
-
-### Deep Thinking Support
-
-Enabling this option makes the model think before answering. If the model does not support deep thinking, enabling this option may cause requests to fail.
-
-### Maximum Context Length
-
-Set the maximum context length (in tokens) that the model can use in a conversation. Please adjust this according to the limits of the model you are using.
+- **URL**  
+  Enter the API call address of the model provider.
+- **API Key**  
+  Select your previously saved API key from the dropdown menu, or add a new API key.
+- **API Schema**  
+  Select the API protocol corresponding to the model provider you are using. Different protocols may affect the format and parameters of the request.
+- **Model ID**  
+  Enter the specific model ID you want to use. For example, for OpenAI, you can enter `gpt-5-mini`.
+- **Image Input Support**  
+  Enable this option to upload images in the chat context. **If the model does not support image input, enabling this option may cause request failures.**
+- **Tool Usage Support**  
+  Enable this option to allow the model to use the tools (plugins) you have configured. **If the model does not support tool usage, enabling this option may cause request failures.**
+- **Deep Thinking Support**  
+  Enable this option to allow the model to think before answering. **If the model does not support deep thinking, enabling this option may cause request failures.**
+- **Maximum Context Length**  
+  Set the maximum context length (in tokens) the model can use in a conversation. Please adjust according to the limitations of the model you are using.
 
 ### Request Timeout
 

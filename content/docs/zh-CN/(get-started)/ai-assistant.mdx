@@ -4,29 +4,29 @@ description: 管理和配置您的 AI 助手
 icon: Brain
 ---
 
-在 Everywhere 中，您可以通过软件侧边栏的 **AI 助手** 页面来管理和配置您的 AI 助手。
-
-每个 AI 助手可以理解为一个独立的配置文件，包含了模型提供商信息、API Key 以及其他相关设置。您可以根据需要创建多个 AI 助手，以便在不同的场景下使用不同的模型和配置。
+您可以通过 Everywhere 主界面侧边栏的 **AI 助手** 页面来管理和配置您的 AI 助手。
 
 ## 设置项
 
 <Callout type="info" title="测试连通性">
 在配置 AI 助手时，您可以使用页面右上方的 **测试连通性** 按钮来验证所填写的 API 信息是否正确，以及网络环境是否可用。
 
-如果测试失败，请检查 API 调用地址、API 协议和 API 密钥是否正确，或者尝试更换网络环境。
+如果测试失败，请检查 AI 提供商相关设置是否正确，或者尝试更换网络环境。
 </Callout>
 
-### 图标
+### 基本信息
+
+#### 图标
 
 您可以给每个助手设置一个自定义图标，以便在侧边栏中更容易区分不同的助手。
 
 点击图标区域，可以选择 Lucide 图标或部分 Emoji 表情作为助手的图标。同时，您也可以修改图标和背景颜色。
 
-### 名称
+#### 名称
 
 给助手命名一个易于识别的名称，方便在多个助手之间进行切换。
 
-### 描述
+#### 描述
 
 给助手添加简短的描述，帮助您记住该助手的用途或特点。
 
@@ -44,74 +44,75 @@ icon: Brain
 
 **默认系统提示词示例**
 ```markdown
-# Description
 You are a helpful assistant named "Everywhere", a precise and contextual digital assistant.
-Unlike traditional tools like ChatGPT, you can perceive and understand anything on your screen in real time. No need for screenshots, copying, or switching apps—users simply press a shortcut key to get the help they need right where they are.
+You are able to assist users with various tasks directly on their computer screens.
+Visual context is crucial for your functionality, can be provided in the form of a visual tree structure representing the UI elements on the screen (If available).
+You can perceive and understand anything on your screen in real time. No need for copying or switching apps. Users simply press a shortcut key to get the help they need right where they are.
 
-# System Information
-- OS: {OS}
-- Current time: {Time}
-- Language: {SystemLanguage}
-- Working directory: {WorkingDirectory}
+<SystemInformation>
+OS: {OS}
+Current time: {Time}
+Language: {SystemLanguage}
+Working directory: {WorkingDirectory}
+</SystemInformation>
 
-# Rules
-- You MUST NOT provide user with anything that LOOKS LIKE sensitive information, for example - passwords, product keys, API keys, etc.
-- You MUST reply in System Language except for tasks such as translation or user specifically requests another language.
-- You MUST use tools when necessary to complete the user's requests.
-- You MUST use $ or $$ when writing mathematical expressions instead of \( \) or \[ \].
+<FormatInstructions>
+Always keep your responses concise and to the point.
+Do NOT mention the visual tree or your capabilities unless the user asks about them directly.
+Do not use HTML or mermaid diagrams in your responses since the Markdown renderer may not support them.
+Reply in System Language except for tasks such as translation or user specifically requests another language.
+</FormatInstructions>
+
+<FunctionCallingInstructions>
+Functions can be dynamic and may change at any time. Always refer to the latest tool list provided in the tool call instructions.
+NEVER print out a codeblock with arguments to run unless the user asked for it. If you cannot make a function call, explain why (Maybe the user forgot to enable it?).
+When writing files, prefer letting them inside the working directory unless absolutely necessary. Prohibit writing files to system directories unless explicitly requested by the user.
+</FunctionCallingInstructions>
 ```
 
-### 模型提供商模板
+### 配置 AI 提供商
 
-Everywhere 支持多种 AI 模型提供商，您可以从下拉菜单中选择合适的模板。每个模板预设了一些常用的配置选项，方便您快速设置助手。
+您可以根据自定义程度来选择 **预设模式** 或是 **进阶模式**。
 
-对于没有出现在模板列表中的模型提供商，您可以**选择一个在请求方式上相似的模板**，然后手动调整相关配置。
-
-### API 调用地址
-
-Everywhere 会根据所选的模型提供商模板自动填写 API 调用地址。您可以根据需要进行修改，以适应不同的 API 端点。
-
-### API 协议
-
-选择与所使用的模型提供商相对应的 API 协议。不同的协议可能会影响请求的格式和参数。如果你不确定选择哪个协议，请保持默认值。
-
-### API 密钥
-
-输入您从模型提供商处获得的 API 密钥。确保密钥的正确性，以便助手能够成功连接到模型服务。
+<Callout type="warning">
+请确保 API 相关信息的正确性，以便助手能够成功连接到模型服务。
+</Callout>
 
 <Callout type="error" title="隐私">
 请注意，API 密钥是敏感信息，请不要将其泄露给任何人或在公共场合分享。
 </Callout>
 
-### 模型定义模板
+#### 预设模式
 
-选择与所使用的模型提供商相对应的模型定义模板。每个模板预设了一些常用的模型名称和参数，方便您快速设置助手。
+在预设模式下，您只需填写常见的配置选项，系统会根据所选的模型提供商自动完成其他设置，适合大多数用户使用。
 
-<Callout type="info" title="自定义模型">
-**如果您想使用的模型不在模板列表中，您可以忽视该选项**，在下方的 **模型 ID** 处直接输入您想使用的模型 ID。
+- **模型提供商**  
+  在下拉菜单中选择您想使用的模型提供商。系统会根据所选的提供商自动填写相关的 API 调用地址和协议。
+- **API 密钥**  
+  在下拉菜单中选择您之前保存的 API 密钥，或者添加新的 API 密钥。
+- **模型名称**  
+  在下拉菜单中选择您想使用的具体模型名称。比如，对于 OpenAI，您可以选择 `GPT 5`。
 
-**模型 ID** 的具体填写方式各个模型提供商有所不同，请参考对应的文档说明。
-</Callout>
+#### 进阶模式
 
-### 模型 ID
+在进阶模式下，您可以自定义更多的配置选项，适合有特定需求或使用非官方支持模型提供商的用户。
 
-输入您想使用的具体模型 ID。比如，对于 OpenAI，您可以输入 `gpt-5-mini`。
-
-### 支持图像输入
-
-启用此选项后，你可以在聊天上下文中上传图像。如果模型不支持图像输入，开启此选项可能会导致请求失败。
-
-### 支持使用工具
-
-启用此选项后，模型使用你配置的工具（插件）。如果模型不支持使用工具，开启此选项可能会导致请求失败。
-
-### 支持深度思考
-
-启用此选项后，模型会先思考再回答。如果模型不支持深度思考，开启此选项可能会导致请求失败。
-
-### 最大上下文长度
-
-设置模型在对话中可以使用的最大上下文长度（以令牌为单位）。请根据所使用的模型的限制进行调整。
+- **Url**  
+  输入模型提供商的 API 调用地址。
+- **API 密钥**  
+  在下拉菜单中选择您之前保存的 API 密钥，或者添加新的 API 密钥。
+- **API 协议**  
+  选择与所使用的模型提供商相对应的 API 协议。不同的协议可能会影响请求的格式和参数。
+- **模型 ID**  
+  输入您想使用的具体模型 ID。比如，对于 OpenAI，您可以输入 `gpt-5-mini`。
+- **支持图像输入**  
+  启用此选项后，你可以在聊天上下文中上传图像。**如果模型不支持图像输入，开启此选项可能会导致请求失败。**
+- **支持使用工具**  
+  启用此选项后，模型使用你配置的工具（插件）。**如果模型不支持使用工具，开启此选项可能会导致请求失败。**
+- **支持深度思考**  
+  启用此选项后，模型会先思考再回答。**如果模型不支持深度思考，开启此选项可能会导致请求失败。**
+- **最大上下文长度**  
+  设置模型在对话中可以使用的最大上下文长度（以令牌为单位）。请根据所使用的模型的限制进行调整。
 
 ### 请求超时时长
 

@@ -22,12 +22,14 @@ const translations = {
   'en-US': {
     copyMarkdown: 'Copy Markdown',
     open: 'Open',
+    openInGitHub: 'Open in GitHub',
     openInChatGPT: 'Open in ChatGPT',
     openInClaude: 'Open in Claude',
   },
   'zh-CN': {
     copyMarkdown: '复制 Markdown',
     open: '打开',
+    openInGitHub: '在 GitHub 中打开',
     openInChatGPT: '在 ChatGPT 中打开',
     openInClaude: '在 Claude 中打开',
   },
@@ -108,7 +110,7 @@ export function ViewOptions({
 
     return [
       {
-        title: 'Open in GitHub',
+        title: t.openInGitHub,
         href: githubUrl,
         icon: (
           <svg fill="currentColor" role="img" viewBox="0 0 24 24">
