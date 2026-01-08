@@ -21,6 +21,19 @@ export const docs = defineDocs({
   },
 });
 
+export const legal = defineDocs({
+  dir: 'content/legal',
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {

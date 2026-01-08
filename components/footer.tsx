@@ -7,6 +7,8 @@ import {
   YoutubeIcon,
   XiaohongshuIcon,
 } from '@/lib/icons';
+import { getLocalePath } from '@/lib/i18n';
+import Link from 'fumadocs-core/link';
 
 interface FooterProps {
   lang: string;
@@ -61,14 +63,37 @@ const relatedProjectLinks: { label: string; href: string }[] = [
   },
 ];
 
-const sylinkoLinks: { label: string; href: string }[] = [
+const sylinkoLinks: {
+  key: keyof FooterTranslation['sections']['aboutSylinko'];
+  href: string;
+}[] = [
   {
-    label: 'Official Website',
+    key: 'officialWebsite',
     href: 'https://sylinko.com',
   },
   {
-    label: 'Contact Us',
+    key: 'contactUs',
     href: 'mailto:contact@sylinko.com',
+  },
+];
+
+const legalLinks: {
+  key: keyof FooterTranslation['sections']['legalAndPolicies'];
+  href: string;
+  external?: boolean;
+}[] = [
+  {
+    key: 'privacyPolicy',
+    href: '/privacy',
+  },
+  {
+    key: 'termsOfService',
+    href: '/terms',
+  },
+  {
+    key: 'contributorLicenseAgreement',
+    href: 'https://github.com/DearVa/Everywhere/blob/main/CLA.md',
+    external: true,
   },
 ];
 
@@ -194,7 +219,7 @@ export function Footer({ lang }: FooterProps) {
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">
       <div className="mx-auto max-w-[1400px] px-6 py-12">
         {/* Top: Links Grid */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-4 lg:gap-x-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-5 lg:gap-x-12">
           {/* Section 1: Community & Follow Us (Icons) */}
           <div className="flex flex-col gap-6">
             <div>
@@ -290,30 +315,45 @@ export function Footer({ lang }: FooterProps) {
             </ul>
           </div>
 
-          {/* Section 4: About Sylinko (Text) */}
+          {/* Section 4: Legal & Policies (Text) */}
+          <div>
+            <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
+              {t.sections.legalAndPolicies.title}
+            </h3>
+            <ul className="space-y-3">
+              {legalLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.external ? link.href : getLocalePath(lang, link.href)}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
+                  >
+                    {t.sections.legalAndPolicies[link.key]}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Section 5: About Sylinko (Text) */}
           <div>
             <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
               {t.sections.aboutSylinko.title}
             </h3>
             <ul className="space-y-3">
-              <li>
-                <a
-                  href="https://sylinko.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
-                >
-                  {t.sections.aboutSylinko.officialWebsite}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:contact@sylinko.com"
-                  className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
-                >
-                  {t.sections.aboutSylinko.contactUs}
-                </a>
-              </li>
+              {sylinkoLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
+                  >
+                    {t.sections.aboutSylinko[link.key]}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
