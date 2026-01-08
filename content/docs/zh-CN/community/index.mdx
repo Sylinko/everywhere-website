@@ -1,0 +1,64 @@
+---
+title: 关于团队
+description: 构建技术与人类潜能共生的世界。
+icon: Building2
+---
+
+import { CoreTeamCard } from '@/components/community-cards';
+import { GithubIcon, BilibiliIcon } from '@/lib/icons';
+import { Heart, Minus, PersonStanding, CircleEllipsis } from 'lucide-react';
+
+export const coreMembers = [
+  {
+    github: 'DearVa',
+    name: 'Dear.Va',
+    role: '核心开发',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/DearVa' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/12879829' },
+    ]
+  },
+  {
+    github: 'AuroraZiling',
+    name: 'Artemis Li',
+    role: '产品运营',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/AuroraZiling' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/222204281' },
+    ]
+  },
+  {
+    github: 'feast107',
+    name: 'Feast',
+    role: '全栈开发',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/feast107' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/12637648' },
+    ]
+  },
+];
+
+我们致力于构建技术与人类潜能共生的世界，让每一次交互都自然如呼吸，让智能成为你思想的延伸，而非阻碍。
+
+## 核心团队
+
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {coreMembers.map((member) => (
+    <CoreTeamCard key={member.github} {...member} />
+  ))}
+</div>
+
+## 价值观
+
+<Cards>
+  <Card title="社区驱动" icon={<Heart/>}>
+    Sylinko 起源于开源项目。我们相信通过透明的协作和持续的反馈，才能打磨出更实用、更先进的软件。
+  </Card>
+  <Card title="以人为本" icon={<PersonStanding/>}>
+    AI 应当辅助人，而非取代人。我们致力于通过自动化重复性劳动来释放人的精力，让技术真正回归服务者的角色。
+  </Card>
+</Cards>
+
+## 联系我们
+
+- **电子邮件**: [contact@sylinko.com](mailto:contact@sylinko.com)

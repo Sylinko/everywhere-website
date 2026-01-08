@@ -19,6 +19,7 @@ import {
   type LucideIcon,
   Download,
   Gem,
+  Users,
 } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
 
@@ -27,7 +28,7 @@ const docsSubNavItems = [
   { key: 'faq', icon: CircleQuestionMark, path: '/faq' },
   { key: 'model-provider', icon: Sparkles, path: '/model-provider' },
   { key: 'chat-plugin', icon: PlugIcon, path: '/chat-plugin' },
-  { key: 'support', icon: HelpCircle, path: '/support' },
+  { key: 'support', icon: HelpCircle, path: '/community/support' },
 ] as const;
 
 // Internationalization text
@@ -39,6 +40,7 @@ const i18nText: Record<
     title: { text: 'Docs', desc: '' },
     download: { text: 'Download', desc: '' },
     pricing: { text: 'Pricing', desc: '' },
+    community: { text: 'Community', desc: '' },
     'getting-started': {
       text: 'Getting Started',
       desc: 'How to use and configure Everywhere.',
@@ -64,6 +66,7 @@ const i18nText: Record<
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
     pricing: { text: '定价', desc: '' },
+    community: { text: '社区', desc: '' },
     'getting-started': {
       text: '快速开始',
       desc: '学习如何使用并配置 Everywhere。',
@@ -158,6 +161,13 @@ export default async function Layout({
             url: getLocalePath(lang, 'pricing'),
             icon: <Gem />,
           },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.community.text,
+            url: getLocalePath(lang, 'docs/community/about'),
+            icon: <Users />,
+          },
           // Desktop navigation
           {
             type: 'custom',
@@ -217,6 +227,13 @@ export default async function Layout({
             text: texts.pricing.text,
             url: getLocalePath(lang, 'pricing'),
             icon: <Gem />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.community.text,
+            url: getLocalePath(lang, 'docs/community'),
+            icon: <Users />,
           },
           ...linkItems,
         ]}

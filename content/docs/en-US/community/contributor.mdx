@@ -1,0 +1,27 @@
+---
+title: Contributions & Sponsorship
+description: Thank you for your support and selfless contributions.
+icon: Heart
+---
+
+import { CommunityMemberCard, SponsorList } from '@/components/community-cards';
+
+export const contributors = [
+  { github: 'TheNotoBarth' },
+  { github: 'jimfengnpu' },
+];
+
+## Contributors
+
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {contributors.map((member) => (
+    <CommunityMemberCard key={member.github} {...member} />
+  ))}
+</div>
+
+## Sponsors
+
+<div className="my-4">
+  <SponsorList />
+</div>
+

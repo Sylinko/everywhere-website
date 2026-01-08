@@ -1,0 +1,64 @@
+---
+title: About the Team
+description: Building a world where technology and human potential coexist.
+icon: Building2
+---
+
+import { CoreTeamCard } from '@/components/community-cards';
+import { GithubIcon, BilibiliIcon } from '@/lib/icons';
+import { Heart, Minus, PersonStanding, CircleEllipsis } from 'lucide-react';
+
+export const coreMembers = [
+  {
+    github: 'DearVa',
+    name: 'Dear.Va',
+    role: 'Core Developer',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/DearVa' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/12879829' },
+    ]
+  },
+  {
+    github: 'AuroraZiling',
+    name: 'Artemis Li',
+    role: 'Product Operations',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/AuroraZiling' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/222204281' },
+    ]
+  },
+  {
+    github: 'feast107',
+    name: 'Feast',
+    role: 'Full Stack Developer',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/feast107' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/12637648' },
+    ]
+  },
+];
+
+We are committed to pioneer a future where software is no longer a static tool, but an intuitive partner.
+
+## Core Team
+
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {coreMembers.map((member) => (
+    <CoreTeamCard key={member.github} {...member} />
+  ))}
+</div>
+
+## Values
+
+<Cards>
+  <Card title="Community Driven" icon={<Heart/>}>
+    Sylinko was born from the open-source spirit. We believe that the most resilient and innovative software is forged in the open through transparency and collective intelligence.
+  </Card>
+  <Card title="Human-Centric Empowerment" icon={<PersonStanding/>}>
+    We believe that technology’s ultimate purpose is to amplify human potential, not to replace it. Our innovation is guided by the core principle that AI should work for people, automating the mundane to liberate the creative.
+  </Card>
+</Cards>
+
+## Contact Us
+
+- **Email**: [contact@sylinko.com](mailto:contact@sylinko.com)
