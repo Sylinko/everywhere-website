@@ -5,95 +5,88 @@ icon: Rocket
 
 import { HorizontalImg } from '@/components/horizontal-img';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Image } from 'next/image';
 
-<Callout type="info" title="What if I accidentally close the software?">
-You can find the Everywhere icon in the tray menu (bottom right corner on Windows, top right corner on macOS) and double click it to open the main interface.
+<Callout type="info" title="What if I accidentally close Everywhere?">
+You can find the Everywhere icon in the system tray (bottom right corner on Windows, top right corner on macOS) and double-click to open the main interface of Everywhere.
 </Callout>
 
-- After running Everywhere for the first time, you will see the welcome page：
+<Steps>
+  <Step>
+    When you run Everywhere for the first time, you will see the welcome page.
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-1.webp"
-    alt="Welcome to Everywhere"
-    width="800px"
-  />
+    ![Welcome to Everywhere](/get-started/use/en-US/welcome-page-1.webp)
+  </Step>
 
-- Click the **Let's start!** button to go to the model provider selection page. Here we take `OpenAI` as an example：
+  <Step>
+    Click the **Let's start!** button and choose your AI model provider setup mode.  
+    Here, We use the **Preset Mode** as an example:
+    - **Preset Mode**: Only fill in common configuration items. Everywhere will complete other settings based on the selected model provider, suitable for most users.
+    - **Advanced Mode**: Allows you to customize more configuration items, suitable for users with specific needs or using unofficially supported model providers.
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-2.webp"
-    alt="Select Model Provider"
-    width="800px"
-  />
+    ![Choose Model Provider](/get-started/use/en-US/welcome-page-2.webp)
 
-<Callout type="info" title="Other Model Providers">
-If you are not using the official service of any of the model providers shown in the figure (such as aggregated APIs, proxy APIs), you need to click the **Skip** button in the upper right corner, and add an assistant and manually configure the model provider information on the **AI Assistant** page in the left sidebar.
+    <Callout type="warning" title="Other Model Providers">
+    If the model provider you want to use is not available in Preset Mode, please switch to Advanced Mode.  
+    For more information, please refer to the <DynamicLink href="/[lang]/docs/faq">FAQ</DynamicLink>.
+    </Callout>
+  </Step>
 
-For more information, please refer to <DynamicLink href="/[lang]/docs/get-started/faq">FAQ</DynamicLink>.
-</Callout>
+  <Step>
+    In Preset Mode, you need to:
+    - Select a supported model provider.
+    - Create a new API Key or select a previously saved API Key.
+    - Choose the model name.
 
-- After selecting a model provider, you will be taken to the API Key entry page. You can also select a preset model to verify its validity and network environment after entering the API Key：
+    ![Enter API Key](/get-started/use/en-US/welcome-page-3.webp)
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-3.webp"
-    alt="Enter API Key"
-    width="800px"
-  />
+    <Callout type="info" title="Payment and Acquisition">
+    Most model providers' APIs require paid calls. Please ensure you have obtained a valid API Key and have sufficient balance in your account. Also, subscriptions and API services for each provider are billed separately, so subscribing to a service does not mean you can use its API for free.
 
-<Callout type="info" title="Payment and Acquisition">
-Most model providers' APIs require payment. Please ensure you have obtained a valid API Key and have sufficient balance in your account. Also, the subscription and API services for users are billed separately, which means subscribing to a service does not mean you can use its API for free.
+    You can refer to the <DynamicLink href="/[lang]/docs/model-provider">Model Providers</DynamicLink> section to learn how to obtain API Keys for each model provider.
+    </Callout>
 
-You can refer to the **Model Providers** section in the documentation sidebar to learn how to obtain API Keys for each model provider.
-</Callout>
+    <Callout type="warning" title="Network Environment">
+    For some model providers including OpenAI, you may not be able to directly access their API services. If you encounter network errors when verifying the API Key, please try using other models or set up a proxy or relay service.
+    </Callout>
 
-<Callout type="error" title="Privacy">
-Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public.
-</Callout>
+    <Callout type="error" title="Privacy">
+    Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public places.
+    </Callout>
+  </Step>
+  <Step>
+    After completing the configuration items, please click the **Test Assistant Availability** button. If everything goes well, you will see a ribbon animation, and you can click **Next step**:
 
-- After entering the API Key and clicking the **Verify API key** button, if everything goes well, you will see the following prompt, indicating that the API Key is valid and the network environment is available. You can then click **Next**：
+    ![Verification Successful](/get-started/use/en-US/welcome-page-4.webp)
+  </Step>
+  <Step>
+    You can modify the shortcut key (`Ctrl + Shift + E` or `Cmd + Shift + E`) to call out Everywhere as needed:
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-4.webp"
-    alt="Verification Successful"
-    width="800px"
-  />
+    ![Set Shortcut Key](/get-started/use/en-US/welcome-page-5.webp)
 
-- You can change the default shortcut key (`Ctrl + Shift + E` or `Cmd + Shift + E`) to quickly open Everywhere as needed：
+    <Callout type="info" title="Copilot Key">
+    For Windows users, if your keyboard has a `Copilot` key, you can use it as a shortcut key.
+    </Callout>
+  </Step>
+  <Step>
+    You can choose to join the User Experience Program to help us improve Everywhere:
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-5.webp"
-    alt="Set Shortcut Key"
-    width="800px"
-  />
+    ![Telemetry Options](/get-started/use/en-US/welcome-page-6.webp)
 
-<Callout type="info" title="Copilot Key">
-For Windows users, if your keyboard has a `Copilot` key, you can use it as a shortcut.
-</Callout>
+    <Callout type="error" title="Privacy">
+    Everywhere takes user privacy very seriously. Telemetry data is anonymous and does not contain personally identifiable information, nor does it include sensitive information such as API Keys. You can choose **Do not join** to maximize privacy protection.
+    </Callout>
+  </Step>
+  
+  <Step>
+    After that, you will enter the main interface of Everywhere and can start using it. Note that Everywhere requires additional plugins to support specific features. You can click on the **Chat Plugins** in the software sidebar for detailed settings:
 
-- Finally, there is the telemetry option. You can choose whether to allow us to collect anonymous usage data to improve Everywhere：
+    ![Chat Plugins](/get-started/use/en-US/plugin-page.webp)
+  </Step>
 
-<HorizontalImg
-    src="/getting-started/use/en-US/welcome-page-6.webp"
-    alt="Telemetry Option"
-    width="800px"
-  />
-
-<Callout type="error" title="Privacy">
-Everywhere takes user privacy very seriously. The telemetry data is anonymous and does not contain personally identifiable information, nor does it include sensitive information such as API Keys. You can select **Send only necessary data** to maximize your privacy.
-</Callout>
-
-- After that, you will enter the main interface of Everywhere and can start using it. It should be noted that Everywhere requires additional plugins to be enabled to support specific functions. You can click on **Chat Plugins** in the software sidebar for specific settings：
-
-<HorizontalImg
-    src="/getting-started/use/en-US/plugin-page.webp"
-    alt="Chat Plugins"
-    width="800px"
-  />
-
-- At this point, you have completed the initial setup of Everywhere. You can call it up with the shortcut key and start using Everywhere happily！
-
-<HorizontalImg
-    src="/getting-started/use/en-US/hello-everywhere.webp"
-    alt="Hello, Everywhere"
-    width="400px"
-  />
+  <Step>
+    At this point, you have completed the initial setup of Everywhere. You can call it out using the shortcut key and start enjoying Everywhere!
+    ![Hello, Everywhere](/get-started/use/en-US/hello-everywhere.webp)
+  </Step>
+</Steps>
