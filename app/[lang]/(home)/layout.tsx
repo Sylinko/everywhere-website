@@ -24,7 +24,7 @@ import { getLocalePath } from '@/lib/i18n';
 
 const docsSubNavItems = [
   { key: 'getting-started', icon: Rocket, path: '' },
-  { key: 'faq', icon: CircleQuestionMark, path: '/get-started/faq' },
+  { key: 'faq', icon: CircleQuestionMark, path: '/faq' },
   { key: 'model-provider', icon: Sparkles, path: '/model-provider' },
   { key: 'chat-plugin', icon: PlugIcon, path: '/chat-plugin' },
   { key: 'support', icon: HelpCircle, path: '/support' },
