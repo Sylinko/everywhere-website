@@ -1,4 +1,4 @@
-import { docs, legal } from 'fumadocs-mdx:collections/server';
+import { docs, policies } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import { i18n } from '@/lib/i18n';
@@ -11,10 +11,10 @@ export const source = loader({
   plugins: [lucideIconsPlugin()],
 });
 
-export const legalSource = loader({
-  baseUrl: '',
+export const policySource = loader({
+  baseUrl: '/policies',
   i18n,
-  source: legal.toFumadocsSource(),
+  source: policies.toFumadocsSource(),
   plugins: [lucideIconsPlugin()],
 });
 

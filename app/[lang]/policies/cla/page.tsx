@@ -1,4 +1,4 @@
-import { legalSource } from '@/lib/source';
+import { policySource } from '@/lib/source';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
 import { createMetadata } from '@/lib/metadata';
@@ -15,7 +15,7 @@ export default async function Page(props: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await props.params;
-  const page = legalSource.getPage(['cla'], lang);
+  const page = policySource.getPage(['cla'], lang);
   if (!page) notFound();
 
   const MDX = page.data.body;
@@ -35,7 +35,7 @@ export default async function Page(props: {
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            a: createRelativeLink(legalSource, page) as any,
+            a: createRelativeLink(policySource, page) as any,
           })}
         />
       </DocsBody>
@@ -49,7 +49,7 @@ export async function generateMetadata(props: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await props.params;
-  const page = legalSource.getPage(['cla'], lang);
+  const page = policySource.getPage(['cla'], lang);
   if (!page) notFound();
 
   return createMetadata({

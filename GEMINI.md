@@ -37,7 +37,7 @@ The project uses `pnpm` for dependency management.
     *   `app/api`: API routes (e.g., search).
 *   **`content/`**: MDX content files.
     *   `docs/`: Documentation pages.
-    *   `legal/`: Legal documents (Terms, Privacy, etc.).
+    *   `policies/`: Policy documents (Terms, Privacy, etc.).
 *   **`components/`**: Reusable React components.
 *   **`lib/`**: Utility functions and configurations.
     *   `source.ts`: Configuration for loading content via Fumadocs.
@@ -46,7 +46,7 @@ The project uses `pnpm` for dependency management.
 
 ### Configuration Files
 
-*   **`source.config.ts`**: Fumadocs MDX configuration. Defines content collections (`docs`, `legal`) and frontmatter schemas.
+*   **`source.config.ts`**: Fumadocs MDX configuration. Defines content collections (`docs`, `policies`) and frontmatter schemas.
 *   **`next.config.mjs`**: Next.js configuration.
 *   **`app/global.css`**: Global styles and Tailwind CSS v4 theme configuration.
 *   **`tsconfig.json`**: TypeScript configuration with path aliases (`@/*`).

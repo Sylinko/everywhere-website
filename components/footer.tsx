@@ -77,18 +77,18 @@ const sylinkoLinks: {
   },
 ];
 
-const legalLinks: {
-  key: keyof FooterTranslation['sections']['legalAndPolicies'];
+const policyLinks: {
+  key: keyof FooterTranslation['sections']['policies'];
   href: string;
   external?: boolean;
 }[] = [
   {
     key: 'privacyPolicy',
-    href: '/privacy',
+    href: '/policies/privacy',
   },
   {
     key: 'termsOfService',
-    href: '/terms',
+    href: '/policies/terms',
   },
   {
     key: 'contributorLicenseAgreement',
@@ -111,7 +111,7 @@ interface FooterTranslation {
       buyMeACoffee: string;
     };
     relatedProjects: string;
-    legalAndPolicies: {
+    policies: {
       title: string;
       privacyPolicy: string;
       termsOfService: string;
@@ -149,7 +149,7 @@ const translations: Record<string, FooterTranslation> = {
         buyMeACoffee: 'Buy Me A Coffee',
       },
       relatedProjects: 'Related Projects',
-      legalAndPolicies: {
+      policies: {
         title: 'Legal & Policies',
         privacyPolicy: 'Privacy Policy',
         termsOfService: 'Terms of Service',
@@ -185,7 +185,7 @@ const translations: Record<string, FooterTranslation> = {
         buyMeACoffee: 'Buy Me A Coffee',
       },
       relatedProjects: '相关项目',
-      legalAndPolicies: {
+      policies: {
         title: '法律与政策',
         privacyPolicy: '隐私政策',
         termsOfService: '服务条款',
@@ -318,10 +318,10 @@ export function Footer({ lang }: FooterProps) {
           {/* Section 4: Legal & Policies (Text) */}
           <div>
             <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
-              {t.sections.legalAndPolicies.title}
+              {t.sections.policies.title}
             </h3>
             <ul className="space-y-3">
-              {legalLinks.map((link) => (
+              {policyLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={
@@ -331,7 +331,7 @@ export function Footer({ lang }: FooterProps) {
                     rel={link.external ? 'noopener noreferrer' : undefined}
                     className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                   >
-                    {t.sections.legalAndPolicies[link.key]}
+                    {t.sections.policies[link.key]}
                   </Link>
                 </li>
               ))}

@@ -29,7 +29,7 @@ const DOWNLOAD_LINKS = {
 const contentMap = {
   'en-US': {
     title: 'Download',
-    legal: {
+    policies: {
       prefix: 'By downloading and using Everywhere, you agree to our ',
       terms: 'Terms of Service',
       and: ' and ',
@@ -78,7 +78,7 @@ const contentMap = {
   },
   'zh-CN': {
     title: '下载',
-    legal: {
+    policies: {
       prefix: '下载并使用 Everywhere 即表示您同意我们的 ',
       terms: '服务条款',
       and: ' 和 ',
@@ -185,21 +185,21 @@ export default async function Page({
           </h1>
 
           <div className="text-muted-foreground mb-10 text-sm">
-            {content.legal.prefix}
+            {content.policies.prefix}
             <DynamicLink
               href="/[lang]/terms"
               className="hover:text-foreground underline underline-offset-4"
             >
-              {content.legal.terms}
+              {content.policies.terms}
             </DynamicLink>
-            {content.legal.and}
+            {content.policies.and}
             <DynamicLink
               href="/[lang]/privacy"
               className="hover:text-foreground underline underline-offset-4"
             >
-              {content.legal.privacy}
+              {content.policies.privacy}
             </DynamicLink>
-            {content.legal.suffix}
+            {content.policies.suffix}
           </div>
 
           <div className="w-full max-w-md">

@@ -21,8 +21,8 @@ export const docs = defineDocs({
   },
 });
 
-export const legal = defineDocs({
-  dir: 'content/legal',
+export const policies = defineDocs({
+  dir: 'content/policies',
   docs: {
     schema: frontmatterSchema,
     postprocess: {

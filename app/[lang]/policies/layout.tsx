@@ -1,4 +1,4 @@
-import { legalSource } from '@/lib/source';
+import { policySource } from '@/lib/source';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { baseOptions, linkItems } from '@/lib/layout.shared';
 import { notFound } from 'next/navigation';
@@ -22,7 +22,7 @@ export default async function Layout({
   return (
     <DocsLayout
       {...base}
-      tree={legalSource.pageTree[lang]}
+      tree={policySource.pageTree[lang]}
       links={linkItems.filter((item) => item.type === 'icon')}
       sidebar={{
         defaultOpenLevel: 0,
