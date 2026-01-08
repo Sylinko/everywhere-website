@@ -2,9 +2,8 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { i18n, getLocalePath } from './i18n';
 import { GithubIcon } from './icons';
-import type { LinkItemType } from 'fumadocs-ui/layouts/docs';
 
-export const linkItems: LinkItemType[] = [
+export const linkItems = [
   {
     type: 'icon',
     url: 'https://github.com/DearVa/Everywhere',
@@ -13,7 +12,7 @@ export const linkItems: LinkItemType[] = [
     icon: GithubIcon,
     external: true,
   },
-];
+] as const;
 
 export const logo = (
   <Image

@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Copy,
   ExternalLinkIcon,
-  MessageCircleIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';

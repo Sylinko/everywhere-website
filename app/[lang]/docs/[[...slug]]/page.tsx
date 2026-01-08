@@ -25,7 +25,7 @@ export default async function Page(props: {
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const MDX = page.data.body as any;
+  const MDX = page.data.body;
   const lastModifiedTime = page.data.lastModified;
 
   return (
@@ -54,9 +54,11 @@ export default async function Page(props: {
       </div>
       <DocsBody>
         <MDX
-          components={getMDXComponents({
-            a: createRelativeLink(source, page) as any,
-          })}
+          components={{
+            ...getMDXComponents({
+              a: createRelativeLink(source, page),
+            }),
+          }}
         />
       </DocsBody>
 

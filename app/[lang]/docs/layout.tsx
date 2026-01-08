@@ -1,7 +1,6 @@
 import { source } from '@/lib/source';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { baseOptions, linkItems } from '@/lib/layout.shared';
-import { Footer } from '@/components/footer';
 import { notFound } from 'next/navigation';
 import { i18n } from '@/lib/i18n';
 

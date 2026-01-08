@@ -233,8 +233,7 @@ export function Hero() {
 export function FeatureSection({
   items,
 }: {
-  items: { title: string; desc: string; color: string; link: string }[];
-  linkText: string;
+  items: { title: string; desc: string }[];
 }) {
   const icons = [Monitor, Layers, Laptop, Box];
 

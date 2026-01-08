@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { buttonVariants, cardVariants } from '@/components/variants';
 import { cn } from '@/lib/cn';
 import { i18n } from '@/lib/i18n';
@@ -243,26 +243,30 @@ export default async function Page({
                       'pointer-events-none opacity-50 blur-sm select-none'
                   )}
                 >
-                  {platform.data.distros.map((distro, i) => (
-                    <Link
-                      key={i}
-                      href={
-                        (
-                          DOWNLOAD_LINKS[
-                            platform.id as keyof typeof DOWNLOAD_LINKS
-                          ] as any
-                        )[(distro as any).key] || '#'
-                      }
-                      className="bg-muted/50 ring-foreground/5 hover:bg-muted flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 transition-colors ring-inset"
-                    >
-                      <span className="text-foreground/80 font-medium">
-                        {distro.name}
-                      </span>
-                      <span className="text-muted-foreground text-xs">
-                        {distro.note}
-                      </span>
-                    </Link>
-                  ))}
+                  {platform.data.distros.map((distro, i) => {
+                    const platformLinks =
+                      DOWNLOAD_LINKS[
+                        platform.id as keyof typeof DOWNLOAD_LINKS
+                      ] as Record<string, string>;
+                    const href =
+                      platformLinks[distro.key as keyof typeof platformLinks] ||
+                      '#';
+
+                    return (
+                      <Link
+                        key={i}
+                        href={href}
+                        className="bg-muted/50 ring-foreground/5 hover:bg-muted flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 transition-colors ring-inset"
+                      >
+                        <span className="text-foreground/80 font-medium">
+                          {distro.name}
+                        </span>
+                        <span className="text-muted-foreground text-xs">
+                          {distro.note}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>
