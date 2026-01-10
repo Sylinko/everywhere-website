@@ -503,12 +503,11 @@ export function BoundlessSection({
 
             {/* Image Side - Placeholder */}
             <div className="bg-muted/10 text-muted-foreground/50 group relative flex w-full flex-1 items-center justify-center overflow-hidden rounded-2xl border text-xl font-medium">
-              <div className="from-brand/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <Image
                 src={`/showcases/${lang}/${item.imgName}`}
                 alt={item.title}
-                width={600}
-                height={338}
+                width={1000}
+                height={550}
                 className="h-full w-full object-cover"
               />
             </div>
