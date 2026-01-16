@@ -9,6 +9,7 @@ import {
   CTASection,
 } from './page.client';
 import { getLocalePath, i18n } from '@/lib/i18n';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 const contentMap = {
   'en-US': {
@@ -280,27 +281,27 @@ export default async function Page({
             <span className="text-brand">{content.highlight}</span>.
           </h1>
           <div className="flex w-fit flex-row flex-wrap items-center justify-center gap-4">
-            <Link
-              href={getLocalePath(lang, 'docs')}
+            <DynamicLink
+              href="/[lang]/docs/quick-start"
               className="bg-brand text-brand-foreground hover:bg-brand-200 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
             >
               <BookOpen className="size-4" />
               {content.getStarted}
-            </Link>
-            <Link
-              href={getLocalePath(lang, 'download')}
+            </DynamicLink>
+            <DynamicLink
+              href="/[lang]/download"
               className="bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
             >
               <Download className="size-4" />
               {content.download}
-            </Link>
-            <Link
-              href={getLocalePath(lang, 'docs')}
+            </DynamicLink>
+            <DynamicLink
+              href="/[lang]/docs"
               className="bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
             >
               <BookText className="size-4" />
               {content.docs}
-            </Link>
+            </DynamicLink>
           </div>
         </div>
       </div>

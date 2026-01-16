@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/cn';
 import { Monitor, Layers, Laptop, Box, ArrowRight } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
+import DynamicLink from 'fumadocs-core/dynamic-link';
 
 const FluidMaskedGradient = dynamic(
   () => import('@/components/shader').then((m) => m.FluidMaskedGradient),
@@ -277,15 +278,15 @@ export function ModelProviderSection({
             {title}
           </h3>
           <p className="text-muted-foreground text-lg">{description}</p>
-          <Link
-            href={getLocalePath(lang, '/docs/model-provider')}
+          <DynamicLink
+            href="/[lang]/docs/model-provider"
             className={cn(buttonVariants(), 'mt-6 w-fit justify-start')}
           >
             <div className="inline-flex items-center gap-2">
               <span>{learnMoreDesc}</span>
               <ArrowRight className="size-4" />
             </div>
-          </Link>
+          </DynamicLink>
         </div>
 
         {/* Right: Carousel */}
@@ -547,8 +548,8 @@ export function CTASection({
         <p className="text-muted-foreground relative z-10 mx-auto mb-10 max-w-2xl text-lg font-light md:text-xl">
           {description}
         </p>
-        <Link
-          href={getLocalePath(lang, 'docs')}
+        <DynamicLink
+          href={`/[lang]/docs/quick-start`}
           className={cn(
             buttonVariants(),
             'relative z-10 items-center gap-2 px-8 py-4 text-lg shadow-lg'
@@ -556,7 +557,7 @@ export function CTASection({
         >
           {actionText}
           <ArrowRight className="size-5" />
-        </Link>
+        </DynamicLink>
       </div>
     </section>
   );
