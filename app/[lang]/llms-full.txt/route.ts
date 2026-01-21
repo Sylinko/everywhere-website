@@ -11,6 +11,10 @@ export async function GET(
   const pages = source.getPages(lang);
   const scan = pages.map(getLLMText);
   const scanned = await Promise.all(scan);
-
-  return new Response(scanned.join('\n\n'));
+  
+  return new Response(scanned.join('\n\n'), {
+    headers: {
+      'Content-Type': 'text/markdown;charset=utf-8',
+    },
+  });
 }
