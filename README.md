@@ -1,10 +1,10 @@
-# everywhere-docs
+# Everywhere Website
 
 A documentation site for Everywhere, built with [Next.js](https://nextjs.org) and [Fumadocs](https://fumadocs.dev).
 
 ## 🚀 Key Features
 
-- **Framework:** Built on [Next.js 16 (App Router)](https://nextjs.org), leveraging React Server Components.
+- **Framework:** Built on [Next.js](https://nextjs.org), leveraging React Server Components.
 - **Documentation:** Powered by [Fumadocs](https://fumadocs.dev), offering a robust MDX-based documentation workflow.
 - **Styling:** Styled with [Tailwind CSS v4](https://tailwindcss.com) and `tailwindcss-animate` for a beautiful, responsive UI.
 - **Icons:** Uses [Lucide React](https://lucide.dev) for consistent and crisp iconography.
@@ -21,19 +21,25 @@ A documentation site for Everywhere, built with [Next.js](https://nextjs.org) an
 ## 📂 Project Structure
 
 ```text
-everywhere-docs
-├── app/                # Next.js App Router (pages, layouts, API)
-│   ├── (home)/         # Landing page routes
-│   ├── docs/           # Documentation routes
-│   ├── policies/       # Policy pages (Privacy, Terms, etc.)
-│   └── api/            # API routes
-├── components/         # Reusable React components
-├── content/            # MDX content source
-│   ├── docs/           # Documentation files
-│   └── policies/       # Policy documents
-├── lib/                # Utilities and configurations
-├── public/             # Static assets (images, fonts)
-└── source.config.ts    # Fumadocs configuration
+everywhere-website
+├── app/                    # Next.js App Router (pages, layouts, API)
+│   ├── api/                # API routes
+│   ├── og/                 # Open Graph image generation
+│   └── [lang]              # Internationalized routes
+│       ├── (home)/         # Landing page routes
+│       ├── docs/           # Documentation routes
+│       ├── llms-full.txt/  # Full Documentation text file
+│       ├── llms.mdx/       # Text file for pages
+│       └── policies/       # Policy pages
+├── components/             # Reusable React components
+├── content/                # MDX content source
+│   ├── docs/               # Documentation files
+│   └── policies/           # Policy documents
+├── lib/                    # Utilities and configurations
+├── public/                 # Static assets
+├── next.config.mjs         # Next.js configuration
+├── open-next.config.ts     # Open Next configuration
+└── source.config.ts        # Fumadocs configuration
 ```
 
 ## 🏁 Getting Started
@@ -50,8 +56,8 @@ Ensure you have the following installed:
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/Sylinko/everywhere-docs.git
-    cd everywhere-docs
+    git clone https://github.com/Sylinko/everywhere-website.git
+    cd everywhere-website
     ```
 
 2.  Install dependencies:

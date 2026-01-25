@@ -1,0 +1,49 @@
+---
+title: 其他提供商
+description: 配置非官方支持的主流模型提供商
+---
+
+<Callout type="warning" title="须知">
+- 以下内容主要针对一些事实上主流的模型提供商，这些提供商并非 **Everywhere** 官方支持的模型提供商列表中的一员。
+- 我们不保证以下提供商在 **Everywhere** 中的兼容性和稳定性。
+- 在配置以下提供商时，请使用 **进阶模式** 进行手动设置。
+</Callout>
+
+## 通义千问 Qwen
+
+<Callout type="tips">
+阿里云百炼
+</Callout>
+
+**URL** ([参考文档](https://www.alibabacloud.com/help/model-studio/qwen-api-reference)):
+
+| 地区 | API 端点 |
+| :--- | :--- |
+| **新加坡** | `https://dashscope-intl.aliyuncs.com/compatible-mode/v1` |
+| **美国** | `https://dashscope-us.aliyuncs.com/compatible-mode/v1` |
+| **北京** | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+
+* **API 协议:** OpenAI Chat Completions
+* **模型 ID:** 请参考[模型列表](https://www.alibabacloud.com/help/model-studio/models)
+
+---
+
+## 智谱清言 GLM
+
+**URL** ([参考文档](https://docs.bigmodel.cn/api-reference/%E6%A8%A1%E5%9E%8B-api/%E5%AF%B9%E8%AF%9D%E8%A1%A5%E5%85%A8)): `https://open.bigmodel.cn/api/paas/v4`
+
+* **API 协议:** OpenAI Chat Completions
+* **模型 ID:** 请参考[文档](https://docs.bigmodel.cn/api-reference/%E6%A8%A1%E5%9E%8B-api/%E5%AF%B9%E8%AF%9D%E8%A1%A5%E5%85%A8#body-one-of-0-model)
+
+---
+
+## 豆包 Doubao
+
+<Callout type="tips">
+火山方舟大模型服务平台
+</Callout>
+
+URL ([参考文档](https://www.volcengine.com/docs/82379/1494384)): `https://ark.cn-beijing.volces.com/api/v3`
+
+* **API 协议:** OpenAI Chat Completions
+* **模型 ID:** 请参考[模型列表](https://www.volcengine.com/docs/82379/1330310)

@@ -12,6 +12,7 @@
     "moonshot",
     "openrouter",
     "siliconcloud",
-    "ollama"
+    "ollama",
+    "other"
   ]
 }

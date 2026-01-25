@@ -1,0 +1,51 @@
+---
+title: Other Providers
+description: Configure mainstream model providers that are not officially supported
+---
+
+<Callout type="warning" title="Notice">
+- The following content is intended for mainstream model providers that are not included in the official **Everywhere** supported providers list.
+- We do not guarantee the compatibility or stability of these providers within **Everywhere**.
+- When configuring these providers, please use **Advanced Mode** for manual setup.
+</Callout>
+
+## Qwen (Tongyi Qianwen)
+
+<Callout type="tips">
+Alibaba Cloud Model Studio (Bailian)
+</Callout>
+
+**Endpoint URLs** ([Reference Documentation](https://www.alibabacloud.com/help/model-studio/qwen-api-reference)):
+
+| Region | API Endpoint |
+| :--- | :--- |
+| **Singapore** | `https://dashscope-intl.aliyuncs.com/compatible-mode/v1` |
+| **USA** | `https://dashscope-us.aliyuncs.com/compatible-mode/v1` |
+| **Beijing** | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+
+* **API Protocol:** OpenAI Chat Completions
+* **Model ID:** Please refer to the [Model List](https://www.alibabacloud.com/help/model-studio/models)
+
+---
+
+## GLM (Zhipu AI)
+
+**Endpoint URL** ([Reference Documentation](https://docs.bigmodel.cn/api-reference/%E6%A8%A1%E5%9E%8B-api/%E5%AF%B9%E8%AF%9D%E8%A1%A5%E5%85%A8)):  
+`https://open.bigmodel.cn/api/paas/v4`
+
+* **API Protocol:** OpenAI Chat Completions
+* **Model ID:** Please refer to the [Model Documentation](https://docs.bigmodel.cn/api-reference/%E6%A8%A1%E5%9E%8B-api/%E5%AF%B9%E8%AF%9D%E8%A1%A5%E5%85%A8#body-one-of-0-model)
+
+---
+
+## Doubao (ByteDance)
+
+<Callout type="tips">
+Volcengine
+</Callout>
+
+**Endpoint URL** ([Reference Documentation](https://www.volcengine.com/docs/82379/1494384)):  
+`https://ark.cn-beijing.volces.com/api/v3`
+
+* **API Protocol:** OpenAI Chat Completions
+* **Model ID:** Please refer to the [Model List](https://www.volcengine.com/docs/82379/1330310)
