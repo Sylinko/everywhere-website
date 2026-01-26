@@ -1,0 +1,38 @@
+---
+title: PowerShell
+description: 启用 PowerShell 支持，以增强您的助手在 Windows 操作系统上的功能。
+icon: SquareCode
+---
+
+import { Table } from "@/components/common/table"
+import { PermissionBadge } from '@/components/common/permissions';
+
+<Callout type="error" title="安全性">
+启用该插件后，助手将能够执行强大的系统命令，这可能会对您的系统产生**重大影响**。在允许其执行任何操作前，请确保已做好充分的备份。
+</Callout>
+
+## 功能
+
+<Table columnWidths={['20%', '45%', '35%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>执行脚本</td>
+      <td>执行 PowerShell 脚本并获取其输出</td>
+      <td>
+        <PermissionBadge risk="low">访问网络</PermissionBadge>
+        <PermissionBadge risk="medium">操作剪贴板</PermissionBadge>
+        <PermissionBadge risk="medium">操作屏幕</PermissionBadge>
+        <PermissionBadge risk="medium">操作文件</PermissionBadge>
+        <PermissionBadge risk="high">访问进程</PermissionBadge>
+        <PermissionBadge risk="high">执行终端脚本</PermissionBadge>
+      </td>
+    </tr>
+  </tbody>
+</Table>

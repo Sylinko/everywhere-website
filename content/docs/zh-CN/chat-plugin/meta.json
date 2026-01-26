@@ -8,6 +8,7 @@
     "essential",
     "visual-context", 
     "web-browser",
-    "file-system"
+    "file-system",
+    "windows-specific"
   ]
 }

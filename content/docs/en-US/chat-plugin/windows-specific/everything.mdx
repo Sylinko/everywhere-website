@@ -1,0 +1,27 @@
+---
+title: Everything
+description: Integrate the Everything search engine to enhance your assistant's file search capabilities on Windows systems.
+icon: Search
+---
+
+import { Table } from "@/components/common/table"
+import { PermissionBadge } from '@/components/common/permissions';
+
+## Functions
+
+<Table columnWidths={['30%', '45%', '25%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search Files via Everything</td>
+      <td>Search files using Everything search engine.</td>
+      <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

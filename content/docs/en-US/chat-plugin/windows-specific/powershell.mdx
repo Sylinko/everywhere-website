@@ -1,0 +1,38 @@
+---
+title: PowerShell
+description: Enable PowerShell support to enhance your assistant's capabilities on Windows operating systems.
+icon: SquareCode
+---
+
+import { Table } from "@/components/common/table"
+import { PermissionBadge } from '@/components/common/permissions';
+
+<Callout type="error" title="Security">
+Enabling this plugin allows the assistant to execute powerful system commands, which can have **significant impacts** on your system. Please ensure you have made adequate backups before allowing it to perform any actions.
+</Callout>
+
+## Functions
+
+<Table columnWidths={['20%', '45%', '35%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Execute Script</td>
+      <td>Execute PowerShell script and obtain its output.</td>
+      <td>
+        <PermissionBadge risk="low">Access Network</PermissionBadge>
+        <PermissionBadge risk="medium">Access Clipboard</PermissionBadge>
+        <PermissionBadge risk="medium">Access Screen</PermissionBadge>
+        <PermissionBadge risk="medium">Access File</PermissionBadge>
+        <PermissionBadge risk="high">Access Process</PermissionBadge>
+        <PermissionBadge risk="high">Execute Shell Script</PermissionBadge>
+      </td>
+    </tr>
+  </tbody>
+</Table>
