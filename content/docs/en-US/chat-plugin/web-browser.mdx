@@ -6,9 +6,18 @@ icon: PanelsTopLeft
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
 
-Everywhere's Web Browser plugin supports **Web Search** and **Visit Webpage**. You can choose to use Google, Brave, Bocha, Tavily, Jina, or SearXNG as your search engine.
+## Functions
 
-## Via Google
+| Function | Description | Permission |
+| -------- | ----------- | ----------------- |
+| Web Search | Perform a web search | Access Network |
+| Visit Webpage | Capture a snapshot of a web page's content and basic info | Access Network |
+
+## Configuration
+
+You can choose to use Google, Brave, Bocha, Tavily, Jina, UniFuncs or SearXNG as your search engine.
+
+### Via Google
 
 This tutorial will guide you through the process of using [Google](https://cloud.google.com/gemini) as a web search service in Everywhere.
 
@@ -20,12 +29,12 @@ Google's Custom Search JSON API offers 100 free search queries per day ([see dev
 The Google search service currently only supports access in some countries and regions. If your region is not supported, it is recommended to use other search services.
 </Callout>
 
-### Preparation [!toc]
+#### Preparation [!toc]
 
 - A Google account
 - If you have already created a project in Google Cloud, you can use the existing project directly.
 
-### Steps [!toc]
+#### Steps [!toc]
 
 - Go to the [Google Cloud Console](https://console.cloud.google.com/) and log in to your account.
 - After logging in, find the current default project, usually "**My First Project**," in the top left corner of the page. Click it to open the **Project selector**.
@@ -47,7 +56,7 @@ The Google search service currently only supports access in some countries and r
 - After successfully creating the project, go to the [Programmable Search Engine Control Panel](https://programmablesearchengine.google.com/controlpanel/all) and click the **Add** button in the top right corner.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/create-new-search-engine.webp"
+    src="/chat-plugin/web-browser/google/create-new-search-engine.webp"
     alt="Create search engine"
     width="500px"
   />
@@ -55,7 +64,7 @@ The Google search service currently only supports access in some countries and r
 - In the form, enter a memorable name in the **Name your search engine** input box, select **Search the entire web** for **What to search?**, and leave the other settings at their defaults. After completing the CAPTCHA, click **Create**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/new-search-engine-form.webp"
+    src="/chat-plugin/web-browser/google/new-search-engine-form.webp"
     alt="Configure search engine"
     width="500px"
   />
@@ -63,7 +72,7 @@ The Google search service currently only supports access in some countries and r
 - After the creation is successful, click **Customize** to enter the management page.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/create-new-search-engine-success.webp"
+    src="/chat-plugin/web-browser/google/create-new-search-engine-success.webp"
     alt="Creation successful"
     width="500px"
   />
@@ -71,7 +80,7 @@ The Google search service currently only supports access in some countries and r
 - In the **Basic** card, find the **Search engine ID** and copy it to the **Search engine ID** configuration item in Everywhere.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/get-search-engine-id.webp"
+    src="/chat-plugin/web-browser/google/get-search-engine-id.webp"
     alt="Search engine ID"
     width="500px"
   />
@@ -79,7 +88,7 @@ The Google search service currently only supports access in some countries and r
 - After visiting the [Custom Search JSON API Guide](https://developers.google.com/custom-search/v1/overview), find the **API key** section and click **Get a Key**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/get-api-key.webp"
+    src="/chat-plugin/web-browser/google/get-api-key.webp"
     alt="API key"
     width="500px"
   />
@@ -87,7 +96,7 @@ The Google search service currently only supports access in some countries and r
 - In the pop-up page, select the previously created project and click **NEXT**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/get-api-key-enable.webp"
+    src="/chat-plugin/web-browser/google/get-api-key-enable.webp"
     alt="Select project"
     width="500px"
   />
@@ -95,7 +104,7 @@ The Google search service currently only supports access in some countries and r
 - Click **CONFIRM AND CONTINUE** to confirm enabling the Custom Search API in your project.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/google/get-api-key-confirm.webp"
+    src="/chat-plugin/web-browser/google/get-api-key-confirm.webp"
     alt="Confirm enable"
     width="500px"
   />
@@ -106,11 +115,11 @@ The Google search service currently only supports access in some countries and r
 Please make sure to keep the API key safe, as it will only be displayed once (if possible, also save a copy of the search engine ID for future use). If you accidentally close the dialog, you can click **Get a Key** again to regenerate a new key following the process.
 </Callout>
 
-<Callout type="error">
+<Callout type="warning" title="Privacy">
 Please note that the API key is sensitive information. Do not disclose it to anyone or share it in public.
 </Callout>
 
-## Via Brave
+### Via Brave
 
 This tutorial will guide you through the process of using [Brave](https://brave.com/search/api/) as a web search service in Everywhere.
 
@@ -118,17 +127,17 @@ This tutorial will guide you through the process of using [Brave](https://brave.
 The Brave search service currently only supports access in some countries and regions. If your region is not supported, it is recommended to use other search services.
 </Callout>
 
-### Preparation [!toc]
+#### Preparation [!toc]
 
 - Register and log in to a Brave account
 - May require a valid payment method, such as **Google Pay** or **debit/credit card**
 
-### Steps [!toc]
+#### Steps [!toc]
 
 - Visit the [Brave Search API Dashboard](https://api-dashboard.search.brave.com/app/dashboard)
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/brave/homepage.webp"
+    src="/chat-plugin/web-browser/brave/homepage.webp"
     alt="Homepage"
     width="600px"
   />
@@ -136,7 +145,7 @@ The Brave search service currently only supports access in some countries and re
 - In the left sidebar of the page, click **Subscriptions**, select the subscription plan you need, and click **Subscribe**. *(Here, the selection is a free plan)*
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/brave/subscriptions.webp"
+    src="/chat-plugin/web-browser/brave/subscriptions.webp"
     alt="Subscription plans"
     width="600px"
   />
@@ -144,7 +153,7 @@ The Brave search service currently only supports access in some countries and re
 - Read and agree to the terms, enter the payment interface to select your payment method, and complete the subscription. Return to the **Subscriptions** page to ensure that your plan has been successfully subscribed.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/brave/subscribed.webp"
+    src="/chat-plugin/web-browser/brave/subscribed.webp"
     alt="Subscribed successfully"
     width="300px"
   />
@@ -152,7 +161,7 @@ The Brave search service currently only supports access in some countries and re
 - Click **API Keys** in the left sidebar, and then click **Add API key** in the upper right corner. In the pop-up dialog, fill in a memorable name in the **Name** field, select the plan you just subscribed to in the **Subscription** field, and click **Add**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/brave/create-api-key.webp"
+    src="/chat-plugin/web-browser/brave/create-api-key.webp"
     alt="Add API key"
     width="400px"
   />
@@ -160,16 +169,16 @@ The Brave search service currently only supports access in some countries and re
 - After successful creation, you will see the API key you just created. Click the **Copy** button to copy the key to the **API Key** configuration item in Everywhere to use Brave's search service.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/brave/api-key.webp"
+    src="/chat-plugin/web-browser/brave/api-key.webp"
     alt="Copy API key"
     width="600px"
   />
 
-<Callout type="error">
+<Callout type="warning" title="Privacy">
 Please note that the API key is sensitive information. Do not disclose it to anyone or share it in public.
 </Callout>
 
-## Via Bocha
+### Via Bocha
 
 This tutorial will guide you step by step on how to use [Bocha](https://open.bochaai.com/) as a web search service in Everywhere.
 
@@ -177,23 +186,23 @@ This tutorial will guide you step by step on how to use [Bocha](https://open.boc
 Bocha service login only supports WeChat accounts. If WeChat login is not available in your region, it is recommended to use other search services.
 </Callout>
 
-### Preparation [!toc]
+#### Preparation [!toc]
 
 - [Register and log in to a Bocha account](https://open.bochaai.com/login)
 
-### Steps [!toc]
+#### Steps [!toc]
 
 - Visit the [Bocha AI Open Platform](https://api-dashboard.search.bochaai.com/app/dashboard) and click **API KEY管理** in the left sidebar.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/bocha/homepage.webp"
+    src="/chat-plugin/web-browser/bocha/homepage.webp"
     alt="Homepage"
   />
 
 - Click **创建 API KEY**, and in the pop-up dialog, click **确认创建**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/bocha/create-api-key.webp"
+    src="/chat-plugin/web-browser/bocha/create-api-key.webp"
     alt="Create API key"
     width="400px"
   />
@@ -201,7 +210,7 @@ Bocha service login only supports WeChat accounts. If WeChat login is not availa
 - After successful creation, you will see the API key you just created. Click the copy button on the right to copy the key to the **API Key** configuration item in Everywhere to use Bocha's search service.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/bocha/api-key.webp"
+    src="/chat-plugin/web-browser/bocha/api-key.webp"
     alt="Copy API key"
     width="400px"
   />
@@ -210,27 +219,27 @@ Bocha service login only supports WeChat accounts. If WeChat login is not availa
 Please note that the API key is sensitive information, please do not disclose it to anyone or share it in public.
 </Callout>
 
-## Via Tavily
+### Via Tavily
 
 This tutorial will guide you step by step on how to use [Tavily](https://tavily.com/) as a web search service in Everywhere.
 
-### Preparation [!toc]
+#### Preparation [!toc]
 
 - Register and log in to Tavily in the upper right corner of the official website.
 
-### Steps [!toc]
+#### Steps [!toc]
 
 - Visit the [Homepage](https://app.tavily.com/home) and find the **API Keys** section on the **Overview** page.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/tavily/homepage.webp"
+    src="/chat-plugin/web-browser/tavily/homepage.webp"
     alt="Homepage"
   />
 
 - Click the plus button next to it to open the creation dialog. Enter a memorable name in the **Key Name** field and click **Create**.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/tavily/create-api-key.webp"
+    src="/chat-plugin/web-browser/tavily/create-api-key.webp"
     alt="Create API key"
     width="350px"
   />
@@ -238,28 +247,28 @@ This tutorial will guide you step by step on how to use [Tavily](https://tavily.
 - After successful creation, you will see the API key you just created. Click the copy button on the right to copy the key to the **API Key** configuration item in Everywhere to use Tavily's search service.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/tavily/api-key.webp"
+    src="/chat-plugin/web-browser/tavily/api-key.webp"
     alt="API key"
   />
 
-<Callout type="error">
+<Callout type="warning" title="Privacy">
 Please note that the API key is sensitive information. Do not disclose it to anyone or share it in public.
 </Callout>
 
-## Via Jina
+### Via Jina
 
 This tutorial will guide you step by step on how to use [Jina](https://jina.ai/) as a web search service in Everywhere.
 
-### Preparation [!toc]
+#### Preparation [!toc]
 
 - Register and log in to Jina in the upper right corner of the official website.
 
-### Steps [!toc]
+#### Steps [!toc]
 
 - Visit the [Dashboard](https://jina.ai/api-dashboard) and find the **Manage API Key** section in the sidebar.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/jina/manage-api-key.webp"
+    src="/chat-plugin/web-browser/jina/manage-api-key.webp"
     alt="Manage API Key"
     width="550px"
   />
@@ -267,11 +276,40 @@ This tutorial will guide you step by step on how to use [Jina](https://jina.ai/)
 - Jina ensures that your account has at least one API Key. Click the copy button next to the key to copy it to the **API Key** configuration item in Everywhere to use Jina's search service.
 
 <HorizontalImg
-    src="/chat-plugins/web-browser/jina/get-api-key.webp"
+    src="/chat-plugin/web-browser/jina/get-api-key.webp"
     alt="Get API Key"
     width="500px"
   />
 
-<Callout type="error">
+<Callout type="warning" title="Privacy">
+Please note that the API key is sensitive information. Do not disclose it to anyone or share it in public.
+</Callout>
+
+### Via UniFuncs
+
+This tutorial will guide you step by step on how to use [UniFuncs](https://www.unifuncs.com) as a web search service in Everywhere.
+
+#### Preparation [!toc]
+
+- Register and log in to UniFuncs in the upper right corner of the official website.
+
+#### Steps [!toc]
+
+- Visit [我的账户](https://www.unifuncs.com/account), and click **新建密钥** in the top right corner of the API Key section.
+
+<HorizontalImg
+    src="/chat-plugin/web-browser/unifuncs/account.webp"
+    alt="My Account"
+  />
+
+- In the pop-up dialog, enter a memorable name in the **密钥名称** field and click **创建**. Copy the **密钥内容** that appears to the **API 密钥** configuration item in Everywhere to use UniFuncs' search service.
+
+<HorizontalImg
+    src="/chat-plugin/web-browser/unifuncs/get-api-key.webp"
+    alt="Get API Key"
+    width="400px"
+  />
+
+<Callout type="warning" title="Privacy">
 Please note that the API key is sensitive information. Do not disclose it to anyone or share it in public.
 </Callout>

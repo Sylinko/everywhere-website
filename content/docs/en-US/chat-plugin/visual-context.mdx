@@ -1,0 +1,35 @@
+---
+title: Visual Context
+description: Empower Everywhere with the ability to perceive and interact with on-screen UI elements.
+icon: Network
+---
+
+<Callout type="tip">
+Even if this plugin is not enabled, Everywhere will attempt to retrieve the visual context if a visual element is included when sending a message in the chat window. This plugin only provides additional functions.
+</Callout>
+
+## Functions
+
+| Function | Description | Permission |
+| -------- | ----------- | ----------------- |
+| List Windows | Lists all windows on the screen. | Read Screen |
+| Capture UI Element | Capture a screenshot of a visual element. | Read Screen |
+| Automate Actions | Execute a set of automated actions, such as clicks, inputs, or sending shortcuts. | Access Screen |
+
+## Notes
+
+### Automate Actions
+
+<Callout type="warning">
+The "Automate Actions" feature is **experimental** and may not work as expected. Use it with caution.
+</Callout>
+
+The decision to execute actions on UI elements is determined by the large model itself. In most cases, **the model may be reluctant to perform such actions**, and the execution results may sometimes be unsatisfactory.
+
+### Software Compatibility
+
+Since the visual context is obtained via UI automation, **content cannot be retrieved from software that does not support accessibility features (such as WeChat)**. Additionally, applications like games are not supported.
+
+### Real-time Capability
+
+The visual context acquisition works like a snapshot rather than a real-time stream, so tasks like real-time YouTube subtitle translation are not possible.
