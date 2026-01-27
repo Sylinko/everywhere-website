@@ -98,6 +98,10 @@ const policyLinks: {
     href: '/policies/terms',
   },
   {
+    key: 'refundPolicy',
+    href: '/policies/refund',
+  },
+  {
     key: 'disclaimer',
     href: '/policies/disclaimer',
   },
@@ -132,6 +136,7 @@ interface FooterTranslation {
       disclaimer: string;
       cookiePolicy: string;
       contributorLicenseAgreement: string;
+      refundPolicy: string;
     };
     aboutSylinko: {
       title: string;
@@ -169,6 +174,7 @@ const translations: Record<string, FooterTranslation> = {
         title: 'Legal & Policies',
         privacyPolicy: 'Privacy Policy',
         termsOfService: 'Terms of Service',
+        refundPolicy: 'Refund Policy',
         disclaimer: 'Disclaimer',
         cookiePolicy: 'Cookie Policy',
         contributorLicenseAgreement: 'Contributor License Agreement',
@@ -207,6 +213,7 @@ const translations: Record<string, FooterTranslation> = {
         title: '法律与政策',
         privacyPolicy: '隐私政策',
         termsOfService: '服务条款',
+        refundPolicy: '退款政策',
         disclaimer: '免责声明',
         cookiePolicy: 'Cookie 政策',
         contributorLicenseAgreement: '贡献者许可协议',
