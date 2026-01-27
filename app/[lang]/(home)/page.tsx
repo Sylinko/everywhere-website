@@ -253,7 +253,7 @@ export default async function Page({
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark pt-4 pb-6 md:pb-12">
-      <div className="relative mx-auto flex h-[70vh] max-h-[900px] min-h-[600px] w-full max-w-[1400px] overflow-hidden rounded-2xl border bg-origin-border">
+      <div className="relative mx-auto flex md:h-[70vh] max-h-[900px] min-h-[380px] md:min-h-[600px] w-full max-w-[1400px] min-[1400px]:rounded-2xl overflow-hidden border bg-origin-border">
         <Hero />
         <div className="z-2 flex size-full flex-col px-4 max-md:items-center max-md:text-center md:p-12">
           <div className="mt-12 flex w-fit flex-row flex-wrap items-center justify-center gap-2">
