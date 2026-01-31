@@ -1,0 +1,94 @@
+---
+title: Build on Windows
+description: Build Everywhere on Windows.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+## Environment
+
+### System Requirements
+
+Like the Everywhere runtime environment, building on Windows requires Windows 10 (19041) or later.
+
+### Core Components
+
+| Component       | Recommended Version | Description            | Related Links                                            |
+| --------------- | ------------------- | ---------------------- | -------------------------------------------------------- |
+| Git             | Latest Release      | Supports LFS and submodules when cloning | [Git Official Site](https://git-scm.com/)               |
+| .NET SDK        | 10 or later         | Core runtime environment for the project | [.NET Official Site](https://dotnet.microsoft.com/download)         |
+| JetBrains Rider | 2025.3 or later     | Optional IDE           | [Rider Official Site](https://www.jetbrains.com/rider/)             |
+| Visual Studio   | 2026                | Optional IDE           | [Visual Studio Official Site](https://visualstudio.microsoft.com/)  |
+
+* *Ensure IDE supports .NET 10*
+
+### Configuration
+- Initialize Git LFS:
+
+  ```bash
+  git lfs install
+  ```
+- Enable Windows long path support (run as administrator):
+
+  ```bash
+  git config --global core.longpaths true
+  ```
+
+## Build
+
+<Steps>
+  <Step>
+    **Clone the Repository**
+
+    Everywhere uses Git submodules to manage some dependencies, so please use the `--recursive` option to ensure submodules are cloned correctly.
+
+    ```bash
+    # Use recursive clone
+    git clone https://github.com/DearVa/Everywhere.git --recursive
+
+    # If you have already cloned but find missing folders or resource files:
+    git submodule update --init --recursive
+    git lfs pull
+    ```
+  </Step>
+  <Step>
+    **Restore .NET Workloads**
+
+    .NET uses workloads to manage dependencies for specific platforms or features. Before building, make sure to restore the required workloads.
+
+    ```bash
+    dotnet workload restore
+    ```
+  </Step>
+  <Step>
+    **Restore for Windows Platform**
+
+    We use Solution Filter (`.slnf` files) to avoid loading unrelated platforms, processing only the projects required for the Windows platform.
+
+    ```bash
+    dotnet restore Everywhere.Windows.slnf
+    ```
+  </Step>
+  <Step>
+    **Build the Project**
+
+    You can choose to build the project using **Command Line (CLI)**, **JetBrains Rider**, or **Visual Studio 2026**.
+
+    - **Command Line (CLI)**
+      ```bash
+      dotnet build Everywhere.Windows.slnf -c Debug
+      ```
+    - **JetBrains Rider**
+
+      Open the `Everywhere.Windows.slnf` file, wait for the project to load, then select **Build** -> **Build Solution** from the top menu.
+    - **Visual Studio 2026**
+
+      Open the `Everywhere.Windows.slnf` file, wait for the project to load, then select **Build** -> **Build Solution** from the top menu.
+  </Step>
+</Steps>
+
+## Run
+
+Besides the running methods provided by the IDE itself, after the build is complete, the executable file will be located in the `src/Everywhere.Windows/bin/Debug/net10.0-windows10.0.20348.0/win-x64/` directory.
+
+You can directly run `Everywhere.exe` to start the application.

@@ -1,0 +1,96 @@
+---
+title: Windows 下的构建
+description: 在 Windows 系统上构建 Everywhere。
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+## 环境
+
+### 系统要求
+
+和 Everywhere 运行环境一样，Windows 下的构建也需要 Windows 10 (19041) 或更高版本。
+
+### 核心组件
+
+| 组件            | 推荐版本      | 说明                   | 相关链接                                                  |
+| --------------- | ------------ | --------------------- | --------------------------------------------------------- |
+| Git             | 最新发行版    | 克隆时支持 LFS 和子模块 | [Git 官网](https://git-scm.com/)                          |
+| .NET SDK        | 10 及以上     | 项目核心运行环境       | [.NET 官网](https://dotnet.microsoft.com/download)         |
+| JetBrains Rider | 2025.3 及以上 | 可选 IDE              | [Rider 官网](https://www.jetbrains.com/rider/)             |
+| Visual Studio   | 2026         | 可选 IDE              | [Visual Studio 官网](https://visualstudio.microsoft.com/)  |
+
+* *确保 IDE 支持 .NET 10*
+
+### 配置
+
+- 初始化 Git LFS：
+
+  ```bash
+  git lfs install
+  ```
+- 开启 Windows 强制长路径支持（以管理员身份运行）：
+
+  ```bash
+  git config --global core.longpaths true
+  ```
+
+## 构建
+
+<Steps>
+  <Step>
+    **克隆仓库**
+
+    Everywhere 使用 Git 子模块管理部分依赖项，因此请使用 `--recursive` 参数确保子模块被正确克隆。
+
+    ```bash
+    # 使用递归克隆
+    git clone https://github.com/DearVa/Everywhere.git --recursive
+
+    # 如果你已经克隆了，但发现缺少文件夹或资源文件：
+    git submodule update --init --recursive
+    git lfs pull
+    ```
+  </Step>
+  <Step>
+    **还原 .NET 工作负载**
+
+    .NET 使用工作负载（Workload）来管理特定平台或功能的依赖项。在构建之前，请确保还原所需的工作负载。
+
+    ```bash
+    dotnet workload restore
+    ```
+  </Step>
+  <Step>
+    **针对 Windows 平台进行还原**
+
+    我们使用 Solution Filter (`.slnf` 文件) 来避免加载无关的平台，只针对 Windows 平台所需的项目进行处理。
+
+    ```bash
+    dotnet restore Everywhere.Windows.slnf
+    ```
+  </Step>
+  <Step>
+    **构建项目**
+
+    你可以选择使用 **命令行 (CLI)**、**JetBrains Rider** 或 **Visual Studio 2026** 来构建项目。
+
+    - **命令行 (CLI)**
+
+      ```bash
+      dotnet build Everywhere.Windows.slnf -c Debug
+      ```
+    - **JetBrains Rider**
+
+      打开 `Everywhere.Windows.slnf` 文件，等待项目加载完成后，在顶部菜单选择 **构建** -> **构建解决方案**。
+    - **Visual Studio 2026**
+
+      打开 `Everywhere.Windows.slnf` 文件，等待项目加载完成后，在顶部菜单选择 **生成** -> **生成解决方案**。
+  </Step>
+</Steps>
+
+## 运行
+
+除了 IDE 本身提供的运行方式外，构建完成后，可执行文件会位于 `src/Everywhere.Windows/bin/Debug/net10.0-windows10.0.20348.0/win-x64/` 目录下。
+
+你可以直接运行 `Everywhere.exe` 来启动应用程序。

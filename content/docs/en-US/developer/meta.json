@@ -1,0 +1,10 @@
+{
+  "title": "Developer",
+  "description": "Build, Develop, Extend",
+  "icon": "CodeXml",
+  "root": true,
+  "pages": [
+    "index",
+    "build"
+  ]
+}

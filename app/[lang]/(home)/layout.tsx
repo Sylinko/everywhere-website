@@ -19,6 +19,7 @@ import {
   type LucideIcon,
   Download,
   Users,
+  CodeXml,
 } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
 
@@ -38,6 +39,7 @@ const i18nText: Record<
   'en-US': {
     title: { text: 'Docs', desc: '' },
     download: { text: 'Download', desc: '' },
+    developer: { text: 'Developer', desc: '' },
     pricing: { text: 'Pricing', desc: '' },
     community: { text: 'Community', desc: '' },
     'getting-started': {
@@ -64,6 +66,7 @@ const i18nText: Record<
   'zh-CN': {
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
+    developer: { text: '开发者', desc: '' },
     pricing: { text: '定价', desc: '' },
     community: { text: '社区', desc: '' },
     'getting-started': {
@@ -153,6 +156,13 @@ export default async function Layout({
             url: getLocalePath(lang, 'download'),
             icon: <Download />,
           },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.developer.text,
+            url: getLocalePath(lang, 'docs/developer'),
+            icon: <CodeXml/>,
+          },
           // {
           //   type: 'main',
           //   on: 'menu',
@@ -219,6 +229,13 @@ export default async function Layout({
             text: texts.download.text,
             url: getLocalePath(lang, 'download'),
             icon: <Download />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.developer.text,
+            url: getLocalePath(lang, 'docs/developer'),
+            icon: <CodeXml/>,
           },
           // {
           //   type: 'main',
