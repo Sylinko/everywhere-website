@@ -26,6 +26,7 @@ Linux 版本仍处于开发阶段，但已知的必需依赖如下：
     <CodeBlockTabsTrigger value="rhel">RHEL / CentOS</CodeBlockTabsTrigger>
     <CodeBlockTabsTrigger value="fedora">Fedora</CodeBlockTabsTrigger>
     <CodeBlockTabsTrigger value="arch">Arch / Manjaro</CodeBlockTabsTrigger>
+    <CodeBlockTabsTrigger value="opensuse">openSUSE</CodeBlockTabsTrigger>
   </CodeBlockTabsList>
 
   <CodeBlockTab value="debian">
@@ -57,6 +58,15 @@ sudo dnf install -y fontconfig libX11 libICE libSM at-spi2-core hicolor-icon-the
 
 ```bash
 sudo pacman -Sy --noconfirm fontconfig libx11 libice libsm at-spi2-core hicolor-icon-theme
+```
+
+  </CodeBlockTab>
+
+  <CodeBlockTab value="opensuse">
+
+```bash
+sudo zypper refresh && \
+sudo zypper install -y fontconfig libX11-6 libICE6 libSM6 at-spi2-core hicolor-icon-theme
 ```
 
   </CodeBlockTab>
