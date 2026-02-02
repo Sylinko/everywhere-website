@@ -54,6 +54,16 @@ For example, a common mistake is entering `https://api.openai.com` instead of `h
 
 </Callout>
 
+### Why can't I read images?
+
+**Not all large language models support image input (i.e., "multimodal" capability).**
+
+If the model you are using (e.g., `DeepSeek-V3.2`) only supports text input, it cannot "see" or understand the images you send.
+
+In this case, sending images usually results in an error saying "Model configuration is incorrect, model provider or model ID is missing or invalid, or the current model does not support image input/tool calls."
+
+If you need the AI to analyze image content, please switch to a model that supports visual capabilities.
+
 ### Why can't I use web search?
 
 You may have noticed that when using services like ChatGPT, Gemini, or DeepSeek on their official websites, they have web search capabilities. This is because the providers' websites have integrated search functionality, which then combines the search results with the large language model to provide you with answers that include the latest information.
