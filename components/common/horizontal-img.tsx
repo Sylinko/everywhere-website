@@ -18,7 +18,7 @@ export const HorizontalImg: React.FC<HorizontalImgProps> = ({
         <Image
           src={src}
           alt={alt}
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: '100%', height: 'auto', borderRadius: '0.5rem' }}
           width={1200}
           height={800}
         />
@@ -37,7 +37,7 @@ export const HorizontalImg: React.FC<HorizontalImgProps> = ({
         alt={alt}
         width={numericWidth}
         height={800}
-        style={{ height: 'auto' }}
+        style={{ height: 'auto', borderRadius: '0.5rem' }}
       />
     </div>
   );
