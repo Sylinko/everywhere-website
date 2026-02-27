@@ -174,7 +174,7 @@ export default async function Layout({
             type: 'main',
             on: 'menu',
             text: texts.community.text,
-            url: getLocalePath(lang, 'docs/community/about'),
+            url: getLocalePath(lang, 'docs/community'),
             icon: <Users />,
           },
           // Desktop navigation
