@@ -103,4 +103,4 @@ Contributions are welcome! Please check the `content` directory to add or update
 
 ## 📄 License
 
-[MIT](LICENSE) © Sylinko Inc.
+[Apache 2.0](LICENSE) © Sylinko Inc.
