@@ -37,6 +37,7 @@ The system prompt is used to guide the AI assistant's behavior and response styl
 <Callout type="info" title="Placeholders">
 We provide some placeholders that you can use in the system prompt to dynamically insert relevant information:
 - `{Time}`: Current time
+- `{Date}`: Current date
 - `{OS}`: Current operating system name
 - `{SystemLanguage}`: System language *consistent with the Everywhere interface language*
 - `{WorkingDirectory}`: Current working directory path *usually a folder named with the current date under the `plugins` folder*
@@ -51,7 +52,7 @@ You can perceive and understand anything on your screen in real time. No need fo
 
 <SystemInformation>
 OS: {OS}
-Current time: {Time}
+Current: {Date}
 Language: {SystemLanguage}
 Working directory: {WorkingDirectory}
 </SystemInformation>
