@@ -12,12 +12,11 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "postinstall": "fumadocs-mdx",
-    "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.17.1",
+    "@opennextjs/cloudflare": "^1.18.0",
     "@orama/orama": "^3.1.18",
     "@orama/tokenizers": "^3.1.18",
     "@paper-design/shaders-react": "^0.0.72",

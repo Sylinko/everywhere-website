@@ -12,32 +12,14 @@ export const HorizontalImg: React.FC<HorizontalImgProps> = ({
   alt,
   width = '100%',
 }) => {
-  if (width === '100%') {
-    return (
-      <div className="flex items-center justify-center">
-        <Image
-          src={src}
-          alt={alt}
-          style={{ width: '100%', height: 'auto', borderRadius: '0.5rem' }}
-          width={1200}
-          height={800}
-        />
-      </div>
-    );
-  }
-
-  // convert px to number
-  const numericWidth =
-    width && width.endsWith('px') ? parseInt(width) : undefined;
-
   return (
     <div className="flex items-center justify-center">
       <Image
         src={src}
         alt={alt}
-        width={numericWidth}
+        width={1200}
         height={800}
-        style={{ height: 'auto', borderRadius: '0.5rem' }}
+        style={{ width, height: 'auto', borderRadius: '0.5rem' }}
       />
     </div>
   );

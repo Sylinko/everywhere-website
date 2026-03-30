@@ -46,7 +46,7 @@ export function baseOptions(locale: string): BaseLayoutProps {
       title: (
         <>
           {logo}
-          <span className="font-medium in-[header]:text-[15px] [.uwu_&]:hidden">
+          <span className="font-medium in-[header]:text-[15px] in-[.uwu]:hidden">
             Everywhere
           </span>
         </>

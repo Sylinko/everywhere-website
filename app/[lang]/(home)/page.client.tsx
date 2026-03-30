@@ -211,7 +211,7 @@ export function FeatureSection({
   const icons = [Monitor, Layers, Laptop, Box];
 
   return (
-    <section className="mx-auto mt-24 max-w-[1400px] px-4">
+    <section className="mx-auto mt-24 max-w-350 px-4">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {items.map((item, idx) => {
           const Icon = icons[idx] || Box;
@@ -263,7 +263,7 @@ export function ModelProviderSection({
   const numberOfRows = 5;
 
   return (
-    <section className="mx-auto mt-24 max-w-[1400px] overflow-hidden px-4">
+    <section className="mx-auto mt-24 max-w-350 overflow-hidden px-4">
       <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Left Card: Title & Desc */}
         <div
@@ -377,7 +377,7 @@ export function SponsorsSection({
   }[];
 }) {
   return (
-    <section className="mx-auto mt-16 max-w-[1400px] px-4">
+    <section className="mx-auto mt-16 max-w-350 px-4">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Left: SVGs */}
         <div className="grid grid-cols-2 gap-4">
@@ -389,7 +389,7 @@ export function SponsorsSection({
               rel="noopener noreferrer"
               className="bg-card flex items-center justify-center rounded-xl border transition-shadow hover:shadow-md"
             >
-              <div className="relative h-[100px] w-[200px]">
+              <div className="relative h-25 w-50">
                 {sponsor.themeDifferentiated ? (
                   <>
                     <Image
@@ -457,7 +457,7 @@ export function BoundlessSection({
   lang: string;
 }) {
   return (
-    <section className="mx-auto mt-24 mb-24 max-w-[1400px] px-4">
+    <section className="mx-auto mt-24 mb-24 max-w-350 px-4">
       <div className="mx-auto mb-16 text-center">
         <h2 className="mb-4 text-2xl font-semibold md:text-3xl">{title}</h2>
         <p className="text-muted-foreground text-lg">{description}</p>
@@ -514,7 +514,7 @@ export function CTASection({
   lang: string;
 }) {
   return (
-    <section className="mx-auto mt-24 mb-12 max-w-[1400px] px-4">
+    <section className="mx-auto mt-24 mb-12 max-w-350 px-4">
       <div className="bg-background/50 relative overflow-hidden rounded-3xl border px-6 py-16 text-center sm:px-16 md:py-24">
         {/* Blurred Gradient Background */}
         <div

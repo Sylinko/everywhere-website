@@ -244,7 +244,7 @@ export function Footer({ lang }: FooterProps) {
 
   return (
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">
-      <div className="mx-auto max-w-[1400px] px-6 py-12">
+      <div className="mx-auto max-w-350 px-6 py-12">
         {/* Top: Links Grid */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-5 lg:gap-x-12">
           {/* Section 1: Community & Follow Us (Icons) */}
