@@ -31,11 +31,11 @@ const contentMap = {
       variants: {
         windows: { installer: 'Installer', portable: 'Portable' },
         macos: { silicon: 'Apple Silicon (M Series)', intel: 'Intel (x64)' },
-        linux: {
-          deb: 'Debian / Ubuntu',
-          rpm: 'Fedora / RedHat',
-          aur: 'Arch Linux',
-        },
+        // linux: {
+        //   deb: 'Debian / Ubuntu',
+        //   rpm: 'Fedora / RedHat',
+        //   aur: 'Arch Linux',
+        // },
       },
     },
     comingSoon: 'Coming Soon',
@@ -57,16 +57,16 @@ const contentMap = {
         { name: 'Intel (x64)', note: '.pkg', key: 'intel' },
       ],
     },
-    linux: {
-      title: 'Linux',
-      desc: 'Community maintained distributions.',
-      action: 'Download',
-      distros: [
-        { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
-        { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
-        { name: 'Arch Linux', note: 'AUR', key: 'aur' },
-      ],
-    },
+    // linux: {
+    //   title: 'Linux',
+    //   desc: 'Community maintained distributions.',
+    //   action: 'Download',
+    //   distros: [
+    //     { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
+    //     { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
+    //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
+    //   ],
+    // },
     history: {
       title: 'Release History',
       desc: 'View all past releases on GitHub.',
@@ -89,11 +89,11 @@ const contentMap = {
       variants: {
         windows: { installer: '安装包', portable: '便携版' },
         macos: { silicon: 'Apple Silicon (M 系列芯片)', intel: 'Intel (x64)' },
-        linux: {
-          deb: 'Debian / Ubuntu',
-          rpm: 'Fedora / RedHat',
-          aur: 'Arch Linux',
-        },
+        // linux: {
+        //   deb: 'Debian / Ubuntu',
+        //   rpm: 'Fedora / RedHat',
+        //   aur: 'Arch Linux',
+        // },
       },
     },
     comingSoon: '敬请期待',
@@ -115,16 +115,16 @@ const contentMap = {
         { name: 'Intel (x64)', note: '.pkg', key: 'intel' },
       ],
     },
-    linux: {
-      title: 'Linux',
-      desc: '社区维护版本。',
-      action: '下载',
-      distros: [
-        { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
-        { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
-        { name: 'Arch Linux', note: 'AUR', key: 'aur' },
-      ],
-    },
+    // linux: {
+    //   title: 'Linux',
+    //   desc: '社区维护版本。',
+    //   action: '下载',
+    //   distros: [
+    //     { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
+    //     { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
+    //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
+    //   ],
+    // },
     history: {
       title: '版本历史',
       desc: '在 GitHub 上查看所有历史版本。',
@@ -171,18 +171,18 @@ export default async function Page({
       data: content.macos,
       comingSoon: false,
     },
-    {
-      id: 'linux',
-      icon: LinuxIcon,
-      name: 'Linux',
-      data: content.linux,
-      comingSoon: true,
-    },
+    // {
+    //   id: 'linux',
+    //   icon: LinuxIcon,
+    //   name: 'Linux',
+    //   data: content.linux,
+    //   comingSoon: true,
+    // },
   ];
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark min-h-[calc(100vh-4rem)] pt-24">
-      <div className="mx-auto max-w-[1200px] px-6">
+      <div className="mx-auto max-w-300 px-6">
         {/* Hero Section */}
         <div className="mb-24 flex flex-col items-center text-center">
           <h1 className="text-foreground mb-6 text-4xl font-bold tracking-tight sm:text-6xl">
@@ -214,7 +214,7 @@ export default async function Page({
         </div>
 
         {/* All Platforms Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 ml-50 mr-50">
           {platforms.map((platform) => (
             <div
               key={platform.id}
@@ -223,14 +223,14 @@ export default async function Page({
                 'hover:border-brand/50 relative flex flex-col overflow-hidden p-8 transition-all hover:shadow-lg'
               )}
             >
-              <div className="bg-muted/50 mb-6 flex size-6 items-center justify-between justify-center">
+              <div className="bg-muted/50 mb-6 flex size-6 items-center justify-between">
                 {platform.icon}
               </div>
 
               <h3 className="mb-2 text-xl font-semibold">
                 {platform.data.title}
               </h3>
-              <p className="text-muted-foreground mb-8 min-h-[40px] text-sm">
+              <p className="text-muted-foreground mb-8 min-h-10 text-sm">
                 {platform.data.desc}
               </p>
 

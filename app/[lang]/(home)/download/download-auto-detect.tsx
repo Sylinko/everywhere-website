@@ -33,7 +33,7 @@ export function DownloadAutoDetect({
     variants: {
       windows: { installer: string; portable: string };
       macos: { silicon: string; intel: string };
-      linux: { deb: string; rpm: string; aur: string };
+      // linux: { deb: string; rpm: string; aur: string };
     };
   };
 }) {
