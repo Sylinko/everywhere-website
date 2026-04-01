@@ -12,6 +12,7 @@
     "moonshot",
     "openrouter",
     "siliconcloud",
+    "minimax",
     "ollama",
     "other"
   ]
