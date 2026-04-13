@@ -123,14 +123,14 @@ export function DownloadAutoDetect({
   }, [dictionary.variants]);
 
   if (isDetecting) {
-      return (
-        <div className="flex h-24 items-center justify-center">
-          <span className="text-muted-foreground animate-pulse">
-            {dictionary.loading}
-          </span>
-        </div>
-      );
-    }
+    return (
+      <div className="flex h-24 items-center justify-center">
+        <span className="text-muted-foreground animate-pulse">
+          {dictionary.loading}
+        </span>
+      </div>
+    );
+  }
 
   if (!os) return null;
 

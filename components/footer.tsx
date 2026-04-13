@@ -152,7 +152,7 @@ interface FooterTranslation {
   copyright: {
     prefix: string;
     suffix: string;
-  }
+  };
 }
 
 const translations: Record<string, FooterTranslation> = {
@@ -193,7 +193,7 @@ const translations: Record<string, FooterTranslation> = {
     copyright: {
       prefix: 'Copyright © ',
       suffix: ' Sylinko Inc. All rights reserved.',
-    }
+    },
   },
   'zh-CN': {
     sections: {
@@ -232,7 +232,7 @@ const translations: Record<string, FooterTranslation> = {
     copyright: {
       prefix: '版权所有 © ',
       suffix: ' Sylinko Inc. 保留所有权利。',
-    }
+    },
   },
 };
 
@@ -389,7 +389,7 @@ export function Footer({ lang }: FooterProps) {
 
         {/* Bottom: License, Copyright and Trademark Notice */}
         <div className="border-fd-border flex flex-col items-center gap-4 border-t pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row w-full">
+          <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-fd-muted-foreground text-xs">
               {t.license.prefix}
               <Link

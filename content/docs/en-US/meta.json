@@ -1,3 +1,9 @@
 {
-  "pages": ["(get-started)", "model-provider", "chat-plugin", "developer", "community"]
+  "pages": [
+    "(get-started)",
+    "model-provider",
+    "chat-plugin",
+    "developer",
+    "community"
+  ]
 }

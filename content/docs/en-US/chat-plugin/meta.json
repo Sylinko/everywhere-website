@@ -4,9 +4,9 @@
   "icon": "Blocks",
   "root": true,
   "pages": [
-    "index", 
+    "index",
     "essential",
-    "visual-context", 
+    "visual-context",
     "web-browser",
     "file-system",
     "windows-specific"

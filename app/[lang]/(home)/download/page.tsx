@@ -214,7 +214,7 @@ export default async function Page({
         </div>
 
         {/* All Platforms Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 ml-50 mr-50">
+        <div className="mr-50 ml-50 grid grid-cols-1 gap-6 md:grid-cols-2">
           {platforms.map((platform) => (
             <div
               key={platform.id}

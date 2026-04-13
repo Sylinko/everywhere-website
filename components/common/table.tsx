@@ -1,4 +1,10 @@
-export const Table = ({ columnWidths, children }: { columnWidths: string[]; children: React.ReactNode }) => {
+export const Table = ({
+  columnWidths,
+  children,
+}: {
+  columnWidths: string[];
+  children: React.ReactNode;
+}) => {
   return (
     <table>
       <colgroup>

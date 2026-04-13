@@ -3,8 +3,5 @@
   "description": "构建，开发，拓展",
   "icon": "CodeXml",
   "root": true,
-  "pages": [
-    "index",
-    "build"
-  ]
+  "pages": ["index", "build"]
 }

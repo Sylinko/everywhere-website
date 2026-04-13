@@ -1,7 +1,4 @@
 {
   "title": "Windows Specific",
-  "pages": [
-    "powershell",
-    "everything"
-  ]
+  "pages": ["powershell", "everything"]
 }

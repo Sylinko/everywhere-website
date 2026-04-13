@@ -20,7 +20,8 @@ function getLocale(request: NextRequest): string {
   const acceptLanguage = request.headers.get('accept-language');
   if (!acceptLanguage) return i18n.defaultLanguage;
 
-  const languages = acceptLanguage.split(',')
+  const languages = acceptLanguage
+    .split(',')
     .map((lang) => {
       const [tag, quality] = lang.split(';');
       return {
@@ -35,10 +36,10 @@ function getLocale(request: NextRequest): string {
     if (i18n.languages.includes(lang.tag)) {
       return lang.tag;
     }
-    
+
     // Prefix match (e.g. en-GB -> en-US)
     const baseLang = lang.tag.split('-')[0];
-    const matchedLang = i18n.languages.find(l => l.startsWith(baseLang));
+    const matchedLang = i18n.languages.find((l) => l.startsWith(baseLang));
     if (matchedLang) {
       return matchedLang;
     }
@@ -57,17 +58,17 @@ export function middleware(request: NextRequest) {
 
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-    
+
     // Construct new URL
     const url = new URL(request.url);
     url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`;
-    
-    // Preserve query parameters is automatic when using new URL(request.url) 
+
+    // Preserve query parameters is automatic when using new URL(request.url)
     // but we modified pathname, search params are preserved from base request.url?
     // request.url is the full string.
     // new URL(request.url) clones it.
     // modifying pathname keeps search.
-    
+
     return NextResponse.redirect(url);
   }
 

@@ -107,7 +107,7 @@ export function Permissions({
   className,
 }: PermissionsProps) {
   return (
-    <div className={cn('not-prose flex flex-wrap gap-2 my-4', className)}>
+    <div className={cn('not-prose my-4 flex flex-wrap gap-2', className)}>
       {permissions.map((permission, index) => {
         if (typeof permission === 'string') {
           return (

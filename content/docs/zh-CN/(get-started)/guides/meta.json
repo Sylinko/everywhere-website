@@ -1,7 +1,5 @@
 {
   "title": "技巧",
   "icon": "Pickaxe",
-  "pages": [
-    "saving-tokens"
-  ]
+  "pages": ["saving-tokens"]
 }
