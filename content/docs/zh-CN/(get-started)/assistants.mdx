@@ -1,17 +1,15 @@
 ---
-title: AI 助手
-description: 管理和配置您的 AI 助手
+title: 助手
+description: 管理和配置您的助手
 icon: Brain
 ---
 
-您可以通过 Everywhere 主界面侧边栏的 **AI 助手** 页面来管理和配置您的 AI 助手。
+您可以通过 Everywhere 主界面侧边栏的 **助手** 页面来管理和配置您的助手。
 
 ## 设置项
 
 <Callout type="info" title="测试连通性">
-在配置 AI 助手时，您可以使用页面右上方的 **测试连通性** 按钮来验证所填写的 API 信息是否正确，以及网络环境是否可用。
-
-如果测试失败，请检查 AI 提供商相关设置是否正确，或者尝试更换网络环境。
+在配置助手时，点击右上角的 **测试连通性** 即可快速验证 API 信息与网络环境；请注意该操作会发送简单请求并可能产生少量费用，若失败请核对配置或尝试切换网络。
 </Callout>
 
 ### 基本信息
@@ -32,15 +30,17 @@ icon: Brain
 
 ### 系统提示词
 
-系统提示词用于指导 AI 助手的行为和回答风格。您可以根据需要自定义系统提示词，以便让助手更好地符合您的需求。
+系统提示词用于指导助手的行为和回答风格。您可以根据需要自定义系统提示词，以便让助手更好地符合您的需求。
 
 <Callout type="info" title="占位符">
 我们为您提供了一些占位符，您可以在系统提示词中使用它们来动态插入相关信息：
-- `{Time}`：当前时间
-- `{Date}`：当前日期
+- `{Time}`：当前完整时间 (例如: 2026年4月17日 14:23:45)
+- `{Date}`：当前日期 (例如: 2026年4月17日)
 - `{OS}`：当前操作系统名称
 - `{SystemLanguage}`：系统语言 *与 Everywhere 界面语言一致*
 - `{WorkingDirectory}`：当前工作目录路径 *通常在`plugins`文件夹下以当天日期命名的文件夹形式出现*
+
+大部分情况下推荐试用`{Date}`而不是`{Time}`，以增加模型的缓存命中率。
 </Callout>
 
 **默认系统提示词示例**
@@ -60,7 +60,7 @@ Working directory: {WorkingDirectory}
 <FormatInstructions>
 Always keep your responses concise and to the point.
 Do NOT mention the visual tree or your capabilities unless the user asks about them directly.
-Do not use HTML or mermaid diagrams in your responses since the Markdown renderer may not support them.
+Do not use HTML in your responses since the Markdown renderer may not support them.
 Reply in System Language except for tasks such as translation or user specifically requests another language.
 </FormatInstructions>
 
@@ -73,15 +73,7 @@ When writing files, prefer letting them inside the working directory unless abso
 
 ### 配置 AI 提供商
 
-您可以根据自定义程度来选择 **原生模式**、**预设模式** 或是 **进阶模式**。
-
-<Callout type="warning">
-请确保 API 相关信息的正确性，以便助手能够成功连接到模型服务。
-</Callout>
-
-<Callout type="warning" title="隐私">
-请注意，API 密钥是敏感信息，请不要将其泄露给任何人或在公共场合分享。
-</Callout>
+您可以选择接入我们的服务以使用 **原生模式**。如果您有其他模型提供商的 API 密钥 (BYOK)，也可以选择 **预设模式** 或 **进阶模式** 来配置助手。
 
 #### 原生模式
 
@@ -125,14 +117,22 @@ When writing files, prefer letting them inside the working directory unless abso
 - **最大上下文长度**  
   设置模型在对话中可以使用的最大上下文长度（以令牌为单位）。请根据所使用的模型的限制进行调整。
 
+<Callout type="warning">
+请确保 API 相关信息的正确性，以便助手能够成功连接到模型服务。
+</Callout>
+
+<Callout type="warning" title="隐私">
+请注意，API 密钥是敏感信息，请不要将其泄露给任何人或在公共场合分享。
+</Callout>
+
 ### 请求超时时长
 
 设置每次 API 请求的超时时长（以秒为单位）。如果请求超过该时间未完成，将会被终止。对于速度较慢的模型，建议适当增加超时时长。
 
-### 创意活跃度 (Temperature)
+### Temperature ("创意活跃度")
 
-调整模型生成回答时的创意活跃度。较高的数值（如 0.8）会使回答更加多样化和富有创意，而较低的数值（如 0.2）则会使回答更加保守和一致。
+通常情况下，数值越高，回答越具创造力和想象力，数值越低，则越趋严谨。部分模型数值超过 1.0 可能导致输出乱码。通常建议不要同时更改 top_p。如果遇到错误，请尝试还原默认值。
 
-### 思维开放度 (Top-P)
+### Top-P ("思维开放度")
 
-调整模型在生成回答时考虑的词汇范围。较高的数值（如 0.9）会使模型考虑更多的词汇选项，而较低的数值（如 0.3）则会限制模型只考虑最可能的词汇。
+用于控制模型输出文本的多样性。通常情况下，数值越高，模型会接受更多潜在回答，数值越低，则更倾向于最可能的回答。通常建议不要同时更改 temperature。如果遇到错误，请尝试还原默认值。

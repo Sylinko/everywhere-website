@@ -1,17 +1,15 @@
 ---
-title: AI Assistant
-description: Manage and configure your AI assistants
+title: Assistants
+description: Manage and configure your assistants
 icon: Brain
 ---
 
-You can manage and configure your AI assistants through the **AI Assistant** page in the sidebar of the Everywhere main interface.
+You can manage and configure your assistants through the **Assistants** page in the sidebar of the Everywhere main window.
 
 ## Settings
 
 <Callout type="info" title="Check Connectivity">
-When configuring an AI assistant, you can use the **Check Connectivity** button in the upper right corner of the page to verify if the entered API information is correct and if the network environment is available.
-
-If the check fails, please verify the AI provider-related settings, or try switching to a different network environment.
+When configuring an assistant, you can quickly verify the API information and network environment by clicking the **Test Connectivity** button in the upper right corner. Please note that this operation will send a simple request and may incur a small cost. If it fails, please check your configuration or try switching networks.
 </Callout>
 
 ### Basic Info
@@ -32,15 +30,17 @@ Add a short description to the assistant to help you remember its purpose or fea
 
 ### System Prompt
 
-The system prompt is used to guide the AI assistant's behavior and response style. You can customize the system prompt as needed to make the assistant better suit your requirements.
+The system prompt is used to guide the assistant's behavior and response style. You can customize the system prompt as needed to make the assistant better suit your requirements.
 
 <Callout type="info" title="Placeholders">
 We provide some placeholders that you can use in the system prompt to dynamically insert relevant information:
-- `{Time}`: Current time
-- `{Date}`: Current date
+- `{Time}`: Current full time (Example: April 17, 2026 14:23:45)
+- `{Date}`: Current date (Example: April 17, 2026)
 - `{OS}`: Current operating system name
 - `{SystemLanguage}`: System language *consistent with the Everywhere interface language*
 - `{WorkingDirectory}`: Current working directory path *usually a folder named with the current date under the `plugins` folder*
+
+In most cases, it is recommended to use `{Date}` instead of `{Time}` to increase the cache hit rate of the model.
 </Callout>
 
 **Default System Prompt Example**
@@ -60,7 +60,7 @@ Working directory: {WorkingDirectory}
 <FormatInstructions>
 Always keep your responses concise and to the point.
 Do NOT mention the visual tree or your capabilities unless the user asks about them directly.
-Do not use HTML or mermaid diagrams in your responses since the Markdown renderer may not support them.
+Do not use HTML in your responses since the Markdown renderer may not support them.
 Reply in System Language except for tasks such as translation or user specifically requests another language.
 </FormatInstructions>
 
@@ -73,19 +73,17 @@ When writing files, prefer letting them inside the working directory unless abso
 
 ### Configure AI Provider
 
-You can choose between **Preset Mode** or **Advanced Mode** based on the level of customization you need.
+You can choose to connect to our service to use the **Native Mode**. If you have API Keys (BYOK) from other model providers, you can also choose **Preset Mode** or **Advanced Mode** to configure the assistant.
 
-<Callout type="warning">
-Please ensure that the AI provider you choose supports the features you intend to use, such as tool usage or image input, to avoid request failures.
-</Callout>
+#### Native Mode
 
-<Callout type="warning" title="Privacy">
-Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public places.
-</Callout>
+In Native Mode, you can directly use any model we support, providing a zero-configuration experience.
+
+You only need to select your preferred model from the list, and we will handle the rest!
 
 #### Preset Mode
 
-In Preset Mode, you only need to fill in common configuration options. Everywhere will automatically complete other settings based on the selected model provider, suitable for most users.
+In Preset Mode, you only need to fill in common configuration options. Everywhere will automatically complete other settings based on the selected model provider.
 
 <Callout type="info">
 For providers such as Ollama and OpenRouter, it is recommended to use Advanced Mode for configuration to have more flexibility in selecting models.
@@ -119,14 +117,22 @@ In Advanced Mode, you can customize more configuration options, suitable for use
 - **Maximum Context Length**  
   Set the maximum context length (in tokens) the model can use in a conversation. Please adjust according to the limitations of the model you are using.
 
+<Callout type="warning">
+Please ensure that the AI provider you choose supports the features you intend to use, such as tool usage or image input, to avoid request failures.
+</Callout>
+
+<Callout type="warning" title="Privacy">
+Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public places.
+</Callout>
+
 ### Request Timeout
 
 Set the timeout for each API request in seconds. If a request is not completed within this time, it will be terminated. For slower models, it is recommended to increase the timeout duration appropriately.
 
-### Creativity (Temperature)
+### Temperature
 
-Adjust the creativity of the model's generated responses. A higher value (e.g., 0.8) will make the responses more diverse and creative, while a lower value (e.g., 0.2) will make them more conservative and consistent.
+Generally, a higher value results in more creative and imaginative responses, while a lower value tends to be more precise. Some models may produce garbled output if the value exceeds 1.0. It is usually recommended not to change top_p simultaneously. If you encounter errors, try reverting to default values.
 
-### Thought Openness (Top-P)
+### Top-P
 
-Adjust the range of vocabulary the model considers when generating responses. A higher value (e.g., 0.9) will make the model consider more vocabulary options, while a lower value (e.g., 0.3) will restrict the model to only the most likely words.
+Controls the diversity of the model's output text. Typically, a higher value allows the model to accept more potential responses, while a lower value leans towards the most likely answer. It is usually recommended not to change temperature simultaneously. If you encounter errors, try reverting to default values.
