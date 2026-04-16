@@ -24,53 +24,55 @@ import { Image } from 'next/image';
   </Step>
 
   <Step>
-    点击 **让我们开始吧！** 按钮，选择你的 AI 模型提供商设置模式，这里以 **预设模式** 为例：
-    - **预设模式**: 只需填写常见配置项，Everywhere 会根据所选的模型提供商完成其他设置，适合大多数用户使用。
-    - **进阶模式**: 可以自定义更多的配置项，适合有特定需求或使用非官方支持模型提供商的用户。
+    点击 **让我们开始吧！** 按钮，选择 **登入** 开始免费使用我们的原生模型
 
-    <Callout type="info">
-    对于 Ollama、OpenRouter 和硅基流动等模型提供商，建议使用进阶模式进行配置，更灵活地选择模型。
-    </Callout>
-
-    ![选择模型提供商](/get-started/quick-start/zh-CN/welcome-page-2.webp)
-    
-    <Callout type="info" title="其他模型提供商">
-    如果预设模式中没有您想使用的模型提供商，请改用进阶模式。  
-    更多请参阅<DynamicLink href="/[lang]/docs/faq">常见问题</DynamicLink>
-    </Callout>
+    ![登入 Everywhere 云服务](/get-started/quick-start/zh-CN/welcome-page-2.webp)
   </Step>
 
   <Step>
-    在预设模式下，你需要：
-    - 选择受支持的模型提供商。
-    - 创建新的 API Key，或选择之前保存的 API Key。
-    - 选择模型名称。
+    在弹出的浏览器页面，选择适合您的方式登录通行证
 
-    ![填写 API Key](/get-started/quick-start/zh-CN/welcome-page-3.webp)
+    ![登录 Sylinko 通行证](/get-started/quick-start/zh-CN/passport-login.webp)
+  </Step>
+
+  <Step>
+    登录成功后，返回客户端并等待片刻，直到页面上出现您的账号信息
+
+    ![登录通行证成功](/get-started/quick-start/zh-CN/welcome-page-3.webp)
+  </Step>
+
+  <Step>
+    选中 **原生模式**，并点击 **下一步**
+
+    ![选择模型提供商](/get-started/quick-start/zh-CN/welcome-page-4.webp)
+
+    <Callout type="info">
+    除 **原生模式** 外，你也可以通过选中 **预设模式/进阶模式** 手动接入模型提供商，更多请参阅<DynamicLink href="/[lang]/docs/faq">常见问题</DynamicLink>
+    </Callout>
 
     <Callout type="info" title="付费与获取">
     绝大多数模型提供商的 API 都需要付费调用，请确保您已经获取了有效的 API Key 并且账户中有足够的余额。同时，各个提供商面向用户的订阅和 API 服务是分开计费的，并不意味着您订阅了某个服务就可以免费使用其 API。
 
     可以参考<DynamicLink href="/[lang]/docs/model-provider">模型提供商</DynamicLink>部分，了解如何获取各模型提供商的 API Key。
     </Callout>
-
-    <Callout type="warning" title="网络环境">
-    对于包括 OpenAI 在内的境外模型提供商，您可能无法直接访问其 API 服务。如果您在验证 API Key 时遇到网络错误，请尝试使用其他模型或设置代理、中转服务。
-    </Callout>
-
-    <Callout type="warning" title="隐私">
-    请注意，API 密钥是敏感信息，请不要将其泄露给任何人或在公共场合分享。
-    </Callout>
   </Step>
+
   <Step>
-    配置项填写完成后，请点击 **测试助手可用性** 按钮。如果一切顺利，您将看到彩带动画，可以点击 **下一步** 了：
+    在模型列表中选择您感兴趣的模型，并点击页面下方的 **测试助手可用性**
 
-    ![验证成功](/get-started/quick-start/zh-CN/welcome-page-4.webp)
+    ![选择模型](/get-started/quick-start/zh-CN/welcome-page-5.webp)
   </Step>
+
+  <Step>
+    如果一切顺利，您将看到彩带动画，可以点击 **下一步** 了：
+
+    ![验证成功](/get-started/quick-start/zh-CN/welcome-page-6.webp)
+  </Step>
+  
   <Step>
     您可以根据需要修改默认快捷键（`Ctrl + Shift + E` 或 `Cmd + Shift + E`）来呼出 Everywhere：
 
-    ![设置快捷键](/get-started/quick-start/zh-CN/welcome-page-5.webp)
+    ![设置快捷键](/get-started/quick-start/zh-CN/welcome-page-7.webp)
 
     <Callout type="info" title="Copilot 键">
     对于 Windows 用户，如果您的键盘上有`Copilot`键，可以将其作为快捷键。
@@ -79,7 +81,7 @@ import { Image } from 'next/image';
   <Step>
     您可以选择加入用户体验计划，帮助我们改进 Everywhere：
 
-    ![遥测选项](/get-started/quick-start/zh-CN/welcome-page-6.webp)
+    ![遥测选项](/get-started/quick-start/zh-CN/welcome-page-8.webp)
 
     <Callout type="warning" title="隐私">
     Everywhere 非常重视用户隐私，遥测数据均为匿名且不可识别个人身份的信息，当然也不包含 API Key 等敏感信息。您可以选择 **不加入** 来最大限度地保护隐私。
