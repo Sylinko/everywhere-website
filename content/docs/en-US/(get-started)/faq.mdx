@@ -81,3 +81,7 @@ If you press the hotkey but don't see the **Everywhere** floating window, there 
     * **Solution**: Try changing the hotkey in **Everywhere**'s `Chat Settings` and try again.
 2. **Administrator Permissions**: When you are active in a window running with administrator privileges (e.g., Task Manager, some installers), **Everywhere** also needs to run with administrator privileges to display on top of that window. This is due to Windows' User Account Control (UAC) mechanism, which uses "Integrity Levels" to isolate programs with different permissions, preventing lower-privilege applications from controlling higher-privilege ones.
     * **Solution**: In **Everywhere**'s `General Settings`, click the `Restart as Administrator` button and try again.
+
+### Why can't the PowerShell tool automatically approve?
+
+For security reasons, the PowerShell tool in **Everywhere** does not automatically approve permission requests. You need to manually approve each time the AI needs to use the PowerShell tool.
