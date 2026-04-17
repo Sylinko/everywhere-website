@@ -8,7 +8,7 @@ import { Table } from "@/components/common/table"
 import { PermissionBadge } from '@/components/common/permissions';
 
 <Callout type="error" title="Security">
-Enabling this plugin allows the assistant to execute powerful system commands, which can have **significant impacts** on your system. Please ensure you have made adequate backups before allowing it to perform any actions.
+Enabling this tool allows the assistant to execute powerful system commands, which can have **significant impacts** on your system. Please ensure you have made adequate backups before allowing it to perform any actions.
 </Callout>
 
 ## Functions
@@ -36,3 +36,7 @@ Enabling this plugin allows the assistant to execute powerful system commands, w
     </tr>
   </tbody>
 </Table>
+
+## Notes
+
+For security reasons, Everywhere does not allow automatic approval of PowerShell script execution. Whenever the assistant attempts to execute a script, you will need to manually approve the action. Please carefully review each request to ensure they come from a trusted source and do not pose a risk to your system.

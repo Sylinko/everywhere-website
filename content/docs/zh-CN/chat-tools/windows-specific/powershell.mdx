@@ -8,7 +8,7 @@ import { Table } from "@/components/common/table"
 import { PermissionBadge } from '@/components/common/permissions';
 
 <Callout type="error" title="安全性">
-启用该插件后，助手将能够执行强大的系统命令，这可能会对您的系统产生**重大影响**。在允许其执行任何操作前，请确保已做好充分的备份。
+启用该工具后，助手将能够执行强大的系统命令，这可能会对您的系统产生**重大影响**。在允许其执行任何操作前，请确保已做好充分的备份。
 </Callout>
 
 ## 功能
@@ -36,3 +36,7 @@ import { PermissionBadge } from '@/components/common/permissions';
     </tr>
   </tbody>
 </Table>
+
+## 注意
+
+处于安全考虑，Everywhere 不允许 PowerShell 脚本运行的自动批准。每当助手尝试执行脚本时，您都需要手动批准该操作。请务必仔细审查每个请求，以确保它们来自可信的来源并且不会对您的系统造成损害。

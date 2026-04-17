@@ -61,7 +61,7 @@ const i18nText: Record<
       desc: 'Configure and use each supported model provider.',
     },
     'chat-tools': {
-      text: 'Chat Plugins',
+      text: 'Chat Tools',
       desc: 'Allow your assistant to accomplish more complex tasks.',
     },
     support: {
@@ -89,7 +89,7 @@ const i18nText: Record<
       desc: '配置和使用每个支持的模型提供商。',
     },
     'chat-tools': {
-      text: '聊天插件',
+      text: '聊天工具',
       desc: '让您的助手完成更复杂的任务。',
     },
     support: {

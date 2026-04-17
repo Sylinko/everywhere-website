@@ -6,17 +6,17 @@ icon: Album
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
 
-Everywhere supports **built-in plugins** as well as plugins based on the **MCP (Model Context Protocol)**.
+Everywhere supports **built-in** and tools based on the **MCP (Model Context Protocol)**.
 
-## How to Use Built-in Plugins
+## How to Use Built-in Tools
 
-Built-in plugins are distributed with the Everywhere application.
+Built-in tools are distributed with the Everywhere application.
 
-1.  On the **Chat Plugins** page, check the plugins you want to enable.
+1.  On the **Chat Tools** page, check the tools you want to enable.
 
 <HorizontalImg
     src="/chat-tools/index/builtin-en-US.webp"
-    alt="Built-in Plugin List"
+    alt="Built-in Tool List"
     width="450px"
   />
 
@@ -30,16 +30,16 @@ Built-in plugins are distributed with the Everywhere application.
     width="300px"
   />
 
-3.  When your message triggers a plugin's functionality, the model **may attempt** to call the enabled tools to answer your question.
+3.  When your message triggers a tool's functionality, the model **may attempt** to call the enabled tools to answer your question.
 
 <Callout type="warning" title="Limitations">
 Due to the inherent capabilities of the model, tool calling may not always work as expected. For example, the model might choose not to call a tool or may provide incorrect parameters when calling.
 </Callout>
 
-## Contributing Built-in Plugins
+## Contributing Built-in Tools
 
-We welcome developers familiar with C# to contribute more built-in plugins to Everywhere. If you have a great idea or have already implemented a plugin, please share it with us by [submitting a Pull Request](https://github.com/DearVa/Everywhere/pulls).
+We welcome developers familiar with C# to contribute more built-in tools to Everywhere. If you have a great idea or have already implemented a tool, please share it with us by [submitting a Pull Request](https://github.com/DearVa/Everywhere/pulls).
 
-## Future Plugin System
+## Future Tool System
 
-We understand that not everyone is familiar with C# development. Therefore, we plan to introduce a simpler plugin system in the future, allowing more developers and even users with no programming background to easily write and use their own plugins.
+We understand that not everyone is familiar with C# development. Therefore, we plan to introduce a simpler tool system in the future, allowing more developers and even users with no programming background to easily write and use their own tools.
