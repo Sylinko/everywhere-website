@@ -46,7 +46,7 @@ export default async function PricingPage({
       <ModelSupportTable
         title={content.modelSupportTitle}
         models={supportedModels}
-        plans={content.plans}
+        lang={lang}
       />
 
       {/* FAQ Section */}

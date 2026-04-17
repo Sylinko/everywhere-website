@@ -115,7 +115,7 @@ export const pricingContent: Record<
     secondaryPlansTitle: 'Other Options',
     comparisonTitle: 'Feature Comparison',
     comparisonSubtitle: "See what's included in each plan",
-    modelSupportTitle: 'Supported Models',
+    modelSupportTitle: 'Models & Credits',
     faqTitle: 'Frequently Asked Questions',
 
     plans: [
@@ -265,7 +265,7 @@ export const pricingContent: Record<
     secondaryPlansTitle: '更多选择',
     comparisonTitle: '功能对比',
     comparisonSubtitle: '查看每个计划包含的功能',
-    modelSupportTitle: '模型支持',
+    modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
     plans: [
       {

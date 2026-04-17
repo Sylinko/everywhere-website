@@ -4,6 +4,7 @@ import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 import type {
   ModelConfig,
+  ModelPricing,
   ModelProvider,
   ModelSupportItem,
 } from '@/app/[lang]/(home)/pricing/types';
@@ -72,8 +73,15 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
 
       seen.add(key);
 
+      model.pricing.forEach(item => {
+        item.pricing.cachedInput = undefined;
+      });
+
       return {
         model: displayName,
+        pricing: model.pricing,
+        deprecationDate: model.info.deprecationDate || '',
+        inputModalities: model.info.modalities.input,
         company: providerToCompany[model.provider],
         minimumTier: model.availablePlan,
       } satisfies ModelSupportItem;

@@ -27,3 +27,4 @@ next-env.d.ts
 .open-next/
 .wrangler/
 certificates
+app/\[lang]/(home)/pricing/mock.ts

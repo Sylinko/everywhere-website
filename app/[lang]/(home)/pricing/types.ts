@@ -70,6 +70,9 @@ export interface ModelConfig {
 
 export interface ModelSupportItem {
   model: string;
+  pricing: ModelPricing;
+  deprecationDate: string;
+  inputModalities: Modality[];
   company: string;
   minimumTier: Plan;
 }
