@@ -23,8 +23,8 @@
     "model-provider/minimax",
     "model-provider/ollama",
     "---聊天插件---",
-    "chat-plugin/index",
-    "chat-plugin/visual-tree",
-    "chat-plugin/web-browser"
+    "chat-tools/index",
+    "chat-tools/visual-tree",
+    "chat-tools/web-browser"
   ]
 }

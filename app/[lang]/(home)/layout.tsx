@@ -32,7 +32,7 @@ const docsSubNavItems = [
   { key: 'getting-started', icon: Rocket, path: '' },
   { key: 'faq', icon: CircleQuestionMark, path: '/faq' },
   { key: 'model-provider', icon: Sparkles, path: '/model-provider' },
-  { key: 'chat-plugin', icon: PlugIcon, path: '/chat-plugin' },
+  { key: 'chat-tools', icon: PlugIcon, path: '/chat-tools' },
   { key: 'support', icon: HelpCircle, path: '/community/support' },
 ] as const;
 
@@ -60,7 +60,7 @@ const i18nText: Record<
       text: 'Model Providers',
       desc: 'Configure and use each supported model provider.',
     },
-    'chat-plugin': {
+    'chat-tools': {
       text: 'Chat Plugins',
       desc: 'Allow your assistant to accomplish more complex tasks.',
     },
@@ -88,7 +88,7 @@ const i18nText: Record<
       text: '模型提供商',
       desc: '配置和使用每个支持的模型提供商。',
     },
-    'chat-plugin': {
+    'chat-tools': {
       text: '聊天插件',
       desc: '让您的助手完成更复杂的任务。',
     },
