@@ -111,34 +111,35 @@ export const CoreTeamCard: React.FC<CoreTeamCardProps> = ({
     <div
       className={cn(
         cardVariants(),
-        'flex flex-col items-center justify-center text-center',
+        'flex flex-row items-center gap-4',
         className
       )}
     >
-      <div className="relative mt-3 size-16 overflow-hidden rounded-full">
+      <div className="relative size-18 shrink-0 overflow-hidden rounded-full">
         {displayAvatar && (
           <AvatarImage src={displayAvatar} alt={displayName || 'User'} />
         )}
       </div>
 
-      <div className="flex flex-col">
-        <h3 className="mt-4 mb-1 text-lg font-semibold">{displayName}</h3>
-        <p className="text-fd-muted-foreground text-sm">{role}</p>
-      </div>
-
-      <div className="mb-6 flex items-center gap-4">
-        {links.map((link, idx) => (
-          <Link
-            key={idx}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={link.label}
-          >
-            {link.icon}
-          </Link>
-        ))}
+      <div className="flex min-w-0 flex-col gap-2">
+        <div className="flex flex-col items-baseline">
+          <p className="truncate text-lg font-semibold mt-0 mb-0">{displayName}</p>
+          <p className="text-fd-muted-foreground truncate text-xs mt-0 mb-1">{role}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {links.map((link, idx) => (
+            <Link
+              key={idx}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={link.label}
+            >
+              {link.icon}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

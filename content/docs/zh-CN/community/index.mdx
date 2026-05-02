@@ -12,7 +12,7 @@ export const coreMembers = [
   {
     github: 'DearVa',
     name: 'Dear.Va',
-    role: '核心开发',
+    role: '核心软件架构',
     links: [
       { icon: GithubIcon, href: 'https://github.com/DearVa' },
       { icon: BilibiliIcon, href: 'https://space.bilibili.com/12879829' },
@@ -21,16 +21,25 @@ export const coreMembers = [
   {
     github: 'AuroraZiling',
     name: 'Artemis Li',
-    role: '产品运营',
+    role: '产品开发与运营',
     links: [
       { icon: GithubIcon, href: 'https://github.com/AuroraZiling' },
       { icon: BilibiliIcon, href: 'https://space.bilibili.com/222204281' },
     ]
   },
   {
+    github: 'TheNotoBarth',
+    name: 'NotoBarth',
+    role: '社区与运营',
+    links: [
+      { icon: GithubIcon, href: 'https://github.com/TheNotoBarth' },
+      { icon: BilibiliIcon, href: 'https://space.bilibili.com/1304979676' },
+    ]
+  },
+  {
     github: 'feast107',
     name: 'Feast',
-    role: '全栈开发',
+    role: '云系统开发',
     links: [
       { icon: GithubIcon, href: 'https://github.com/feast107' },
       { icon: BilibiliIcon, href: 'https://space.bilibili.com/12637648' },
@@ -42,7 +51,7 @@ export const coreMembers = [
 
 ## 核心团队
 
-<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
   {coreMembers.map((member) => (
     <CoreTeamCard key={member.github} {...member} />
   ))}
