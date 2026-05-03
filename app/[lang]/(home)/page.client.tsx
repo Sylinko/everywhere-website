@@ -232,7 +232,7 @@ export function FeatureSection({
                 >
                   <Icon className="size-6" />
                 </div>
-                <h1 className="mb-2 text-xl font-semibold">{item.title}</h1>
+                <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
               </div>
             </div>
@@ -269,13 +269,13 @@ export function ModelProviderSection({
         <div
           className={cn(cardVariants(), 'flex flex-col justify-center pr-12')}
         >
-          <h1
+          <h2
             className={cn(
               headingVariants({ variant: 'h3', className: 'mb-3' })
             )}
           >
             {title}
-          </h1>
+          </h2>
           <p className="text-muted-foreground text-lg">{description}</p>
           <DynamicLink
             href="/[lang]/docs/model-provider"
@@ -425,13 +425,13 @@ export function SponsorsSection({
             'bg-muted/5 flex flex-col justify-center rounded-2xl border p-8'
           )}
         >
-          <h1
+          <h2
             className={cn(
               headingVariants({ variant: 'h3', className: 'mb-3' })
             )}
           >
             {title}
-          </h1>
+          </h2>
           <p className="text-muted-foreground text-lg">{description}</p>
         </div>
       </div>
@@ -477,9 +477,9 @@ export function BoundlessSection({
               <span className="text-brand text-sm font-semibold tracking-widest uppercase">
                 {item.label}
               </span>
-              <h1 className={cn(headingVariants({ variant: 'h3' }))}>
+              <h3 className={cn(headingVariants({ variant: 'h3' }))}>
                 {item.title}
-              </h1>
+              </h3>
               <p className="text-muted-foreground text-md leading-relaxed">
                 {item.desc}
               </p>
