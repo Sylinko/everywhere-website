@@ -1,7 +1,7 @@
 import { policySource } from '@/lib/source';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
-import { createMetadata } from '@/lib/metadata';
+import { createMetadata, absoluteUrl } from '@/lib/metadata';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -10,6 +10,7 @@ import {
   DocsTitle,
   PageLastUpdate,
 } from 'fumadocs-ui/page';
+import { breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 
 export default async function Page(props: {
   params: Promise<{ lang: string; slug?: string[] }>;
@@ -20,6 +21,13 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
   const lastModifiedTime = page.data.lastModified;
+  const pageUrl = absoluteUrl(`/${lang}/policies/${page.slugs.join('/')}`);
+
+  const breadcrumbItems = [
+    { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+    { name: lang === 'zh-CN' ? '政策' : 'Policies', url: absoluteUrl(`/${lang}/policies`) },
+    { name: page.data.title, url: pageUrl },
+  ];
 
   return (
     <DocsPage
@@ -30,6 +38,8 @@ export default async function Page(props: {
         enabled: !page.data.full,
       }}
     >
+      <JsonLdScript data={breadcrumbSchema(breadcrumbItems)} />
+
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
@@ -52,9 +62,12 @@ export async function generateMetadata(props: {
   const page = policySource.getPage(slug, lang);
   if (!page) notFound();
 
+  const pageUrl = absoluteUrl(`/${lang}/policies/${page.slugs.join('/')}`);
+
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
+    canonical: pageUrl,
   });
 }
 

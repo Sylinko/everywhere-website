@@ -111,8 +111,8 @@ const contentMap = {
   'zh-CN': {
     // Hero
     badges: ['感知', '交互', '灵活'],
-    title: '随时随地，智能相伴',
-    subtitle: '你的桌面助手:',
+    title: '呼之即来，智能相伴',
+    subtitle: '你的桌面 AI 助手:',
     highlight: 'Everywhere',
     getStarted: '快速开始',
     download: '下载',
@@ -285,7 +285,7 @@ export default async function Page({
             {content.title}
             <br />
             {content.subtitle}{' '}
-            <span className="text-brand">{content.highlight}</span>.
+            <span className="text-brand">{content.highlight}</span>
           </h1>
           <div className="flex w-fit flex-row flex-wrap items-center justify-center gap-4">
             <DynamicLink

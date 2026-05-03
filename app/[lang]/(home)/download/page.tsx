@@ -13,6 +13,8 @@ import {
   LinuxIcon,
   GithubIcon,
 } from '@/components/common/icons';
+import { absoluteUrl } from '@/lib/metadata';
+import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 
 const contentMap = {
   'en-US': {
@@ -141,9 +143,20 @@ export async function generateMetadata({
   const { lang } = await params;
   const content =
     contentMap[lang as keyof typeof contentMap] || contentMap['en-US'];
+  const pageUrl = absoluteUrl(`/${lang}/download`);
   return {
     title: content.title,
-    description: content.windows.desc,
+    description: lang === 'zh-CN'
+      ? '下载 Everywhere — 获取你的通用 AI 智能体。随处感知情境，即刻提供协助。支持 Windows 和 macOS。'
+      : 'Download Everywhere — Get your Universal AI Agent. Context-aware assistance, delivered instantly. Supporting Windows and macOS.',
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: content.title,
+      url: pageUrl,
+      type: 'website',
+    },
   };
 }
 
@@ -182,6 +195,13 @@ export default async function Page({
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark min-h-[calc(100vh-4rem)] pt-24">
+      <JsonLdScript data={softwareApplicationSchema(lang)} />
+      <JsonLdScript
+        data={breadcrumbSchema([
+          { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+          { name: content.title, url: absoluteUrl(`/${lang}/download`) },
+        ])}
+      />
       <div className="mx-auto max-w-300 px-6">
         {/* Hero Section */}
         <div className="mb-24 flex flex-col items-center text-center">

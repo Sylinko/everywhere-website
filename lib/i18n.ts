@@ -6,6 +6,11 @@ export const i18n: I18nConfig = {
   parser: 'dir',
 };
 
+export const i18nLocaleToPathPrefix: Record<string, string> = {
+  'en-US': '/en-US',
+  'zh-CN': '/zh-CN',
+};
+
 export function getLocalePath(lang: string, path = ''): string {
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   return cleanPath ? `/${lang}/${cleanPath}` : `/${lang}`;

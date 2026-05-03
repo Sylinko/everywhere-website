@@ -13,9 +13,16 @@ import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/page-actions';
 import { onRateAction } from '@/lib/github';
+import { absoluteUrl } from '@/lib/metadata';
+import { i18n } from '@/lib/i18n';
+import {
+  articleSchema,
+  breadcrumbSchema,
+  JsonLdScript,
+} from '@/lib/json-ld';
 
 const owner = 'Sylinko';
-const repo = 'everywhere-docs';
+const repo = 'everywhere-website';
 const branch = 'master';
 
 export default async function Page(props: {
@@ -27,6 +34,15 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
   const lastModifiedTime = page.data.lastModified;
+  const pageUrl = absoluteUrl(`/${lang}/docs/${page.slugs.join('/')}`);
+
+  const breadcrumbItems = [
+    { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+    { name: lang === 'zh-CN' ? '文档' : 'Docs', url: absoluteUrl(`/${lang}/docs`) },
+    { name: page.data.title, url: pageUrl }
+  ];
+
+  const ogImage = getPageImage(page).url;
 
   return (
     <DocsPage
@@ -37,6 +53,23 @@ export default async function Page(props: {
         enabled: !page.data.full,
       }}
     >
+      <JsonLdScript
+        data={articleSchema({
+          title: page.data.title,
+          description: page.data.description,
+          url: pageUrl,
+          datePublished: lastModifiedTime
+            ? new Date(lastModifiedTime).toISOString()
+            : undefined,
+          dateModified: lastModifiedTime
+            ? new Date(lastModifiedTime).toISOString()
+            : undefined,
+          imageUrl: absoluteUrl(ogImage),
+          lang,
+        })}
+      />
+      <JsonLdScript data={breadcrumbSchema(breadcrumbItems)} />
+
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-2">
         {page.data.description}
@@ -80,9 +113,40 @@ export async function generateMetadata(props: {
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  return {
+  const pageUrl = absoluteUrl(`/${lang}/docs/${page.slugs.join('/')}`);
+  const ogImage = getPageImage(page).url;
+  const slugPath = page.slugs.join('/');
+
+  // Build hreflang alternates for all available languages
+  const languageAlternates: Record<string, string> = {};
+  for (const l of i18n.languages) {
+    const altPage = source.getPage(slug, l);
+    if (altPage) {
+      languageAlternates[l] = absoluteUrl(`/${l}/docs/${slugPath}`);
+    }
+  }
+
+  const metadata: Metadata = {
     title: page.data.title,
     description: page.data.description,
-    openGraph: { images: getPageImage(page).url },
+    openGraph: {
+      images: ogImage,
+      title: page.data.title,
+      description: page.data.description,
+      url: pageUrl,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: ogImage,
+    },
+    alternates: {
+      canonical: pageUrl,
+      languages: Object.keys(languageAlternates).length > 0
+        ? languageAlternates
+        : undefined,
+    },
   };
+
+  return metadata;
 }

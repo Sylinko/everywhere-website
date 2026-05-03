@@ -1,6 +1,7 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Viewport, Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
+import { organizationSchema, websiteSchema, JsonLdScript } from '@/lib/json-ld';
 import './global.css';
 
 const notoSans = Noto_Sans({
@@ -28,6 +29,8 @@ export default function Layout({ children }: LayoutProps<'/'>) {
     <html lang="en" suppressHydrationWarning className={notoSans.className}>
       <head>
         <meta charSet="utf-8" />
+        <JsonLdScript data={organizationSchema()} />
+        <JsonLdScript data={websiteSchema()} />
       </head>
       <body>
         <RootProvider>{children}</RootProvider>

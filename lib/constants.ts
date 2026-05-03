@@ -19,3 +19,17 @@ export const DownloadLinks = {
 } as const;
 
 export const AccountUrl = "https://account.sylinko.com";
+
+// ── Sitemap configuration ────────────────────────────────────────────────
+
+export interface StaticPageConfig {
+  path: string;
+  priority: number;
+  changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+}
+
+/** Marketing / product pages that live outside the docs tree. */
+export const staticPages: StaticPageConfig[] = [
+  { path: 'download', priority: 0.9, changeFrequency: 'weekly' },
+  { path: 'pricing', priority: 0.8, changeFrequency: 'weekly' },
+];

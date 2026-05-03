@@ -3,6 +3,7 @@ import { source } from '@/lib/source';
 import { i18n } from '@/lib/i18n';
 import { baseUrl } from '@/lib/metadata';
 import { getLocalePath } from '@/lib/i18n';
+import { staticPages } from '@/lib/constants';
 
 /**
  * Generate sitemap with:
@@ -120,6 +121,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       });
     }
+  }
+
+  for (const { path, priority, changeFrequency } of staticPages) {
+    entries.push({
+      url: `${url}${getLocalePath(i18n.defaultLanguage, path)}`,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: generateAlternates(i18n.languages, path),
+      },
+    });
   }
 
   return entries;

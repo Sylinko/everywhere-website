@@ -4,8 +4,9 @@ import { Provider } from '@/components/provider';
 import { siteName } from '@/lib/metadata';
 import '../global.css';
 import type { Metadata } from 'next';
-import { createMetadata, baseUrl } from '@/lib/metadata';
+import { createMetadata, baseUrl, absoluteUrl } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
+import { softwareApplicationSchema, JsonLdScript } from '@/lib/json-ld';
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
@@ -32,16 +33,16 @@ const titleMap: Record<
   { default: string; template: string; description: string }
 > = {
   'en-US': {
-    default: 'Every moment, Every place. Your AI: Everywhere',
+    default: 'Everywhere — AI Assistant that flows with your desktop.',
     template: '%s | Everywhere',
     description:
-      'Liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
+      'Everywhere is an intuitive AI assistant designed to work alongside you. It intelligently grasps your on-screen context and assists you instantly with a single shortcut, staying out of your way until called.',
   },
   'zh-CN': {
-    default: 'Everywhere - 随时随地，智能相伴',
+    default: 'Everywhere — 你的通用智能体，一键呼出的桌面 AI 助手',
     template: '%s | Everywhere',
     description:
-      '将 AI 从浏览器标签页和独立应用中解放出来，使其成为您操作系统中无处不在的原生能力。',
+      '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',
   },
 };
 
@@ -76,6 +77,7 @@ export async function generateMetadata({
     ],
     authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
     creator: 'Sylinko',
+    canonical: absoluteUrl(`/${lang}`),
     alternates: {
       languages: {
         en: '/en-US',
@@ -117,6 +119,7 @@ export default async function RootLayout({
 
   return (
     <Provider i18n={provider(lang)} lang={lang}>
+      <JsonLdScript data={softwareApplicationSchema(lang)} />
       {children}
     </Provider>
   );
