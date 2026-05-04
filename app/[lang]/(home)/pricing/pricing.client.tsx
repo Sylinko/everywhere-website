@@ -44,7 +44,7 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
       )}
     >
       {/* Badge */}
-      {plan.badge && (
+      {plan.badge && plan.badgeVariant !== 'green' && (
         <div className="bg-brand text-brand-foreground absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-sm font-medium">
           {plan.badge}
         </div>
@@ -75,17 +75,26 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
       </ul>
 
       {/* CTA */}
-      <Link
-        href={`${AccountUrl}/sign-in?intent=everywhere`}
-        className={cn(
-          buttonVariants({
-            size: 'lg',
-          }),
-          'w-full'
+      <div className="relative">
+        {plan.badge && plan.badgeVariant === 'green' && (
+          <div className="bg-emerald-700 text-white absolute -top-2.5 -right-2.5 z-10 rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm">
+            {plan.badge}
+          </div>
         )}
-      >
-        {plan.cta}
-      </Link>
+        <Link
+          href={`${AccountUrl}/sign-in?intent=everywhere`}
+          className={cn(
+            buttonVariants({
+              size: 'lg',
+              variant: 'secondary'
+            }),
+            'w-full',
+            'rounded-xl'
+          )}
+        >
+          {plan.cta}
+        </Link>
+      </div>
     </div>
   );
 }

@@ -25,6 +25,7 @@ export type PricingPlan = {
   cta: string;
   highlighted?: boolean;
   badge?: string;
+  badgeVariant?: 'brand' | 'green';
   features: string[];
 };
 
@@ -126,7 +127,9 @@ export const pricingContent: Record<
           'Explore Everywhere. Perfect for light use and exploring the basics.',
         price: planData.starter.price,
         period: '/month',
-        cta: 'Free Trial',
+        cta: 'Subscribe Now',
+        badge: 'Free Trial 7 Days',
+        badgeVariant: 'green',
         features: [
           `${planData.starter.credits} credits per month`,
           'Basic Model Access',
@@ -225,11 +228,6 @@ export const pricingContent: Record<
 
     faq: [
       {
-        question: 'What are the limitations of Message Cloud Sync?',
-        answer:
-          'The Message Cloud Sync feature allows you to access your chat history across devices. Currently, it does not include files or image attachments, but this functionality is planned for future versions.',
-      },
-      {
         question: 'What is the refund policy?',
         answer:
           'If you are within 30 days of subscribing and have not consumed any credits, you can request a full refund. If you have usage records, refunds will be evaluated on a case-by-case basis. Please refer to the refund policy at the bottom of the page for more details.',
@@ -274,7 +272,9 @@ export const pricingContent: Record<
         description: '随处探索。适合轻度使用、测试与基础体验。',
         price: planData.starter.price,
         period: '/月',
-        cta: '免费试用',
+        cta: '立即订阅',
+        badge: '免费试用 7 天',
+        badgeVariant: 'green',
         features: [
           `每月 ${planData.starter.credits} 积分`,
           '基础模型权限',
@@ -370,11 +370,6 @@ export const pricingContent: Record<
     },
 
     faq: [
-      {
-        question: '消息云同步有哪些限制？',
-        answer:
-          '消息云同步功能允许您跨设备访问聊天历史，目前不包含文件或图片附件，计划在未来版本中添加该功能。',
-      },
       {
         question: '退款政策是什么？',
         answer:
