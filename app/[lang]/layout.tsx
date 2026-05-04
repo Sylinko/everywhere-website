@@ -36,7 +36,7 @@ const titleMap: Record<
     default: 'Everywhere — AI Assistant that flows with your desktop.',
     template: '%s | Everywhere',
     description:
-      'Everywhere is an intuitive AI assistant designed to work alongside you. It intelligently grasps your on-screen context and assists you instantly with a single shortcut, staying out of your way until called.',
+      'Everywhere is an intuitive AI that works alongside you. It grasps your screen context and assists instantly via shortcut, hidden until needed.',
   },
   'zh-CN': {
     default: 'Everywhere — 你的通用智能体，一键呼出的桌面 AI 助手',
