@@ -3,7 +3,6 @@ import { getSupportedModels } from '@/lib/pricing-models';
 import {
   PricingHeader,
   PrimaryPlansSection,
-  SecondaryPlansSection,
   ModelSupportTable,
   FAQSection,
 } from './pricing.client';
@@ -61,17 +60,11 @@ export default async function PricingPage({
         subtitle={content.pageSubtitle}
       />
 
-      {/* Primary Plans - 3 columns */}
+      {/* Primary Plans - 4 columns */}
       <PrimaryPlansSection
         plans={content.plans}
+        taxNote={content.taxNote}
         title={content.primaryPlansTitle}
-        lang={lang}
-      />
-
-      {/* Secondary Plans - 2 columns (Free & BYOK) */}
-      <SecondaryPlansSection
-        plans={content.secondaryPlans}
-        title={content.secondaryPlansTitle}
         lang={lang}
       />
 

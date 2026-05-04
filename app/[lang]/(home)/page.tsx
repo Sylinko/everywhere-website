@@ -1,7 +1,7 @@
-import { BookOpen, Download, BookText } from 'lucide-react';
+import { BookOpen, BookText } from 'lucide-react';
 import {
   Hero,
-  FeatureSection,
+  KeyConceptsSection,
   ModelProviderSection,
   SponsorsSection,
   BoundlessSection,
@@ -9,6 +9,7 @@ import {
 } from './page.client';
 import { i18n } from '@/lib/i18n';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import { HeroDownloadButton } from './hero-download-button';
 import {
   AnthropicClaudeIcon,
   DeepSeekIcon,
@@ -43,29 +44,51 @@ const contentMap = {
         of AI with your current tasks.
       </>
     ),
-    // Features
-    features: [
+    // Key Concepts
+    keyConceptsTitle: 'Engineering Your Flow State',
+    keyConceptsSubtitle:
+      'Built on context awareness, delivering an uninterrupted thinking experience.',
+    keyConceptsBadges: [
       {
-        title: 'Screen Context Awareness',
-        desc: 'Recognizes on-screen text and UI logic to precisely understand your work context. Get instant assistance based on what you see, eliminating the friction of manual input.',
+        href: 'https://trendshift.io/repositories/15106',
+        src: 'https://trendshift.io/api/badge/repositories/15106',
+        darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
+        alt: 'DearVa/Everywhere | Trendshift',
       },
       {
-        title: 'Versatile Productivity',
-        desc: 'From information intake to content output, it covers your entire workflow for work and study, transforming tedious tasks into simple, efficient actions.',
+        href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
+        src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=light&t=1762403775174',
+        darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=dark&t=1762403775174',
+        alt: 'Product Hunt',
       },
       {
-        title: 'Seamless Native Integration',
-        desc: 'Built for native desktop environments. Bring it up instantly via global hotkeys to interact over any application, eliminating window switching and blending AI into your natural workflow.',
+        href: 'https://hellogithub.com/repository/DearVa/Everywhere',
+        src: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR2',
+        darkSrc: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR23&theme=dark',
+        alt: 'Featured | HelloGitHub',
+      },
+    ],
+    keyConceptsFeatures: [
+      {
+        icon: 'eye' as const,
+        title: 'Broad Context Awareness',
+        desc: 'We integrate deep accessibility APIs and UI automation to accurately extract structured data across apps with near-zero intrusion.',
       },
       {
-        title: 'Extensible & Powerful',
-        desc: 'Powered by high-performance .NET and Avalonia. Support for leading AI models and full MCP tool compatibility allows you to customize your own specialized AI workstation.',
+        icon: 'zap' as const,
+        title: 'Scenario Invocation & Strategy Engine',
+        desc: 'Skip the copy-paste routine. One shortcut instantly reads your context and pushes tailored AI strategies, keeping you in a flow state.',
+      },
+      {
+        icon: 'shield' as const,
+        title: 'Commitment to Core Quality',
+        desc: "We prioritize rigorous system engineering over rushed development. Every line is meticulously polished for better performance and security.",
       },
     ],
     // Model Providers
     modelProviderTitle: 'Model Providers',
     modelProviderDesc:
-      'Unified access to top-tier models like OpenAI, Claude, Gemini, and more. Switch seamlessly to find the best fit for your needs.',
+      'Reshape your interaction with the power of cutting-edge intelligence.',
     modelProviderLearnMoreDesc: 'Configure',
     // Sponsors
     sponsorsTitle: 'Sponsors',
@@ -103,9 +126,9 @@ const contentMap = {
       },
     ],
     cta: {
-      title: 'Ready to boost your productivity?',
-      desc: 'Experience Everywhere and let AI empower your desktop workflow.',
-      action: 'Get Started',
+      title: 'Never Break Your Rhythm',
+      desc: 'Experience frontier intelligence that moves at the speed of your thoughts. No context switching, just pure flow.',
+      action: 'Get Everywhere',
     },
   },
   'zh-CN': {
@@ -115,7 +138,7 @@ const contentMap = {
     subtitle: '你的桌面 AI 助手:',
     highlight: 'Everywhere',
     getStarted: '快速开始',
-    download: '下载',
+    download: '立即下载',
     docs: '文档',
     description: (
       <>
@@ -127,29 +150,51 @@ const contentMap = {
         <span className="text-brand font-medium">无缝结合</span>。
       </>
     ),
-    // Features
-    features: [
+    // Key Concepts
+    keyConceptsTitle: '构筑你的心流状态',
+    keyConceptsSubtitle:
+      '基于环境感知，专为不间断的思考而生。',
+    keyConceptsBadges: [
       {
-        title: '屏幕内容感知',
-        desc: '识别当前屏幕文字与界面逻辑，精准理解你的工作语境。基于当前所见提供即时辅助，免去手动输入压力。',
+        href: 'https://trendshift.io/repositories/15106',
+        src: 'https://trendshift.io/api/badge/repositories/15106',
+        darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
+        alt: 'DearVa/Everywhere | Trendshift',
       },
       {
-        title: '多场景生产力',
-        desc: '从信息摄取到内容输出，覆盖你的办公与学习需求，让琐碎任务化繁为简。',
+        href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
+        src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=light&t=1762403775174',
+        darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=dark&t=1762403775174',
+        alt: 'Product Hunt',
       },
       {
-        title: '跨平台无缝集成',
-        desc: '专为原生桌面环境打造，通过全局快捷键瞬间唤出，在任何应用上方直接交互，无需在窗口间频繁切换，让 AI 真正融入你的原生工作流。',
+        href: 'https://hellogithub.com/repository/DearVa/Everywhere',
+        src: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR2',
+        darkSrc: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR23&theme=dark',
+        alt: 'Featured | HelloGitHub',
+      },
+    ],
+    keyConceptsFeatures: [
+      {
+        icon: 'eye' as const,
+        title: '智能上下文感知',
+        desc: '我们深度集成底层无障碍 API 与 UI 自动化技术，以近乎零的侵入性，跨应用提取结构化环境数据。',
       },
       {
-        title: '可扩展',
-        desc: '基于高性能 .NET 与 Avalonia 架构开发。不仅支持自由切换主流大模型，更全面兼容 MCP 工具协议，可随心定制专属的 AI 工作站。',
+        icon: 'zap' as const,
+        title: '场景唤醒与策略引擎',
+        desc: '告别繁琐的复制粘贴。一键快捷唤醒，瞬间感知当前上下文并推送对应 AI 执行策略，助你始终保持心流状态。',
+      },
+      {
+        icon: 'shield' as const,
+        title: '坚守核心质量',
+        desc: '我们尊崇严谨的系统工程，拒绝盲目赶工。每一行代码都经过精心打磨，以实现更好的性能表现与系统安全。',
       },
     ],
     // Model Providers
     modelProviderTitle: '主流大模型支持',
     modelProviderDesc:
-      '接入 ChatGPT, Claude, Gemini 等模型。以前沿智能，重塑创作体验。',
+      '以前沿智能，重塑交互体验。',
     modelProviderLearnMoreDesc: '开始配置',
     // Sponsors
     sponsorsTitle: '赞助方',
@@ -187,9 +232,9 @@ const contentMap = {
       },
     ],
     cta: {
-      title: '准备好提升效率了吗？',
-      desc: '立即体验 Everywhere，让 AI 助力您的桌面工作。',
-      action: '快速开始',
+      title: '让灵感，从不间断',
+      desc: '感受与思绪同频的前沿智能。无需跳出当前工作流，尽享沉浸体验。',
+      action: '立即体验 Everywhere',
     },
   },
 };
@@ -288,19 +333,13 @@ export default async function Page({
             <span className="text-brand">{content.highlight}</span>
           </h1>
           <div className="flex w-fit flex-row flex-wrap items-center justify-center gap-4">
+            <HeroDownloadButton label={content.download} lang={lang} />
             <DynamicLink
               href="/[lang]/docs/quick-start"
-              className="bg-brand text-brand-foreground hover:bg-brand-200 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
+              className="bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
             >
               <BookOpen className="size-4" />
               {content.getStarted}
-            </DynamicLink>
-            <DynamicLink
-              href="/[lang]/download"
-              className="bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
-            >
-              <Download className="size-4" />
-              {content.download}
             </DynamicLink>
             <DynamicLink
               href="/[lang]/docs"
@@ -317,7 +356,12 @@ export default async function Page({
           {content.description}
         </p>
 
-        <FeatureSection items={content.features} />
+        <KeyConceptsSection
+          title={content.keyConceptsTitle}
+          subtitle={content.keyConceptsSubtitle}
+          badges={content.keyConceptsBadges}
+          concepts={content.keyConceptsFeatures}
+        />
 
         <ModelProviderSection
           title={content.modelProviderTitle}

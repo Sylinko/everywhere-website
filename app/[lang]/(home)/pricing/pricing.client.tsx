@@ -6,12 +6,11 @@ import {
   cardVariants,
   headingVariants,
 } from '@/components/common/variants';
-import { Check, Gift, Key, ChevronDown, Sparkles, Type, Image, Video, AudioLines, FileText, TriangleAlert, Info, RefreshCw } from 'lucide-react';
+import { Check, ChevronDown, Sparkles, Type, Image, Video, AudioLines, FileText, TriangleAlert, Info, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
-import { type ReactNode, JSX, useState, useRef, useEffect, useCallback } from 'react';
+import { type ReactNode, JSX, useState } from 'react';
 import {
   type PricingPlan,
-  type SecondaryPlan,
   type FAQItem,
   planData,
 } from './pricing-data';
@@ -25,13 +24,16 @@ import {
 } from '@/components/common/icons';
 import { AccountUrl } from '@/lib/constants';
 
-export function PricingCard({ plan }: { plan: PricingPlan }) {
+export function PricingCard({ plan, lang }: { plan: PricingPlan; lang: string }) {
   const isHighlighted = plan.highlighted;
+  const ctaHref = plan.ctaLink
+    ? `/${lang}${plan.ctaLink}`
+    : `${AccountUrl}/sign-in?intent=everywhere`;
 
   return (
     <div
       className={cn(
-        'relative flex flex-col rounded-3xl p-6 transition-all duration-300',
+        'relative flex flex-col rounded-3xl p-5 transition-all duration-300',
         !isHighlighted && 'bg-fd-card border hover:shadow-xl',
         isHighlighted && [
           'shadow-brand/20 scale-[1.04] shadow-lg',
@@ -51,24 +53,20 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
       )}
 
       {/* Header */}
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold">{plan.name}</h3>
-        <p className="text-fd-muted-foreground mt-2 text-sm">
-          {plan.description}
-        </p>
-      </div>
+      <h3 className="text-lg font-semibold text-fd-muted-foreground mb-2">{plan.name}</h3>
 
       {/* Price */}
-      <div className="mb-6 flex items-baseline gap-1">
-        <span className="text-4xl font-bold">{plan.price}</span>
+      <div className="mb-4 flex items-baseline gap-1">
+        <span className="text-3xl font-bold">{plan.price}</span>
         <span className="text-fd-muted-foreground">{plan.period}</span>
       </div>
 
       {/* Features */}
-      <ul className="mb-8 flex-1 space-y-3">
+      <p className="mb-4 text-sm text-fd-muted-foreground">{plan.includes}</p>
+      <ul className="mb-6 flex-1 space-y-2.5">
         {plan.features.map((feature, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <Check className="text-brand mt-0.5 size-5 shrink-0" />
+          <li key={idx} className="flex items-start gap-2.5">
+            <Check className="text-brand mt-0.5 size-4 shrink-0" />
             <span className="text-sm">{feature}</span>
           </li>
         ))}
@@ -82,7 +80,7 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
           </div>
         )}
         <Link
-          href={`${AccountUrl}/sign-in?intent=everywhere`}
+          href={ctaHref}
           className={cn(
             buttonVariants({
               size: 'lg',
@@ -101,10 +99,12 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
 
 export function PrimaryPlansSection({
   plans,
+  taxNote,
   title,
   lang,
 }: {
   plans: PricingPlan[];
+  taxNote: string;
   title: string;
   lang: string;
 }) {
@@ -117,55 +117,8 @@ export function PrimaryPlansSection({
     }
   }
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(() => {
-    const highlightedIdx = plans.findIndex((p) => p.highlighted);
-    return highlightedIdx >= 0 ? highlightedIdx : 0;
-  });
-
-  // Scroll to the highlighted (Plus) card on mobile on mount
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const highlightedIdx = plans.findIndex((p) => p.highlighted);
-    if (highlightedIdx < 0) return;
-    const card = el.children[highlightedIdx] as HTMLElement | undefined;
-    if (card) {
-      const scrollLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
-      el.scrollTo({ left: scrollLeft, behavior: 'instant' });
-    }
-  }, [plans]);
-
-  const scrollToCard = useCallback((idx: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.children[idx] as HTMLElement | undefined;
-    if (card) {
-      const scrollLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
-      el.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-    }
-  }, []);
-
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const center = el.scrollLeft + el.clientWidth / 2;
-    let closest = 0;
-    let minDist = Infinity;
-    for (let i = 0; i < el.children.length; i++) {
-      const child = el.children[i] as HTMLElement;
-      const childCenter = child.offsetLeft + child.clientWidth / 2;
-      const dist = Math.abs(center - childCenter);
-      if (dist < minDist) {
-        minDist = dist;
-        closest = i;
-      }
-    }
-    setActiveIndex(closest);
-  }, []);
-
   return (
-    <section className="mx-auto max-w-300 px-4">
+    <section className="mx-auto max-w-340 px-4">
       <div className="mb-10 text-center">
         <h2 className={cn(headingVariants({ variant: 'h2' }), 'mb-3')}>
           {title}
@@ -178,125 +131,31 @@ export function PrimaryPlansSection({
         )}
       </div>
 
-      {/* Desktop: grid layout */}
-      <div className="hidden gap-6 md:grid md:grid-cols-3">
+      {/* All breakpoints: vertical stack on mobile, 4-column grid on desktop */}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {plans.map((plan, idx) => (
           <div
             key={plan.id}
             className="animate-in fade-in slide-in-from-bottom-8 fill-mode-backwards duration-700"
             style={{ animationDelay: `${idx * 150}ms` }}
           >
-            <PricingCard plan={plan} />
+            <PricingCard plan={plan} lang={lang} />
           </div>
         ))}
       </div>
 
-      {/* Mobile: horizontal scroll-snap carousel */}
-      <div className="relative md:hidden">
-        {/* Left/right gradient fade masks */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-linear-to-r from-fd-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-linear-to-l from-fd-background to-transparent" />
-        <div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pt-5 pb-4"
-        >
-          {plans.map((plan, idx) => (
-            <div
-              key={plan.id}
-              className="w-[70vw] max-w-sm shrink-0 snap-center cursor-pointer"
-              onClick={() => scrollToCard(idx)}
-            >
-              <PricingCard plan={plan} />
-            </div>
-          ))}
-        </div>
-        {/* Dot indicators */}
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {plans.map((_, idx) => (
-            <button
-              key={idx}
-              aria-label={`Go to plan ${idx + 1}`}
-              className={cn(
-                'h-2 rounded-full transition-all duration-300',
-                activeIndex === idx
-                  ? 'bg-brand w-6'
-                  : 'bg-fd-muted-foreground/30 w-2'
-              )}
-              onClick={() => scrollToCard(idx)}
-            />
-          ))}
-        </div>
+      {/* Tax note */}
+      <div className="flex gap-2.5 mt-6">
+        <Info className="mt-0.5 size-4 shrink-0 text-blue-500" />
+        <p className="text-sm text-fd-muted-foreground">
+          {taxNote}
+        </p>
       </div>
     </section>
   );
 }
 
-function SecondaryPlanCard({
-  plan,
-  lang,
-}: {
-  plan: SecondaryPlan;
-  lang: string;
-}) {
-  const IconComponent = plan.icon === 'gift' ? Gift : Key;
 
-  return (
-    <div
-      className={cn(
-        cardVariants(),
-        'flex flex-col gap-4 rounded-3xl md:flex-row md:items-center md:gap-8'
-      )}
-    >
-      {/* Icon */}
-      <div className="bg-fd-muted flex size-16 shrink-0 items-center justify-center rounded-2xl">
-        <IconComponent className="text-brand size-8" />
-      </div>
-
-      {/* Content */}
-      <div className="flex-1">
-        <h3 className="text-xl font-semibold">{plan.title}</h3>
-        <p className="text-fd-muted-foreground mt-1 text-sm">{plan.content}</p>
-      </div>
-
-      {/* CTA */}
-      <Link
-        href={`/${lang}${plan.ctaLink}`}
-        className={cn(
-          buttonVariants({ variant: 'outline', size: 'lg' }),
-          'shrink-0'
-        )}
-      >
-        {plan.cta}
-      </Link>
-    </div>
-  );
-}
-
-export function SecondaryPlansSection({
-  plans,
-  title,
-  lang,
-}: {
-  plans: SecondaryPlan[];
-  title: string;
-  lang: string;
-}) {
-  return (
-    <section className="mx-auto mt-16 max-w-300 px-4">
-      <h2
-        className={cn(headingVariants({ variant: 'h3' }), 'mb-8 text-center')}
-      >
-        {title}
-      </h2>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {plans.map((plan) => (
-          <SecondaryPlanCard key={plan.id} plan={plan} lang={lang} />
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function formatCredits(value: number): string {
   if (value === 0) return '0';

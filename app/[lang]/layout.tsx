@@ -33,7 +33,7 @@ const titleMap: Record<
   { default: string; template: string; description: string; keywords: string[] }
 > = {
   'en-US': {
-    default: 'Everywhere — AI Assistant that flows with your desktop.',
+    default: 'Everywhere - AI Assistant that flows with your desktop.',
     template: '%s | Everywhere',
     description:
       'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
@@ -51,7 +51,7 @@ const titleMap: Record<
     ],
   },
   'zh-CN': {
-    default: 'Everywhere — 你的通用智能体，一键呼出的桌面 AI 助手',
+    default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
     template: '%s | Everywhere',
     description:
       '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',

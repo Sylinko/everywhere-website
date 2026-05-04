@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
 import EverywhereLogo from '@/public/Everywhere.webp';
-import { Monitor, Layers, Laptop, Box, ArrowRight } from 'lucide-react';
+import { Monitor, Layers, Laptop, Box, ArrowRight, Eye, Zap, ShieldCheck } from 'lucide-react';
 import DynamicLink from 'fumadocs-core/dynamic-link';
 
 // Static image imports — sponsor logos
@@ -239,6 +239,94 @@ export function Hero() {
   );
 }
 
+export function KeyConceptsSection({
+  title,
+  subtitle,
+  badges,
+  concepts,
+}: {
+  title: string;
+  subtitle: string;
+  badges: { href: string; src: string; darkSrc?: string; alt: string; }[];
+  concepts: { icon: 'eye' | 'zap' | 'shield'; title: string; desc: string }[];
+}) {
+  const iconMap = {
+    eye: Eye,
+    zap: Zap,
+    shield: ShieldCheck,
+  };
+
+  return (
+    <section className="mx-auto mt-24 max-w-350 px-4">
+      {/* Header */}
+      <div className="mb-10">
+        <h2 className="font-semibold tracking-tight text-zinc-900 md:text-3xl dark:text-white">
+          {title}
+        </h2>
+        <p className="mt-3 text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+          {subtitle}
+        </p>
+
+        {/* Badges */}
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          {badges.map((badge, i) => (
+            <a
+              key={i}
+              href={badge.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {badge.darkSrc ? (
+                <>
+                  <img
+                    src={badge.src}
+                    alt={badge.alt}
+                    className="h-auto dark:hidden"
+                  />
+                  <img
+                    src={badge.darkSrc}
+                    alt={badge.alt}
+                    className="h-auto hidden dark:block"
+                  />
+                </>
+              ) : (
+                <img
+                  src={badge.src}
+                  alt={badge.alt}
+                  className="h-auto hidden dark:block"
+                />
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Concept cards */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {concepts.map((concept, idx) => {
+          const Icon = iconMap[concept.icon];
+          return (
+            <div
+              key={idx}
+              className={cn(cardVariants(), 'flex flex-col bg-muted/5 rounded-2xl border')}
+            >
+              <div className="flex size-10 mb-6 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 dark:bg-white/6 dark:text-zinc-300">
+                <Icon className="size-5" />
+              </div>
+              <h3 className="text-lg mb-2 font-semibold text-zinc-900 dark:text-white">
+                {concept.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                {concept.desc}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function FeatureSection({
   items,
 }: {
@@ -296,23 +384,17 @@ export function ModelProviderSection({
   }[];
   lang: string;
 }) {
-  const numberOfRows = 5;
+  const numberOfRows = 3;
 
   return (
     <section className="mx-auto mt-24 max-w-350 overflow-hidden px-4">
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Left Card: Title & Desc */}
-        <div
-          className={cn(cardVariants(), 'flex flex-col justify-center pr-12')}
-        >
-          <h2
-            className={cn(
-              headingVariants({ variant: 'h3', className: 'mb-3' })
-            )}
-          >
+      <div className="mb-6 flex flex-col gap-6">
+        {/* Top: Title & Desc */}
+        <div className={'flex flex-col bg-muted/5 rounded-2xl'}>
+          <h2 className="font-semibold tracking-tight text-zinc-900 md:text-3xl dark:text-white">
             {title}
           </h2>
-          <p className="text-muted-foreground text-lg">{description}</p>
+          <p className="mt-3 text-base leading-relaxed text-zinc-500 dark:text-zinc-400">{description}</p>
           <DynamicLink
             href="/[lang]/docs/model-provider"
             className={cn(buttonVariants(), 'mt-6 w-fit justify-start')}
@@ -324,8 +406,8 @@ export function ModelProviderSection({
           </DynamicLink>
         </div>
 
-        {/* Right: Carousel */}
-        <div className="bg-background relative flex flex-col justify-center overflow-hidden rounded-2xl border py-8 lg:col-span-2">
+        {/* Bottom: Carousel */}
+        <div className="bg-background relative flex flex-col justify-center overflow-hidden rounded-2xl border py-8">
           <div className="flex flex-col gap-5">
             {Array.from({ length: numberOfRows }).map((_, rowIndex) => {
               const centerIndex = Math.floor(numberOfRows / 2); // 2
@@ -527,8 +609,7 @@ export function BoundlessSection({
               <Image
                 src={showcaseImageMap[lang]?.[item.imgName]}
                 alt={item.title}
-                width={1000}
-                height={550}
+                sizes="600px"
                 className="h-full w-full object-cover"
               />
             </div>

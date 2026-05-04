@@ -12,6 +12,7 @@ const config = {
     remotePatterns: [
       { protocol: 'https', hostname: 'github.com' },
       { protocol: 'https', hostname: 'pic1.afdiancdn.com' },
+      { protocol: 'https', hostname: 'trendshift.io' },
     ],
   },
   async headers() {

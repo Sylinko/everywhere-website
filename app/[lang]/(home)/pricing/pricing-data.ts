@@ -17,25 +17,17 @@ export type FeatureCategory = {
 };
 
 export type PricingPlan = {
-  id: Exclude<Plan, 'free'>;
+  id: Plan;
   name: string;
-  description: string;
   price: string; // Price before discount
   period: string;
+  includes: string;
   cta: string;
+  ctaLink?: string;
   highlighted?: boolean;
   badge?: string;
   badgeVariant?: 'brand' | 'green';
   features: string[];
-};
-
-export type SecondaryPlan = {
-  id: string;
-  title: string;
-  content: string;
-  cta: string;
-  ctaLink: string;
-  icon: 'gift' | 'key';
 };
 
 export type FAQItem = {
@@ -92,15 +84,13 @@ export const pricingContent: Record<
     pageSubtitle: string;
     // Section titles
     primaryPlansTitle: string;
-    secondaryPlansTitle: string;
+    taxNote: string;
     comparisonTitle: string;
     comparisonSubtitle: string;
     modelSupportTitle: string;
     faqTitle: string;
     // Primary plans
     plans: PricingPlan[];
-    // Secondary plans (Free & BYOK)
-    secondaryPlans: SecondaryPlan[];
     // Feature comparison table
     featureCategories: FeatureCategory[];
     featureLabels: Record<string, string>;
@@ -113,7 +103,7 @@ export const pricingContent: Record<
     pageSubtitle:
       'From web pages to documents and every spark of genius in between—there’s a plan designed to keep up with you.',
     primaryPlansTitle: 'Pick Your Perfect Fit',
-    secondaryPlansTitle: 'Other Options',
+    taxNote: 'Final price may vary depending on your location and will be calculated at checkout.',
     comparisonTitle: 'Feature Comparison',
     comparisonSubtitle: "See what's included in each plan",
     modelSupportTitle: 'Models & Credits',
@@ -121,15 +111,29 @@ export const pricingContent: Record<
 
     plans: [
       {
+        id: 'free',
+        name: 'Community',
+        price: 'Free',
+        period: '',
+        cta: 'Download',
+        ctaLink: '/download',
+        includes: "What's included",
+        features: [
+          'All Local Features',
+          'Bring Your Own Key',
+          `limited-time ${planData.freeCredits} free credits`,
+          'Community Support',
+        ],
+      },
+      {
         id: 'starter',
         name: 'Starter',
-        description:
-          'Explore Everywhere. Perfect for light use and exploring the basics.',
         price: planData.starter.price,
         period: '/month',
         cta: 'Subscribe Now',
         badge: 'Free Trial 7 Days',
         badgeVariant: 'green',
+        includes: 'Everything in Community and',
         features: [
           `${planData.starter.credits} credits per month`,
           'Basic Model Access',
@@ -140,13 +144,12 @@ export const pricingContent: Record<
       {
         id: 'plus',
         name: 'Plus',
-        description:
-          'Create Everywhere. Designed to cover the daily needs of knowledge workers.',
         price: planData.plus.price,
         period: '/month',
         cta: 'Subscribe Now',
         highlighted: true,
         badge: 'Recommended',
+        includes: 'Everything in Community and',
         features: [
           `${planData.plus.credits} credits per month`,
           'Popular Model Access',
@@ -157,36 +160,16 @@ export const pricingContent: Record<
       {
         id: 'pro',
         name: 'Pro',
-        description:
-          'Unleash Everywhere. Built for power users with high-intensity demands.',
         price: planData.pro.price,
         period: '/month',
         cta: 'Subscribe Now',
+        includes: 'Everything in Community and',
         features: [
           `${planData.pro.credits} credits per month`,
           'All Model Access',
           'Message Cloud Sync',
           'Priority Support',
         ],
-      },
-    ],
-
-    secondaryPlans: [
-      {
-        id: 'free',
-        title: 'Free',
-        content: `Sign up now and get started with a limited-time ${planData.freeCredits} free credits.`,
-        cta: 'Start for Free',
-        ctaLink: '/download',
-        icon: 'gift',
-      },
-      {
-        id: 'byok',
-        title: 'Bring Your Own Key',
-        content: 'Connect your own model service providers.',
-        cta: 'View Docs',
-        ctaLink: '/docs/model-provider',
-        icon: 'key',
       },
     ],
 
@@ -260,21 +243,36 @@ export const pricingContent: Record<
     pageSubtitle:
       '无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。',
     primaryPlansTitle: '选择您的计划',
-    secondaryPlansTitle: '更多选择',
+    taxNote: '最终价格将在结账时根据您的地址和税法要求自动计算。',
     comparisonTitle: '功能对比',
     comparisonSubtitle: '查看每个计划包含的功能',
     modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
     plans: [
       {
+        id: 'free',
+        name: 'Community',
+        price: '免费',
+        period: '',
+        cta: '立即下载',
+        ctaLink: '/download',
+        includes: '包含',
+        features: [
+          '所有本地功能',
+          '自带密钥 (BYOK)',
+          `限时 ${planData.freeCredits} 免费积分`,
+          '社区支持',
+        ],
+      },
+      {
         id: 'starter',
         name: 'Starter',
-        description: '随处探索。适合轻度使用、测试与基础体验。',
         price: planData.starter.price,
         period: '/月',
         cta: '立即订阅',
         badge: '免费试用 7 天',
         badgeVariant: 'green',
+        includes: '包含社区版的全部功能，以及',
         features: [
           `每月 ${planData.starter.credits} 积分`,
           '基础模型权限',
@@ -285,12 +283,12 @@ export const pricingContent: Record<
       {
         id: 'plus',
         name: 'Plus',
-        description: '随处创造。满足知识工作者的日常需求。',
         price: planData.plus.price,
         period: '/月',
         cta: '立即订阅',
         highlighted: true,
         badge: '推荐',
+        includes: '包含社区版的全部功能，以及',
         features: [
           `每月 ${planData.plus.credits} 积分`,
           '主流模型权限',
@@ -301,35 +299,16 @@ export const pricingContent: Record<
       {
         id: 'pro',
         name: 'Pro',
-        description: '随处施展。为高强度需求的重度用户打造。',
         price: planData.pro.price,
         period: '/月',
         cta: '立即订阅',
+        includes: '包含社区版的全部功能，以及',
         features: [
           `每月 ${planData.pro.credits} 积分`,
           '所有模型权限',
           '消息云同步',
           '优先支持',
         ],
-      },
-    ],
-
-    secondaryPlans: [
-      {
-        id: 'free',
-        title: '免费体验',
-        content: `即刻注册，获取限时免费 ${planData.freeCredits} 积分。`,
-        cta: '立即下载',
-        ctaLink: '/download',
-        icon: 'gift',
-      },
-      {
-        id: 'byok',
-        title: '自带密钥',
-        content: '接入您自有的模型服务提供商。',
-        cta: '查看文档',
-        ctaLink: '/docs/model-provider',
-        icon: 'key',
       },
     ],
 

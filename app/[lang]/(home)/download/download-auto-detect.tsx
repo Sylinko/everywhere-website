@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Download, ChevronDown } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { buttonVariants } from '@/components/common/variants';
 import { cn } from '@/lib/cn';
 import Link from 'next/link';
-import { WindowsIcon, AppleIcon, LinuxIcon } from '@/components/common/icons';
 import { DownloadLinks } from '@/lib/constants';
+import { useDetectOS, platforms, type OSId } from '@/lib/os-detect';
 
 interface Variant {
   name: string;
@@ -15,13 +14,45 @@ interface Variant {
   link: string;
 }
 
-interface OSInfo {
-  id: 'windows' | 'macos' | 'linux';
-  name: string;
-  icon: typeof WindowsIcon | typeof AppleIcon | typeof LinuxIcon;
-  primaryVariant: Variant;
-  otherVariants: Variant[];
-}
+// ── Per-OS variant definitions (extend here when adding a new platform) ──
+
+const osVariants: Record<
+  OSId,
+  { primary: Variant; others: Variant[] }
+> = {
+  windows: {
+    primary: {
+      name: 'Installer',
+      note: '.msi',
+      key: 'installer',
+      link: DownloadLinks.windows.installer,
+    },
+    others: [
+      {
+        name: 'Portable',
+        note: '.zip',
+        key: 'portable',
+        link: DownloadLinks.windows.portable,
+      },
+    ],
+  },
+  macos: {
+    primary: {
+      name: 'Apple Silicon (M Series)',
+      note: '.pkg',
+      key: 'silicon',
+      link: DownloadLinks.macos.silicon,
+    },
+    others: [
+      {
+        name: 'Intel (x64)',
+        note: '.pkg',
+        key: 'intel',
+        link: DownloadLinks.macos.intel,
+      },
+    ],
+  },
+};
 
 export function DownloadAutoDetect({
   dictionary,
@@ -29,100 +60,11 @@ export function DownloadAutoDetect({
   dictionary: {
     downloadFor: string;
     loading: string;
-    otherVersions: string;
-    variants: {
-      windows: { installer: string; portable: string };
-      macos: { silicon: string; intel: string };
-      // linux: { deb: string; rpm: string; aur: string };
-    };
   };
 }) {
-  const [os, setOs] = useState<OSInfo | null>(null);
-  const [showVariants, setShowVariants] = useState(false);
-  const [isDetecting, setIsDetecting] = useState(true);
+  const { os, mounted } = useDetectOS();
 
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const userAgent = window.navigator.userAgent.toLowerCase();
-
-      if (userAgent.indexOf('win') !== -1) {
-        setOs({
-          id: 'windows',
-          name: 'Windows',
-          icon: WindowsIcon,
-          primaryVariant: {
-            name: dictionary.variants.windows.installer,
-            note: '.msi',
-            key: 'installer',
-            link: DownloadLinks.windows.installer,
-          },
-          otherVariants: [
-            {
-              name: dictionary.variants.windows.portable,
-              note: '.zip',
-              key: 'portable',
-              link: DownloadLinks.windows.portable,
-            },
-          ],
-        });
-      } else if (userAgent.indexOf('mac') !== -1) {
-        setOs({
-          id: 'macos',
-          name: 'macOS',
-          icon: AppleIcon,
-          primaryVariant: {
-            name: dictionary.variants.macos.silicon,
-            note: '.pkg',
-            key: 'silicon',
-            link: DownloadLinks.macos.silicon,
-          },
-          otherVariants: [
-            {
-              name: dictionary.variants.macos.intel,
-              note: '.pkg',
-              key: 'intel',
-              link: DownloadLinks.macos.intel,
-            },
-          ],
-        });
-      } /* else if (
-        userAgent.indexOf('linux') !== -1 ||
-        userAgent.indexOf('x11') !== -1
-      ) {
-        const fallbackLink = 'https://github.com/DearVa/Everywhere/releases';
-        setOs({
-          id: 'linux',
-          name: 'Linux',
-          icon: LinuxIcon,
-          primaryVariant: {
-            name: dictionary.variants.linux.deb,
-            note: '.deb',
-            key: 'deb',
-            link: DownloadLinks.linux.deb || fallbackLink,
-          },
-          otherVariants: [
-            {
-              name: dictionary.variants.linux.rpm,
-              note: '.rpm',
-              key: 'rpm',
-              link: DownloadLinks.linux.rpm || fallbackLink,
-            },
-            {
-              name: dictionary.variants.linux.aur,
-              note: 'AUR',
-              key: 'aur',
-              link: DownloadLinks.linux.aur || fallbackLink,
-            },
-          ],
-        });
-      } */
-      setIsDetecting(false);
-    }, 0);
-
-    return () => clearTimeout(t);
-  }, [dictionary.variants]);
-
-  if (isDetecting) {
+  if (!mounted) {
     return (
       <div className="flex h-24 items-center justify-center">
         <span className="text-muted-foreground animate-pulse">
@@ -134,11 +76,14 @@ export function DownloadAutoDetect({
 
   if (!os) return null;
 
+  const platform = platforms[os];
+  const variants = osVariants[os];
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 flex flex-col items-center gap-4 duration-700">
       <div className="flex flex-col items-center gap-2">
         <Link
-          href={os.primaryVariant.link}
+          href={variants.primary.link}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
@@ -146,58 +91,18 @@ export function DownloadAutoDetect({
             'h-14 gap-3 rounded-full px-8 text-lg'
           )}
         >
-          {os.icon}
-          {dictionary.downloadFor.replace('{os}', os.name)}
+          {platform.icon}
+          {dictionary.downloadFor.replace('{os}', platform.name)}
           <Download className="size-5" />
         </Link>
 
         <span className="text-muted-foreground text-sm">
-          {os.primaryVariant.name}{' '}
+          {variants.primary.name}{' '}
           <span className="text-muted-foreground/60">
-            ({os.primaryVariant.note})
+            ({variants.primary.note})
           </span>
         </span>
       </div>
-
-      {os.otherVariants.length > 0 && (
-        <div className="relative z-20 flex flex-col items-center">
-          <button
-            onClick={() => setShowVariants(!showVariants)}
-            className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-sm transition-colors"
-          >
-            {dictionary.otherVersions}
-            <ChevronDown
-              className={cn(
-                'size-4 transition-transform duration-200',
-                showVariants && 'rotate-180'
-              )}
-            />
-          </button>
-
-          {showVariants && (
-            <div className="animate-in fade-in slide-in-from-top-2 bg-background absolute top-8 flex min-w-max flex-col gap-2 rounded-xl border p-3 shadow-lg duration-200">
-              {os.otherVariants.map((variant) => (
-                <Link
-                  key={variant.key}
-                  href={variant.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'justify-between gap-4 rounded-full whitespace-nowrap'
-                  )}
-                >
-                  <span>{variant.name}</span>
-                  <span className="text-muted-foreground flex items-center gap-2 text-xs">
-                    {variant.note}
-                    <Download className="size-3" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

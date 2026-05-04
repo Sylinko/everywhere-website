@@ -10,7 +10,6 @@ import { DynamicLink } from 'fumadocs-core/dynamic-link';
 import {
   WindowsIcon,
   AppleIcon,
-  LinuxIcon,
   GithubIcon,
 } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
@@ -29,18 +28,9 @@ const contentMap = {
     autoDetect: {
       downloadFor: 'Download for {os}',
       loading: 'Detecting your system...',
-      otherVersions: 'Other versions',
-      variants: {
-        windows: { installer: 'Installer', portable: 'Portable' },
-        macos: { silicon: 'Apple Silicon (M Series)', intel: 'Intel (x64)' },
-        // linux: {
-        //   deb: 'Debian / Ubuntu',
-        //   rpm: 'Fedora / RedHat',
-        //   aur: 'Arch Linux',
-        // },
-      },
     },
     comingSoon: 'Coming Soon',
+    allVersions: 'All Versions',
     windows: {
       title: 'Windows',
       desc: 'Requires Windows 10 (19041) or later.',
@@ -87,18 +77,9 @@ const contentMap = {
     autoDetect: {
       downloadFor: '下载 {os} 版本',
       loading: '正在检测您的系统...',
-      otherVersions: '其他版本',
-      variants: {
-        windows: { installer: '安装包', portable: '便携版' },
-        macos: { silicon: 'Apple Silicon (M 系列芯片)', intel: 'Intel (x64)' },
-        // linux: {
-        //   deb: 'Debian / Ubuntu',
-        //   rpm: 'Fedora / RedHat',
-        //   aur: 'Arch Linux',
-        // },
-      },
     },
     comingSoon: '敬请期待',
+    allVersions: '所有版本',
     windows: {
       title: 'Windows',
       desc: '需要 Windows 10 (19041) 或更高版本。',
@@ -234,6 +215,9 @@ export default async function Page({
         </div>
 
         {/* All Platforms Grid */}
+        <h2 className="text-center mb-8 font-semibold text-2xl">
+          {content.allVersions}
+        </h2>
         <div className="mr-50 ml-50 grid grid-cols-1 gap-6 md:grid-cols-2">
           {platforms.map((platform) => (
             <div
