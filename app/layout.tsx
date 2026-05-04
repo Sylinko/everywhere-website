@@ -10,6 +10,12 @@ const notoSans = Noto_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://everywhere.sylinko.com'),
+  title: {
+    default: 'Everywhere - AI Assistant that flows with your desktop.',
+    template: '%s | Everywhere',
+  },
+  description:
+    'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
   other: {
     charset: 'utf-8',
   },
