@@ -2,6 +2,7 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { i18n, getLocalePath } from '../lib/i18n';
 import { GithubIcon, DiscordIcon, QQIcon } from './common/icons';
+import Favicon from '@/public/favicon.ico';
 
 export const linkItems = [
   {
@@ -32,11 +33,10 @@ export const linkItems = [
 
 export const logo = (
   <Image
-    src="/favicon.ico"
-    alt="Everywhere"
-    width={20}
-    height={20}
-    className="size-6"
+    src={Favicon}
+    alt="Everywhere Logo"
+    width={22}
+    height={22}
   />
 );
 

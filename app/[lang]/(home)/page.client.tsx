@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import {
   buttonVariants,
   cardVariants,
@@ -11,8 +11,45 @@ import {
 } from '@/components/common/variants';
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
+import EverywhereLogo from '@/public/Everywhere.webp';
 import { Monitor, Layers, Laptop, Box, ArrowRight } from 'lucide-react';
 import DynamicLink from 'fumadocs-core/dynamic-link';
+
+// Static image imports — sponsor logos
+import sponsor302AiLight from '@/public/sponsors/302-ai-light.svg';
+import sponsor302AiDark from '@/public/sponsors/302-ai-dark.svg';
+import sponsorCertumCn from '@/public/sponsors/certum-cn.svg';
+
+// Static image imports — showcase images
+import showcaseEnContentSummary from '@/public/showcases/en-US/content-summary.webp';
+import showcaseEnDataAnalysis from '@/public/showcases/en-US/data-analysis.webp';
+import showcaseEnErrorAnalysis from '@/public/showcases/en-US/error-analysis.webp';
+import showcaseEnTerminalCalling from '@/public/showcases/en-US/terminal-calling.webp';
+import showcaseZhContentSummary from '@/public/showcases/zh-CN/content-summary.webp';
+import showcaseZhDataAnalysis from '@/public/showcases/zh-CN/data-analysis.webp';
+import showcaseZhErrorAnalysis from '@/public/showcases/zh-CN/error-analysis.webp';
+import showcaseZhTerminalCalling from '@/public/showcases/zh-CN/terminal-calling.webp';
+
+const sponsorImageMap: Record<string, StaticImageData> = {
+  '/sponsors/302-ai-light': sponsor302AiLight,
+  '/sponsors/302-ai-dark': sponsor302AiDark,
+  '/sponsors/certum-cn': sponsorCertumCn,
+};
+
+const showcaseImageMap: Record<string, Record<string, StaticImageData>> = {
+  'en-US': {
+    'content-summary.webp': showcaseEnContentSummary,
+    'data-analysis.webp': showcaseEnDataAnalysis,
+    'error-analysis.webp': showcaseEnErrorAnalysis,
+    'terminal-calling.webp': showcaseEnTerminalCalling,
+  },
+  'zh-CN': {
+    'content-summary.webp': showcaseZhContentSummary,
+    'data-analysis.webp': showcaseZhDataAnalysis,
+    'error-analysis.webp': showcaseZhErrorAnalysis,
+    'terminal-calling.webp': showcaseZhTerminalCalling,
+  },
+};
 
 const FluidMaskedGradient = dynamic(
   () => import('@/components/shader').then((m) => m.FluidMaskedGradient),
@@ -166,11 +203,10 @@ export function Hero() {
           )}
         >
           <Image
-            src="/Everywhere.webp"
+            src={EverywhereLogo}
             alt="logo"
-            width={288}
-            height={288}
-            className="size-32 sm:size-40 md:size-56 lg:size-72"
+            width={256}
+            height={256}
             onLoad={() => setLogoReady(true)}
             priority
             fetchPriority="high"
@@ -393,13 +429,13 @@ export function SponsorsSection({
                 {sponsor.themeDifferentiated ? (
                   <>
                     <Image
-                      src={`${sponsor.iconPath}-light.svg`}
+                      src={sponsorImageMap[`${sponsor.iconPath}-light`]}
                       alt={sponsor.title}
                       fill
                       className="object-contain dark:hidden"
                     />
                     <Image
-                      src={`${sponsor.iconPath}-dark.svg`}
+                      src={sponsorImageMap[`${sponsor.iconPath}-dark`]}
                       alt={sponsor.title}
                       fill
                       className="hidden object-contain dark:block"
@@ -407,7 +443,7 @@ export function SponsorsSection({
                   </>
                 ) : (
                   <Image
-                    src={`${sponsor.iconPath}.svg`}
+                    src={sponsorImageMap[sponsor.iconPath]}
                     alt={sponsor.title}
                     fill
                     className="sponsor-img auto-gray object-contain"
@@ -489,7 +525,7 @@ export function BoundlessSection({
             {/* Image Side - Placeholder */}
             <div className="bg-muted/10 text-muted-foreground/50 group relative flex w-full flex-1 items-center justify-center overflow-hidden rounded-2xl border text-xl font-medium">
               <Image
-                src={`/showcases/${lang}/${item.imgName}`}
+                src={showcaseImageMap[lang]?.[item.imgName]}
                 alt={item.title}
                 width={1000}
                 height={550}

@@ -267,7 +267,7 @@ export default async function Page({
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark pt-4 pb-6 md:pb-12">
-      <div className="relative mx-auto flex max-h-225 min-h-95 w-full max-w-350 overflow-hidden border bg-origin-border min-[1400px]:rounded-2xl md:h-[70vh] md:min-h-150">
+      <div className="relative mx-auto flex max-h-100 min-h-95 w-full max-w-350 overflow-hidden border bg-origin-border min-[1400px]:rounded-2xl md:h-[70vh] md:min-h-150">
         <Hero />
         <div className="z-2 flex size-full flex-col px-4 max-md:items-center max-md:text-center md:p-12">
           <div className="mt-12 flex w-fit flex-row flex-wrap items-center justify-center gap-2">
