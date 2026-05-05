@@ -10,7 +10,7 @@ import {
 } from '@/components/common/icons';
 import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
-import { LicenseRepoUrl } from '@/lib/github';
+import { CookieSettingsButton } from '@/components/consent';
 
 interface FooterProps {
   lang: string;
@@ -387,21 +387,10 @@ export function Footer({ lang }: FooterProps) {
           </div>
         </div>
 
-        {/* Bottom: License, Copyright and Trademark Notice */}
+        {/* Bottom: Cookie Settings & Copyright */}
         <div className="border-fd-border flex flex-col items-center gap-4 border-t pt-8">
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-fd-muted-foreground text-xs">
-              {t.license.prefix}
-              <Link
-                href={LicenseRepoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-fd-foreground decoration-fd-muted-foreground/50 hover:decoration-fd-foreground underline transition-colors"
-              >
-                {t.license.linkText}
-              </Link>
-              {t.license.suffix}
-            </p>
+            <CookieSettingsButton />
             <p className="text-fd-muted-foreground text-xs">
               {t.copyright.prefix}
               {new Date().getFullYear()}
