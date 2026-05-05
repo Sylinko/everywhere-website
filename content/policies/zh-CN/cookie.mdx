@@ -6,6 +6,12 @@ title: Cookie 政策
 2026年1月27日
 </Callout>
 
+<Callout type="warning" title="与上一版本的变化">
+2026年5月5日更新: 
+- 新增了对 **Google Analytics** 的说明，明确我们使用 Google Analytics 进行匿名网站流量分析。
+- 我们采用了基于 Cloudflare Zaraz 的**同意管理平台**。当您首次访问本站时，除‘绝对必要’的 Cookie 外，所有分析和性能技术（如 Google Analytics）均处于停用状态。您必须在同意横幅中接受，我们才会加载这些分析工具。
+</Callout>
+
 ## 1. Introduction
 
 This Cookie Policy explains how **Sylinko Inc.** ("we," "us," and "our") uses cookies and similar technologies (such as local storage and web beacons) when you visit our websites, including our **Documentation Site** and **Sylinko Passport** (collectively, the "Websites").
@@ -45,6 +51,7 @@ These cookies are essential for the Websites to function properly. You cannot sw
 | `__Secure-sylinko_passport.state`         | Sylinko Passport | **Authentication.** Used to prevent CSRF attacks during the login process.                                                  |
 | `better-auth.last_used_login_method`      | Sylinko Passport | **Authentication.** Remembers the last login method you used (e.g., email, Google, GitHub) for a smoother login experience. |
 | `cf_clearance` / `cf_uvid`                | Cloudflare       | **Security.** Used by Cloudflare Turnstile to verify that you are a human and not a bot.                                    |
+| `cf_consent`                              | Cloudflare       | **Consent Management.** Used by Cloudflare Zaraz to manage your cookie consent preferences.                                 |
 
 ### 4.2. Functional Cookies (Preferences)
 
@@ -59,9 +66,10 @@ These technologies enable the website to provide enhanced functionality and pers
 
 These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.
 
-| Cookie Name           | Provider | Purpose                                                                                                                      |
-| --------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `sentryReplaySession` | Sentry   | **Error Tracking.** Helps us identify unique user sessions when an application error occurs, allowing us to fix bugs faster. |
+| Cookie Name                 | Provider         | Purpose                                                                                                                      |
+| --------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `sentryReplaySession`       | Sentry           | **Error Tracking.** Helps us identify unique user sessions when an application error occurs, allowing us to fix bugs faster. |
+| `_ga`, `_ga_<container-id>` | Google Analytics | **Analytics.** Anonymous tracking cookies used to distinguish users and analyze website traffic patterns.                    |
 
 ## 5. Third-Party Services
 
@@ -72,11 +80,13 @@ In addition to our own cookies, we use trusted third-party services that may ver
   * We use Cloudflare Turnstile for security. This service sets cookies to distinguish between humans and bots.
   * We also use Cloudflare Web Analytics for anonymous website traffic analysis.
 * **Sentry:** We use Sentry for anonymous error tracking and performance monitoring. (See [Sentry Privacy Policy](https://sentry.io/privacy/))
+* **Google Analytics:** We use Google Analytics for anonymous website traffic analysis. (See [Google Privacy Policy](https://policies.google.com/privacy))
 
 ## 6. Managing Your Cookie Preferences
 
-You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your browser controls.
+You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the Cookie Consent Manager or through your browser settings. Here are some ways to manage your cookie preferences:
 
+* **Cloudflare Zaraz:** We use Cloudflare Zaraz to manage cookie consent. When you first visit our site, all non-essential cookies (like Google Analytics) are disabled by default. You must click "Accept" on the consent banner for us to load these analytics tools.
 * **Browser Settings:** Most web browsers allow you to control cookies through their settings preferences. You can usually find these settings in the "Options" or "Preferences" menu of your browser.
 * **Consequences of Disabling:** Please note that if you disable **Strictly Necessary Cookies** (like authentication tokens), you may not be able to use certain features of our Websites, such as logging in to Sylinko Passport.
 

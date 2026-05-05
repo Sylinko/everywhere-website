@@ -657,7 +657,7 @@ export function CTASection({
           href={`/[lang]/docs/quick-start`}
           className={cn(
             buttonVariants(),
-            'relative z-10 items-center gap-2 px-8 py-4 text-lg shadow-lg'
+            'relative z-10 h-auto min-h-fit items-center gap-2 px-8 py-2 text-lg shadow-lg'
           )}
         >
           {actionText}
