@@ -183,10 +183,10 @@ export function ConsentSettingsDialog({
                 >
                   <div className="flex-1 pr-4">
                     <h3 className="text-fd-foreground text-sm font-medium">
-                      {label}
+                      {typeof label === 'string' ? label : String(label)}
                     </h3>
                     <p className="text-fd-muted-foreground mt-1 text-xs leading-relaxed">
-                      {desc}
+                      {typeof desc === 'string' ? desc : String(desc)}
                     </p>
                   </div>
                   <Toggle
@@ -254,7 +254,7 @@ function Toggle({
     <button
       type="button"
       role="switch"
-      aria-checked={checked ? "true" : "false"}
+      aria-checked={checked}
       aria-label="Toggle consent"
       onClick={onChange}
       disabled={disabled}

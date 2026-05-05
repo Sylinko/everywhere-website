@@ -68,7 +68,40 @@ function hasExistingConsent(): boolean {
   return getCookie('cf_consent') !== undefined;
 }
 
-export function useZarazConsent(): ConsentState & ConsentActions {
+function resolveLocalized(value: unknown, lang: string): string {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const map = value as Record<string, string>;
+    if (map[lang]) return map[lang];
+    const prefix = lang.split('-')[0];
+    const prefixMatch = Object.keys(map).find((k) => k.startsWith(prefix));
+    if (prefixMatch) return map[prefixMatch];
+    const first = Object.values(map)[0];
+    return typeof first === 'string' ? first : '';
+  }
+  return String(value ?? '');
+}
+
+function normalizePurposeMeta(
+  raw: unknown,
+  lang: string,
+): Record<string, { id: string; name: string; description: string; order: number }> {
+  if (!raw || typeof raw !== 'object') return {};
+  const result: Record<string, { id: string; name: string; description: string; order: number }> = {};
+  for (const [key, val] of Object.entries(raw)) {
+    if (!val || typeof val !== 'object') continue;
+    const entry = val as Record<string, unknown>;
+    result[key] = {
+      id: typeof entry.id === 'string' ? entry.id : key,
+      name: resolveLocalized(entry.name, lang),
+      description: resolveLocalized(entry.description, lang),
+      order: typeof entry.order === 'number' ? entry.order : 0,
+    };
+  }
+  return result;
+}
+
+export function useZarazConsent(lang: string): ConsentState & ConsentActions {
   const [apiReady, setApiReady] = useState(false);
   const [status, setStatus] = useState<ConsentStatus>(() =>
     hasExistingConsent() ? 'accepted' : 'pending',
@@ -90,7 +123,7 @@ export function useZarazConsent(): ConsentState & ConsentActions {
       setApiReady(true);
 
       if (zaraz.purposes) {
-        setPurposeMeta(zaraz.purposes as typeof purposeMeta);
+        setPurposeMeta(normalizePurposeMeta(zaraz.purposes, lang));
       }
 
       const allConsent = zaraz.getAll();

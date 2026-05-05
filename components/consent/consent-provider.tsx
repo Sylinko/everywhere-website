@@ -27,7 +27,7 @@ interface ConsentProviderProps {
 }
 
 export function ConsentProvider({ children, lang }: ConsentProviderProps) {
-  const consent = useZarazConsent();
+  const consent = useZarazConsent(lang);
   const translation = consentTranslations[lang] ?? consentTranslations['en-US'];
 
   const contextValue: ConsentContextValue = {
