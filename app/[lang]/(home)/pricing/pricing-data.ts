@@ -211,6 +211,11 @@ export const pricingContent: Record<
 
     faq: [
       {
+        question: 'What payment methods do you accept?',
+        answer:
+          'We accept credit/debit cards (some UnionPay cards may not be supported), as well as Apple Pay, Google Pay, Link, Amazon Pay, and Cash App Pay.',
+      },
+      {
         question: 'What is the refund policy?',
         answer:
           'If you are within 30 days of subscribing and have not consumed any credits, you can request a full refund. If you have usage records, refunds will be evaluated on a case-by-case basis. Please refer to the refund policy at the bottom of the page for more details.',
@@ -349,6 +354,11 @@ export const pricingContent: Record<
     },
 
     faq: [
+      {
+        question: '支持哪些支付方式？',
+        answer:
+          '支持信用卡/借记卡（部分银联卡可能不支持），以及 Apple Pay、Google Pay、Link、Amazon Pay、Cash App Pay。',
+      },
       {
         question: '退款政策是什么？',
         answer:
