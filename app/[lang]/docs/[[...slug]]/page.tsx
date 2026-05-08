@@ -126,6 +126,10 @@ export async function generateMetadata(props: {
     }
   }
 
+  if (languageAlternates[i18n.defaultLanguage]) {
+    languageAlternates['x-default'] = languageAlternates[i18n.defaultLanguage];
+  }
+
   const metadata: Metadata = {
     title: page.data.title,
     description: page.data.description,

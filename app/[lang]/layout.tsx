@@ -89,12 +89,6 @@ export async function generateMetadata({
     authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
     creator: 'Sylinko',
     canonical: absoluteUrl(`/${lang}`),
-    alternates: {
-      languages: {
-        en: '/en-US',
-        zh: '/zh-CN',
-      },
-    },
     openGraph: {
       type: 'website',
       locale: lang,

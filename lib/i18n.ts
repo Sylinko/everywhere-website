@@ -9,6 +9,7 @@ export const i18n: I18nConfig = {
 export const i18nLocaleToPathPrefix: Record<string, string> = {
   'en-US': '/en-US',
   'zh-CN': '/zh-CN',
+  'x-default': '/en-US',
 };
 
 export function getLocalePath(lang: string, path = ''): string {

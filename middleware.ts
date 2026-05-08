@@ -63,13 +63,8 @@ export function middleware(request: NextRequest) {
     const url = new URL(request.url);
     url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`;
 
-    // Preserve query parameters is automatic when using new URL(request.url)
-    // but we modified pathname, search params are preserved from base request.url?
-    // request.url is the full string.
-    // new URL(request.url) clones it.
-    // modifying pathname keeps search.
-
-    return NextResponse.redirect(url);
+    // 308 Permanent Redirect
+    return NextResponse.redirect(url, 308);
   }
 
   return NextResponse.next();
