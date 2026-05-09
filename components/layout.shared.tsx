@@ -3,11 +3,12 @@ import Image from 'next/image';
 import { i18n, getLocalePath } from '../lib/i18n';
 import { GithubIcon, DiscordIcon, QQIcon } from './common/icons';
 import Favicon from '@/public/favicon.ico';
+import { RepoUrl } from '@/lib/github';
 
 export const linkItems = [
   {
     type: 'icon',
-    url: 'https://github.com/DearVa/Everywhere',
+    url: RepoUrl,
     label: 'GitHub',
     text: 'GitHub',
     icon: GithubIcon,

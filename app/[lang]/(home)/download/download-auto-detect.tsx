@@ -14,8 +14,6 @@ interface Variant {
   link: string;
 }
 
-// ── Per-OS variant definitions (extend here when adding a new platform) ──
-
 const osVariants: Record<
   OSId,
   { primary: Variant; others: Variant[] }
@@ -80,7 +78,7 @@ export function DownloadAutoDetect({
   const variants = osVariants[os];
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 flex flex-col items-center gap-4 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-8 flex flex-col items-center duration-600">
       <div className="flex flex-col items-center gap-2">
         <Link
           href={variants.primary.link}
@@ -97,10 +95,7 @@ export function DownloadAutoDetect({
         </Link>
 
         <span className="text-muted-foreground text-sm">
-          {variants.primary.name}{' '}
-          <span className="text-muted-foreground/60">
-            ({variants.primary.note})
-          </span>
+          {variants.primary.name} ({variants.primary.note})
         </span>
       </div>
     </div>

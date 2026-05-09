@@ -60,7 +60,6 @@ export default async function PricingPage({
         subtitle={content.pageSubtitle}
       />
 
-      {/* Primary Plans - 4 columns */}
       <PrimaryPlansSection
         plans={content.plans}
         taxNote={content.taxNote}
@@ -68,14 +67,12 @@ export default async function PricingPage({
         lang={lang}
       />
 
-      {/* Model Support Table */}
       <ModelSupportTable
         title={content.modelSupportTitle}
         models={supportedModels}
         lang={lang}
       />
 
-      {/* FAQ Section */}
       <FAQSection title={content.faqTitle} items={content.faq} />
     </main>
   );

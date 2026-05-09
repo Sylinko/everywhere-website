@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHash } from 'node:crypto';
 
-interface AfdianUser {
-  user_id: string;
-  name: string;
-  avatar: string;
-}
-
 interface AfdianSponsorItem {
-  user: AfdianUser;
+  user: {
+    user_id: string;
+    name: string;
+    avatar: string;
+  }
 }
 
 interface AfdianApiResponse {

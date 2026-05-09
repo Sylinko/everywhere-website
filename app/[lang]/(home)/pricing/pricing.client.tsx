@@ -38,9 +38,9 @@ export function PricingCard({ plan, lang }: { plan: PricingPlan; lang: string })
         isHighlighted && [
           'shadow-brand/20 scale-[1.04] shadow-lg',
           'dark:shadow-brand/10',
-          // Gradient Border (Outer)
+          // Gradient Border
           'before:from-brand before:absolute before:inset-0 before:-z-20 before:rounded-3xl before:bg-linear-to-br before:to-brand-alter-2 before:content-[""]',
-          // Card Background (Inner)
+          // Card Background
           'after:bg-fd-card after:absolute after:inset-px after:-z-10 after:rounded-[calc(1.5rem-1px)] after:content-[""]',
         ]
       )}
@@ -155,8 +155,6 @@ export function PrimaryPlansSection({
   );
 }
 
-
-
 function formatCredits(value: number): string {
   if (value === 0) return '0';
   const rounded = Math.round(value * 10000) / 1000000;
@@ -211,20 +209,20 @@ function DeprecationWarning({ date }: { date: string }) {
 const tierStyles = {
   pro: {
     bg: 'bg-amber-600/5 dark:bg-amber-950/15',
-    bar: 'bg-amber-600 text-white',
-    borderColor: 'border-amber-600',
+    bar: 'bg-amber-600/75 text-white',
+    borderColor: 'border-amber-600/75',
     line: 'bg-amber-400 dark:bg-amber-500/70',
   },
   plus: {
     bg: 'bg-purple-600/5 dark:bg-purple-950/15',
-    bar: 'bg-purple-600 text-white',
-    borderColor: 'border-purple-600',
+    bar: 'bg-purple-600/75 text-white',
+    borderColor: 'border-purple-600/75',
     line: 'bg-purple-400 dark:bg-purple-500/70',
   },
   starter: {
     bg: 'bg-blue-600/5 dark:bg-blue-950/15',
-    bar: 'bg-blue-600 text-white',
-    borderColor: 'border-blue-600',
+    bar: 'bg-blue-600/75 text-white',
+    borderColor: 'border-blue-600/75',
     line: 'bg-blue-400 dark:bg-blue-500/70',
   },
 };

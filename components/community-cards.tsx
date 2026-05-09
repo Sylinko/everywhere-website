@@ -7,8 +7,6 @@ import { cn } from '@/lib/cn'; // Assuming cn utility exists here
 import { cardVariants } from './common/variants';
 import { GithubIcon } from '@/components/common/icons';
 
-// --- Types ---
-
 export interface SocialLink {
   icon: React.ReactNode;
   href: string;
@@ -59,8 +57,6 @@ interface SponsorResponse {
   };
 }
 
-// --- Components ---
-
 const AvatarImage = ({
   src,
   alt,
@@ -91,10 +87,6 @@ const AvatarImage = ({
   );
 };
 
-/**
- * Core Team Member Card
- * Vertical layout: Avatar -> Username -> Role -> Social Links -> Sponsor Button
- */
 export const CoreTeamCard: React.FC<CoreTeamCardProps> = ({
   avatar,
   name,
@@ -145,11 +137,6 @@ export const CoreTeamCard: React.FC<CoreTeamCardProps> = ({
   );
 };
 
-/**
- * Community Member Card
- * Left: Github Avatar
- * Right Column: Username (Top Right), Github Icon (Bottom Right)
- */
 export const CommunityMemberCard: React.FC<CommunityMemberCardProps> = ({
   avatar,
   name,
@@ -191,12 +178,6 @@ export const CommunityMemberCard: React.FC<CommunityMemberCardProps> = ({
   );
 };
 
-/**
- * Community Sponsor Card
- * Small card.
- * Left: Avatar
- * Right: Name and Source
- */
 export const SponsorCard: React.FC<SponsorCardProps> = ({
   sponsor,
   className,

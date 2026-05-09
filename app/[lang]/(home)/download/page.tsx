@@ -14,6 +14,7 @@ import {
 } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
 import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
+import { RepoUrl } from '@/lib/github';
 
 const contentMap = {
   'en-US': {
@@ -175,7 +176,7 @@ export default async function Page({
   ];
 
   return (
-    <main className="text-landing-foreground dark:text-landing-foreground-dark min-h-[calc(100vh-4rem)] pt-24">
+    <main className="min-h-[calc(100vh-4rem)] pt-24">
       <JsonLdScript data={softwareApplicationSchema(lang)} />
       <JsonLdScript
         data={breadcrumbSchema([
@@ -183,8 +184,7 @@ export default async function Page({
           { name: content.title, url: absoluteUrl(`/${lang}/download`) },
         ])}
       />
-      <div className="mx-auto max-w-300 px-6">
-        {/* Hero Section */}
+      <div className="mx-auto max-w-300">
         <div className="mb-24 flex flex-col items-center text-center">
           <h1 className="text-foreground mb-6 text-4xl font-bold tracking-tight sm:text-6xl">
             <span>{content.title}</span>
@@ -295,7 +295,7 @@ export default async function Page({
               {content.history.desc}
             </p>
             <Link
-              href="https://github.com/DearVa/Everywhere/releases"
+              href={`${RepoUrl}/releases`}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(

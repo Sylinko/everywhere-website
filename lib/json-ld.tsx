@@ -5,6 +5,7 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
+import { RepoUrl } from './github';
 import { baseUrl, siteName } from './metadata';
 
 const siteUrl = baseUrl.origin;
@@ -21,7 +22,7 @@ export function organizationSchema() {
     description:
       'Liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
     sameAs: [
-      'https://github.com/DearVa/Everywhere',
+      RepoUrl,
       'https://discord.gg/5fyg6nE3yn',
     ],
     foundingDate: '2026',

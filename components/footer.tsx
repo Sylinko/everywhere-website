@@ -11,6 +11,7 @@ import {
 import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
 import { CookieSettingsButton } from '@/components/consent';
+import { RepoUrl } from '@/lib/github';
 
 interface FooterProps {
   lang: string;
@@ -20,7 +21,7 @@ const communityLinks: { name: string; href: string; icon: React.ReactNode }[] =
   [
     {
       name: 'GitHub',
-      href: 'https://github.com/DearVa/Everywhere',
+      href: RepoUrl,
       icon: GithubIcon,
     },
     {

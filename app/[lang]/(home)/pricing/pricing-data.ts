@@ -1,6 +1,3 @@
-// Pricing page data - easily modifiable
-// All texts support i18n with en-US and zh-CN
-
 import type { Plan } from './types';
 
 export type PlanFeature = {
@@ -19,7 +16,7 @@ export type FeatureCategory = {
 export type PricingPlan = {
   id: Plan;
   name: string;
-  price: string; // Price before discount
+  price: string;
   period: string;
   includes: string;
   cta: string;
@@ -35,7 +32,7 @@ export type FAQItem = {
   answer: string;
 };
 
-// ----- Pricing Plans & i18n Content -----
+// Pricing Plans & i18n
 type PlanData = {
   saleBadge?: {
     en: string;
@@ -73,8 +70,6 @@ export const planData: PlanData = {
     credits: '24,000,000',
   },
 };
-
-// ----- i18n Content -----
 
 export const pricingContent: Record<
   string,
@@ -388,7 +383,6 @@ export const pricingContent: Record<
   },
 };
 
-// Helper function to get content by language
 export function getPricingContent(lang: string) {
   return pricingContent[lang] || pricingContent['en-US'];
 }

@@ -88,10 +88,8 @@ interface PermissionsProps {
  *
  * @example
  * ```tsx
- * // Simple usage with default risk level
  * <Permissions permissions={['Access Network', 'Read Files']} defaultRisk="low" />
  *
- * // Advanced usage with individual risk levels
  * <Permissions
  *   permissions={[
  *     { name: 'Access Network', risk: 'low' },

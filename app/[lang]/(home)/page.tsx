@@ -53,7 +53,7 @@ const contentMap = {
         href: 'https://trendshift.io/repositories/15106',
         src: 'https://trendshift.io/api/badge/repositories/15106',
         darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
-        alt: 'DearVa/Everywhere | Trendshift',
+        alt: 'Everywhere | Trendshift',
       },
       {
         href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
@@ -159,7 +159,7 @@ const contentMap = {
         href: 'https://trendshift.io/repositories/15106',
         src: 'https://trendshift.io/api/badge/repositories/15106',
         darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
-        alt: 'DearVa/Everywhere | Trendshift',
+        alt: 'Everywhere | Trendshift',
       },
       {
         href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
