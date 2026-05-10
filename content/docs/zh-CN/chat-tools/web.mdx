@@ -1,0 +1,40 @@
+---
+title: 网页
+description: 配置网页工具，赋予你的助手实时的网页内容浏览能力。
+icon: PanelsTopLeft
+---
+
+import { HorizontalImg } from '@/components/common/horizontal-img';
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table"
+
+## 功能
+
+<Table columnWidths={['10.7%', '65%', '9.2%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>提取网页内容</td>
+      <td>提取网页的主要内容。这会在后台通过 Puppeteer 运行一个隐藏的网络浏览器，并通过此浏览器访问网页。出于兼容性考虑，首次打开可能会自动下载网络浏览器，视网络情况可能需要较长的时间。</td>
+      <td><PermissionBadge risk="low">访问网络</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>
+
+## 设置
+
+### 在前台显示浏览器
+
+开启后，提取网页内容时将会显示浏览器，通常不建议开启。需重启软件生效。
+
+**默认**：关闭
+
+### 打开浏览器
+
+打开一个提取网页所用的网络浏览器实例，可以提前登录常用网站以减少提取网页时被当做机器人而拦截的机率。出于兼容性考虑，首次打开可能会自动下载网络浏览器，视网络情况可能需要较长的时间。

@@ -1,0 +1,40 @@
+---
+title: Web
+description: Activate the web tool to grant your assistant the ability to browse real-time web content.
+icon: PanelsTopLeft
+---
+
+import { HorizontalImg } from '@/components/common/horizontal-img';
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table"
+
+## Functions
+
+<Table columnWidths={['18%', '63%', '16%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Extract Web Content</td>
+      <td>Extracts the main content of a webpage. This runs a hidden web browser in the background using Puppeteer to access the webpage. For compatibility, the first launch may automatically download the web browser, which may take some time depending on network conditions.</td>
+      <td><PermissionBadge risk="low">Access Network</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>
+
+## Settings
+
+### Show Browser in Foreground
+
+When enabled, the browser will be displayed while extracting webpage content, which is generally not recommended. A restart is required for changes to take effect.
+
+**Default**: Disabled
+
+### Open Browser
+
+Opens an instance of the web browser used for extracting webpages. You can log in to frequently used sites in advance to reduce the chances of being flagged as a bot during extraction. For compatibility, the first launch may automatically download the web browser, which may take some time depending on network conditions.

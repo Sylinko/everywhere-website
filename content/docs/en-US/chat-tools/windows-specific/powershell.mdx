@@ -37,6 +37,10 @@ Enabling this tool allows the assistant to execute powerful system commands, whi
   </tbody>
 </Table>
 
-## Notes
+## Settings
 
-For security reasons, Everywhere does not allow automatic approval of PowerShell script execution. Whenever the assistant attempts to execute a script, you will need to manually approve the action. Please carefully review each request to ensure they come from a trusted source and do not pose a risk to your system.
+### Auto Approval <PermissionBadge risk="high">High Risk</PermissionBadge>
+
+When enabled, all terminal operations will be automatically approved without manual confirmation. Improper use by the assistant may lead to serious system crashes or irreversible file loss. **Enabling this option means you have assessed and are willing to assume the risk**.
+
+**Default**: Disabled

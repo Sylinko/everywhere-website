@@ -42,14 +42,17 @@ type PlanData = {
   starter: {
     price: string;
     credits: string;
+    freeWebSearchCount: string;
   };
   plus: {
     price: string;
     credits: string;
+    freeWebSearchCount: string;
   };
   pro: {
     price: string;
     credits: string;
+    freeWebSearchCount: string;
   };
 };
 
@@ -60,14 +63,17 @@ export const planData: PlanData = {
   starter: {
     price: '$10',
     credits: '4,000,000',
+    freeWebSearchCount: '150',
   },
   plus: {
     price: '$20',
     credits: '10,000,000',
+    freeWebSearchCount: '400',
   },
   pro: {
     price: '$40',
     credits: '24,000,000',
+    freeWebSearchCount: '1,000',
   },
 };
 
@@ -84,6 +90,7 @@ export const pricingContent: Record<
     comparisonSubtitle: string;
     modelSupportTitle: string;
     faqTitle: string;
+    webSearchExtraNote: string;
     // Primary plans
     plans: PricingPlan[];
     // Feature comparison table
@@ -103,6 +110,7 @@ export const pricingContent: Record<
     comparisonSubtitle: "See what's included in each plan",
     modelSupportTitle: 'Models & Credits',
     faqTitle: 'Frequently Asked Questions',
+    webSearchExtraNote: 'Extra web searches beyond the included limit cost 8,000 credits each.',
 
     plans: [
       {
@@ -118,6 +126,7 @@ export const pricingContent: Record<
           'Bring Your Own Key',
           `limited-time ${planData.freeCredits} free credits`,
           'Community Support',
+          '',
         ],
       },
       {
@@ -130,7 +139,8 @@ export const pricingContent: Record<
         badgeVariant: 'green',
         includes: 'Everything in Community and',
         features: [
-          `${planData.starter.credits} credits per month`,
+          `${planData.starter.credits} credits`,
+          `Includes ${planData.starter.freeWebSearchCount} free web searches`,
           'Basic Model Access',
           'Message Cloud Sync',
           'Community Support',
@@ -146,7 +156,8 @@ export const pricingContent: Record<
         badge: 'Recommended',
         includes: 'Everything in Community and',
         features: [
-          `${planData.plus.credits} credits per month`,
+          `${planData.plus.credits} credits`,
+          `Includes ${planData.plus.freeWebSearchCount} free web searches`,
           'Popular Model Access',
           'Message Cloud Sync',
           'Priority Support',
@@ -160,7 +171,8 @@ export const pricingContent: Record<
         cta: 'Subscribe Now',
         includes: 'Everything in Community and',
         features: [
-          `${planData.pro.credits} credits per month`,
+          `${planData.pro.credits} credits`,
+          `Includes ${planData.pro.freeWebSearchCount} web searches`,
           'All Model Access',
           'Message Cloud Sync',
           'Priority Support',
@@ -248,6 +260,7 @@ export const pricingContent: Record<
     comparisonSubtitle: '查看每个计划包含的功能',
     modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
+    webSearchExtraNote: '超出计划包含的网络搜索次数后，每次会扣 8000 积分。',
     plans: [
       {
         id: 'free',
@@ -262,6 +275,7 @@ export const pricingContent: Record<
           '自带密钥 (BYOK)',
           `限时 ${planData.freeCredits} 免费积分`,
           '社区支持',
+          '',
         ],
       },
       {
@@ -274,7 +288,8 @@ export const pricingContent: Record<
         badgeVariant: 'green',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `每月 ${planData.starter.credits} 积分`,
+          `${planData.starter.credits} 积分`,
+          `含 ${planData.starter.freeWebSearchCount} 次网络搜索`,
           '基础模型权限',
           '消息云同步',
           '社区支持',
@@ -290,7 +305,8 @@ export const pricingContent: Record<
         badge: '推荐',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `每月 ${planData.plus.credits} 积分`,
+          `${planData.plus.credits} 积分`,
+          `含 ${planData.plus.freeWebSearchCount} 次网络搜索`,
           '主流模型权限',
           '消息云同步',
           '优先支持',
@@ -304,7 +320,8 @@ export const pricingContent: Record<
         cta: '立即订阅',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `每月 ${planData.pro.credits} 积分`,
+          `${planData.pro.credits} 积分`,
+          `含 ${planData.pro.freeWebSearchCount} 次网络搜索`,
           '所有模型权限',
           '消息云同步',
           '优先支持',

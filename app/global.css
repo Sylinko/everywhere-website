@@ -151,3 +151,71 @@ body {
       transparent 60%
     );
 }
+
+/* Site-wide banner with blue-pink gradient dynamic light effect */
+.site-banner {
+  background: linear-gradient(
+    90deg,
+    hsl(210, 86%, 60%),
+    hsl(318, 70%, 55%),
+    hsl(210, 86%, 60%)
+  );
+  background-size: 200% 100%;
+  animation: banner-gradient-shift 10s ease infinite;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .site-banner {
+  background: linear-gradient(
+    90deg,
+    hsl(210, 86%, 50%),
+    hsl(318, 61%, 50%),
+    hsl(210, 86%, 50%)
+  );
+  background-size: 200% 100%;
+  color: white;
+}
+
+.site-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: banner-shimmer 5s ease-in-out infinite;
+}
+
+.dark .site-banner::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes banner-gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes banner-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

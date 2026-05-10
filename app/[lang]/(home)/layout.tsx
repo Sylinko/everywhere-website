@@ -27,6 +27,7 @@ import {
 import { cn } from '@/lib/cn';
 import { getLocalePath } from '@/lib/i18n';
 import { AccountUrl } from '@/lib/constants';
+import { SiteBanner } from '@/components/site-banner';
 
 const docsSubNavItems = [
   { key: 'getting-started', icon: Rocket, path: '' },
@@ -140,9 +141,17 @@ export default async function Layout({
   const texts = getTexts(lang);
   const docsUrl = getLocalePath(lang, 'docs');
   const navItems = buildNavItems(lang, docsUrl);
+  
+  const bannerText =
+    lang === 'zh-CN'
+      ? '🚀 全新上线！在云服务中体验开箱即用的网络搜索。'
+      : '🚀 Now Live! Experience out-of-the-box web search on Cloud.';
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SiteBanner id="everywhere-cloud-search" className="site-banner text-md" height="2.25rem">
+        {bannerText}
+      </SiteBanner>
       <HomeLayout
         {...layoutOptions}
         nav={{

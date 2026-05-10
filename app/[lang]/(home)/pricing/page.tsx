@@ -65,6 +65,7 @@ export default async function PricingPage({
         taxNote={content.taxNote}
         title={content.primaryPlansTitle}
         lang={lang}
+        webSearchExtraNote={content.webSearchExtraNote}
       />
 
       <ModelSupportTable

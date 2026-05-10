@@ -65,9 +65,12 @@ export function PricingCard({ plan, lang }: { plan: PricingPlan; lang: string })
       <p className="mb-4 text-sm text-fd-muted-foreground">{plan.includes}</p>
       <ul className="mb-6 flex-1 space-y-2.5">
         {plan.features.map((feature, idx) => (
-          <li key={idx} className="flex items-start gap-2.5">
+          <li
+            key={idx}
+            className={cn('flex items-start gap-2.5', !feature && 'invisible')}
+          >
             <Check className="text-brand mt-0.5 size-4 shrink-0" />
-            <span className="text-sm">{feature}</span>
+            <span className="text-sm">{feature || '\u00A0'}</span>
           </li>
         ))}
       </ul>
@@ -102,11 +105,13 @@ export function PrimaryPlansSection({
   taxNote,
   title,
   lang,
+  webSearchExtraNote,
 }: {
   plans: PricingPlan[];
   taxNote: string;
   title: string;
   lang: string;
+  webSearchExtraNote: string;
 }) {
   let text = '';
   if (planData.saleBadge) {
@@ -144,8 +149,16 @@ export function PrimaryPlansSection({
         ))}
       </div>
 
-      {/* Tax note */}
+      {/* Web search extra cost note */}
       <div className="flex gap-2.5 mt-6">
+        <Info className="mt-0.5 size-4 shrink-0 text-amber-500" />
+        <p className="text-sm text-fd-muted-foreground">
+          {webSearchExtraNote}
+        </p>
+      </div>
+
+      {/* Tax note */}
+      <div className="flex gap-2.5 mt-3">
         <Info className="mt-0.5 size-4 shrink-0 text-blue-500" />
         <p className="text-sm text-fd-muted-foreground">
           {taxNote}
