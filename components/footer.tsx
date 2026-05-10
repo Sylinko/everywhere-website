@@ -1,5 +1,5 @@
 import {
-  GithubIcon,
+  GitHubIcon,
   DiscordIcon,
   QQIcon,
   ProductHuntIcon,
@@ -22,7 +22,7 @@ const communityLinks: { name: string; href: string; icon: React.ReactNode }[] =
     {
       name: 'GitHub',
       href: RepoUrl,
-      icon: GithubIcon,
+      icon: GitHubIcon,
     },
     {
       name: 'Discord',

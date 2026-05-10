@@ -26,7 +26,7 @@ async function getOctokit(): Promise<Octokit | null> {
 
   if (!appId || !privateKey) {
     console.warn(
-      '[GitHub] No GitHub keys provided for Github app, docs feedback feature will not work.'
+      '[GitHub] No GitHub keys provided for GitHub app, docs feedback feature will not work.'
     );
     initError = new Error('Missing GitHub App credentials');
     return null;

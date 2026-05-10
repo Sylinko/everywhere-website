@@ -1,7 +1,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { i18n, getLocalePath } from '../lib/i18n';
-import { GithubIcon, DiscordIcon, QQIcon } from './common/icons';
+import { GitHubIcon, DiscordIcon, QQIcon } from './common/icons';
 import Favicon from '@/public/favicon.ico';
 import { RepoUrl } from '@/lib/github';
 
@@ -11,7 +11,7 @@ export const linkItems = [
     url: RepoUrl,
     label: 'GitHub',
     text: 'GitHub',
-    icon: GithubIcon,
+    icon: GitHubIcon,
     external: true,
   },
   {

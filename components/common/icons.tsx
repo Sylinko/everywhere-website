@@ -1,6 +1,6 @@
 // Icons are collected from https://simpleicons.org/ and https://icons.lobehub.com/.
 
-export const GithubIcon = (
+export const GitHubIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"

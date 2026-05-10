@@ -10,7 +10,7 @@ import { DynamicLink } from 'fumadocs-core/dynamic-link';
 import {
   WindowsIcon,
   AppleIcon,
-  GithubIcon,
+  GitHubIcon,
 } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
 import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
@@ -303,7 +303,7 @@ export default async function Page({
                 'gap-2 rounded-full px-4'
               )}
             >
-              {GithubIcon}
+              {GitHubIcon}
               {content.history.action}
             </Link>
           </div>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/cn'; // Assuming cn utility exists here
 import { cardVariants } from './common/variants';
-import { GithubIcon } from '@/components/common/icons';
+import { GitHubIcon } from '@/components/common/icons';
 
 export interface SocialLink {
   icon: React.ReactNode;
@@ -171,7 +171,7 @@ export const CommunityMemberCard: React.FC<CommunityMemberCardProps> = ({
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
-          {GithubIcon}
+          {GitHubIcon}
         </Link>
       </div>
     </div>
