@@ -20,16 +20,16 @@ export async function generateMetadata({
   const { lang } = await params;
   const pageUrl = absoluteUrl(`/${lang}/pricing`);
   return {
-    title: lang === 'zh-CN' ? '定价' : 'Pricing',
+    title: lang === 'zh' ? '定价' : 'Pricing',
     description:
-      lang === 'zh-CN'
+      lang === 'zh'
         ? '选择适合您的 Everywhere 计划。无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。'
-        : 'Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there’s a plan designed to keep up with you.',
+        : 'Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there\'s a plan designed to keep up with you.',
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: lang === 'zh-CN' ? '定价 | Everywhere' : 'Pricing | Everywhere',
+      title: lang === 'zh' ? '定价 | Everywhere' : 'Pricing | Everywhere',
       url: pageUrl,
       type: 'website',
     },
@@ -50,7 +50,7 @@ export default async function PricingPage({
       <JsonLdScript data={faqSchema(content.faq)} />
       <JsonLdScript
         data={breadcrumbSchema([
-          { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+          { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
           { name: content.pageTitle, url: absoluteUrl(`/${lang}/pricing`) },
         ])}
       />

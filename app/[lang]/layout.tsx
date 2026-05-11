@@ -10,10 +10,10 @@ import { softwareApplicationSchema, JsonLdScript } from '@/lib/json-ld';
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
-    'en-US': {
+    'en': {
       displayName: 'English',
     },
-    'zh-CN': {
+    'zh': {
       displayName: '简体中文',
       search: '搜索文档',
       searchNoResult: '没有结果',
@@ -32,7 +32,7 @@ const titleMap: Record<
   string,
   { default: string; template: string; description: string; keywords: string[] }
 > = {
-  'en-US': {
+  'en': {
     default: 'Everywhere - AI Assistant that flows with your desktop.',
     template: '%s | Everywhere',
     description:
@@ -50,7 +50,7 @@ const titleMap: Record<
       'Smart Desktop Companion',
     ],
   },
-  'zh-CN': {
+  'zh': {
     default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
     template: '%s | Everywhere',
     description:
@@ -76,7 +76,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const lang = (await params).lang;
-  const titles = titleMap[lang] || titleMap.en;
+  const titles = titleMap[lang] || titleMap[i18n.defaultLanguage];
 
   return createMetadata({
     metadataBase: baseUrl,
@@ -88,7 +88,6 @@ export async function generateMetadata({
     keywords: titles.keywords,
     authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
     creator: 'Sylinko',
-    canonical: absoluteUrl(`/${lang}`),
     openGraph: {
       type: 'website',
       locale: lang,

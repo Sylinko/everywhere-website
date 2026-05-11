@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const i18nMap = {
-  'en-US': {
+  'en': {
     title: 'Page Not Found',
     description: 'We searched Everywhere, but this place remains untouched.',
     action: 'Take me home',
   },
-  'zh-CN': {
+  'zh': {
     title: '页面未找到',
     description: '我们寻遍了 Everywhere，唯独此处是无人踏足的秘境。',
     action: '返回主页',
@@ -25,7 +25,7 @@ export default function NotFound() {
   const lang =
     langSegment && Object.keys(i18nMap).includes(langSegment)
       ? (langSegment as keyof typeof i18nMap)
-      : 'en-US';
+      : 'en';
 
   const content = i18nMap[lang];
 

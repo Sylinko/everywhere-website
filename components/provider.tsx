@@ -25,7 +25,7 @@ export function Provider({
         ],
       }}
     >
-      <ConsentProvider lang={lang ?? 'en-US'}>
+      <ConsentProvider lang={lang ?? 'en'}>
         {children}
       </ConsentProvider>
     </RootProvider>

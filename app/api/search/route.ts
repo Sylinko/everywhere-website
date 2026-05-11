@@ -4,8 +4,8 @@ import { createTokenizer as createMandarinTokenizer } from '@orama/tokenizers/ma
 
 export const { GET } = createFromSource(source, {
   localeMap: {
-    'en-US': { language: 'english' },
-    'zh-CN': {
+    'en': { language: 'english' },
+    'zh': {
       components: { tokenizer: createMandarinTokenizer() },
       search: { threshold: 0, tolerance: 0 },
     },

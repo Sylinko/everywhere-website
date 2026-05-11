@@ -15,14 +15,14 @@ import Link from 'next/link';
 const cache = new Map<string, string>();
 
 const translations = {
-  'en-US': {
+  'en': {
     copyMarkdown: 'Copy Markdown',
     open: 'Open',
     openInGitHub: 'Open in GitHub',
     openInChatGPT: 'Open in ChatGPT',
     openInClaude: 'Open in Claude',
   },
-  'zh-CN': {
+  'zh': {
     copyMarkdown: '复制 Markdown',
     open: '打开',
     openInGitHub: '在 GitHub 中打开',
@@ -40,7 +40,7 @@ export function LLMCopyButton({
 }) {
   const [isLoading, setLoading] = useState(false);
   const t =
-    translations[lang as keyof typeof translations] || translations['en-US'];
+    translations[lang as keyof typeof translations] || translations['en'];
 
   const [checked, onClick] = useCopyButton(async () => {
     const cached = cache.get(markdownUrl);
@@ -95,7 +95,7 @@ export function ViewOptions({
   lang: string;
 }) {
   const t =
-    translations[lang as keyof typeof translations] || translations['en-US'];
+    translations[lang as keyof typeof translations] || translations['en'];
 
   const items = useMemo(() => {
     const fullMarkdownUrl =

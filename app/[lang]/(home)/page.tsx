@@ -20,9 +20,12 @@ import {
   SiliconCloudIcon,
   MiniMaxIcon,
 } from '@/components/common/icons';
+import type { Metadata } from 'next';
+import { getLocalePath } from '@/lib/i18n';
+import { baseUrl, siteName, absoluteUrl } from '@/lib/metadata';
 
 const contentMap = {
-  'en-US': {
+  'en': {
     // Hero
     badges: ['Context-aware', 'Interactive', 'Flexible'],
     title: 'Every moment, Every place.',
@@ -131,7 +134,7 @@ const contentMap = {
       action: 'Get Everywhere',
     },
   },
-  'zh-CN': {
+  'zh': {
     // Hero
     badges: ['感知', '交互', '灵活'],
     title: '呼之即来，智能相伴',
@@ -239,6 +242,59 @@ const contentMap = {
   },
 };
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const titles: Record<string, { default: string; description: string }> = {
+    'en': {
+      default: 'Everywhere - AI Assistant that flows with your desktop.',
+      description:
+        'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
+    },
+    'zh': {
+      default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
+      description:
+        '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',
+    },
+  };
+  const t = titles[lang] || titles['en'];
+  const canonical = absoluteUrl(getLocalePath(lang));
+
+  const languageAlternates: Record<string, string> = {};
+  for (const hreflangKey of i18n.languages) {
+    languageAlternates[hreflangKey] = absoluteUrl(getLocalePath(hreflangKey));
+  }
+  if (languageAlternates[i18n.defaultLanguage]) {
+    languageAlternates['x-default'] = languageAlternates[i18n.defaultLanguage];
+  }
+
+  return {
+    metadataBase: baseUrl,
+    title: t.default,
+    description: t.description,
+    alternates: {
+      canonical,
+      languages: languageAlternates,
+    },
+    openGraph: {
+      title: t.default,
+      description: t.description,
+      url: canonical,
+      siteName,
+      type: 'website',
+      locale: lang,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t.default,
+      description: t.description,
+    },
+  };
+}
+
 export default async function Page({
   params,
 }: {
@@ -246,7 +302,7 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const content =
-    contentMap[lang as keyof typeof contentMap] || contentMap['en-US'];
+    contentMap[lang as keyof typeof contentMap] || contentMap['en'];
 
   const modelProviders = [
     {

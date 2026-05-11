@@ -43,7 +43,7 @@ export interface FeedbackProps {
 }
 
 const translations = {
-  'en-US': {
+  'en': {
     question: 'How is this guide?',
     good: 'Good',
     bad: 'Bad',
@@ -53,7 +53,7 @@ const translations = {
     placeholder: 'Leave your feedback...',
     submit: 'Submit',
   },
-  'zh-CN': {
+  'zh': {
     question: '这篇文档对您有帮助吗？',
     good: '有帮助',
     bad: '没帮助',
@@ -73,7 +73,7 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
   const [isPending, startTransition] = useTransition();
 
   const t =
-    translations[lang as keyof typeof translations] || translations['en-US'];
+    translations[lang as keyof typeof translations] || translations['en'];
 
   useEffect(() => {
     const item = localStorage.getItem(`docs-feedback-${url}`);

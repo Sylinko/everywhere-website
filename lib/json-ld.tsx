@@ -29,7 +29,7 @@ export function organizationSchema() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer support',
-      url: `${siteUrl}/en-US/docs/community/support`,
+      url: `${siteUrl}/en/docs/community/support`,
     },
   } as const;
 }
@@ -44,7 +44,7 @@ export function websiteSchema() {
     url: siteUrl,
     description:
       'Everywhere — liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
-    inLanguage: ['en-US', 'zh-CN'],
+    inLanguage: ['en', 'zh'],
     publisher: {
       '@type': 'Organization',
       name: siteName,
@@ -54,7 +54,7 @@ export function websiteSchema() {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/en-US/docs?q={search_term_string}`,
+        urlTemplate: `${siteUrl}/en/docs?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -65,9 +65,9 @@ export function websiteSchema() {
 
 export function softwareApplicationSchema(lang: string) {
   const descriptions: Record<string, string> = {
-    'en-US':
+    'en':
       'The on-demand AI desktop assistant that perceives your screen for instant help.',
-    'zh-CN':
+    'zh':
       '一款呼之即来的 AI 桌面助手。秒懂你的屏幕，即刻提供协助。',
   };
 
@@ -82,7 +82,7 @@ export function softwareApplicationSchema(lang: string) {
       price: '0',
       priceCurrency: 'USD',
     },
-    description: descriptions[lang] ?? descriptions['en-US'],
+    description: descriptions[lang] ?? descriptions['en'],
     url: `${siteUrl}/${lang}/download`,
     downloadUrl: `${siteUrl}/${lang}/download`,
     softwareVersion: 'latest',

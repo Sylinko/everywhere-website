@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { i18nLocaleToPathPrefix } from './i18n';
 
 export const siteName = 'Everywhere';
 
@@ -18,7 +17,7 @@ export function absoluteUrl(path: string): string {
 
 /**
  * Create merged metadata with sensible defaults for OpenGraph, Twitter, icons,
- * and optional canonical URL.
+ * and optional canonical URL. Hreflang alternates are set per-page.
  */
 export function createMetadata(
   override: Metadata & { canonical?: string }
@@ -36,7 +35,6 @@ export function createMetadata(
     alternates: {
       ...rest.alternates,
       canonical: canonical ?? rest.alternates?.canonical,
-      languages: i18nLocaleToPathPrefix
     },
     openGraph: {
       title: override.title ?? undefined,

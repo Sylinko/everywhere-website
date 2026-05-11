@@ -11,6 +11,8 @@ import {
   PageLastUpdate,
 } from 'fumadocs-ui/page';
 import { breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
+import { i18n, getLocalePath } from '@/lib/i18n';
+import type { Metadata } from 'next';
 
 export default async function Page(props: {
   params: Promise<{ lang: string; slug?: string[] }>;
@@ -21,11 +23,11 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
   const lastModifiedTime = page.data.lastModified;
-  const pageUrl = absoluteUrl(`/${lang}/policies/${page.slugs.join('/')}`);
+  const pageUrl = absoluteUrl(getLocalePath(lang, `policies/${page.slugs.join('/')}`));
 
   const breadcrumbItems = [
-    { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
-    { name: lang === 'zh-CN' ? '政策' : 'Policies', url: absoluteUrl(`/${lang}/policies`) },
+    { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+    { name: lang === 'zh' ? '政策' : 'Policies', url: absoluteUrl(`/${lang}/policies`) },
     { name: page.data.title, url: pageUrl },
   ];
 
@@ -62,12 +64,30 @@ export async function generateMetadata(props: {
   const page = policySource.getPage(slug, lang);
   if (!page) notFound();
 
-  const pageUrl = absoluteUrl(`/${lang}/policies/${page.slugs.join('/')}`);
+  const policiesPath = `policies/${page.slugs.join('/')}`;
+  const pageUrl = absoluteUrl(getLocalePath(lang, policiesPath));
+  
+  const languageAlternates: Record<string, string> = {};
+  for (const hreflangKey of i18n.languages) {
+    const altPage = policySource.getPage(slug, hreflangKey);
+    if (altPage) {
+      languageAlternates[hreflangKey] = absoluteUrl(getLocalePath(hreflangKey, policiesPath));
+    }
+  }
+
+  if (languageAlternates[i18n.defaultLanguage]) {
+    languageAlternates['x-default'] = languageAlternates[i18n.defaultLanguage];
+  }
 
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
     canonical: pageUrl,
+    alternates: {
+      languages: Object.keys(languageAlternates).length > 0
+        ? languageAlternates
+        : undefined,
+    },
   });
 }
 

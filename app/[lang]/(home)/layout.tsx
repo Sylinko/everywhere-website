@@ -42,7 +42,7 @@ const i18nText: Record<
   string,
   Record<string, { text: string; desc: string }>
 > = {
-  'en-US': {
+  'en': {
     title: { text: 'Docs', desc: '' },
     download: { text: 'Download', desc: '' },
     login: { text: 'Login', desc: '' },
@@ -70,7 +70,7 @@ const i18nText: Record<
       desc: 'Get support from community or our team.',
     },
   },
-  'zh-CN': {
+  'zh': {
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
     login: { text: '登录', desc: '' },
@@ -100,7 +100,7 @@ const i18nText: Record<
   },
 };
 
-const getTexts = (lang: string) => i18nText[lang] || i18nText['en-US'];
+const getTexts = (lang: string) => i18nText[lang] || i18nText['en'];
 
 const buildNavItems = (lang: string, docsUrl: string) => {
   const texts = getTexts(lang);
@@ -143,7 +143,7 @@ export default async function Layout({
   const navItems = buildNavItems(lang, docsUrl);
   
   const bannerText =
-    lang === 'zh-CN'
+    lang === 'zh'
       ? '🚀 全新上线！在云服务中体验开箱即用的网络搜索。'
       : '🚀 Now Live! Experience out-of-the-box web search on Cloud.';
 

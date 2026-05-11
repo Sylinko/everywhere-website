@@ -115,7 +115,7 @@ export function PrimaryPlansSection({
 }) {
   let text = '';
   if (planData.saleBadge) {
-    if (lang === 'zh-CN') {
+    if (lang === 'zh') {
       text = planData.saleBadge.zh;
     } else {
       text = planData.saleBadge.en;
@@ -369,7 +369,7 @@ export function ModelSupportTable({
   };
 
   const headers =
-    lang === 'zh-CN'
+    lang === 'zh'
       ? {
           model: '模型',
           modality: '输入模态',
@@ -386,7 +386,7 @@ export function ModelSupportTable({
         };
 
   const disclaimers =
-    lang === 'zh-CN'
+    lang === 'zh'
       ? {
           tierAccess: '我们会根据您的订阅方案提供相应的模型访问权限。升级到更高级别计划，即可解锁包括低等级在内的所有模型。',
           priceChange: '由于各模型官方更新频繁，模型列表及积分消耗可能会随市场情况进行动态调整，感谢您的理解。',

@@ -16,56 +16,91 @@ export const config = {
   ],
 };
 
-function getLocale(request: NextRequest): string {
-  const acceptLanguage = request.headers.get('accept-language');
-  if (!acceptLanguage) return i18n.defaultLanguage;
+const COOKIE_NAME = 'lang';
+const COOKIE_MAX_AGE = 31536000; // 1 year
 
-  const languages = acceptLanguage
-    .split(',')
-    .map((lang) => {
-      const [tag, quality] = lang.split(';');
-      return {
-        tag: tag.trim(),
-        quality: quality ? parseFloat(quality.split('=')[1]) : 1.0,
-      };
-    })
-    .sort((a, b) => b.quality - a.quality);
-
-  for (const lang of languages) {
-    // Exact match
-    if (i18n.languages.includes(lang.tag)) {
-      return lang.tag;
-    }
-
-    // Prefix match (e.g. en-GB -> en-US)
-    const baseLang = lang.tag.split('-')[0];
-    const matchedLang = i18n.languages.find((l) => l.startsWith(baseLang));
-    if (matchedLang) {
-      return matchedLang;
-    }
-  }
-
-  return i18n.defaultLanguage;
+/**
+ * Set the language preference cookie on a response.
+ */
+function setLangCookie(
+  response: NextResponse,
+  lang: string,
+): NextResponse {
+  response.cookies.set(COOKIE_NAME, lang, {
+    path: '/',
+    maxAge: COOKIE_MAX_AGE,
+    sameSite: 'lax',
+  });
+  return response;
 }
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if the pathname is missing a valid locale
-  const pathnameIsMissingLocale = i18n.languages.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
-
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-
-    // Construct new URL
+  // 301 Redirect legacy locale paths
+  if (pathname.startsWith('/en-US')) {
+    const newPath = pathname === '/en-US' ? '/en' : `/en${pathname.slice('/en-US'.length)}`;
     const url = new URL(request.url);
-    url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`;
-
-    // 308 Permanent Redirect
-    return NextResponse.redirect(url, 308);
+    url.pathname = newPath;
+    return NextResponse.redirect(url, 301);
   }
 
-  return NextResponse.next();
+  if (pathname.startsWith('/zh-CN')) {
+    const newPath =
+      pathname === '/zh-CN' ? '/zh' : `/zh${pathname.slice('/zh-CN'.length)}`;
+    const url = new URL(request.url);
+    url.pathname = newPath;
+    return NextResponse.redirect(url, 301);
+  }
+  
+  const langCookie = request.cookies.get(COOKIE_NAME)?.value;
+
+  // URL has locale prefix
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    const response = NextResponse.next();
+    if (langCookie !== 'en') {
+      setLangCookie(response, 'en');
+    }
+    return response;
+  }
+
+  if (pathname === '/zh' || pathname.startsWith('/zh/')) {
+    const response = NextResponse.next();
+    if (langCookie !== 'zh') {
+      setLangCookie(response, 'zh');
+    }
+    return response;
+  }
+
+  // Root path
+  // No locale prefix on /. Cookie → Accept-Language → Default.
+  if (pathname === '/') {
+    const targetLang = resolveBestLocale(langCookie, request.headers.get('accept-language') ?? '');
+    const url = new URL(request.url);
+    url.pathname = `/${targetLang}`;
+    const response = NextResponse.redirect(url, 307);
+    if (!langCookie || langCookie !== targetLang) {
+      setLangCookie(response, targetLang);
+    }
+    return response;
+  }
+
+  // Respect cookie preference; otherwise default to English.
+  // e.g. /docs/xxx → /en/docs/xxx or /zh/docs/xxx
+  const fallbackLang = langCookie && i18n.languages.includes(langCookie) ? langCookie : 'en';
+  const url = new URL(request.url);
+  url.pathname = `/${fallbackLang}${pathname}`;
+  return NextResponse.redirect(url, 307);
+}
+
+function resolveBestLocale(cookie: string | undefined, acceptLanguage: string): string {
+  if (cookie && i18n.languages.includes(cookie)) {
+    return cookie;
+  }
+
+  if (acceptLanguage.includes('zh')) {
+    return 'zh';
+  }
+
+  return 'en';
 }

@@ -21,14 +21,14 @@ import sponsor302AiDark from '@/public/sponsors/302-ai-dark.svg';
 import sponsorCertumCn from '@/public/sponsors/certum-cn.svg';
 
 // Static image imports — showcase images
-import showcaseEnContentSummary from '@/public/showcases/en-US/content-summary.webp';
-import showcaseEnDataAnalysis from '@/public/showcases/en-US/data-analysis.webp';
-import showcaseEnErrorAnalysis from '@/public/showcases/en-US/error-analysis.webp';
-import showcaseEnTerminalCalling from '@/public/showcases/en-US/terminal-calling.webp';
-import showcaseZhContentSummary from '@/public/showcases/zh-CN/content-summary.webp';
-import showcaseZhDataAnalysis from '@/public/showcases/zh-CN/data-analysis.webp';
-import showcaseZhErrorAnalysis from '@/public/showcases/zh-CN/error-analysis.webp';
-import showcaseZhTerminalCalling from '@/public/showcases/zh-CN/terminal-calling.webp';
+import showcaseEnContentSummary from '@/public/showcases/en/content-summary.webp';
+import showcaseEnDataAnalysis from '@/public/showcases/en/data-analysis.webp';
+import showcaseEnErrorAnalysis from '@/public/showcases/en/error-analysis.webp';
+import showcaseEnTerminalCalling from '@/public/showcases/en/terminal-calling.webp';
+import showcaseZhContentSummary from '@/public/showcases/zh/content-summary.webp';
+import showcaseZhDataAnalysis from '@/public/showcases/zh/data-analysis.webp';
+import showcaseZhErrorAnalysis from '@/public/showcases/zh/error-analysis.webp';
+import showcaseZhTerminalCalling from '@/public/showcases/zh/terminal-calling.webp';
 
 const sponsorImageMap: Record<string, StaticImageData> = {
   '/sponsors/302-ai-light': sponsor302AiLight,
@@ -37,13 +37,13 @@ const sponsorImageMap: Record<string, StaticImageData> = {
 };
 
 const showcaseImageMap: Record<string, Record<string, StaticImageData>> = {
-  'en-US': {
+  'en': {
     'content-summary.webp': showcaseEnContentSummary,
     'data-analysis.webp': showcaseEnDataAnalysis,
     'error-analysis.webp': showcaseEnErrorAnalysis,
     'terminal-calling.webp': showcaseEnTerminalCalling,
   },
-  'zh-CN': {
+  'zh': {
     'content-summary.webp': showcaseZhContentSummary,
     'data-analysis.webp': showcaseZhDataAnalysis,
     'error-analysis.webp': showcaseZhErrorAnalysis,

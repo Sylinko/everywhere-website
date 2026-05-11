@@ -17,7 +17,7 @@ import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib
 import { RepoUrl } from '@/lib/github';
 
 const contentMap = {
-  'en-US': {
+  'en': {
     title: 'Download',
     policies: {
       prefix: 'By downloading and using Everywhere, you agree to our ',
@@ -66,7 +66,7 @@ const contentMap = {
       action: 'View on GitHub',
     },
   },
-  'zh-CN': {
+  'zh': {
     title: '下载',
     policies: {
       prefix: '下载并使用 Everywhere 即表示您同意我们的 ',
@@ -124,11 +124,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const content =
-    contentMap[lang as keyof typeof contentMap] || contentMap['en-US'];
+    contentMap[lang as keyof typeof contentMap] || contentMap['en'];
   const pageUrl = absoluteUrl(`/${lang}/download`);
   return {
     title: content.title,
-    description: lang === 'zh-CN'
+    description: lang === 'zh'
       ? '下载 Everywhere — 获取你的通用 AI 智能体。随处感知情境，即刻提供协助。支持 Windows 和 macOS。'
       : 'Download Everywhere — Get your Universal AI Agent. Context-aware assistance, delivered instantly. Supporting Windows and macOS.',
     alternates: {
@@ -149,7 +149,7 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const content =
-    contentMap[lang as keyof typeof contentMap] || contentMap['en-US'];
+    contentMap[lang as keyof typeof contentMap] || contentMap['en'];
 
   const platforms = [
     {
@@ -180,7 +180,7 @@ export default async function Page({
       <JsonLdScript data={softwareApplicationSchema(lang)} />
       <JsonLdScript
         data={breadcrumbSchema([
-          { name: lang === 'zh-CN' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+          { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
           { name: content.title, url: absoluteUrl(`/${lang}/download`) },
         ])}
       />

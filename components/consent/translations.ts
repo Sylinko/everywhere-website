@@ -24,7 +24,7 @@ export interface ConsentTranslation {
 }
 
 export const consentTranslations: Record<string, ConsentTranslation> = {
-  'en-US': {
+  'en': {
     toast: {
       title: 'Data & Privacy',
       description:
@@ -54,7 +54,7 @@ export const consentTranslations: Record<string, ConsentTranslation> = {
       close: 'Close',
     },
   },
-  'zh-CN': {
+  'zh': {
     toast: {
       title: '数据与隐私',
       description:

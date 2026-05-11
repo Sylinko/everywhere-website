@@ -157,7 +157,7 @@ interface FooterTranslation {
 }
 
 const translations: Record<string, FooterTranslation> = {
-  'en-US': {
+  'en': {
     sections: {
       joinOurCommunity: {
         title: 'Join Our Community',
@@ -196,7 +196,7 @@ const translations: Record<string, FooterTranslation> = {
       suffix: ' Sylinko Inc. All rights reserved.',
     },
   },
-  'zh-CN': {
+  'zh': {
     sections: {
       joinOurCommunity: {
         title: '加入社群',
@@ -241,7 +241,7 @@ const translations: Record<string, FooterTranslation> = {
 // Footer Component
 // ============================================
 export function Footer({ lang }: FooterProps) {
-  const t = translations[lang] || translations['en-US'];
+  const t = translations[lang] || translations['en'];
 
   return (
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">

@@ -7,9 +7,10 @@ import { staticPages } from '@/lib/constants';
 
 /**
  * Generate sitemap with:
- * - Multi-language alternates (hreflang) for SEO
+ * - Multi-language alternates (hreflang)
  * - Actual lastModified dates from page data
  * - Proper priority hierarchy
+ * - All locales have a URL prefix (e.g. /en, /zh)
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
