@@ -73,9 +73,17 @@ body {
 }
 
 [data-card]:hover {
+  will-change: transform;
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   border-color: var(--color-brand);
+}
+
+@media (hover: none) {
+  [data-card]:hover {
+    will-change: auto;
+    transform: none;
+  }
 }
 
 /* Card icon container enhancement */
@@ -164,6 +172,7 @@ body {
   animation: banner-gradient-shift 10s ease infinite;
   color: white;
   position: relative;
+  min-height: var(--fd-banner-height, 2.25rem);
   overflow: hidden;
 }
 

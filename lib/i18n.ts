@@ -24,3 +24,21 @@ export function getLocalePath(lang: string, path = ''): string {
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   return cleanPath ? `/${lang}/${cleanPath}` : `/${lang}`;
 }
+
+/**
+ * Build hreflang language alternates for Next.js metadata.
+ */
+export function getLanguageAlternates(
+  absoluteUrl: (path: string) => string,
+  path = ''
+): Record<string, string> {
+  const languages: Record<string, string> = {};
+
+  for (const lang of i18n.languages) {
+    languages[lang] = absoluteUrl(getLocalePath(lang, path));
+  }
+
+  languages['x-default'] = languages[i18n.defaultLanguage];
+
+  return languages;
+}

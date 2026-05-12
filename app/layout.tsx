@@ -2,20 +2,25 @@ import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Viewport, Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
 import { organizationSchema, websiteSchema, JsonLdScript } from '@/lib/json-ld';
+import { headers } from 'next/headers';
+import { HtmlLangSync } from '@/components/html-lang-sync';
 import './global.css';
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
 });
 
+const defaultTitle = 'Everywhere - AI Assistant that flows with your desktop.';
+const defaultDescription =
+  'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://everywhere.sylinko.com'),
   title: {
-    default: 'Everywhere - AI Assistant that flows with your desktop.',
+    default: defaultTitle,
     template: '%s | Everywhere',
   },
-  description:
-    'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
+  description: defaultDescription,
   other: {
     charset: 'utf-8',
   },
@@ -30,15 +35,18 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function Layout({ children }: LayoutProps<'/'>) {
+export default async function Layout({ children }: LayoutProps<'/'>) {
+  const currentLang = (await headers()).get('x-current-lang') ?? 'en';
+
   return (
-    <html lang="en" suppressHydrationWarning className={notoSans.className}>
+    <html lang={currentLang} suppressHydrationWarning className={notoSans.className}>
       <head>
         <meta charSet="utf-8" />
-        <JsonLdScript data={organizationSchema()} />
-        <JsonLdScript data={websiteSchema()} />
+        <JsonLdScript data={organizationSchema({ description: defaultDescription })} />
+        <JsonLdScript data={websiteSchema({ title: defaultTitle, description: defaultDescription })} />
       </head>
       <body>
+        <HtmlLangSync />
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

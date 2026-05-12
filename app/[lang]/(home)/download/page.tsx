@@ -14,6 +14,7 @@ import {
 } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
 import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
+import { getLanguageAlternates } from '@/lib/i18n';
 import { RepoUrl } from '@/lib/github';
 
 const contentMap = {
@@ -133,6 +134,7 @@ export async function generateMetadata({
       : 'Download Everywhere — Get your Universal AI Agent. Context-aware assistance, delivered instantly. Supporting Windows and macOS.',
     alternates: {
       canonical: pageUrl,
+      languages: getLanguageAlternates(absoluteUrl, 'download'),
     },
     openGraph: {
       title: content.title,

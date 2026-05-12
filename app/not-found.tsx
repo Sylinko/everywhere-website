@@ -1,9 +1,8 @@
-'use client';
-
 import { buttonVariants } from '@/components/common/variants';
-import { getLocalePath } from '@/lib/i18n';
+import { getLocalePath, i18n } from '@/lib/i18n';
+import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 const i18nMap = {
   'en': {
@@ -18,15 +17,24 @@ const i18nMap = {
   },
 };
 
-export default function NotFound() {
-  const pathname = usePathname();
-  const langSegment = pathname?.split('/')[1];
+export const metadata: Metadata = {
+  title: 'Page Not Found',
+  description: 'We searched Everywhere, but this place remains untouched.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
-  const lang =
-    langSegment && Object.keys(i18nMap).includes(langSegment)
-      ? (langSegment as keyof typeof i18nMap)
-      : 'en';
+async function getCurrentLang(): Promise<keyof typeof i18nMap> {
+  const headerLang = (await headers()).get('x-current-lang');
+  return i18n.languages.includes(headerLang ?? '')
+    ? (headerLang as keyof typeof i18nMap)
+    : 'en';
+}
 
+export default async function NotFound() {
+  const lang = await getCurrentLang();
   const content = i18nMap[lang];
 
   return (
@@ -37,7 +45,7 @@ export default function NotFound() {
         {content.description}
       </p>
       <Link
-        href={getLocalePath(lang, '/')}
+        href={getLocalePath(lang)}
         className={buttonVariants({
           className: 'w-full sm:w-auto',
         })}

@@ -125,14 +125,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const { path, priority, changeFrequency } of staticPages) {
-    entries.push({
-      url: `${url}${getLocalePath(i18n.defaultLanguage, path)}`,
-      changeFrequency,
-      priority,
-      alternates: {
-        languages: generateAlternates(i18n.languages, path),
-      },
-    });
+    for (const lang of i18n.languages) {
+      entries.push({
+        url: `${url}${getLocalePath(lang, path)}`,
+        changeFrequency,
+        priority,
+        alternates: {
+          languages: generateAlternates(i18n.languages, path),
+        },
+      });
+    }
   }
 
   return entries;

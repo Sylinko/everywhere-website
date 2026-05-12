@@ -16,7 +16,7 @@ export const config = {
   ],
 };
 
-const COOKIE_NAME = 'lang';
+const COOKIE_NAME = 'NEXT_LOCALE';
 const COOKIE_MAX_AGE = 31536000; // 1 year
 
 /**
@@ -32,6 +32,17 @@ function setLangCookie(
     sameSite: 'lax',
   });
   return response;
+}
+
+function nextWithLang(request: NextRequest, lang: string): NextResponse {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-current-lang', lang);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export function middleware(request: NextRequest) {
@@ -57,7 +68,7 @@ export function middleware(request: NextRequest) {
 
   // URL has locale prefix
   if (pathname === '/en' || pathname.startsWith('/en/')) {
-    const response = NextResponse.next();
+    const response = nextWithLang(request, 'en');
     if (langCookie !== 'en') {
       setLangCookie(response, 'en');
     }
@@ -65,7 +76,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname === '/zh' || pathname.startsWith('/zh/')) {
-    const response = NextResponse.next();
+    const response = nextWithLang(request, 'zh');
     if (langCookie !== 'zh') {
       setLangCookie(response, 'zh');
     }

@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/og/'],
+        disallow: ['/api/', '/og/', '/*/llms-full.txt', '/*/llms.mdx/'],
       },
     ],
     sitemap: sitemapUrl,

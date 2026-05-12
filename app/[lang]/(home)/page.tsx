@@ -21,8 +21,9 @@ import {
   MiniMaxIcon,
 } from '@/components/common/icons';
 import type { Metadata } from 'next';
-import { getLocalePath } from '@/lib/i18n';
+import { getLanguageAlternates, getLocalePath } from '@/lib/i18n';
 import { baseUrl, siteName, absoluteUrl } from '@/lib/metadata';
+import { breadcrumbSchema, JsonLdScript, webPageSchema } from '@/lib/json-ld';
 
 const contentMap = {
   'en': {
@@ -263,21 +264,13 @@ export async function generateMetadata({
   const t = titles[lang] || titles['en'];
   const canonical = absoluteUrl(getLocalePath(lang));
 
-  const languageAlternates: Record<string, string> = {};
-  for (const hreflangKey of i18n.languages) {
-    languageAlternates[hreflangKey] = absoluteUrl(getLocalePath(hreflangKey));
-  }
-  if (languageAlternates[i18n.defaultLanguage]) {
-    languageAlternates['x-default'] = languageAlternates[i18n.defaultLanguage];
-  }
-
   return {
     metadataBase: baseUrl,
     title: t.default,
     description: t.description,
     alternates: {
       canonical,
-      languages: languageAlternates,
+      languages: getLanguageAlternates(absoluteUrl),
     },
     openGraph: {
       title: t.default,
@@ -303,6 +296,7 @@ export default async function Page({
   const { lang } = await params;
   const content =
     contentMap[lang as keyof typeof contentMap] || contentMap['en'];
+  const pageUrl = absoluteUrl(getLocalePath(lang));
 
   const modelProviders = [
     {
@@ -368,6 +362,17 @@ export default async function Page({
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark pt-4 pb-6 md:pb-12">
+      <JsonLdScript
+        data={webPageSchema({
+          url: pageUrl,
+          lang,
+        })}
+      />
+      <JsonLdScript
+        data={breadcrumbSchema([
+          { name: lang === 'zh' ? '首页' : 'Home', url: pageUrl },
+        ])}
+      />
       <div className="relative mx-auto flex max-h-100 min-h-95 w-full max-w-350 overflow-hidden border bg-origin-border min-[1400px]:rounded-2xl md:h-[70vh] md:min-h-150">
         <Hero />
         <div className="z-2 flex size-full flex-col px-4 max-md:items-center max-md:text-center md:p-12">

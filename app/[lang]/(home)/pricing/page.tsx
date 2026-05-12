@@ -9,7 +9,9 @@ import {
 import type { Metadata } from 'next';
 import { absoluteUrl } from '@/lib/metadata';
 import { faqSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
+import { getLanguageAlternates } from '@/lib/i18n';
 
+// Keep this page force-dynamic for Worker Binding
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
@@ -27,6 +29,7 @@ export async function generateMetadata({
         : 'Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there\'s a plan designed to keep up with you.',
     alternates: {
       canonical: pageUrl,
+      languages: getLanguageAlternates(absoluteUrl, 'pricing'),
     },
     openGraph: {
       title: lang === 'zh' ? '定价 | Everywhere' : 'Pricing | Everywhere',

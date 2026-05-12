@@ -5,45 +5,40 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
+import { EverywhereDescriptions, ProductHuntUrl } from './constants';
 import { RepoUrl } from './github';
 import { baseUrl, siteName } from './metadata';
 
 const siteUrl = baseUrl.origin;
 
-// ─── Organization ────────────────────────────────────────────────────────────
-
-export function organizationSchema() {
+export function organizationSchema({ description }: { description: string }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteName,
     url: siteUrl,
     logo: `${siteUrl}/Everywhere.webp`,
-    description:
-      'Liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
+    description,
     sameAs: [
       RepoUrl,
-      'https://discord.gg/5fyg6nE3yn',
+      ProductHuntUrl
     ],
     foundingDate: '2026',
     contactPoint: {
       '@type': 'ContactPoint',
-      contactType: 'customer support',
+      contactType: 'Customer Support',
       url: `${siteUrl}/en/docs/community/support`,
     },
   } as const;
 }
 
-// ─── WebSite (with SearchAction for sitelinks search box) ────────────────────
-
-export function websiteSchema() {
+export function websiteSchema({ title, description }: { title: string; description: string }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: siteName,
+    name: title,
     url: siteUrl,
-    description:
-      'Everywhere — liberating AI from browser tabs and standalone apps, making it a ubiquitous, native capability of your operating system.',
+    description,
     inLanguage: ['en', 'zh'],
     publisher: {
       '@type': 'Organization',
@@ -61,15 +56,7 @@ export function websiteSchema() {
   } as const;
 }
 
-// ─── SoftwareApplication ─────────────────────────────────────────────────────
-
 export function softwareApplicationSchema(lang: string) {
-  const descriptions: Record<string, string> = {
-    'en':
-      'The on-demand AI desktop assistant that perceives your screen for instant help.',
-    'zh':
-      '一款呼之即来的 AI 桌面助手。秒懂你的屏幕，即刻提供协助。',
-  };
 
   return {
     '@context': 'https://schema.org',
@@ -77,25 +64,16 @@ export function softwareApplicationSchema(lang: string) {
     name: siteName,
     operatingSystem: ['Windows', 'macOS'],
     applicationCategory: 'UtilitiesApplication',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-    description: descriptions[lang] ?? descriptions['en'],
+    description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
     url: `${siteUrl}/${lang}/download`,
     downloadUrl: `${siteUrl}/${lang}/download`,
-    softwareVersion: 'latest',
     author: {
       '@type': 'Organization',
       name: 'Sylinko',
       url: 'https://sylinko.com',
     },
-    screenshot: `${siteUrl}/Everywhere.webp`,
   } as const;
 }
-
-// ─── BreadcrumbList ──────────────────────────────────────────────────────────
 
 export interface BreadcrumbItem {
   name: string;
@@ -115,7 +93,33 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
   } as const;
 }
 
-// ─── Article (for docs pages) ────────────────────────────────────────────────
+export function webPageSchema({
+  url,
+  lang,
+}: {
+  url: string;
+  lang: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: siteName,
+    description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
+    url,
+    inLanguage: lang,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: siteName,
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/Everywhere.webp`,
+    },
+  } as const;
+}
 
 export function articleSchema({
   title,
@@ -161,8 +165,6 @@ export function articleSchema({
   } as const;
 }
 
-// ─── FAQPage ─────────────────────────────────────────────────────────────────
-
 export interface FAQItem {
   question: string;
   answer: string;
@@ -182,8 +184,6 @@ export function faqSchema(items: FAQItem[]) {
     })),
   } as const;
 }
-
-// ─── Helper: render JSON-LD script tag ───────────────────────────────────────
 
 export function JsonLdScript({ data }: { data: unknown }) {
   return (
