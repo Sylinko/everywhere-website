@@ -164,7 +164,7 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
             <div className="flex flex-row items-center gap-2">
               <Link
                 href={previous.response?.githubUrl || '#'}
-                rel="noreferrer noopener"
+                rel="noopener"
                 target="_blank"
                 className={cn(buttonVariants(), 'text-xs')}
               >

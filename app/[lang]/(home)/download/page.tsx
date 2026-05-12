@@ -297,7 +297,7 @@ export default async function Page({
             <Link
               href={`${RepoUrl}/releases`}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'sm' }),
                 'gap-2 rounded-full px-4'

@@ -124,7 +124,7 @@ export const CoreTeamCard: React.FC<CoreTeamCardProps> = ({
               key={idx}
               href={link.href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label={link.label}
             >
@@ -168,7 +168,7 @@ export const CommunityMemberCard: React.FC<CommunityMemberCardProps> = ({
         <Link
           href={displayUrl}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
           {GitHubIcon}
@@ -205,7 +205,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({
     <Link
       href={displayUrl}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       className={cn(
         cardVariants(),
         // Override padding for small size

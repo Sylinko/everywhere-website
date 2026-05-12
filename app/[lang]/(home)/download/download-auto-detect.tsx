@@ -83,7 +83,7 @@ export function DownloadAutoDetect({
         <Link
           href={variants.primary.link}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
           className={cn(
             buttonVariants({ size: 'lg' }),
             'h-14 gap-3 rounded-full px-8 text-lg'

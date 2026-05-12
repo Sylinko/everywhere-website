@@ -170,7 +170,7 @@ export function ViewOptions({
           <Link
             key={item.href}
             href={item.href}
-            rel="noreferrer noopener"
+            rel="noopener"
             target="_blank"
             className={cn(optionVariants())}
           >

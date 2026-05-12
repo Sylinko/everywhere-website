@@ -260,7 +260,7 @@ export function Footer({ lang }: FooterProps) {
                     key={item.name}
                     href={item.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
                     aria-label={item.name}
                     title={item.name}
@@ -281,7 +281,7 @@ export function Footer({ lang }: FooterProps) {
                     key={item.name}
                     href={item.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
                     aria-label={item.name}
                     title={item.name}
@@ -303,7 +303,7 @@ export function Footer({ lang }: FooterProps) {
                 <Link
                   href="https://afdian.tv/a/DearVa"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                 >
                   {t.sections.sponsorUs.afdian}
@@ -313,7 +313,7 @@ export function Footer({ lang }: FooterProps) {
                 <Link
                   href="https://buymeacoffee.com/artemisli"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                 >
                   {t.sections.sponsorUs.buyMeACoffee}
@@ -333,7 +333,7 @@ export function Footer({ lang }: FooterProps) {
                   <Link
                     href={link.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                   >
                     {link.label}
@@ -356,7 +356,7 @@ export function Footer({ lang }: FooterProps) {
                       link.external ? link.href : getLocalePath(lang, link.href)
                     }
                     target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
+                    rel={link.external ? 'noopener' : undefined}
                     className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                   >
                     {t.sections.policies[link.key]}
@@ -377,7 +377,7 @@ export function Footer({ lang }: FooterProps) {
                   <Link
                     href={link.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                   >
                     {t.sections.aboutSylinko[link.key]}

@@ -30,43 +30,19 @@ const { provider } = defineI18nUI(i18n, {
 
 const titleMap: Record<
   string,
-  { default: string; template: string; description: string; keywords: string[] }
+  { default: string; template: string; description: string; }
 > = {
   'en': {
     default: 'Everywhere - AI Assistant that flows with your desktop.',
     template: '%s | Everywhere',
     description:
       'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
-    keywords: [
-      'Desktop AI Assistant',
-      'On-Demand AI Agent',
-      'Screen Context AI',
-      'Screen Perception AI',
-      'Universal Desktop Agent',
-      'Interactive AI Copilot',
-      'AI Workflow Automation',
-      'Cross-Platform AI Client',
-      'AI Productivity Tool',
-      'Smart Desktop Companion',
-    ],
   },
   'zh': {
     default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
     template: '%s | Everywhere',
     description:
       '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',
-    keywords: [
-      '桌面AI助手',
-      '智能体助手',
-      '屏幕感知AI',
-      '一键呼出AI',
-      '通用桌面智能体',
-      'AI副驾驶',
-      'AI效率工具',
-      '跨平台AI客户端',
-      '智能桌面伴侣',
-      'AI工作流自动化',
-    ],
   },
 };
 
@@ -85,7 +61,6 @@ export async function generateMetadata({
       template: titles.template,
     },
     description: titles.description,
-    keywords: titles.keywords,
     authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
     creator: 'Sylinko',
     openGraph: {

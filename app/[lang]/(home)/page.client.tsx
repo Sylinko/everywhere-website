@@ -274,18 +274,26 @@ export function KeyConceptsSection({
               key={i}
               href={badge.href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
               {badge.darkSrc ? (
                 <>
                   <img
                     src={badge.src}
                     alt={badge.alt}
+                    width={250}
+                    height={54}
+                    loading="lazy"
+                    decoding="async"
                     className="h-auto dark:hidden"
                   />
                   <img
                     src={badge.darkSrc}
                     alt={badge.alt}
+                    width={250}
+                    height={54}
+                    loading="lazy"
+                    decoding="async"
                     className="h-auto hidden dark:block"
                   />
                 </>
@@ -293,6 +301,10 @@ export function KeyConceptsSection({
                 <img
                   src={badge.src}
                   alt={badge.alt}
+                  width={250}
+                  height={54}
+                  loading="lazy"
+                  decoding="async"
                   className="h-auto hidden dark:block"
                 />
               )}
@@ -446,7 +458,7 @@ export function ModelProviderSection({
                       key={i}
                       href={model.link}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener"
                     >
                       <div className="bg-card flex shrink-0 items-center justify-center gap-2 rounded-xl border px-4 py-2 shadow-sm">
                         <>{model.icon}</>
@@ -504,7 +516,7 @@ export function SponsorsSection({
               key={idx}
               href={sponsor.link}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="bg-card flex items-center justify-center rounded-xl border transition-shadow hover:shadow-md"
             >
               <div className="relative h-25 w-50">
