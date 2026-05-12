@@ -113,7 +113,7 @@ export async function generateMetadata(props: {
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const docsPath = `docs/${page.slugs.join('/')}`;
+  const docsPath = page.slugs.length === 0 ? 'docs' : `docs/${page.slugs.join('/')}`;
   const pageUrl = absoluteUrl(getLocalePath(lang, docsPath));
   const ogImage = getPageImage(page).url;
 

@@ -12,7 +12,6 @@ import {
 } from 'fumadocs-ui/page';
 import { breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 import { i18n, getLocalePath } from '@/lib/i18n';
-import type { Metadata } from 'next';
 
 export default async function Page(props: {
   params: Promise<{ lang: string; slug?: string[] }>;

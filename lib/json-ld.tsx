@@ -11,6 +11,10 @@ import { baseUrl, siteName } from './metadata';
 
 const siteUrl = baseUrl.origin;
 
+function stringifyJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 export function organizationSchema({ description }: { description: string }) {
   return {
     '@context': 'https://schema.org',
@@ -67,6 +71,11 @@ export function softwareApplicationSchema(lang: string) {
     description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
     url: `${siteUrl}/${lang}/download`,
     downloadUrl: `${siteUrl}/${lang}/download`,
+    offers: {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: "USD"
+    },
     author: {
       '@type': 'Organization',
       name: 'Sylinko',
@@ -190,7 +199,7 @@ export function JsonLdScript({ data }: { data: unknown }) {
     <script
       type="application/ld+json"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: stringifyJsonLd(data) }}
     />
   );
 }

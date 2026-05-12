@@ -56,20 +56,20 @@ const contentMap = {
     keyConceptsBadges: [
       {
         href: 'https://trendshift.io/repositories/15106',
-        src: 'https://trendshift.io/api/badge/repositories/15106',
-        darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
+        src: '/api/badges/trendshift',
+        darkSrc: '/api/badges/trendshift',
         alt: 'Everywhere | Trendshift',
       },
       {
         href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
-        src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=light&t=1762403775174',
-        darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=dark&t=1762403775174',
+        src: '/api/badges/producthuntLight',
+        darkSrc: '/api/badges/producthuntDark',
         alt: 'Product Hunt',
       },
       {
         href: 'https://hellogithub.com/repository/DearVa/Everywhere',
-        src: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR2',
-        darkSrc: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR23&theme=dark',
+        src: '/api/badges/hellogithubLight',
+        darkSrc: '/api/badges/hellogithubDark',
         alt: 'Featured | HelloGitHub',
       },
     ],
@@ -162,20 +162,20 @@ const contentMap = {
     keyConceptsBadges: [
       {
         href: 'https://trendshift.io/repositories/15106',
-        src: 'https://trendshift.io/api/badge/repositories/15106',
-        darkSrc: 'https://trendshift.io/api/badge/repositories/15106',
+        src: '/api/badges/trendshift',
+        darkSrc: '/api/badges/trendshift',
         alt: 'Everywhere | Trendshift',
       },
       {
         href: 'https://www.producthunt.com/products/everywhere?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-everywhere',
-        src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=light&t=1762403775174',
-        darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1034853&theme=dark&t=1762403775174',
+        src: '/api/badges/producthuntLight',
+        darkSrc: '/api/badges/producthuntDark',
         alt: 'Product Hunt',
       },
       {
         href: 'https://hellogithub.com/repository/DearVa/Everywhere',
-        src: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR2',
-        darkSrc: 'https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=0bd4328c24794902bd6097055cda6f36&claim_uid=LNYEf6O9Qv5JeR23&theme=dark',
+        src: '/api/badges/hellogithubLight',
+        darkSrc: '/api/badges/hellogithubDark',
         alt: 'Featured | HelloGitHub',
       },
     ],
