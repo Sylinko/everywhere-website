@@ -44,6 +44,13 @@ export default async function Layout({ children }: LayoutProps<'/'>) {
       </head>
       <body>
         <HtmlLangSync />
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html:
+              'var __name=globalThis.__name||(globalThis.__name=function(target){return target;});',
+          }}
+        />
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
