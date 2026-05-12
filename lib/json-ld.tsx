@@ -5,7 +5,7 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
-import { EverywhereDescriptions, ProductHuntUrl } from './constants';
+import { EverywhereDescriptions, OfficialUrl, ProductHuntUrl } from './constants';
 import { RepoUrl } from './github';
 import { baseUrl, siteName } from './metadata';
 
@@ -70,7 +70,7 @@ export function softwareApplicationSchema(lang: string) {
     author: {
       '@type': 'Organization',
       name: 'Sylinko',
-      url: 'https://sylinko.com',
+      url: OfficialUrl,
     },
   } as const;
 }
@@ -151,7 +151,7 @@ export function articleSchema({
     author: {
       '@type': 'Organization',
       name: 'Sylinko',
-      url: 'https://sylinko.com',
+      url: OfficialUrl,
     },
     publisher: {
       '@type': 'Organization',

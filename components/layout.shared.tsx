@@ -4,6 +4,7 @@ import { i18n, getLocalePath } from '../lib/i18n';
 import { GitHubIcon, DiscordIcon, QQIcon } from './common/icons';
 import Favicon from '@/public/favicon.ico';
 import { RepoUrl } from '@/lib/github';
+import { DiscordUrl, QQGroupUrl } from '@/lib/constants';
 
 export const linkItems = [
   {
@@ -16,7 +17,7 @@ export const linkItems = [
   },
   {
     type: 'icon',
-    url: 'https://discord.gg/5fyg6nE3yn',
+    url: DiscordUrl,
     label: 'Discord',
     text: 'Discord',
     icon: DiscordIcon,
@@ -24,7 +25,7 @@ export const linkItems = [
   },
   {
     type: 'icon',
-    url: 'https://qm.qq.com/cgi-bin/qm/qr?k=wp9aDBBnLc7pYATqT99tB-N2ZP2ETmJC&jump_from=webapi&authKey=97qUJfsQoI70dUNcgBZ0C3HCZeiEn8inLT7pzg8x+KinbQwfIrHFu3dB2+aHMbRD',
+    url: QQGroupUrl,
     label: 'QQ',
     text: 'QQ',
     icon: QQIcon,

@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { createMetadata, baseUrl, absoluteUrl } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
 import { softwareApplicationSchema, JsonLdScript } from '@/lib/json-ld';
+import { EverywhereDescriptions, EverywhereTitles, OfficialUrl } from '@/lib/constants';
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
@@ -33,16 +34,14 @@ const titleMap: Record<
   { default: string; template: string; description: string; }
 > = {
   'en': {
-    default: 'Everywhere - AI Assistant that flows with your desktop.',
+    default: EverywhereTitles['en'],
     template: '%s | Everywhere',
-    description:
-      'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
+    description: EverywhereDescriptions['en'],
   },
   'zh': {
-    default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
+    default: EverywhereTitles['zh'],
     template: '%s | Everywhere',
-    description:
-      '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',
+    description: EverywhereDescriptions['zh'],
   },
 };
 
@@ -61,7 +60,7 @@ export async function generateMetadata({
       template: titles.template,
     },
     description: titles.description,
-    authors: [{ name: 'Sylinko', url: 'https://sylinko.com' }],
+    authors: [{ name: 'Sylinko', url: OfficialUrl }],
     creator: 'Sylinko',
     openGraph: {
       type: 'website',

@@ -5,6 +5,8 @@ icon: HeartPlus
 ---
 
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import Link from 'fumadocs-core/link';
+import { DiscordUrl, QQGroupUrl } from '@/lib/constants';
 
 感谢你选择 Everywhere。无论是发现 Bug，还是有新的功能想法，你都可以通过以下渠道与我们取得联系。
 
@@ -20,9 +22,9 @@ import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 | 渠道              | 加入                                                        |
 | :---------------- | :---------------------------------------------------------- |
-| **QQ 主群**       | [点击加入](https://aka.sylinko.com/everywhere-discord)      |
+| **QQ 主群**       | <Link href={QQGroupUrl}>点击加入</Link>                     |
 | **QQ Mac 交流群** | [点击加入](https://aka.sylinko.com/everywhere-qq-group-mac) |
-| **Discord**       | [点击加入](https://aka.sylinko.com/everywhere-discord)      |
+| **Discord**       | <Link href={DiscordUrl}>点击加入</Link>                     |
 
 ## 问题反馈与贡献
 我们使用 GitHub 处理所有的技术性反馈。为了提高处理效率，请根据内容选择正确的入口。

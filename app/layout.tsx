@@ -5,22 +5,19 @@ import { organizationSchema, websiteSchema, JsonLdScript } from '@/lib/json-ld';
 import { headers } from 'next/headers';
 import { HtmlLangSync } from '@/components/html-lang-sync';
 import './global.css';
+import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
 });
 
-const defaultTitle = 'Everywhere - AI Assistant that flows with your desktop.';
-const defaultDescription =
-  'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.';
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://everywhere.sylinko.com'),
   title: {
-    default: defaultTitle,
+    default: EverywhereTitles['en'],
     template: '%s | Everywhere',
   },
-  description: defaultDescription,
+  description: EverywhereDescriptions['en'],
   other: {
     charset: 'utf-8',
   },
@@ -42,8 +39,8 @@ export default async function Layout({ children }: LayoutProps<'/'>) {
     <html lang={currentLang} suppressHydrationWarning className={notoSans.className}>
       <head>
         <meta charSet="utf-8" />
-        <JsonLdScript data={organizationSchema({ description: defaultDescription })} />
-        <JsonLdScript data={websiteSchema({ title: defaultTitle, description: defaultDescription })} />
+        <JsonLdScript data={organizationSchema({ description: EverywhereDescriptions['en'] })} />
+        <JsonLdScript data={websiteSchema({ title: EverywhereTitles['en'], description: EverywhereDescriptions['en'] })} />
       </head>
       <body>
         <HtmlLangSync />

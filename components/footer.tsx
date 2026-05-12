@@ -12,6 +12,7 @@ import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
 import { CookieSettingsButton } from '@/components/consent';
 import { RepoUrl } from '@/lib/github';
+import { DiscordUrl, OfficialUrl, ProductHuntUrl, QQGroupUrl, XUrl, YoutubeUrl } from '@/lib/constants';
 
 interface FooterProps {
   lang: string;
@@ -26,17 +27,17 @@ const communityLinks: { name: string; href: string; icon: React.ReactNode }[] =
     },
     {
       name: 'Discord',
-      href: 'https://discord.gg/5fyg6nE3yn',
+      href: DiscordUrl,
       icon: DiscordIcon,
     },
     {
       name: 'QQ',
-      href: 'https://qm.qq.com/cgi-bin/qm/qr?k=wp9aDBBnLc7pYATqT99tB-N2ZP2ETmJC&jump_from=webapi&authKey=97qUJfsQoI70dUNcgBZ0C3HCZeiEn8inLT7pzg8x+KinbQwfIrHFu3dB2+aHMbRD',
+      href: QQGroupUrl,
       icon: QQIcon,
     },
     {
       name: 'Product Hunt',
-      href: 'https://www.producthunt.com/products/everywhere',
+      href: ProductHuntUrl,
       icon: ProductHuntIcon,
     },
   ];
@@ -49,12 +50,12 @@ const followUsLinks: { name: string; href: string; icon: React.ReactNode }[] = [
   },
   {
     name: 'Youtube',
-    href: 'https://www.youtube.com/@everywhere_official',
+    href: YoutubeUrl,
     icon: YoutubeIcon,
   },
   {
     name: 'X',
-    href: 'https://x.com/everywhere_team',
+    href: XUrl,
     icon: XIcon,
   },
   {
@@ -77,7 +78,7 @@ const sylinkoLinks: {
 }[] = [
   {
     key: 'officialWebsite',
-    href: 'https://sylinko.com',
+    href: OfficialUrl,
   },
   {
     key: 'contactUs',
@@ -126,8 +127,8 @@ interface FooterTranslation {
     };
     sponsorUs: {
       title: string;
+      githubSponsor: string;
       afdian: string;
-      buyMeACoffee: string;
     };
     relatedProjects: string;
     policies: {
@@ -167,8 +168,8 @@ const translations: Record<string, FooterTranslation> = {
       },
       sponsorUs: {
         title: 'Sponsor Us',
+        githubSponsor: 'GitHub',
         afdian: 'Afdian',
-        buyMeACoffee: 'Buy Me A Coffee',
       },
       relatedProjects: 'Related Projects',
       policies: {
@@ -206,8 +207,8 @@ const translations: Record<string, FooterTranslation> = {
       },
       sponsorUs: {
         title: '赞助我们',
+        githubSponsor: 'GitHub',
         afdian: '爱发电',
-        buyMeACoffee: 'Buy Me A Coffee',
       },
       relatedProjects: '相关项目',
       policies: {
@@ -301,22 +302,22 @@ export function Footer({ lang }: FooterProps) {
             <ul className="space-y-3">
               <li>
                 <Link
+                  href="https://github.com/sponsors/Sylinko"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
+                >
+                  {t.sections.sponsorUs.githubSponsor}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="https://afdian.tv/a/DearVa"
                   target="_blank"
                   rel="noopener"
                   className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
                 >
                   {t.sections.sponsorUs.afdian}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://buymeacoffee.com/artemisli"
-                  target="_blank"
-                  rel="noopener"
-                  className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
-                >
-                  {t.sections.sponsorUs.buyMeACoffee}
                 </Link>
               </li>
             </ul>

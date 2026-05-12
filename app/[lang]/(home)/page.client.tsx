@@ -516,7 +516,7 @@ export function SponsorsSection({
               key={idx}
               href={sponsor.link}
               target="_blank"
-              rel="noopener"
+              rel="noopener sponsored"
               className="bg-card flex items-center justify-center rounded-xl border transition-shadow hover:shadow-md"
             >
               <div className="relative h-25 w-50">
@@ -666,7 +666,7 @@ export function CTASection({
           {description}
         </p>
         <DynamicLink
-          href={`/[lang]/docs/quick-start`}
+          href="/[lang]/docs/quick-start"
           className={cn(
             buttonVariants(),
             'relative z-10 h-auto min-h-fit items-center gap-2 px-8 py-2 text-lg shadow-lg'

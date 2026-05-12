@@ -3,10 +3,6 @@ import type { ActionResponse, Feedback } from '@/components/feedback';
 
 // Everywhere GitHub repository url
 export const RepoUrl = 'https://github.com/Sylinko/Everywhere';
-export const LicenseRepoUrl =
-  'https://github.com/Sylinko/Everywhere/blob/main/LICENSE';
-export const CodeOfConductRepoUrl =
-  'https://github.com/Sylinko/Everywhere/blob/main/.github/CODE_OF_CONDUCT.md';
 
 // Docs GitHub repository info
 export const owner = 'Sylinko';

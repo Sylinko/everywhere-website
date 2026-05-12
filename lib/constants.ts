@@ -18,9 +18,22 @@ export const DownloadLinks = {
   },
 } as const;
 
-export const AccountUrl = "https://account.sylinko.com";
+export const OfficialUrl = 'https://sylinko.com';
+export const AccountUrl = 'https://account.sylinko.com';
 
-export const ProductHuntUrl = "https://www.producthunt.com/products/everywhere";
+export const ProductHuntUrl = 'https://www.producthunt.com/products/everywhere';
+export const YoutubeUrl = 'https://www.youtube.com/@everywhere_official';
+export const XUrl = 'https://x.com/everywhere_team';
+
+export const QQGroupUrl = 'https://aka.sylinko.com/everywhere-qq-group';
+export const DiscordUrl = 'https://aka.sylinko.com/everywhere-discord';
+
+export const EverywhereTitles: Record<string, string> = {
+  'en':
+    'Everywhere - AI Assistant that flows with your desktop.',
+  'zh':
+    'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
+};
 
 export const EverywhereDescriptions: Record<string, string> = {
   'en':

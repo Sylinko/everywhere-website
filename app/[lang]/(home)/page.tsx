@@ -24,6 +24,7 @@ import type { Metadata } from 'next';
 import { getLanguageAlternates, getLocalePath } from '@/lib/i18n';
 import { baseUrl, siteName, absoluteUrl } from '@/lib/metadata';
 import { breadcrumbSchema, JsonLdScript, webPageSchema } from '@/lib/json-ld';
+import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 
 const contentMap = {
   'en': {
@@ -251,14 +252,12 @@ export async function generateMetadata({
   const { lang } = await params;
   const titles: Record<string, { default: string; description: string }> = {
     'en': {
-      default: 'Everywhere - AI Assistant that flows with your desktop.',
-      description:
-        'Everywhere is an intuitive AI that works seamlessly alongside you. It grasps your screen context and assists instantly via a shortcut, hidden until needed.',
+      default: EverywhereTitles['en'],
+      description: EverywhereDescriptions['en'],
     },
     'zh': {
-      default: 'Everywhere - 你的通用智能体，一键呼出的桌面 AI 助手',
-      description:
-        '探索 Everywhere：一款具备情境感知能力的交互式 AI 助手。呼之即来，秒懂你的屏幕，即刻提供协助。',
+      default: EverywhereTitles['zh'],
+      description: EverywhereDescriptions['zh'],
     },
   };
   const t = titles[lang] || titles['en'];
