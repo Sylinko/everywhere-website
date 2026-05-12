@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -21,6 +21,8 @@ export function SiteBanner({
 }: SiteBannerProps) {
   const [open, setOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [bannerHeight, setBannerHeight] = useState(height);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -32,6 +34,22 @@ export function SiteBanner({
     }
   }, [id]);
 
+  useEffect(() => {
+    if (!open || !bannerRef.current) return;
+
+    const banner = bannerRef.current;
+    const updateBannerHeight = () => {
+      setBannerHeight(`${banner.offsetHeight}px`);
+    };
+
+    updateBannerHeight();
+
+    const resizeObserver = new ResizeObserver(updateBannerHeight);
+    resizeObserver.observe(banner);
+
+    return () => resizeObserver.disconnect();
+  }, [open]);
+
   if (!mounted) return null;
 
   if (!open) {
@@ -40,16 +58,17 @@ export function SiteBanner({
 
   return (
     <>
-      <style>{`:root { --fd-banner-height: ${height}; }`}</style>
+      <style>{`:root { --fd-banner-height: ${bannerHeight}; }`}</style>
       <div
+        ref={bannerRef}
         id={id}
         className={cn(
-          'sticky top-0 z-40 flex flex-row items-center justify-center px-4 text-center font-medium',
+          'sticky top-0 z-40 flex flex-row items-center justify-center px-10 py-2 text-center font-medium leading-snug',
           className
         )}
-        style={{ height }}
+        style={{ minHeight: height }}
       >
-        {children}
+        <span className="relative z-10">{children}</span>
         <button
           type="button"
           aria-label="Close Banner"
@@ -61,7 +80,7 @@ export function SiteBanner({
               // ignore
             }
           }}
-          className="absolute inset-e-2 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+          className="absolute inset-e-2 top-1/2 z-10 -translate-y-1/2 text-white/70 transition-colors hover:text-white"
         >
           <X size={16} />
         </button>
