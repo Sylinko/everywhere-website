@@ -9,6 +9,7 @@
     "roadmap",
     "support",
     "license",
+    "external:[构建指南](https://github.com/Sylinko/Everywhere/blob/main/docs/build.md)",
     "external:[贡献指南](https://github.com/Sylinko/Everywhere/blob/main/.github/CONTRIBUTING.md)",
     "external:[安全报告](https://github.com/Sylinko/Everywhere/blob/main/.github/SECURITY.md)",
     "external:[行为准则](https://github.com/Sylinko/Everywhere/blob/main/.github/CODE_OF_CONDUCT.md)"

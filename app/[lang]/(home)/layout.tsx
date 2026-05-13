@@ -46,7 +46,6 @@ const i18nText: Record<
     title: { text: 'Docs', desc: '' },
     download: { text: 'Download', desc: '' },
     login: { text: 'Login', desc: '' },
-    developer: { text: 'Developer', desc: '' },
     pricing: { text: 'Pricing', desc: '' },
     community: { text: 'Community', desc: '' },
     'getting-started': {
@@ -74,7 +73,6 @@ const i18nText: Record<
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
     login: { text: '登录', desc: '' },
-    developer: { text: '开发者', desc: '' },
     pricing: { text: '定价', desc: '' },
     community: { text: '社区', desc: '' },
     'getting-started': {
@@ -201,13 +199,6 @@ export default async function Layout({
           {
             type: 'main',
             on: 'menu',
-            text: texts.developer.text,
-            url: getLocalePath(lang, 'docs/developer'),
-            icon: <CodeXml />,
-          },
-          {
-            type: 'main',
-            on: 'menu',
             text: texts.community.text,
             url: getLocalePath(lang, 'docs/community'),
             icon: <Users />,
@@ -271,13 +262,6 @@ export default async function Layout({
             text: texts.pricing.text,
             url: getLocalePath(lang, 'pricing'),
             icon: <Gem />,
-          },
-          {
-            type: 'main',
-            on: 'nav',
-            text: texts.developer.text,
-            url: getLocalePath(lang, 'docs/developer'),
-            icon: <CodeXml />,
           },
           {
             type: 'main',
