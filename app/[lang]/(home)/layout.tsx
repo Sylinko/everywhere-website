@@ -142,12 +142,12 @@ export default async function Layout({
   
   const bannerText =
     lang === 'zh'
-      ? '🚀 全新上线！在云服务中体验开箱即用的网络搜索。'
-      : '🚀 Now Live! Experience out-of-the-box web search on Cloud.';
+      ? '🚀 模型上新！Kimi 及 MiniMax 系列模型现已在云服务上线。'
+      : '🚀 New Models! Kimi and MiniMax series are now live on Cloud.';
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteBanner id="everywhere-cloud-search" className="site-banner text-md" height="2.25rem">
+      <SiteBanner id="kimi-minimax-launch" className="site-banner text-md" height="2.25rem">
         {bannerText}
       </SiteBanner>
       <HomeLayout
