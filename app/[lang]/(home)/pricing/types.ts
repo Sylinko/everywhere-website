@@ -18,12 +18,14 @@ export function canAccessPlan(currentPlan: Plan, minimumTier: Plan): boolean {
   return PLAN_LEVEL[currentPlan] >= PLAN_LEVEL[minimumTier];
 }
 
-export type ModelProvider = 'openai' | 'anthropic' | 'google' | 'deepseek';
+export type ModelProvider = 'openai' | 'anthropic' | 'google' | 'deepseek' | 'moonshotai' | 'minimax';
 export const MODEL_PROVIDERS: ModelProvider[] = [
   'openai',
   'anthropic',
   'google',
   'deepseek',
+  'moonshotai',
+  'minimax',
 ];
 
 export interface TokenPricing {

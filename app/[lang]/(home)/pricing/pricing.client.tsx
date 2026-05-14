@@ -19,6 +19,7 @@ import {
   AnthropicClaudeIcon,
   DeepSeekIcon,
   GoogleGeminiIcon,
+  MiniMaxIcon,
   MoonshotKimiIcon,
   OpenAIIcon,
 } from '@/components/common/icons';
@@ -365,7 +366,8 @@ export function ModelSupportTable({
     Google: GoogleGeminiIcon,
     Anthropic: AnthropicClaudeIcon,
     DeepSeek: DeepSeekIcon,
-    Moonshot: MoonshotKimiIcon,
+    MoonshotAI: MoonshotKimiIcon,
+    MiniMax: MiniMaxIcon,
   };
 
   const headers =

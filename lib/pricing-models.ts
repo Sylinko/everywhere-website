@@ -58,6 +58,8 @@ const providerToCompany: Record<ModelProvider, string> = {
   anthropic: 'Anthropic',
   google: 'Google',
   deepseek: 'DeepSeek',
+  moonshotai: 'MoonshotAI',
+  minimax: 'MiniMax',
 };
 
 function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
