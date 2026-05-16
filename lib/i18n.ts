@@ -8,12 +8,16 @@ export const i18n: I18nConfig = {
 };
 
 /**
- * Hreflang language alternates mapping.
+ * Route locale to hreflang language tag mapping.
  */
-export const i18nLocaleToPathPrefix: Record<string, string> = {
-  'en': '/en',
-  'zh': '/zh',
-  'x-default': '/en',
+export const localeToHreflang: Record<string, string> = {
+  en: 'en',
+  zh: 'zh',
+};
+
+export const localeToOpenGraphLocale: Record<string, string> = {
+  en: 'en_US',
+  zh: 'zh_CN',
 };
 
 /**
@@ -21,8 +25,24 @@ export const i18nLocaleToPathPrefix: Record<string, string> = {
  * Returns `/en` or `/zh` (with optional subpath).
  */
 export function getLocalePath(lang: string, path = ''): string {
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  const cleanPath = path.replace(/^\/+|\/+$/g, '');
   return cleanPath ? `/${lang}/${cleanPath}` : `/${lang}`;
+}
+
+export function getHreflang(lang: string): string {
+  return localeToHreflang[lang] ?? lang;
+}
+
+export function getOpenGraphLocale(lang: string): string {
+  return localeToOpenGraphLocale[lang] ?? lang;
+}
+
+export function getDefaultAlternateLanguage(
+  languages: readonly string[]
+): string | undefined {
+  return languages.includes(i18n.defaultLanguage)
+    ? i18n.defaultLanguage
+    : languages[0];
 }
 
 /**
@@ -30,15 +50,19 @@ export function getLocalePath(lang: string, path = ''): string {
  */
 export function getLanguageAlternates(
   absoluteUrl: (path: string) => string,
-  path = ''
+  path = '',
+  languages: readonly string[] = i18n.languages
 ): Record<string, string> {
-  const languages: Record<string, string> = {};
+  const alternates: Record<string, string> = {};
 
-  for (const lang of i18n.languages) {
-    languages[lang] = absoluteUrl(getLocalePath(lang, path));
+  for (const lang of languages) {
+    alternates[getHreflang(lang)] = absoluteUrl(getLocalePath(lang, path));
   }
 
-  languages['x-default'] = languages[i18n.defaultLanguage];
+  const defaultLang = getDefaultAlternateLanguage(languages);
+  if (defaultLang) {
+    alternates['x-default'] = absoluteUrl(getLocalePath(defaultLang, path));
+  }
 
-  return languages;
+  return alternates;
 }

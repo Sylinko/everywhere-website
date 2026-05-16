@@ -7,18 +7,18 @@ import type { Metadata } from 'next';
 import { DownloadAutoDetect } from './download-auto-detect';
 import { DownloadLinks } from '@/lib/constants';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
-import {
-  WindowsIcon,
-  AppleIcon,
-  GitHubIcon,
-} from '@/components/common/icons';
+import { WindowsIcon, AppleIcon, GitHubIcon } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
-import { softwareApplicationSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
-import { getLanguageAlternates } from '@/lib/i18n';
+import {
+  softwareApplicationSchema,
+  breadcrumbSchema,
+  JsonLdScript,
+} from '@/lib/json-ld';
+import { getLanguageAlternates, getOpenGraphLocale } from '@/lib/i18n';
 import { RepoUrl } from '@/lib/github';
 
 const contentMap = {
-  'en': {
+  en: {
     title: 'Download',
     policies: {
       prefix: 'By downloading and using Everywhere, you agree to our ',
@@ -67,7 +67,7 @@ const contentMap = {
       action: 'View on GitHub',
     },
   },
-  'zh': {
+  zh: {
     title: '下载',
     policies: {
       prefix: '下载并使用 Everywhere 即表示您同意我们的 ',
@@ -129,9 +129,10 @@ export async function generateMetadata({
   const pageUrl = absoluteUrl(`/${lang}/download`);
   return {
     title: content.title,
-    description: lang === 'zh'
-      ? '下载 Everywhere — 获取你的通用 AI 智能体。随处感知情境，即刻提供协助。支持 Windows 和 macOS。'
-      : 'Download Everywhere — Get your Universal AI Agent. Context-aware assistance, delivered instantly. Supporting Windows and macOS.',
+    description:
+      lang === 'zh'
+        ? '下载 Everywhere — 获取你的通用 AI 智能体。随处感知情境，即刻提供协助。支持 Windows 和 macOS。'
+        : 'Download Everywhere — Get your Universal AI Agent. Context-aware assistance, delivered instantly. Supporting Windows and macOS.',
     alternates: {
       canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'download'),
@@ -140,6 +141,7 @@ export async function generateMetadata({
       title: content.title,
       url: pageUrl,
       type: 'website',
+      locale: getOpenGraphLocale(lang),
     },
   };
 }
@@ -182,7 +184,10 @@ export default async function Page({
       <JsonLdScript data={softwareApplicationSchema(lang)} />
       <JsonLdScript
         data={breadcrumbSchema([
-          { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+          {
+            name: lang === 'zh' ? '首页' : 'Home',
+            url: absoluteUrl(`/${lang}`),
+          },
           { name: content.title, url: absoluteUrl(`/${lang}/download`) },
         ])}
       />
@@ -217,7 +222,7 @@ export default async function Page({
         </div>
 
         {/* All Platforms Grid */}
-        <h2 className="text-center mb-8 font-semibold text-2xl">
+        <h2 className="mb-8 text-center text-2xl font-semibold">
           {content.allVersions}
         </h2>
         <div className="mr-50 ml-50 grid grid-cols-1 gap-6 md:grid-cols-2">

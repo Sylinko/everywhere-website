@@ -28,8 +28,14 @@ export async function GET(
 }
 
 export function generateStaticParams() {
-  return source.getPages().map((page) => ({
-    lang: page.locale,
-    slug: getPageImage(page).segments,
-  }));
+  const seen = new Set<string>();
+
+  return source.getPages().flatMap((page) => {
+    const slug = getPageImage(page).segments;
+    const key = slug.join('/');
+    if (seen.has(key)) return [];
+
+    seen.add(key);
+    return [{ slug }];
+  });
 }

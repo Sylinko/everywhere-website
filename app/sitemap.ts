@@ -1,8 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { source } from '@/lib/source';
-import { i18n } from '@/lib/i18n';
+import { policySource, source } from '@/lib/source';
+import {
+  getDefaultAlternateLanguage,
+  getHreflang,
+  getLocalePath,
+  i18n,
+} from '@/lib/i18n';
 import { baseUrl } from '@/lib/metadata';
-import { getLocalePath } from '@/lib/i18n';
 import { staticPages } from '@/lib/constants';
 
 /**
@@ -28,17 +32,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return slugKey ? `docs/${slugKey}` : 'docs';
   }
 
+  function policiesPathForSlug(slugKey: string): string {
+    return slugKey ? `policies/${slugKey}` : 'policies';
+  }
+
   function generateAlternates(
     langs: string[],
     path: string
   ): Record<string, string> {
     const alternates: Record<string, string> = {};
     for (const lang of langs) {
-      alternates[lang] = `${url}${getLocalePath(lang, path)}`;
+      alternates[getHreflang(lang)] = `${url}${getLocalePath(lang, path)}`;
     }
-    const defaultLang = langs.includes(i18n.defaultLanguage)
-      ? i18n.defaultLanguage
-      : langs[0];
+    const defaultLang = getDefaultAlternateLanguage(langs);
     if (defaultLang) {
       alternates['x-default'] = `${url}${getLocalePath(defaultLang, path)}`;
     }
@@ -46,16 +52,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   const latestModifiedByLang = new Map<string, Date>();
+  const homeEntries: MetadataRoute.Sitemap = [];
 
   for (const lang of i18n.languages) {
-    entries.push({
+    const entry: MetadataRoute.Sitemap[number] = {
       url: `${url}${getLocalePath(lang)}`,
       changeFrequency: 'daily',
       priority: 1.0,
       alternates: {
         languages: generateAlternates(i18n.languages, ''),
       },
-    });
+    };
+    entries.push(entry);
+    homeEntries.push(entry);
   }
 
   const pagesBySlug = new Map<
@@ -80,13 +89,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
       }
     }
-  }
-
-  for (const entry of entries) {
-    const match = entry.url.replace(url, '').split('/').filter(Boolean)[0];
-    if (!match) continue;
-    const lm = latestModifiedByLang.get(match);
-    if (lm) entry.lastModified = lm;
   }
 
   for (const [slugKey, langPages] of pagesBySlug) {
@@ -119,6 +121,56 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority,
         alternates: {
           languages: generateAlternates(availableLangs, docsPath),
+        },
+      });
+    }
+  }
+
+  const policiesBySlug = new Map<
+    string,
+    { lang: string; page: ReturnType<typeof policySource.getPages>[number] }[]
+  >();
+
+  for (const lang of i18n.languages) {
+    const pages = policySource.getPages(lang);
+    for (const page of pages) {
+      const slugKey = page.slugs.join('/');
+      if (!policiesBySlug.has(slugKey)) {
+        policiesBySlug.set(slugKey, []);
+      }
+      policiesBySlug.get(slugKey)!.push({ lang, page });
+
+      const lm = toDate(page.data.lastModified);
+      if (lm) {
+        const prev = latestModifiedByLang.get(lang);
+        if (!prev || lm.getTime() > prev.getTime()) {
+          latestModifiedByLang.set(lang, lm);
+        }
+      }
+    }
+  }
+
+  for (const entry of homeEntries) {
+    const match = entry.url.replace(url, '').split('/').filter(Boolean)[0];
+    if (!match) continue;
+    const lm = latestModifiedByLang.get(match);
+    if (lm) entry.lastModified = lm;
+  }
+
+  for (const [slugKey, langPages] of policiesBySlug) {
+    const availableLangs = langPages.map((p) => p.lang);
+    const policiesPath = policiesPathForSlug(slugKey);
+
+    for (const { lang, page } of langPages) {
+      const lastModified = toDate(page.data.lastModified);
+
+      entries.push({
+        url: `${url}${getLocalePath(lang, policiesPath)}`,
+        ...(lastModified ? { lastModified } : {}),
+        changeFrequency: 'monthly',
+        priority: 0.4,
+        alternates: {
+          languages: generateAlternates(availableLangs, policiesPath),
         },
       });
     }

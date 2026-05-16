@@ -22,10 +22,7 @@ const COOKIE_MAX_AGE = 31536000; // 1 year
 /**
  * Set the language preference cookie on a response.
  */
-function setLangCookie(
-  response: NextResponse,
-  lang: string,
-): NextResponse {
+function setLangCookie(response: NextResponse, lang: string): NextResponse {
   response.cookies.set(COOKIE_NAME, lang, {
     path: '/',
     maxAge: COOKIE_MAX_AGE,
@@ -45,18 +42,22 @@ function nextWithLang(request: NextRequest, lang: string): NextResponse {
   });
 }
 
+function isLocalePath(pathname: string, locale: string): boolean {
+  return pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 301 Redirect legacy locale paths
-  if (pathname.startsWith('/en-US')) {
+  if (isLocalePath(pathname, 'en-US')) {
     const newPath = pathname === '/en-US' ? '/en' : `/en${pathname.slice('/en-US'.length)}`;
     const url = new URL(request.url);
     url.pathname = newPath;
     return NextResponse.redirect(url, 301);
   }
 
-  if (pathname.startsWith('/zh-CN')) {
+  if (isLocalePath(pathname, 'zh-CN')) {
     const newPath =
       pathname === '/zh-CN' ? '/zh' : `/zh${pathname.slice('/zh-CN'.length)}`;
     const url = new URL(request.url);
@@ -67,7 +68,7 @@ export function middleware(request: NextRequest) {
   const langCookie = request.cookies.get(COOKIE_NAME)?.value;
 
   // URL has locale prefix
-  if (pathname === '/en' || pathname.startsWith('/en/')) {
+  if (isLocalePath(pathname, 'en')) {
     const response = nextWithLang(request, 'en');
     if (langCookie !== 'en') {
       setLangCookie(response, 'en');
@@ -75,7 +76,7 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  if (pathname === '/zh' || pathname.startsWith('/zh/')) {
+  if (isLocalePath(pathname, 'zh')) {
     const response = nextWithLang(request, 'zh');
     if (langCookie !== 'zh') {
       setLangCookie(response, 'zh');

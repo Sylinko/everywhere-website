@@ -4,17 +4,22 @@ import { Provider } from '@/components/provider';
 import { siteName } from '@/lib/metadata';
 import '../global.css';
 import type { Metadata } from 'next';
-import { createMetadata, baseUrl, absoluteUrl } from '@/lib/metadata';
+import { createMetadata, baseUrl } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
 import { softwareApplicationSchema, JsonLdScript } from '@/lib/json-ld';
-import { EverywhereDescriptions, EverywhereTitles, OfficialUrl } from '@/lib/constants';
+import {
+  EverywhereDescriptions,
+  EverywhereTitles,
+  OfficialUrl,
+} from '@/lib/constants';
+import { getOpenGraphLocale } from '@/lib/i18n';
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
-    'en': {
+    en: {
       displayName: 'English',
     },
-    'zh': {
+    zh: {
       displayName: '简体中文',
       search: '搜索文档',
       searchNoResult: '没有结果',
@@ -31,14 +36,14 @@ const { provider } = defineI18nUI(i18n, {
 
 const titleMap: Record<
   string,
-  { default: string; template: string; description: string; }
+  { default: string; template: string; description: string }
 > = {
-  'en': {
+  en: {
     default: EverywhereTitles['en'],
     template: '%s | Everywhere',
     description: EverywhereDescriptions['en'],
   },
-  'zh': {
+  zh: {
     default: EverywhereTitles['zh'],
     template: '%s | Everywhere',
     description: EverywhereDescriptions['zh'],
@@ -64,7 +69,7 @@ export async function generateMetadata({
     creator: 'Sylinko',
     openGraph: {
       type: 'website',
-      locale: lang,
+      locale: getOpenGraphLocale(lang),
       title: titles.default,
       description: titles.description,
       siteName,

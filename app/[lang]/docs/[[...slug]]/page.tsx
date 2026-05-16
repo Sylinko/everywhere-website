@@ -13,13 +13,14 @@ import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/page-actions';
 import { onRateAction } from '@/lib/github';
-import { absoluteUrl } from '@/lib/metadata';
-import { i18n, getLocalePath } from '@/lib/i18n';
+import { absoluteUrl, createMetadata } from '@/lib/metadata';
 import {
-  articleSchema,
-  breadcrumbSchema,
-  JsonLdScript,
-} from '@/lib/json-ld';
+  getLanguageAlternates,
+  getLocalePath,
+  getOpenGraphLocale,
+  i18n,
+} from '@/lib/i18n';
+import { articleSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 
 const owner = 'Sylinko';
 const repo = 'everywhere-website';
@@ -34,12 +35,17 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
   const lastModifiedTime = page.data.lastModified;
-  const pageUrl = absoluteUrl(getLocalePath(lang, `docs/${page.slugs.join('/')}`));
+  const pageUrl = absoluteUrl(
+    getLocalePath(lang, `docs/${page.slugs.join('/')}`)
+  );
 
   const breadcrumbItems = [
     { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
-    { name: lang === 'zh' ? '文档' : 'Docs', url: absoluteUrl(`/${lang}/docs`) },
-    { name: page.data.title, url: pageUrl }
+    {
+      name: lang === 'zh' ? '文档' : 'Docs',
+      url: absoluteUrl(`/${lang}/docs`),
+    },
+    { name: page.data.title, url: pageUrl },
   ];
 
   const ogImage = getPageImage(page).url;
@@ -113,43 +119,36 @@ export async function generateMetadata(props: {
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const docsPath = page.slugs.length === 0 ? 'docs' : `docs/${page.slugs.join('/')}`;
+  const docsPath =
+    page.slugs.length === 0 ? 'docs' : `docs/${page.slugs.join('/')}`;
   const pageUrl = absoluteUrl(getLocalePath(lang, docsPath));
   const ogImage = getPageImage(page).url;
 
-  const languageAlternates: Record<string, string> = {};
-  for (const hreflangKey of i18n.languages) {
-    const altPage = source.getPage(slug, hreflangKey);
-    if (altPage) {
-      languageAlternates[hreflangKey] = absoluteUrl(getLocalePath(hreflangKey, docsPath));
-    }
-  }
+  const availableLanguages = i18n.languages.filter((locale) =>
+    Boolean(source.getPage(slug, locale))
+  );
 
-  if (languageAlternates[i18n.defaultLanguage]) {
-    languageAlternates['x-default'] = languageAlternates[i18n.defaultLanguage];
-  }
-
-  const metadata: Metadata = {
+  return createMetadata({
     title: page.data.title,
     description: page.data.description,
+    canonical: pageUrl,
     openGraph: {
       images: ogImage,
       title: page.data.title,
       description: page.data.description,
       url: pageUrl,
       type: 'article',
+      locale: getOpenGraphLocale(lang),
     },
     twitter: {
       card: 'summary_large_image',
       images: ogImage,
     },
     alternates: {
-      canonical: pageUrl,
-      languages: Object.keys(languageAlternates).length > 0
-        ? languageAlternates
-        : undefined,
+      languages:
+        availableLanguages.length > 0
+          ? getLanguageAlternates(absoluteUrl, docsPath, availableLanguages)
+          : undefined,
     },
-  };
-
-  return metadata;
+  });
 }

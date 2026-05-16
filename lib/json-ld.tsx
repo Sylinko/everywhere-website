@@ -5,8 +5,13 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
-import { EverywhereDescriptions, OfficialUrl, ProductHuntUrl } from './constants';
+import {
+  EverywhereDescriptions,
+  OfficialUrl,
+  ProductHuntUrl,
+} from './constants';
 import { RepoUrl } from './github';
+import { getHreflang, i18n } from './i18n';
 import { baseUrl, siteName } from './metadata';
 
 const siteUrl = baseUrl.origin;
@@ -23,10 +28,7 @@ export function organizationSchema({ description }: { description: string }) {
     url: siteUrl,
     logo: `${siteUrl}/Everywhere.webp`,
     description,
-    sameAs: [
-      RepoUrl,
-      ProductHuntUrl
-    ],
+    sameAs: [RepoUrl, ProductHuntUrl],
     foundingDate: '2026',
     contactPoint: {
       '@type': 'ContactPoint',
@@ -36,14 +38,20 @@ export function organizationSchema({ description }: { description: string }) {
   } as const;
 }
 
-export function websiteSchema({ title, description }: { title: string; description: string }) {
+export function websiteSchema({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: title,
     url: siteUrl,
     description,
-    inLanguage: ['en', 'zh'],
+    inLanguage: i18n.languages.map(getHreflang),
     publisher: {
       '@type': 'Organization',
       name: siteName,
@@ -61,7 +69,6 @@ export function websiteSchema({ title, description }: { title: string; descripti
 }
 
 export function softwareApplicationSchema(lang: string) {
-
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -71,10 +78,11 @@ export function softwareApplicationSchema(lang: string) {
     description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
     url: `${siteUrl}/${lang}/download`,
     downloadUrl: `${siteUrl}/${lang}/download`,
+    inLanguage: getHreflang(lang),
     offers: {
-      "@type": "Offer",
+      '@type': 'Offer',
       price: 0,
-      priceCurrency: "USD"
+      priceCurrency: 'USD',
     },
     author: {
       '@type': 'Organization',
@@ -102,20 +110,14 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
   } as const;
 }
 
-export function webPageSchema({
-  url,
-  lang,
-}: {
-  url: string;
-  lang: string;
-}) {
+export function webPageSchema({ url, lang }: { url: string; lang: string }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: siteName,
     description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
     url,
-    inLanguage: lang,
+    inLanguage: getHreflang(lang),
     isPartOf: {
       '@type': 'WebSite',
       name: siteName,
@@ -156,7 +158,7 @@ export function articleSchema({
     datePublished: datePublished ?? undefined,
     dateModified: dateModified ?? datePublished ?? undefined,
     image: imageUrl ?? undefined,
-    inLanguage: lang,
+    inLanguage: getHreflang(lang),
     author: {
       '@type': 'Organization',
       name: 'Sylinko',

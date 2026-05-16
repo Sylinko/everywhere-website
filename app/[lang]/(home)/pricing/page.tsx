@@ -9,7 +9,7 @@ import {
 import type { Metadata } from 'next';
 import { absoluteUrl } from '@/lib/metadata';
 import { faqSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
-import { getLanguageAlternates } from '@/lib/i18n';
+import { getLanguageAlternates, getOpenGraphLocale } from '@/lib/i18n';
 
 // Keep this page force-dynamic for Worker Binding
 export const dynamic = 'force-dynamic';
@@ -26,7 +26,7 @@ export async function generateMetadata({
     description:
       lang === 'zh'
         ? '选择适合您的 Everywhere 计划。无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。'
-        : 'Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there\'s a plan designed to keep up with you.',
+        : "Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there's a plan designed to keep up with you.",
     alternates: {
       canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'pricing'),
@@ -35,6 +35,7 @@ export async function generateMetadata({
       title: lang === 'zh' ? '定价 | Everywhere' : 'Pricing | Everywhere',
       url: pageUrl,
       type: 'website',
+      locale: getOpenGraphLocale(lang),
     },
   };
 }
@@ -53,7 +54,10 @@ export default async function PricingPage({
       <JsonLdScript data={faqSchema(content.faq)} />
       <JsonLdScript
         data={breadcrumbSchema([
-          { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+          {
+            name: lang === 'zh' ? '首页' : 'Home',
+            url: absoluteUrl(`/${lang}`),
+          },
           { name: content.pageTitle, url: absoluteUrl(`/${lang}/pricing`) },
         ])}
       />

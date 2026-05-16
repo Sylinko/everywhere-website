@@ -21,13 +21,17 @@ import {
   MiniMaxIcon,
 } from '@/components/common/icons';
 import type { Metadata } from 'next';
-import { getLanguageAlternates, getLocalePath } from '@/lib/i18n';
+import {
+  getLanguageAlternates,
+  getLocalePath,
+  getOpenGraphLocale,
+} from '@/lib/i18n';
 import { baseUrl, siteName, absoluteUrl } from '@/lib/metadata';
 import { breadcrumbSchema, JsonLdScript, webPageSchema } from '@/lib/json-ld';
 import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 
 const contentMap = {
-  'en': {
+  en: {
     // Hero
     badges: ['Context-aware', 'Interactive', 'Flexible'],
     title: 'Every moment, Every place.',
@@ -87,7 +91,7 @@ const contentMap = {
       {
         icon: 'shield' as const,
         title: 'Commitment to Core Quality',
-        desc: "We prioritize rigorous system engineering over rushed development. Every line is meticulously polished for better performance and security.",
+        desc: 'We prioritize rigorous system engineering over rushed development. Every line is meticulously polished for better performance and security.',
       },
     ],
     // Model Providers
@@ -136,7 +140,7 @@ const contentMap = {
       action: 'Get Everywhere',
     },
   },
-  'zh': {
+  zh: {
     // Hero
     badges: ['感知', '交互', '灵活'],
     title: '呼之即来，智能相伴',
@@ -157,8 +161,7 @@ const contentMap = {
     ),
     // Key Concepts
     keyConceptsTitle: '构筑你的心流状态',
-    keyConceptsSubtitle:
-      '基于环境感知，专为不间断的思考而生。',
+    keyConceptsSubtitle: '基于环境感知，专为不间断的思考而生。',
     keyConceptsBadges: [
       {
         href: 'https://trendshift.io/repositories/15106',
@@ -198,8 +201,7 @@ const contentMap = {
     ],
     // Model Providers
     modelProviderTitle: '主流大模型支持',
-    modelProviderDesc:
-      '以前沿智能，重塑交互体验。',
+    modelProviderDesc: '以前沿智能，重塑交互体验。',
     modelProviderLearnMoreDesc: '开始配置',
     // Sponsors
     sponsorsTitle: '赞助方',
@@ -251,11 +253,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const titles: Record<string, { default: string; description: string }> = {
-    'en': {
+    en: {
       default: EverywhereTitles['en'],
       description: EverywhereDescriptions['en'],
     },
-    'zh': {
+    zh: {
       default: EverywhereTitles['zh'],
       description: EverywhereDescriptions['zh'],
     },
@@ -277,7 +279,7 @@ export async function generateMetadata({
       url: canonical,
       siteName,
       type: 'website',
-      locale: lang,
+      locale: getOpenGraphLocale(lang),
     },
     twitter: {
       card: 'summary_large_image',
