@@ -42,7 +42,7 @@ const i18nText: Record<
   string,
   Record<string, { text: string; desc: string }>
 > = {
-  'en': {
+  en: {
     title: { text: 'Docs', desc: '' },
     download: { text: 'Download', desc: '' },
     login: { text: 'Login', desc: '' },
@@ -69,7 +69,7 @@ const i18nText: Record<
       desc: 'Get support from community or our team.',
     },
   },
-  'zh': {
+  zh: {
     title: { text: '文档', desc: '' },
     download: { text: '下载', desc: '' },
     login: { text: '登录', desc: '' },
@@ -100,12 +100,12 @@ const i18nText: Record<
 
 const getTexts = (lang: string) => i18nText[lang] || i18nText['en'];
 
-const buildNavItems = (lang: string, docsUrl: string) => {
+const buildNavItems = (lang: string) => {
   const texts = getTexts(lang);
   return docsSubNavItems.map(({ key, icon: Icon, path }) => ({
     text: texts[key].text,
     desc: texts[key].desc,
-    url: `${docsUrl}${path}`,
+    url: getLocalePath(lang, path ? `docs${path}` : 'docs'),
     Icon,
   }));
 };
@@ -138,8 +138,8 @@ export default async function Layout({
   const layoutOptions = baseOptions(lang);
   const texts = getTexts(lang);
   const docsUrl = getLocalePath(lang, 'docs');
-  const navItems = buildNavItems(lang, docsUrl);
-  
+  const navItems = buildNavItems(lang);
+
   const bannerText =
     lang === 'zh'
       ? '🚀 模型上新！Kimi 及 MiniMax 系列模型现已在云服务上线。'
@@ -147,7 +147,11 @@ export default async function Layout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteBanner id="kimi-minimax-launch" className="site-banner text-md" height="2.25rem">
+      <SiteBanner
+        id="kimi-minimax-launch"
+        className="site-banner text-md"
+        height="2.25rem"
+      >
         {bannerText}
       </SiteBanner>
       <HomeLayout

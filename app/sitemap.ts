@@ -38,15 +38,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   function generateAlternates(
     langs: string[],
-    path: string
+    path: string,
+    options: { xDefault?: string | false } = {}
   ): Record<string, string> {
     const alternates: Record<string, string> = {};
     for (const lang of langs) {
       alternates[getHreflang(lang)] = `${url}${getLocalePath(lang, path)}`;
     }
-    const defaultLang = getDefaultAlternateLanguage(langs);
-    if (defaultLang) {
-      alternates['x-default'] = `${url}${getLocalePath(defaultLang, path)}`;
+    if (options.xDefault !== false) {
+      const defaultLang = getDefaultAlternateLanguage(langs);
+      if (options.xDefault) {
+        alternates['x-default'] = `${url}${options.xDefault}`;
+      } else if (defaultLang) {
+        alternates['x-default'] = `${url}${getLocalePath(defaultLang, path)}`;
+      }
     }
     return alternates;
   }
@@ -60,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1.0,
       alternates: {
-        languages: generateAlternates(i18n.languages, ''),
+        languages: generateAlternates(i18n.languages, '', { xDefault: '/' }),
       },
     };
     entries.push(entry);

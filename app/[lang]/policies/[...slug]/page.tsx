@@ -32,10 +32,13 @@ export default async function Page(props: {
   );
 
   const breadcrumbItems = [
-    { name: lang === 'zh' ? '首页' : 'Home', url: absoluteUrl(`/${lang}`) },
+    {
+      name: lang === 'zh' ? '首页' : 'Home',
+      url: absoluteUrl(getLocalePath(lang)),
+    },
     {
       name: lang === 'zh' ? '政策' : 'Policies',
-      url: absoluteUrl(`/${lang}/policies`),
+      url: absoluteUrl(getLocalePath(lang, 'policies')),
     },
     { name: page.data.title, url: pageUrl },
   ];

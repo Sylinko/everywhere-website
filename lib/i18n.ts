@@ -22,7 +22,6 @@ export const localeToOpenGraphLocale: Record<string, string> = {
 
 /**
  * Get the URL path for a given locale. Always includes the language prefix.
- * Returns `/en` or `/zh` (with optional subpath).
  */
 export function getLocalePath(lang: string, path = ''): string {
   const cleanPath = path.replace(/^\/+|\/+$/g, '');
@@ -51,7 +50,8 @@ export function getDefaultAlternateLanguage(
 export function getLanguageAlternates(
   absoluteUrl: (path: string) => string,
   path = '',
-  languages: readonly string[] = i18n.languages
+  languages: readonly string[] = i18n.languages,
+  options: { xDefault?: string | false } = {}
 ): Record<string, string> {
   const alternates: Record<string, string> = {};
 
@@ -59,9 +59,14 @@ export function getLanguageAlternates(
     alternates[getHreflang(lang)] = absoluteUrl(getLocalePath(lang, path));
   }
 
-  const defaultLang = getDefaultAlternateLanguage(languages);
-  if (defaultLang) {
-    alternates['x-default'] = absoluteUrl(getLocalePath(defaultLang, path));
+  if (options.xDefault !== false) {
+    const defaultLang = getDefaultAlternateLanguage(languages);
+    const xDefaultPath = options.xDefault;
+    if (xDefaultPath) {
+      alternates['x-default'] = absoluteUrl(xDefaultPath);
+    } else if (defaultLang) {
+      alternates['x-default'] = absoluteUrl(getLocalePath(defaultLang, path));
+    }
   }
 
   return alternates;

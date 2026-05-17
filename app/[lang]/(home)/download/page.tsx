@@ -14,7 +14,11 @@ import {
   breadcrumbSchema,
   JsonLdScript,
 } from '@/lib/json-ld';
-import { getLanguageAlternates, getOpenGraphLocale } from '@/lib/i18n';
+import {
+  getLanguageAlternates,
+  getLocalePath,
+  getOpenGraphLocale,
+} from '@/lib/i18n';
 import { RepoUrl } from '@/lib/github';
 
 const contentMap = {
@@ -126,7 +130,7 @@ export async function generateMetadata({
   const { lang } = await params;
   const content =
     contentMap[lang as keyof typeof contentMap] || contentMap['en'];
-  const pageUrl = absoluteUrl(`/${lang}/download`);
+  const pageUrl = absoluteUrl(getLocalePath(lang, 'download'));
   return {
     title: content.title,
     description:
@@ -186,9 +190,12 @@ export default async function Page({
         data={breadcrumbSchema([
           {
             name: lang === 'zh' ? '首页' : 'Home',
-            url: absoluteUrl(`/${lang}`),
+            url: absoluteUrl(getLocalePath(lang)),
           },
-          { name: content.title, url: absoluteUrl(`/${lang}/download`) },
+          {
+            name: content.title,
+            url: absoluteUrl(getLocalePath(lang, 'download')),
+          },
         ])}
       />
       <div className="mx-auto max-w-300">

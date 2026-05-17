@@ -271,7 +271,9 @@ export async function generateMetadata({
     description: t.description,
     alternates: {
       canonical,
-      languages: getLanguageAlternates(absoluteUrl),
+      languages: getLanguageAlternates(absoluteUrl, '', i18n.languages, {
+        xDefault: '/',
+      }),
     },
     openGraph: {
       title: t.default,

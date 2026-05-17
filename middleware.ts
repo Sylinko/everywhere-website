@@ -31,15 +31,44 @@ function setLangCookie(response: NextResponse, lang: string): NextResponse {
   return response;
 }
 
+function appendVary(response: NextResponse, values: string[]): NextResponse {
+  const existing = response.headers.get('Vary');
+
+  const merged = new Set(
+    existing
+      ? existing
+          .split(',')
+          .map((value) => value.trim())
+          .filter(Boolean)
+      : [],
+  );
+
+  for (const value of values) {
+    merged.add(value);
+  }
+
+  response.headers.set('Vary', Array.from(merged).join(', '));
+  return response;
+}
+
+function markDynamicRedirect(response: NextResponse): NextResponse {
+  appendVary(response, ['Accept-Language', 'Cookie']);
+  response.headers.set('Cache-Control', 'private, no-store');
+  return response;
+}
+
 function nextWithLang(request: NextRequest, lang: string): NextResponse {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-current-lang', lang);
 
-  return NextResponse.next({
+  const response = NextResponse.next({
     request: {
       headers: requestHeaders,
     },
   });
+
+  response.headers.set('Content-Language', lang === 'zh' ? 'zh-CN' : 'en');
+  return response;
 }
 
 function isLocalePath(pathname: string, locale: string): boolean {
@@ -90,18 +119,17 @@ export function middleware(request: NextRequest) {
     const targetLang = resolveBestLocale(langCookie, request.headers.get('accept-language') ?? '');
     const url = new URL(request.url);
     url.pathname = `/${targetLang}`;
-    const response = NextResponse.redirect(url, 307);
+    const response = markDynamicRedirect(NextResponse.redirect(url, 307));
     if (!langCookie || langCookie !== targetLang) {
       setLangCookie(response, targetLang);
     }
     return response;
   }
 
-  // Respect cookie preference; otherwise default to English.
-  // e.g. /docs/xxx → /en/docs/xxx or /zh/docs/xxx
-  const fallbackLang = langCookie && i18n.languages.includes(langCookie) ? langCookie : 'en';
+  // Non-locale paths: deterministic SEO fallback.
+  // Example: /docs -> /en/docs, regardless of cookie.
   const url = new URL(request.url);
-  url.pathname = `/${fallbackLang}${pathname}`;
+  url.pathname = `/en${pathname}`;
   return NextResponse.redirect(url, 307);
 }
 

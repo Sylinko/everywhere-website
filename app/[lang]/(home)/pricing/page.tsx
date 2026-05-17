@@ -9,7 +9,11 @@ import {
 import type { Metadata } from 'next';
 import { absoluteUrl } from '@/lib/metadata';
 import { faqSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
-import { getLanguageAlternates, getOpenGraphLocale } from '@/lib/i18n';
+import {
+  getLanguageAlternates,
+  getLocalePath,
+  getOpenGraphLocale,
+} from '@/lib/i18n';
 
 // Keep this page force-dynamic for Worker Binding
 export const dynamic = 'force-dynamic';
@@ -20,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const pageUrl = absoluteUrl(`/${lang}/pricing`);
+  const pageUrl = absoluteUrl(getLocalePath(lang, 'pricing'));
   return {
     title: lang === 'zh' ? '定价' : 'Pricing',
     description:
@@ -56,9 +60,12 @@ export default async function PricingPage({
         data={breadcrumbSchema([
           {
             name: lang === 'zh' ? '首页' : 'Home',
-            url: absoluteUrl(`/${lang}`),
+            url: absoluteUrl(getLocalePath(lang)),
           },
-          { name: content.pageTitle, url: absoluteUrl(`/${lang}/pricing`) },
+          {
+            name: content.pageTitle,
+            url: absoluteUrl(getLocalePath(lang, 'pricing')),
+          },
         ])}
       />
 
