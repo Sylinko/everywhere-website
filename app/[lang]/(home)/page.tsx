@@ -71,7 +71,7 @@ const contentMap = {
         alt: 'Product Hunt',
       },
       {
-        href: 'https://hellogithub.com/repository/DearVa/Everywhere',
+        href: 'https://hellogithub.com/repository/Sylinko/Everywhere',
         src: '/api/badges/hellogithubLight',
         darkSrc: '/api/badges/hellogithubDark',
         alt: 'Featured | HelloGitHub',
@@ -176,7 +176,7 @@ const contentMap = {
         alt: 'Product Hunt',
       },
       {
-        href: 'https://hellogithub.com/repository/DearVa/Everywhere',
+        href: 'https://hellogithub.com/repository/Sylinko/Everywhere',
         src: '/api/badges/hellogithubLight',
         darkSrc: '/api/badges/hellogithubDark',
         alt: 'Featured | HelloGitHub',
