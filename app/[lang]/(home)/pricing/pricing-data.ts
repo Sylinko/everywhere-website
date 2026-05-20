@@ -220,7 +220,7 @@ export const pricingContent: Record<
       {
         question: 'What payment methods do you accept?',
         answer:
-          'We accept credit/debit cards (some UnionPay cards may not be supported), as well as Apple Pay, Google Pay, Link, Amazon Pay, and Cash App Pay.',
+          'We accept credit/debit cards (some UnionPay cards may not be supported), as well as Alipay, Apple Pay, Google Pay, Link, Amazon Pay, and Cash App Pay.',
       },
       {
         question: 'What is the refund policy?',
@@ -369,7 +369,7 @@ export const pricingContent: Record<
       {
         question: '支持哪些支付方式？',
         answer:
-          '支持信用卡/借记卡（部分银联卡可能不支持），以及 Apple Pay、Google Pay、Link、Amazon Pay、Cash App Pay。',
+          '支持信用卡/借记卡（部分银联卡可能不支持），以及支付宝、Apple Pay、Google Pay、Link、Amazon Pay、Cash App Pay。',
       },
       {
         question: '退款政策是什么？',
