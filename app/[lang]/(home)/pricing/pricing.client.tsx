@@ -83,19 +83,35 @@ export function PricingCard({ plan, lang }: { plan: PricingPlan; lang: string })
             {plan.badge}
           </div>
         )}
-        <Link
-          href={ctaHref}
-          className={cn(
-            buttonVariants({
-              size: 'lg',
-              variant: 'secondary'
-            }),
-            'w-full',
-            'rounded-xl'
-          )}
-        >
-          {plan.cta}
-        </Link>
+        {plan.disabled ? (
+          <span
+            className={cn(
+              buttonVariants({
+                size: 'lg',
+                variant: 'secondary'
+              }),
+              'w-full',
+              'rounded-xl',
+              'opacity-50 cursor-not-allowed pointer-events-none'
+            )}
+          >
+            {plan.disabledText || plan.cta}
+          </span>
+        ) : (
+          <Link
+            href={ctaHref}
+            className={cn(
+              buttonVariants({
+                size: 'lg',
+                variant: 'secondary'
+              }),
+              'w-full',
+              'rounded-xl'
+            )}
+          >
+            {plan.cta}
+          </Link>
+        )}
       </div>
     </div>
   );

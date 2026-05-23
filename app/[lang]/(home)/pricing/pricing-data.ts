@@ -24,6 +24,8 @@ export type PricingPlan = {
   highlighted?: boolean;
   badge?: string;
   badgeVariant?: 'brand' | 'green';
+  disabled?: boolean;
+  disabledText?: string;
   features: string[];
 };
 
@@ -169,6 +171,8 @@ export const pricingContent: Record<
         price: planData.pro.price,
         period: '/month',
         cta: 'Subscribe Now',
+        disabled: true,
+        disabledText: 'Currently unavailable',
         includes: 'Everything in Community and',
         features: [
           `${planData.pro.credits} credits`,
@@ -318,6 +322,8 @@ export const pricingContent: Record<
         price: planData.pro.price,
         period: '/月',
         cta: '立即订阅',
+        disabled: true,
+        disabledText: '暂不可用',
         includes: '包含社区版的全部功能，以及',
         features: [
           `${planData.pro.credits} 积分`,
