@@ -34,6 +34,13 @@ export const policies = defineDocs({
   },
 });
 
+export const notices = defineDocs({
+  dir: 'content/notices',
+  docs: {
+    schema: frontmatterSchema,
+  },
+});
+
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {

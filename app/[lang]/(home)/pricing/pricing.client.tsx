@@ -13,7 +13,9 @@ import {
   type PricingPlan,
   type FAQItem,
   planData,
+  upgradeNoticeContent,
 } from './pricing-data';
+import { UpgradeNotice } from './pricing-upgrade-notice';
 import { type ModelSupportItem, type Modality } from './types';
 import {
   AnthropicClaudeIcon,
@@ -139,6 +141,8 @@ export function PrimaryPlansSection({
     }
   }
 
+  const notice = upgradeNoticeContent[lang] || upgradeNoticeContent['en'];
+
   return (
     <section className="mx-auto max-w-340 px-4">
       <div className="mb-10 text-center">
@@ -151,6 +155,11 @@ export function PrimaryPlansSection({
             <span>{text}</span>
           </div>
         )}
+      </div>
+
+      {/* Upgrade Notice */}
+      <div className="mb-10 flex items-center justify-center">
+        <UpgradeNotice data={notice} lang={lang} />
       </div>
 
       {/* All breakpoints: vertical stack on mobile, 4-column grid on desktop */}

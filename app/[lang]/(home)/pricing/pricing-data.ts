@@ -408,6 +408,26 @@ export const pricingContent: Record<
   },
 };
 
+export type UpgradeNotice = {
+  title: string;
+  description: string;
+  buttonText: string;
+};
+
 export function getPricingContent(lang: string) {
   return pricingContent[lang] || pricingContent['en'];
 }
+
+export const upgradeNoticeContent: Record<string, UpgradeNotice> = {
+  en: {
+    title: "We're Adjusting Plan Benefits & Quotas",
+    description: `We're upgrading our subscription plans with more monthly credits and new short-term usage quotas`,
+    buttonText: 'Learn More',
+  },
+  zh: {
+    title: '我们正在调整计划权益和额度',
+    description:
+      '我们近期将对订阅计划进行升级：全面提升每月积分，同时引入短周期使用配额',
+    buttonText: '查看详情',
+  },
+};

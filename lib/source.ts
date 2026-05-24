@@ -1,4 +1,4 @@
-import { docs, policies } from 'fumadocs-mdx:collections/server';
+import { docs, policies, notices } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import { i18n } from '@/lib/i18n';
@@ -16,6 +16,12 @@ export const policySource = loader({
   i18n,
   source: policies.toFumadocsSource(),
   plugins: [lucideIconsPlugin()],
+});
+
+export const noticeSource = loader({
+  baseUrl: '/',
+  i18n,
+  source: notices.toFumadocsSource(),
 });
 
 export function getPageImage(page: InferPageType<typeof source>) {
