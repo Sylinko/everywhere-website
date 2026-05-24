@@ -61,7 +61,7 @@ type PlanData = {
 export const planData: PlanData = {
   // saleBadge: {
   // },
-  freeCredits: '500,000',
+  freeCredits: '300,000',
   starter: {
     price: '$10',
     credits: '4,000,000',
@@ -102,17 +102,19 @@ export const pricingContent: Record<
     faq: FAQItem[];
   }
 > = {
-  'en': {
+  en: {
     pageTitle: 'Inspiration, Everywhere.',
     pageSubtitle:
       'From web pages to documents and every spark of genius in between—there’s a plan designed to keep up with you.',
     primaryPlansTitle: 'Pick Your Perfect Fit',
-    taxNote: 'Final price may vary depending on your location and will be calculated at checkout.',
+    taxNote:
+      'Final price may vary depending on your location and will be calculated at checkout.',
     comparisonTitle: 'Feature Comparison',
     comparisonSubtitle: "See what's included in each plan",
     modelSupportTitle: 'Models & Credits',
     faqTitle: 'Frequently Asked Questions',
-    webSearchExtraNote: 'Extra web searches beyond the included limit cost 8,000 credits each.',
+    webSearchExtraNote:
+      'Extra web searches beyond the included limit cost 8,000 credits each.',
 
     plans: [
       {
@@ -254,7 +256,7 @@ export const pricingContent: Record<
     ],
   },
 
-  'zh': {
+  zh: {
     pageTitle: '让灵感，无处不在。',
     pageSubtitle:
       '无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。',

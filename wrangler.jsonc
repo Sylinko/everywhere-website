@@ -26,10 +26,31 @@
     },
     {
       "binding": "EVERYWHERE_AI_GATEWAY",
-      "service": "everywhere-ai-gateway-production",
+      "service": "everywhere-ai-gateway",
       "entrypoint": "GatewayBinding",
     },
   ],
+  "define": {
+    "__DEV__": "true",
+  },
+  "env": {
+    "production": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "everywhere-website",
+        },
+        {
+          "binding": "EVERYWHERE_AI_GATEWAY",
+          "service": "everywhere-ai-gateway-production",
+          "entrypoint": "GatewayBinding",
+        },
+      ],
+      "define": {
+        "__DEV__": "false",
+      },
+    },
+  },
   "r2_buckets": [
   	{
   		"binding": "NEXT_INC_CACHE_R2_BUCKET",
