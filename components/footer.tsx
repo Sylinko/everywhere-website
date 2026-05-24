@@ -7,6 +7,8 @@ import {
   YoutubeIcon,
   XIcon,
   XiaohongshuIcon,
+  MastodonIcon,
+  BlueskyIcon,
 } from '@/components/common/icons';
 import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
@@ -62,6 +64,16 @@ const followUsLinks: { name: string; href: string; icon: React.ReactNode }[] = [
     name: 'Xiaohongshu',
     href: 'https://www.xiaohongshu.com/user/profile/60261d54000000000101f684',
     icon: XiaohongshuIcon,
+  },
+  {
+    name: 'Mastodon',
+    href: 'https://mastodon.social/@sylinko_everywhere',
+    icon: MastodonIcon,
+  },
+  {
+    name: 'Bluesky',
+    href: 'https://bsky.app/profile/sylinko-everywhere.bsky.social',
+    icon: BlueskyIcon,
   },
 ];
 
