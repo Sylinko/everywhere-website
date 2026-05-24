@@ -32,10 +32,15 @@ In the chat window, click the **Settings** icon button to find the visual contex
 The value shown is an estimate. The actual number of visual tree tokens sent to the model may vary slightly depending on the complexity and structure of the visual tree content.
 </Callout>
 
-### Verbosity
+### Detail Level
 
 *   **Effect**: This setting controls how richly the elements in the visual tree are described. Higher verbosity provides more context information but also increases token consumption.
 *   **Recommendation**: **Compact** is recommended.
+
+### Maximum Rounds
+
+*   **Effect**: This setting limits how many recent user-message rounds are kept in context. One round consists of one user mesage and the corresponding assistant response.
+*   **Recommendation**: For complex tasks that require continuous context, you can increase the rounds appropriately; for simple single-turn interactions, keeping fewer rounds can save tokens.
 
 ### Automatically Add Element
 
