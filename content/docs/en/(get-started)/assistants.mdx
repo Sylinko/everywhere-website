@@ -125,14 +125,51 @@ Please ensure that the AI provider you choose supports the features you intend t
 Please note that API keys are sensitive information. Do not disclose them to anyone or share them in public places.
 </Callout>
 
-### Request Timeout
+### Advanced Options
+
+#### Request Timeout
 
 Set the timeout for each API request in seconds. If a request is not completed within this time, it will be terminated. For slower models, it is recommended to increase the timeout duration appropriately.
 
-### Temperature
+#### Temperature
 
 Generally, a higher value results in more creative and imaginative responses, while a lower value tends to be more precise. Some models may produce garbled output if the value exceeds 1.0. It is usually recommended not to change top_p simultaneously. If you encounter errors, try reverting to default values.
 
-### Top-P
+<Callout type="info" title="Notice">
+- If you click the rightside Reset button, this setting will be ignored in the request body.
+- If this setting disappears, it means that the model you are using does not support this parameter.
+</Callout>
+
+#### Top-P
 
 Controls the diversity of the model's output text. Typically, a higher value allows the model to accept more potential responses, while a lower value leans towards the most likely answer. It is usually recommended not to change temperature simultaneously. If you encounter errors, try reverting to default values.
+
+<Callout type="info" title="Notice">
+- If you click the rightside Reset button, this setting will be ignored in the request body.
+- If this setting disappears, it means that the model you are using does not support this parameter.
+</Callout>
+
+#### Thinking Type (thinking.type)
+
+For models that support dynamic reasoning toggling, this option can be used to disable model reasoning. Leaving it blank means this parameter will not be included in the request.
+
+<Callout type="info">
+If set to other values, the behavior of this parameter in the request body may vary depending on the API protocol. If the effect is not as expected, please try adjusting it again.
+</Callout>
+
+#### Reasoning Effort (reasoning_effort)
+
+Select a custom reasoning intensity. Leaving it blank means this parameter will not be included in the request. 
+
+<Callout type="info">
+If set to other values, the behavior of this parameter in the request body may vary depending on the API protocol. If the effect is not as expected, please try adjusting it again.
+</Callout>
+
+
+#### Thinking Budget (thinking_budget)
+
+Set the budget for reasoning output, measured in tokens.
+
+<Callout type="info">
+If set, the behavior of this parameter in the request body may vary depending on the API protocol. If the effect is not as expected, please try adjusting it again.
+</Callout>

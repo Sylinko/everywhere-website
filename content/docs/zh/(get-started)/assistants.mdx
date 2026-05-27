@@ -4,6 +4,8 @@ description: 在 Everywhere 中创建、配置和管理您的 AI 助手。
 icon: Brain
 ---
 
+import { Table } from "@/components/common/table"
+
 您可以通过 Everywhere 主界面侧边栏的 **助手** 页面来管理和配置您的助手。
 
 ## 设置项
@@ -125,14 +127,51 @@ When writing files, prefer letting them inside the working directory unless abso
 请注意，API 密钥是敏感信息，请不要将其泄露给任何人或在公共场合分享。
 </Callout>
 
-### 请求超时时长
+### 高级选项
+
+#### 请求超时时长
 
 设置每次 API 请求的超时时长（以秒为单位）。如果请求超过该时间未完成，将会被终止。对于速度较慢的模型，建议适当增加超时时长。
 
-### Temperature ("创意活跃度")
+#### Temperature ("创意活跃度")
 
 通常情况下，数值越高，回答越具创造力和想象力，数值越低，则越趋严谨。部分模型数值超过 1.0 可能导致输出乱码。通常建议不要同时更改 top_p。如果遇到错误，请尝试还原默认值。
 
-### Top-P ("思维开放度")
+<Callout type="info" title="提示">
+- 点击右侧重置按钮后，则不会在请求中包含该参数。
+- 如果没有看到此设置，则说明所选模型不支持调整该参数。
+</Callout>
+
+#### Top-P ("思维开放度")
 
 用于控制模型输出文本的多样性。通常情况下，数值越高，模型会接受更多潜在回答，数值越低，则更倾向于最可能的回答。通常建议不要同时更改 temperature。如果遇到错误，请尝试还原默认值。
+
+<Callout type="info" title="提示">
+- 点击右侧重置按钮后，则不会在请求中包含该参数。
+- 如果没有看到此设置，则说明所选模型不支持调整该参数。
+</Callout>
+
+#### 思考类型 (thinking.type)
+
+对于支持动态开关思考的模型，可以使用此选项关闭模型思考。留空则不会在请求体中包含该参数。
+
+<Callout type="info">
+如果设置为其他值，则该参数在请求体中的表现因 API 协议而异，如果效果不及预期，请尝试再次调整。
+</Callout>
+
+#### 推理强度 (reasoning_effort)
+
+选择自定义推理强度。留空则不会在请求体中包含该参数。
+
+<Callout type="info">
+如果设置为其他值，则该参数在请求体中的表现因 API 协议而异，如果效果不及预期，请尝试再次调整。
+</Callout>
+
+
+#### 思考预算 (thinking_budget)
+
+设置思考输出的预算，单位为 token。
+
+<Callout type="info">
+如果设置，则该参数在请求体中的表现因 API 协议而异，如果效果不及预期，请尝试再次调整。
+</Callout>

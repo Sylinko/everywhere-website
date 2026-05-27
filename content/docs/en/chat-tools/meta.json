@@ -9,6 +9,7 @@
     "visual-context",
     "web",
     "file-system",
+    "terminal",
     "windows-specific"
   ]
 }

@@ -1,6 +1,6 @@
 ---
-title: PowerShell
-description: Enable PowerShell integration to execute scripts and automate complex Windows tasks.
+title: Terminal
+description: Provides the ability to execute shell commands and scripts for your assistant.
 icon: SquareCode
 ---
 
@@ -24,7 +24,7 @@ Enabling this tool allows the assistant to execute powerful system commands, whi
   <tbody>
     <tr>
       <td>Execute Script</td>
-      <td>Execute PowerShell script and obtain its output.</td>
+      <td>Invoke the system terminal to execute scripts.</td>
       <td>
         <PermissionBadge risk="low">Access Network</PermissionBadge>
         <PermissionBadge risk="medium">Access Clipboard</PermissionBadge>
@@ -38,6 +38,12 @@ Enabling this tool allows the assistant to execute powerful system commands, whi
 </Table>
 
 ## Settings
+
+### Terminal Path
+
+Custom path for the terminal executable, supporting only PowerShell, zsh, and bash.
+
+**Leave blank**: Auto-detect based on the operating system.
 
 ### Auto Approval <PermissionBadge risk="high">High Risk</PermissionBadge>
 

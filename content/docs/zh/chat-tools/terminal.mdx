@@ -1,6 +1,6 @@
 ---
-title: PowerShell
-description: 启用 PowerShell 集成，执行脚本并自动化复杂的 Windows 任务。
+title: 终端
+description: 为您的助手提供执行 Shell 命令和脚本的能力。
 icon: SquareCode
 ---
 
@@ -25,7 +25,7 @@ import { PermissionBadge } from '@/components/common/permissions';
   <tbody>
     <tr>
       <td>执行脚本</td>
-      <td>执行 PowerShell 脚本并获取其输出</td>
+      <td>调用系统终端执行脚本。</td>
       <td>
         <PermissionBadge risk="low">访问网络</PermissionBadge>
         <PermissionBadge risk="medium">操作剪贴板</PermissionBadge>
@@ -39,6 +39,12 @@ import { PermissionBadge } from '@/components/common/permissions';
 </Table>
 
 ## 设置
+
+### 终端路径
+
+自定义终端可执行文件的路径，只支持 PowerShell、zsh 和 bash。
+
+**留空**：自动检测系统默认终端
 
 ### 自动批准 <PermissionBadge risk="high">高风险</PermissionBadge>
 
