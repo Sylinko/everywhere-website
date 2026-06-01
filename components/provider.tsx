@@ -16,14 +16,6 @@ export function Provider({
   return (
     <RootProvider
       i18n={i18n}
-      search={{
-        hotKey: [
-          {
-            display: '',
-            key: () => false,
-          },
-        ],
-      }}
     >
       <ConsentProvider lang={lang ?? 'en'}>
         {children}

@@ -147,13 +147,13 @@ export default async function Layout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteBanner
+      {/* <SiteBanner
         id="kimi-minimax-launch"
         className="site-banner text-md"
         height="2.25rem"
       >
         {bannerText}
-      </SiteBanner>
+      </SiteBanner> */}
       <HomeLayout
         {...layoutOptions}
         nav={{

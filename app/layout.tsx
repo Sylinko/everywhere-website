@@ -1,4 +1,3 @@
-import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Viewport, Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
 import { organizationSchema, websiteSchema, JsonLdScript } from '@/lib/json-ld';
@@ -51,7 +50,7 @@ export default async function Layout({ children }: LayoutProps<'/'>) {
               'var __name=globalThis.__name||(globalThis.__name=function(target){return target;});',
           }}
         />
-        <RootProvider>{children}</RootProvider>
+        {children}
       </body>
     </html>
   );
