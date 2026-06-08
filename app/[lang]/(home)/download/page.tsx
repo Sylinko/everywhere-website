@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { Clock } from 'lucide-react';
-import { buttonVariants, cardVariants } from '@/components/common/variants';
+import { buttonVariants } from '@/components/common/variants';
 import { cn } from '@/lib/cn';
 import { i18n } from '@/lib/i18n';
 import type { Metadata } from 'next';
 import { DownloadAutoDetect } from './download-auto-detect';
-import { DownloadLinks } from '@/lib/constants';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import { ChannelToggle } from './channel-toggle';
 import { WindowsIcon, AppleIcon, GitHubIcon } from '@/components/common/icons';
 import { absoluteUrl } from '@/lib/metadata';
 import {
@@ -65,6 +65,10 @@ const contentMap = {
     //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
     //   ],
     // },
+    channel: {
+      stable: 'Stable',
+      canary: 'Canary',
+    },
     history: {
       title: 'Release History',
       desc: 'View all past releases on GitHub.',
@@ -114,6 +118,10 @@ const contentMap = {
     //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
     //   ],
     // },
+    channel: {
+      stable: '稳定通道',
+      canary: 'Canary 通道',
+    },
     history: {
       title: '版本历史',
       desc: '在 GitHub 上查看所有历史版本。',
@@ -228,73 +236,19 @@ export default async function Page({
           </div>
         </div>
 
-        {/* All Platforms Grid */}
-        <h2 className="mb-8 text-center text-2xl font-semibold">
+        {/* Channel Toggle + All Platforms Grid */}
+        <h2 className="mb-4 text-center text-2xl font-semibold">
           {content.allVersions}
         </h2>
-        <div className="mr-50 ml-50 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {platforms.map((platform) => (
-            <div
-              key={platform.id}
-              className={cn(
-                cardVariants(),
-                'hover:border-brand/50 relative flex flex-col overflow-hidden p-8 transition-all hover:shadow-lg'
-              )}
-            >
-              <div className="bg-muted/50 mb-6 flex size-6 items-center justify-between">
-                {platform.icon}
-              </div>
-
-              <h3 className="mb-2 text-xl font-semibold">
-                {platform.data.title}
-              </h3>
-              <p className="text-muted-foreground mb-8 min-h-10 text-sm">
-                {platform.data.desc}
-              </p>
-
-              <div className="relative mt-auto">
-                {platform.comingSoon && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-md text-foreground font-medium">
-                      {content.comingSoon}
-                    </span>
-                  </div>
-                )}
-                <div
-                  className={cn(
-                    'space-y-3',
-                    platform.comingSoon &&
-                      'pointer-events-none opacity-50 blur-sm select-none'
-                  )}
-                >
-                  {platform.data.distros.map((distro, i) => {
-                    const platformLinks = DownloadLinks[
-                      platform.id as keyof typeof DownloadLinks
-                    ] as Record<string, string>;
-                    const href =
-                      platformLinks[distro.key as keyof typeof platformLinks] ||
-                      '#';
-
-                    return (
-                      <Link
-                        key={i}
-                        href={href}
-                        className="bg-muted/50 ring-foreground/5 hover:bg-muted flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 transition-colors ring-inset"
-                      >
-                        <span className="text-foreground/80 font-medium">
-                          {distro.name}
-                        </span>
-                        <span className="text-muted-foreground text-xs">
-                          {distro.note}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ChannelToggle
+          platforms={platforms}
+          lang={lang}
+          labels={{
+            stable: content.channel.stable,
+            canary: content.channel.canary,
+            comingSoon: content.comingSoon,
+          }}
+        />
 
         {/* Release History */}
         <div className="border-border/50 mt-48 flex flex-col items-center justify-center border-t py-12">
