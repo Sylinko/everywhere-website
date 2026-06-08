@@ -33,7 +33,7 @@ import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 const contentMap = {
   en: {
     // Hero
-    badges: ['Context-aware', 'Interactive', 'Flexible'],
+    badges: ['On-screen Awareness', 'Interactive', 'Flexible'],
     title: 'Every moment, Every place.',
     subtitle: 'Your AI:',
     highlight: 'Everywhere',
@@ -56,7 +56,7 @@ const contentMap = {
     // Key Concepts
     keyConceptsTitle: 'Engineering Your Flow State',
     keyConceptsSubtitle:
-      'Built on context awareness, delivering an uninterrupted thinking experience.',
+      'Built on on-screen awareness, delivering an uninterrupted thinking experience.',
     keyConceptsBadges: [
       {
         href: 'https://trendshift.io/repositories/15106',
@@ -80,13 +80,13 @@ const contentMap = {
     keyConceptsFeatures: [
       {
         icon: 'eye' as const,
-        title: 'Broad Context Awareness',
+        title: 'Broad On-screen Awareness',
         desc: 'We integrate deep accessibility APIs and UI automation to accurately extract structured data across apps with near-zero intrusion.',
       },
       {
         icon: 'zap' as const,
         title: 'Scenario Invocation & Strategy Engine',
-        desc: 'Skip the copy-paste routine. One shortcut instantly reads your context and pushes tailored AI strategies, keeping you in a flow state.',
+        desc: 'Skip the copy-paste routine. One shortcut instantly reads your on-screen context and pushes tailored AI strategies, keeping you in a flow state.',
       },
       {
         icon: 'shield' as const,
@@ -111,7 +111,7 @@ const contentMap = {
       {
         label: 'Scenario 01',
         title: 'Instant In-Page Summaries',
-        desc: 'Grasp key points, terms, and insights on any page without switching context.',
+        desc: 'Grasp key points, terms, and insights without switching pages.',
         imgName: 'content-summary.webp',
       },
       {
@@ -215,7 +215,7 @@ const contentMap = {
       {
         label: '场景 01',
         title: '页内提要，一目了然',
-        desc: '无需切换上下文，在当前页面即可呈现关键点、术语和相关条目。',
+        desc: '无需切换页面，在当前页面即可呈现关键点、术语和相关条目。',
         imgName: 'content-summary.webp',
       },
       {
