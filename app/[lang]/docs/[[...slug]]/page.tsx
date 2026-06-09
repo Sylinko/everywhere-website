@@ -17,7 +17,6 @@ import { absoluteUrl, createMetadata } from '@/lib/metadata';
 import {
   getLanguageAlternates,
   getLocalePath,
-  getOpenGraphLocale,
   i18n,
 } from '@/lib/i18n';
 import { articleSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
@@ -125,8 +124,6 @@ export async function generateMetadata(props: {
   const docsPath =
     page.slugs.length === 0 ? 'docs' : `docs/${page.slugs.join('/')}`;
   const pageUrl = absoluteUrl(getLocalePath(lang, docsPath));
-  const ogImage = getPageImage(page).url;
-
   const availableLanguages = i18n.languages.filter((locale) =>
     Boolean(source.getPage(slug, locale))
   );
@@ -135,18 +132,6 @@ export async function generateMetadata(props: {
     title: page.data.title,
     description: page.data.description,
     canonical: pageUrl,
-    openGraph: {
-      images: ogImage,
-      title: page.data.title,
-      description: page.data.description,
-      url: pageUrl,
-      type: 'article',
-      locale: getOpenGraphLocale(lang),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      images: ogImage,
-    },
     alternates: {
       languages:
         availableLanguages.length > 0

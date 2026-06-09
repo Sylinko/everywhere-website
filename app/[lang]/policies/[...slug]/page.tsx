@@ -14,7 +14,6 @@ import { breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 import {
   getLanguageAlternates,
   getLocalePath,
-  getOpenGraphLocale,
   i18n,
 } from '@/lib/i18n';
 
@@ -92,11 +91,6 @@ export async function generateMetadata(props: {
         availableLanguages.length > 0
           ? getLanguageAlternates(absoluteUrl, policiesPath, availableLanguages)
           : undefined,
-    },
-    openGraph: {
-      url: pageUrl,
-      type: 'article',
-      locale: getOpenGraphLocale(lang),
     },
   });
 }

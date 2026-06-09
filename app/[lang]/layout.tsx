@@ -1,7 +1,6 @@
 import { defineI18nUI } from 'fumadocs-ui/i18n';
 import { i18n } from '@/lib/i18n';
 import { Provider } from '@/components/provider';
-import { siteName } from '@/lib/metadata';
 import '../global.css';
 import type { Metadata } from 'next';
 import { createMetadata, baseUrl } from '@/lib/metadata';
@@ -12,7 +11,11 @@ import {
   EverywhereTitles,
   OfficialUrl,
 } from '@/lib/constants';
-import { getOpenGraphLocale } from '@/lib/i18n';
+
+const ogTitles: Record<string, string> = {
+  en: 'AI Assistant that flows with your desktop.',
+  zh: '你的通用智能体，一键呼出的桌面 AI 助手',
+};
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
@@ -68,16 +71,7 @@ export async function generateMetadata({
     authors: [{ name: 'Sylinko', url: OfficialUrl }],
     creator: 'Sylinko',
     openGraph: {
-      type: 'website',
-      locale: getOpenGraphLocale(lang),
-      title: titles.default,
-      description: titles.description,
-      siteName,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: titles.default,
-      description: titles.description,
+      title: ogTitles[lang] ?? ogTitles['en'],
     },
   });
 }

@@ -10,7 +10,7 @@ import { Footer } from '@/components/footer';
 import { buttonVariants } from '@/components/common/variants';
 import Link from 'fumadocs-core/link';
 import Image from 'next/image';
-import Preview from '@/public/banner.webp';
+import Preview from '@/public/banner.jpg';
 import {
   Rocket,
   CircleQuestionMark,

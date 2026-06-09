@@ -24,9 +24,8 @@ import type { Metadata } from 'next';
 import {
   getLanguageAlternates,
   getLocalePath,
-  getOpenGraphLocale,
 } from '@/lib/i18n';
-import { baseUrl, siteName, absoluteUrl } from '@/lib/metadata';
+import { baseUrl, absoluteUrl } from '@/lib/metadata';
 import { breadcrumbSchema, JsonLdScript, webPageSchema } from '@/lib/json-ld';
 import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 
@@ -274,19 +273,6 @@ export async function generateMetadata({
       languages: getLanguageAlternates(absoluteUrl, '', i18n.languages, {
         xDefault: '/',
       }),
-    },
-    openGraph: {
-      title: t.default,
-      description: t.description,
-      url: canonical,
-      siteName,
-      type: 'website',
-      locale: getOpenGraphLocale(lang),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t.default,
-      description: t.description,
     },
   };
 }

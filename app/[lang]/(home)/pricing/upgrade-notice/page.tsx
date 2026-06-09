@@ -3,7 +3,7 @@ import { getMDXComponents } from '@/mdx-components';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { absoluteUrl, createMetadata } from '@/lib/metadata';
-import { getLocalePath, getOpenGraphLocale } from '@/lib/i18n';
+import { getLocalePath } from '@/lib/i18n';
 import { buttonVariants } from '@/components/common/variants';
 import { ArrowLeft } from 'lucide-react';
 import { DocsBody, DocsTitle } from 'fumadocs-ui/page';
@@ -28,11 +28,6 @@ export async function generateMetadata({
     description: page.data.description,
     canonical: pageUrl,
     robots: { index: false, follow: false },
-    openGraph: {
-      url: pageUrl,
-      type: 'article',
-      locale: getOpenGraphLocale(lang),
-    },
   });
 }
 

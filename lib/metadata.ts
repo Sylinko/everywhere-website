@@ -48,6 +48,9 @@ export function createMetadata(
           ...overrideRobots,
         };
 
+  const og = override.openGraph;
+  const tw = override.twitter;
+
   return {
     ...rest,
     metadataBase: baseUrl,
@@ -65,19 +68,21 @@ export function createMetadata(
       title: override.title ?? undefined,
       description: override.description ?? undefined,
       url: canonical ?? baseUrl.origin,
-      images: '/Everywhere.webp',
       siteName,
       type: 'website',
-      ...override.openGraph,
+      images: {
+        url: '/banner.jpg',
+        alt: 'Everywhere Banner',
+      },
+      ...og,
     },
     twitter: {
       card: 'summary_large_image',
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      images: '/Everywhere.webp',
       site: '@everywhere_team',
       creator: '@everywhere_team',
-      ...override.twitter,
+      ...tw,
     },
   };
 }

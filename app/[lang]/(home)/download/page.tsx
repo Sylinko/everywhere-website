@@ -17,7 +17,6 @@ import {
 import {
   getLanguageAlternates,
   getLocalePath,
-  getOpenGraphLocale,
 } from '@/lib/i18n';
 import { RepoUrl } from '@/lib/github';
 
@@ -148,12 +147,6 @@ export async function generateMetadata({
     alternates: {
       canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'download'),
-    },
-    openGraph: {
-      title: content.title,
-      url: pageUrl,
-      type: 'website',
-      locale: getOpenGraphLocale(lang),
     },
   };
 }

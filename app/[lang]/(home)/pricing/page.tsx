@@ -12,7 +12,6 @@ import { faqSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 import {
   getLanguageAlternates,
   getLocalePath,
-  getOpenGraphLocale,
 } from '@/lib/i18n';
 
 // Keep this page force-dynamic for Worker Binding
@@ -34,12 +33,6 @@ export async function generateMetadata({
     alternates: {
       canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'pricing'),
-    },
-    openGraph: {
-      title: lang === 'zh' ? '定价 | Everywhere' : 'Pricing | Everywhere',
-      url: pageUrl,
-      type: 'website',
-      locale: getOpenGraphLocale(lang),
     },
   };
 }
