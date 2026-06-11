@@ -23,6 +23,7 @@ import {
   CodeXml,
   Gem,
   LogIn,
+  Rss,
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { getLocalePath } from '@/lib/i18n';
@@ -48,6 +49,7 @@ const i18nText: Record<
     login: { text: 'Login', desc: '' },
     pricing: { text: 'Pricing', desc: '' },
     community: { text: 'Community', desc: '' },
+    blog: { text: 'Blog', desc: '' },
     'getting-started': {
       text: 'Getting Started',
       desc: 'How to use and configure Everywhere.',
@@ -75,6 +77,7 @@ const i18nText: Record<
     login: { text: '登录', desc: '' },
     pricing: { text: '定价', desc: '' },
     community: { text: '社区', desc: '' },
+    blog: { text: '博客', desc: '' },
     'getting-started': {
       text: '快速开始',
       desc: '学习如何使用并配置 Everywhere。',
@@ -207,6 +210,13 @@ export default async function Layout({
             url: getLocalePath(lang, 'docs/community'),
             icon: <Users />,
           },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.blog.text,
+            url: 'https://blog.sylinko.com',
+            icon: <Rss />,
+          },
           // Desktop navigation
           {
             type: 'custom',
@@ -273,6 +283,13 @@ export default async function Layout({
             text: texts.community.text,
             url: getLocalePath(lang, 'docs/community'),
             icon: <Users />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.blog.text,
+            url: 'https://blog.sylinko.com',
+            icon: <Rss />,
           },
           {
             type: 'custom',

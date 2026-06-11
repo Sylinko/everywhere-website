@@ -1,4 +1,5 @@
-import { defineI18nUI } from 'fumadocs-ui/i18n';
+import { defineI18n } from 'fumadocs-core/i18n';
+import { i18nProvider, uiTranslations } from 'fumadocs-ui/i18n';
 import { i18n } from '@/lib/i18n';
 import { Provider } from '@/components/provider';
 import '../global.css';
@@ -17,11 +18,10 @@ const ogTitles: Record<string, string> = {
   zh: '你的通用智能体，一键呼出的桌面 AI 助手',
 };
 
-const { provider } = defineI18nUI(i18n, {
-  translations: {
-    en: {
-      displayName: 'English',
-    },
+const translations = defineI18n(i18n)
+  .translations()
+  .extend(uiTranslations())
+  .add('ui', {
     zh: {
       displayName: '简体中文',
       search: '搜索文档',
@@ -34,8 +34,7 @@ const { provider } = defineI18nUI(i18n, {
       previousPage: '上一页',
       tocNoHeadings: '目录为空',
     },
-  },
-});
+  });
 
 const titleMap: Record<
   string,
@@ -95,7 +94,7 @@ export default async function RootLayout({
   }
 
   return (
-    <Provider i18n={provider(lang)} lang={lang}>
+    <Provider i18n={i18nProvider(translations, lang)} lang={lang}>
       <JsonLdScript data={softwareApplicationSchema(lang)} />
       {children}
     </Provider>
