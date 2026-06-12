@@ -18,7 +18,13 @@ export function canAccessPlan(currentPlan: Plan, minimumTier: Plan): boolean {
   return PLAN_LEVEL[currentPlan] >= PLAN_LEVEL[minimumTier];
 }
 
-export type ModelProvider = 'openai' | 'anthropic' | 'google' | 'deepseek' | 'moonshotai' | 'minimax';
+export type ModelProvider =
+  | 'openai'
+  | 'anthropic'
+  | 'google'
+  | 'deepseek'
+  | 'moonshotai'
+  | 'minimax';
 export const MODEL_PROVIDERS: ModelProvider[] = [
   'openai',
   'anthropic',
@@ -31,7 +37,6 @@ export const MODEL_PROVIDERS: ModelProvider[] = [
 export interface TokenPricing {
   input: number;
   output: number;
-  cachedInput?: number;
 }
 
 export interface PricingTier {
@@ -47,6 +52,8 @@ export interface ModelConfig {
   provider: ModelProvider;
   pricing: ModelPricing;
   availablePlan: Plan;
+  quotaLimited: boolean;
+  limitedTimeOffer: boolean;
 
   // Model info with format from https://models.dev/api.json
   info: {
@@ -77,4 +84,6 @@ export interface ModelSupportItem {
   inputModalities: Modality[];
   company: string;
   minimumTier: Plan;
+  quotaLimited: boolean;
+  limitedTimeOffer: boolean;
 }

@@ -4,6 +4,7 @@ import {
   PricingHeader,
   PrimaryPlansSection,
   ModelSupportTable,
+  UsageLimitSection,
   FAQSection,
 } from './pricing.client';
 import type { Metadata } from 'next';
@@ -48,7 +49,7 @@ export default async function PricingPage({
 
   return (
     <main className="min-h-screen">
-      <JsonLdScript data={faqSchema(content.faq)} />
+      <JsonLdScript data={faqSchema(content.faq.flatMap((g) => g.items))} />
       <JsonLdScript
         data={breadcrumbSchema([
           {
@@ -73,6 +74,7 @@ export default async function PricingPage({
         title={content.primaryPlansTitle}
         lang={lang}
         webSearchExtraNote={content.webSearchExtraNote}
+        promoBanner={content.promoBanner}
       />
 
       <ModelSupportTable
@@ -81,7 +83,9 @@ export default async function PricingPage({
         lang={lang}
       />
 
-      <FAQSection title={content.faqTitle} items={content.faq} />
+      <UsageLimitSection content={content.usageLimit} lang={lang} />
+
+      <FAQSection title={content.faqTitle} groups={content.faq} />
     </main>
   );
 }

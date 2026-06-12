@@ -12,12 +12,12 @@
     "logs": {
       "enabled": true,
       "head_sampling_rate": 0.1,
-      "invocation_logs": true
+      "invocation_logs": true,
     },
     "traces": {
       "enabled": true,
-      "head_sampling_rate": 0.1
-    }
+      "head_sampling_rate": 0.1,
+    },
   },
   "services": [
     {
@@ -31,9 +31,9 @@
     },
   ],
   "r2_buckets": [
-  	{
-  		"binding": "NEXT_INC_CACHE_R2_BUCKET",
-  		"bucket_name": "everywhere-website-cache",
-  	},
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "everywhere-website-cache",
+    },
   ],
 }

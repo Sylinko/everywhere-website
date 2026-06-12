@@ -4,7 +4,6 @@ import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 import type {
   ModelConfig,
-  ModelPricing,
   ModelProvider,
   ModelSupportItem,
 } from '@/app/[lang]/(home)/pricing/types';
@@ -75,10 +74,6 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
 
       seen.add(key);
 
-      model.pricing.forEach(item => {
-        item.pricing.cachedInput = undefined;
-      });
-
       return {
         model: displayName,
         pricing: model.pricing,
@@ -86,6 +81,8 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
         inputModalities: model.info.modalities.input,
         company: providerToCompany[model.provider],
         minimumTier: model.availablePlan,
+        quotaLimited: model.quotaLimited,
+        limitedTimeOffer: model.limitedTimeOffer ?? false,
       } satisfies ModelSupportItem;
     })
     .filter((item): item is ModelSupportItem => item !== null)
@@ -114,7 +111,7 @@ export async function getSupportedModels(): Promise<ModelSupportItem[]> {
     if (modelConfigs.length === 0) {
       return [];
     }
-    
+
     const models = toSupportItems(modelConfigs);
     return models;
   } catch (error) {
