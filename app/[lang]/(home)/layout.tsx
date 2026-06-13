@@ -166,6 +166,8 @@ export default async function Layout({
               <Link
                 href={AccountUrl}
                 external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
                 className={cn(
                   buttonVariants({ size: 'sm' }),
                   'gap-1.5 rounded-xl'
@@ -298,6 +300,8 @@ export default async function Layout({
               <Link
                 href={AccountUrl}
                 external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
                 className={cn(
                   buttonVariants({ size: 'sm' }),
                   'ml-2 hidden min-w-24 gap-1.5 rounded-xl px-4 sm:inline-flex lg:hidden'
@@ -317,6 +321,8 @@ export default async function Layout({
               <Link
                 href={AccountUrl}
                 external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
                 className={cn(
                   buttonVariants({ size: 'sm' }),
                   'ml-3 min-w-24 gap-1.5 rounded-xl px-4'

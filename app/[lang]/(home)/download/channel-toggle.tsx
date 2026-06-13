@@ -191,6 +191,11 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
                       <Link
                         key={i}
                         href={href}
+                        data-track-event="docs_download_click"
+                        data-track-section="download"
+                        data-track-param-os={platform.id}
+                        data-track-param-channel={channel}
+                        data-track-param-variant={distro.key}
                         className="channel-link bg-muted/50 ring-foreground/5 hover:bg-muted flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 ring-inset"
                       >
                         <span className="text-foreground/80 font-medium">

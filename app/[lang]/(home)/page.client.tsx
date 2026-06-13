@@ -667,6 +667,9 @@ export function CTASection({
         </p>
         <DynamicLink
           href="/[lang]/docs/quick-start"
+          data-track-event="docs_get_started_click"
+          data-track-section="content"
+          data-track-param-cta-id="home_bottom_cta"
           className={cn(
             buttonVariants(),
             'relative z-10 h-auto min-h-fit items-center gap-2 px-8 py-2 text-lg shadow-lg'

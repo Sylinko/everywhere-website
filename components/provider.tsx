@@ -3,6 +3,8 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { ReactNode } from 'react';
 import { ConsentProvider } from '@/components/consent';
+import { DocsClickTracking } from '@/components/analytics/docs-click-tracking';
+import { DocsSearchDialog } from '@/components/analytics/docs-search-dialog';
 
 export function Provider({
   children,
@@ -16,8 +18,12 @@ export function Provider({
   return (
     <RootProvider
       i18n={i18n}
+      search={{
+        SearchDialog: DocsSearchDialog,
+      }}
     >
       <ConsentProvider lang={lang ?? 'en'}>
+        <DocsClickTracking />
         {children}
       </ConsentProvider>
     </RootProvider>

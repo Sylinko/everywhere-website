@@ -274,6 +274,10 @@ export function Footer({ lang }: FooterProps) {
                     href={item.href}
                     target="_blank"
                     rel="noopener"
+                    data-track-event={
+                      item.name === 'GitHub' ? 'docs_github_click' : undefined
+                    }
+                    data-track-section="footer"
                     className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
                     aria-label={item.name}
                     title={item.name}

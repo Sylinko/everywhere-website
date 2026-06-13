@@ -115,8 +115,17 @@ export function initZarazDevMock() {
     return;
   }
 
+  const consent = createMockConsent();
+
   (window as any).zaraz = {
-    consent: createMockConsent(),
+    consent,
+    track(eventName: string, properties?: Record<string, unknown>) {
+      if (!consent.get('analytics')) {
+        return;
+      }
+
+      console.log('[Zaraz Dev Mock] track', eventName, properties);
+    },
   };
 
   console.log('[Zaraz Dev Mock] Injected mock consent API. Purposes:', Object.keys(PURPOSES));

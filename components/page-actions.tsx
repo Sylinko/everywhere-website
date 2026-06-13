@@ -108,6 +108,7 @@ export function ViewOptions({
       {
         title: t.openInGitHub,
         href: githubUrl,
+        trackEvent: 'docs_github_click',
         icon: (
           <svg fill="currentColor" role="img" viewBox="0 0 24 24">
             <title>GitHub</title>
@@ -172,6 +173,8 @@ export function ViewOptions({
             href={item.href}
             rel="noopener"
             target="_blank"
+            data-track-event={item.trackEvent}
+            data-track-section="content"
             className={cn(optionVariants())}
           >
             {item.icon}

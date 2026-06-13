@@ -132,6 +132,10 @@ export function PricingCard({
         ) : (
           <Link
             href={ctaHref}
+            data-track-event="docs_pricing_click"
+            data-track-section="pricing"
+            data-track-param-plan-id={plan.id}
+            data-track-param-plan-name={plan.name}
             className={cn(
               buttonVariants({
                 size: 'lg',

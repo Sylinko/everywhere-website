@@ -386,6 +386,9 @@ export default async function Page({
             <HeroDownloadButton label={content.download} lang={lang} />
             <DynamicLink
               href="/[lang]/docs/quick-start"
+              data-track-event="docs_get_started_click"
+              data-track-section="hero"
+              data-track-param-cta-id="hero_get_started"
               className="bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
             >
               <BookOpen className="size-4" />

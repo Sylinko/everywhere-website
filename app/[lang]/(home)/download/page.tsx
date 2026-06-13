@@ -259,6 +259,8 @@ export default async function Page({
               href={`${RepoUrl}/releases`}
               target="_blank"
               rel="noopener"
+              data-track-event="docs_github_click"
+              data-track-section="content"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'sm' }),
                 'gap-2 rounded-full px-4'

@@ -84,6 +84,10 @@ export function DownloadAutoDetect({
           href={variants.primary.link}
           target="_blank"
           rel="noopener"
+          data-track-event="docs_download_click"
+          data-track-section="download"
+          data-track-param-os={os}
+          data-track-param-variant={variants.primary.key}
           className={cn(
             buttonVariants({ size: 'lg' }),
             'h-14 gap-3 rounded-full px-8 text-lg'
