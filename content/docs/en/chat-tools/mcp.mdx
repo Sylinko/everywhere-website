@@ -1,0 +1,159 @@
+---
+title: MCP
+description: Connect external Model Context Protocol servers to extend your assistant with third-party tools.
+icon: Plug
+---
+
+import { HorizontalImg } from '@/components/common/horizontal-img';
+import { Table } from "@/components/common/table"
+
+Besides built-in tools, Everywhere can connect to tools provided by external **MCP (Model Context Protocol)** servers. Two transports are supported:
+
+- **Stdio** — launches a local process and communicates over standard input/output.
+- **Streamable HTTP** — connects to a remote server over HTTP.
+
+<Callout type="warning" title="SSE">
+HTTP+SSE Support has been deprecated in favor of Streamable HTTP. Please use Streamable HTTP for new servers.
+</Callout>
+
+On the **Chat Tools** page, open the **MCP Server** section. You can **Add** a server manually, or **Import** from an existing MCP configuration (JSON).
+
+## Adding a Server
+
+Click **Add** to open the configuration dialog. Fields marked with `*` are required.
+
+<HorizontalImg
+    src="/chat-tools/mcp-en.webp"
+    alt="Add MCP Server Dialog"
+    width="550px"
+  />
+
+### Stdio
+
+<Table columnWidths={['24%', '12%', '64%']}>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Yes</td>
+      <td>A unique name used to identify the server.</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>No</td>
+      <td>For display and differentiation only; it does not affect behavior.</td>
+    </tr>
+    <tr>
+      <td>Scheme</td>
+      <td>Yes</td>
+      <td>Stdio</td>
+    </tr>
+    <tr>
+      <td>Command</td>
+      <td>Yes</td>
+      <td>The executable to launch, e.g. <code>npx</code>, <code>uvx</code>, or an absolute path.</td>
+    </tr>
+    <tr>
+      <td>Command-line Arguments (one per line)</td>
+      <td>No</td>
+      <td>Arguments passed to the command, added one entry at a time.</td>
+    </tr>
+    <tr>
+      <td>Working Directory</td>
+      <td>No</td>
+      <td>The directory the command runs in. Leave blank to use the default.</td>
+    </tr>
+    <tr>
+      <td>Environment Variables</td>
+      <td>No</td>
+      <td>Key-value pairs injected into the process environment, e.g. for API keys.</td>
+    </tr>
+  </tbody>
+</Table>
+
+### HTTP
+
+<Table columnWidths={['22%', '12%', '66%']}>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Yes</td>
+      <td>A unique name used to identify the server.</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>No</td>
+      <td>For display and differentiation only; it does not affect behavior.</td>
+    </tr>
+    <tr>
+      <td>Scheme</td>
+      <td>Yes</td>
+      <td>The transport: <code>Stdio</code> or <code>HTTP</code> (Streamable HTTP). The remaining fields change based on this choice.</td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>Yes</td>
+      <td>The URL of the MCP server.</td>
+    </tr>
+    <tr>
+      <td>Transport Mode</td>
+      <td>No</td>
+      <td>Auto Detect by default. You can also choose <code>Streamable HTTP</code> or <code>SSE</code> explicitly.</td>
+    </tr>
+    <tr>
+      <td>Request Headers</td>
+      <td>No</td>
+      <td>Optional headers for the HTTP request.</td>
+    </tr>
+  </tbody>
+</Table>
+
+## Examples
+
+### Stdio: Filesystem Server
+
+Grants access to a local directory via the official filesystem server, run through `npx`.
+
+<Table columnWidths={['30%', '70%']}>
+  <thead>
+    <tr><th>Field</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Name</td><td>Filesystem</td></tr>
+    <tr><td>Scheme</td><td>Stdio</td></tr>
+    <tr><td>Command</td><td><code>npx</code></td></tr>
+    <tr><td>Command-line Arguments</td><td><code>-y</code> · <code>@modelcontextprotocol/server-filesystem</code> · <code>D:\Documents</code></td></tr>
+  </tbody>
+</Table>
+
+### Streamable HTTP: DeepWiki
+
+Connects to a public remote server that lets the assistant query documentation for open-source repositories.
+
+<Table columnWidths={['30%', '70%']}>
+  <thead>
+    <tr><th>Field</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Name</td><td>DeepWiki</td></tr>
+    <tr><td>Scheme</td><td>HTTP</td></tr>
+    <tr><td>URL</td><td><code>https://mcp.deepwiki.com/mcp</code></td></tr>
+  </tbody>
+</Table>
+
+<Callout type="warning" title="Trust">
+MCP servers run with the permissions you grant them and may execute local commands or send data over the network. Only add servers you trust.
+</Callout>

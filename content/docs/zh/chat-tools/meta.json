@@ -5,6 +5,7 @@
   "root": true,
   "pages": [
     "index",
+    "mcp",
     "essential",
     "visual-context",
     "web",

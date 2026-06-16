@@ -1,0 +1,159 @@
+---
+title: MCP
+description: 连接外部 Model Context Protocol 服务器，用第三方工具扩展你的助手。
+icon: Plug
+---
+
+import { HorizontalImg } from '@/components/common/horizontal-img';
+import { Table } from "@/components/common/table"
+
+除了内置工具，Everywhere 还可以连接由外部 **MCP (Model Context Protocol)** 服务器提供的工具。支持两种传输方式：
+
+- **Stdio** —— 启动一个本地进程，并通过标准输入/输出进行通信。
+- **Streamable HTTP** —— 通过 HTTP 连接到远程服务器。
+
+<Callout type="warning" title="SSE">
+HTTP+SSE 支持已被弃用，推荐使用 Streamable HTTP。请为新服务器使用 Streamable HTTP。
+</Callout>
+
+在 **聊天工具** 页面打开 **MCP 服务器** 区域。你可以手动 **添加** 一个服务器，或从已有的 MCP 配置（JSON）中 **导入**。
+
+## 添加服务器
+
+点击 **添加** 打开配置对话框。带 `*` 的字段为必填项。
+
+<HorizontalImg
+    src="/chat-tools/mcp-zh.webp"
+    alt="添加 MCP 服务器对话框"
+    width="550px"
+  />
+
+### Stdio
+
+<Table columnWidths={['22%', '12%', '66%']}>
+  <thead>
+    <tr>
+      <th>字段</th>
+      <th>必填</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>名称</td>
+      <td>是</td>
+      <td>用于标识该服务器的唯一名称。</td>
+    </tr>
+    <tr>
+      <td>描述</td>
+      <td>否</td>
+      <td>仅用于显示和区分，不影响实际行为。</td>
+    </tr>
+    <tr>
+      <td>协议</td>
+      <td>是</td>
+      <td>Stdio</td>
+    </tr>
+    <tr>
+      <td>命令</td>
+      <td>是</td>
+      <td>要启动的可执行程序，例如 <code>npx</code>、<code>uvx</code> 或绝对路径。</td>
+    </tr>
+    <tr>
+      <td>命令行参数 (每行一个)</td>
+      <td>否</td>
+      <td>传递给命令的参数，可逐条添加。</td>
+    </tr>
+    <tr>
+      <td>工作目录</td>
+      <td>否</td>
+      <td>命令运行所在的目录。留空则使用默认值。</td>
+    </tr>
+    <tr>
+      <td>环境变量</td>
+      <td>否</td>
+      <td>注入进程环境的键值对，例如用于 API Key。</td>
+    </tr>
+  </tbody>
+</Table>
+
+### HTTP
+
+<Table columnWidths={['22%', '12%', '66%']}>
+  <thead>
+    <tr>
+      <th>字段</th>
+      <th>必填</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>名称</td>
+      <td>是</td>
+      <td>用于标识该服务器的唯一名称。</td>
+    </tr>
+    <tr>
+      <td>描述</td>
+      <td>否</td>
+      <td>仅用于显示和区分，不影响实际行为。</td>
+    </tr>
+    <tr>
+      <td>协议</td>
+      <td>是</td>
+      <td>HTTP</td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>是</td>
+      <td>MCP 服务器的 URL。</td>
+    </tr>
+    <tr>
+      <td>传输模式</td>
+      <td>否</td>
+      <td>默认为自动检测。你也可以明确选择 <code>Streamable HTTP</code> 或 <code>SSE</code>。</td>
+    </tr>
+    <tr>
+      <td>请求头</td>
+      <td>否</td>
+      <td>HTTP 请求的可选头部。</td>
+    </tr>
+  </tbody>
+</Table>
+
+## 示例
+
+### Stdio：文件系统服务器
+
+通过 `npx` 运行官方文件系统服务器，授予对某个本地目录的访问权限。
+
+<Table columnWidths={['30%', '70%']}>
+  <thead>
+    <tr><th>字段</th><th>值</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>名称</td><td>Filesystem</td></tr>
+    <tr><td>协议</td><td>Stdio</td></tr>
+    <tr><td>命令</td><td><code>npx</code></td></tr>
+    <tr><td>命令行参数</td><td><code>-y</code> · <code>@modelcontextprotocol/server-filesystem</code> · <code>D:\Documents</code></td></tr>
+  </tbody>
+</Table>
+
+### Streamable HTTP：DeepWiki
+
+连接到一个公开的远程服务器，让助手能够查询开源仓库的文档。
+
+<Table columnWidths={['30%', '70%']}>
+  <thead>
+    <tr><th>字段</th><th>值</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>名称</td><td>DeepWiki</td></tr>
+    <tr><td>协议</td><td>HTTP</td></tr>
+    <tr><td>URL</td><td><code>https://mcp.deepwiki.com/mcp</code></td></tr>
+  </tbody>
+</Table>
+
+<Callout type="warning" title="信任">
+MCP 服务器会以你授予的权限运行，可能执行本地命令或通过网络发送数据。请只添加你信任的服务器。
+</Callout>

@@ -7,6 +7,9 @@ January 27, 2026
 </Callout>
 
 <Callout type="warning" title="Changes from Previous Version">
+June 14, 2026:
+- The `__Secure-sylinko_passport.session_data` cookie has been added to the list of **Strictly Necessary Cookies**. This cookie is used to maintain your logged-in status and secure your session.
+
 May 5, 2026: 
 - Added explanation of **Google Analytics** usage, clarifying that we use Google Analytics for anonymous website traffic analysis.
 - We have implemented a **consent management platform** based on Cloudflare Zaraz. When you first visit our site, all analytics and performance technologies (such as Google Analytics) are disabled except for 'absolutely necessary' cookies. You must accept the consent banner for us to load these analytics tools.
@@ -48,6 +51,7 @@ These cookies are essential for the Websites to function properly. You cannot sw
 | Cookie Name                               | Provider         | Purpose                                                                                                                     |
 | ----------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `__Secure-sylinko_passport.session_token` | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
+| `__Secure-sylinko_passport.session_data`  | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
 | `__Secure-sylinko_passport.state`         | Sylinko Passport | **Authentication.** Used to prevent CSRF attacks during the login process.                                                  |
 | `better-auth.last_used_login_method`      | Sylinko Passport | **Authentication.** Remembers the last login method you used (e.g., email, Google, GitHub) for a smoother login experience. |
 | `cf_clearance` / `cf_uvid`                | Cloudflare       | **Security.** Used by Cloudflare Turnstile to verify that you are a human and not a bot.                                    |
