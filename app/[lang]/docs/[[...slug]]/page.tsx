@@ -128,10 +128,21 @@ export async function generateMetadata(props: {
     Boolean(source.getPage(slug, locale))
   );
 
+  const ogImage = getPageImage(page).url;
+
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
     canonical: pageUrl,
+    openGraph: {
+      type: 'article',
+      images: [
+        { url: ogImage, width: 1200, height: 630, alt: page.data.title },
+      ],
+    },
+    twitter: {
+      images: [ogImage],
+    },
     alternates: {
       languages:
         availableLanguages.length > 0

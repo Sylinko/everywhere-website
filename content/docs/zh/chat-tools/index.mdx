@@ -5,8 +5,9 @@ icon: Album
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-Everywhere 支持 **内置** 和基于 **MCP (Model Context Protocol)** 协议的工具。
+Everywhere 支持 **内置** 工具和基于 **<DynamicLink href="/[lang]/docs/chat-tools/mcp">MCP (Model Context Protocol)</DynamicLink>** 协议的工具。
 
 ## 如何使用内置工具
 
@@ -21,7 +22,7 @@ Everywhere 支持 **内置** 和基于 **MCP (Model Context Protocol)** 协议�
   />
 
 2.  在与模型聊天时，**请确保**：
-    *   你使用的模型支持工具调用（Tool Calling）。
+    *   你使用的模型支持工具调用（Tool Calling）。可参阅 <DynamicLink href="/[lang]/docs/model-provider">模型提供商</DynamicLink> 了解如何获取并配置支持工具调用的模型。
     *   在聊天窗口中启用了 **工具调用** 选项。
 
 <HorizontalImg

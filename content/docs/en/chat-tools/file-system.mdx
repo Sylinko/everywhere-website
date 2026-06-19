@@ -6,9 +6,14 @@ icon: FileBox
 
 import { Table } from "@/components/common/table"
 import { PermissionBadge } from '@/components/common/permissions';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 <Callout type="error" title="Security">
 File operations performed by the assistant are **irreversible**. Please ensure you have backed up important data before allowing modifications.
+</Callout>
+
+<Callout type="tip">
+On Windows, pair these tools with the <DynamicLink href="/[lang]/docs/chat-tools/windows-specific/everything">Everything</DynamicLink> integration for near-instant local file search.
 </Callout>
 
 ## Functions
