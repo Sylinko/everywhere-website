@@ -18,6 +18,9 @@ import {
   TriangleAlert,
   Info,
   RefreshCw,
+  Calculator,
+  Search,
+  Banknote,
 } from 'lucide-react';
 import Link from 'next/link';
 import { type ReactNode, JSX, useState } from 'react';
@@ -97,15 +100,32 @@ export function PricingCard({
       {/* Features */}
       <p className="text-fd-muted-foreground mb-4 text-sm">{plan.includes}</p>
       <ul className="mb-6 flex-1 space-y-2.5">
-        {plan.features.map((feature, idx) => (
-          <li
-            key={idx}
-            className={cn('flex items-start gap-2.5', !feature && 'invisible')}
-          >
-            <Check className="text-brand mt-0.5 size-4 shrink-0" />
-            <span className="text-sm">{feature || '\u00A0'}</span>
-          </li>
-        ))}
+        {plan.features.map((feature, idx) => {
+          const text = typeof feature === 'string' ? feature : feature.text;
+          const rawNote =
+            typeof feature === 'string' ? undefined : feature.note;
+          const notes =
+            rawNote == null ? [] : Array.isArray(rawNote) ? rawNote : [rawNote];
+          return (
+            <li
+              key={idx}
+              className={cn('flex flex-col gap-0.5', !text && 'invisible')}
+            >
+              <div className="flex items-start gap-2.5">
+                <Check className="text-brand mt-0.5 size-4 shrink-0" />
+                <span className="text-sm">{text || '\u00A0'}</span>
+              </div>
+              {notes.map((note, noteIdx) => (
+                <span
+                  key={noteIdx}
+                  className="text-fd-muted-foreground pl-[26px] text-xs"
+                >
+                  {note}
+                </span>
+              ))}
+            </li>
+          );
+        })}
       </ul>
 
       {/* CTA */}
@@ -159,6 +179,7 @@ export function PrimaryPlansSection({
   title,
   lang,
   webSearchExtraNote,
+  requestEstimateNote,
   promoBanner,
 }: {
   plans: PricingPlan[];
@@ -166,6 +187,7 @@ export function PrimaryPlansSection({
   title: string;
   lang: string;
   webSearchExtraNote: string;
+  requestEstimateNote: string;
   promoBanner: string;
 }) {
   let text = '';
@@ -221,15 +243,23 @@ export function PrimaryPlansSection({
         ))}
       </div>
 
-      {/* Web search extra cost note */}
+      {/* Request estimate basis note */}
       <div className="mt-6 flex gap-2.5">
-        <Info className="mt-0.5 size-4 shrink-0 text-amber-500" />
+        <Calculator className="text-fd-muted-foreground mt-0.5 size-4 shrink-0" />
+        <p className="text-fd-muted-foreground text-sm">
+          {requestEstimateNote}
+        </p>
+      </div>
+
+      {/* Web search extra cost note */}
+      <div className="mt-3 flex gap-2.5">
+        <Search className="mt-0.5 size-4 shrink-0 text-amber-500" />
         <p className="text-fd-muted-foreground text-sm">{webSearchExtraNote}</p>
       </div>
 
       {/* Tax note */}
       <div className="mt-3 flex gap-2.5">
-        <Info className="mt-0.5 size-4 shrink-0 text-blue-500" />
+        <Banknote className="mt-0.5 size-4 shrink-0 text-blue-500" />
         <p className="text-fd-muted-foreground text-sm">{taxNote}</p>
       </div>
     </section>
@@ -731,7 +761,7 @@ export function UsageLimitSection({
       {/* Notes outside the card */}
       <div className="mt-5 space-y-3">
         <div className="flex items-start gap-2.5">
-          <Info className="mt-0.5 size-4 shrink-0 text-blue-500" />
+          <Calculator className="mt-0.5 size-4 shrink-0 text-gray-500" />
           <p className="text-fd-muted-foreground text-sm">
             {content.estimationNote}
           </p>

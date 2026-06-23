@@ -74,6 +74,7 @@ export default async function PricingPage({
         title={content.primaryPlansTitle}
         lang={lang}
         webSearchExtraNote={content.webSearchExtraNote}
+        requestEstimateNote={content.requestEstimateNote}
         promoBanner={content.promoBanner}
       />
 

@@ -27,8 +27,14 @@ export type PricingPlan = {
   badgeVariant?: 'brand' | 'green';
   disabled?: boolean;
   disabledText?: string;
-  features: string[];
+  features: PlanFeatureLine[];
 };
+
+// A feature line is either plain text, or text with one or more muted sub-notes
+// rendered beneath it (each note becomes its own line).
+export type PlanFeatureLine =
+  | string
+  | { text: string; note?: string | string[] };
 
 export type FAQItem = {
   question: string;
@@ -154,6 +160,7 @@ export const pricingContent: Record<
     modelSupportTitle: string;
     faqTitle: string;
     webSearchExtraNote: string;
+    requestEstimateNote: string;
     // Primary plans
     plans: PricingPlan[];
     // Feature comparison table
@@ -178,6 +185,8 @@ export const pricingContent: Record<
     faqTitle: 'Frequently Asked Questions',
     webSearchExtraNote:
       'Extra web searches beyond the included limit cost 8,000 credits each.',
+    requestEstimateNote:
+      'Request estimates assume an average of 2,000 input tokens, 12,000 cached tokens, and 240 output tokens per request.',
 
     plans: [
       {
@@ -206,7 +215,14 @@ export const pricingContent: Record<
         cta: 'Subscribe Now',
         includes: 'Everything in Community and',
         features: [
-          `${planData.starter.credits} credits`,
+          {
+            text: `${planData.starter.credits} credits`,
+            note: [
+              '≈ 4,130 DeepSeek V4 Pro requests',
+              '≈ 1,410 GPT-5.4 Mini requests',
+              '≈ 1,040 Kimi K2.6 requests',
+            ],
+          },
           `Includes ${planData.starter.freeWebSearchCount} free web searches`,
           planData.starter.usageLimitLabel.en,
           planData.starter.modelAccessLabel.en,
@@ -225,7 +241,14 @@ export const pricingContent: Record<
         badge: 'Recommended',
         includes: 'Everything in Community and',
         features: [
-          `${planData.plus.credits} credits`,
+          {
+            text: `${planData.plus.credits} credits`,
+            note: [
+              '≈ 9,920 DeepSeek V4 Pro requests',
+              '≈ 3,380 GPT-5.4 Mini requests',
+              '≈ 2,510 Kimi K2.6 requests',
+            ],
+          },
           `Includes ${planData.plus.freeWebSearchCount} free web searches`,
           planData.plus.usageLimitLabel.en,
           planData.plus.modelAccessLabel.en,
@@ -242,7 +265,14 @@ export const pricingContent: Record<
         cta: 'Subscribe Now',
         includes: 'Everything in Community and',
         features: [
-          `${planData.pro.credits} credits`,
+          {
+            text: `${planData.pro.credits} credits`,
+            note: [
+              '≈ 29,780 DeepSeek V4 Pro requests',
+              '≈ 10,160 GPT-5.4 Mini requests',
+              '≈ 7,530 Kimi K2.6 requests',
+            ],
+          },
           `Includes ${planData.pro.freeWebSearchCount} web searches`,
           planData.pro.usageLimitLabel.en,
           planData.pro.modelAccessLabel.en,
@@ -297,7 +327,7 @@ export const pricingContent: Record<
         ratio: 'Relative Ratio',
       },
       estimationNote:
-        'Estimates are based on an average request to GPT-5.4 mini: 2,000 input tokens, 12,000 cached tokens, and 240 output tokens per request.',
+        'Request estimates assume an average of 2,000 input tokens, 12,000 cached tokens, and 240 output tokens per request.',
     },
 
     faq: [
@@ -312,7 +342,7 @@ export const pricingContent: Record<
           {
             question: 'What is the refund policy?',
             answer:
-              'If you are within 30 days of subscribing and have not consumed any credits, you can request a full refund. If you have usage records, refunds will be evaluated on a case-by-case basis. Please refer to the refund policy at the bottom of the page for more details.',
+              "If you haven't used any credits, you can request a full refund within 30 days of subscribing. If you've only used a little and it isn't working out, reach out to us—we review these case by case and try to make it right. Full details are in the refund policy linked at the bottom of the page.",
           },
           {
             question: 'How to upgrade or downgrade my plan?',
@@ -345,11 +375,6 @@ export const pricingContent: Record<
             answer:
               'When your request volume reaches the 5-hour or 7-day limit, the affected models will pause responses and return a 429 (Too Many Requests) error. Service will resume as soon as the current window ends and resets.',
           },
-          {
-            question: 'Will these limits change in the future?',
-            answer:
-              'Yes. We will continuously monitor usage data. If we find that the current limits frequently interrupt normal workflows, we will adjust the window quotas to better fit how people actually use Everywhere.',
-          },
         ],
       },
       {
@@ -381,6 +406,8 @@ export const pricingContent: Record<
     modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
     webSearchExtraNote: '超出计划包含的网络搜索次数后，每次会扣 8000 积分。',
+    requestEstimateNote:
+      '请求数预估基于每次请求平均 2,000 个输入 token、12,000 个缓存 token 和 240 个输出 token 计算。',
     plans: [
       {
         id: 'free',
@@ -408,7 +435,14 @@ export const pricingContent: Record<
         cta: '立即订阅',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `${planData.starter.credits} 积分`,
+          {
+            text: `${planData.starter.credits} 积分`,
+            note: [
+              '约 4,130 次 DeepSeek V4 Pro 请求',
+              '约 1,410 次 GPT-5.4 Mini 请求',
+              '约 1,040 次 Kimi K2.6 请求',
+            ],
+          },
           `含 ${planData.starter.freeWebSearchCount} 次网络搜索`,
           planData.starter.usageLimitLabel.zh,
           planData.starter.modelAccessLabel.zh,
@@ -427,7 +461,14 @@ export const pricingContent: Record<
         badge: '推荐',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `${planData.plus.credits} 积分`,
+          {
+            text: `${planData.plus.credits} 积分`,
+            note: [
+              '约 9,920 次 DeepSeek V4 Pro 请求',
+              '约 3,380 次 GPT-5.4 Mini 请求',
+              '约 2,510 次 Kimi K2.6 请求',
+            ],
+          },
           `含 ${planData.plus.freeWebSearchCount} 次网络搜索`,
           planData.plus.usageLimitLabel.zh,
           planData.plus.modelAccessLabel.zh,
@@ -444,7 +485,14 @@ export const pricingContent: Record<
         cta: '立即订阅',
         includes: '包含社区版的全部功能，以及',
         features: [
-          `${planData.pro.credits} 积分`,
+          {
+            text: `${planData.pro.credits} 积分`,
+            note: [
+              '约 29,780 次 DeepSeek V4 Pro 请求',
+              '约 10,160 次 GPT-5.4 Mini 请求',
+              '约 7,530 次 Kimi K2.6 请求',
+            ],
+          },
           `含 ${planData.pro.freeWebSearchCount} 次网络搜索`,
           planData.pro.usageLimitLabel.zh,
           planData.pro.modelAccessLabel.zh,
@@ -499,7 +547,7 @@ export const pricingContent: Record<
         ratio: '相对比例',
       },
       estimationNote:
-        '预估请求数基于后台 GPT-5.4 mini 的平均数据：每次请求 2,000 个输入 token，12,000 个缓存 token，240 个输出 token。',
+        '请求数预估基于每次请求平均 2,000 个输入 token、12,000 个缓存 token 和 240 个输出 token 计算。',
     },
 
     faq: [
@@ -514,7 +562,7 @@ export const pricingContent: Record<
           {
             question: '退款政策是什么？',
             answer:
-              '计费周期内，如果您未消耗任何额度，可申请全额退款，若已产生使用记录，我们将逐案分析，详情参考页面下方的退款政策。',
+              '订阅后 30 天内，只要未消耗任何额度，即可申请全额退款。如果只使用了少量额度但觉得不合适，欢迎联系我们——我们会逐案处理，尽力为您妥善解决。完整退款政策请见页面底部。',
           },
           {
             question: '如何升级或降级我的方案？',
@@ -545,11 +593,6 @@ export const pricingContent: Record<
             question: '如果触达用量限制会怎样？',
             answer:
               '当请求量达到 5 小时或 7 天限制时，受限模型将暂停响应并返回 429 (Too Many Requests) 错误，直到当前的窗口期结束并重置后，服务即可恢复。',
-          },
-          {
-            question: '这些限制策略后续会调整吗？',
-            answer:
-              '会的。我们将持续监测真实的调用数据。如果发现当前限制频繁阻断正常的业务流，我们会对窗口额度进行针对性调整，确保其更贴合大家在 Everywhere 中的实际体验。',
           },
         ],
       },
