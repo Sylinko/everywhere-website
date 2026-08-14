@@ -16,3 +16,20 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/visitor-keys@8.61.1'
   - typescript-eslint@8.61.1
   - fumadocs-mdx@15.2.2
+  - '@fumari/image-size@0.1.0'
+  - '@next/env@16.3.1'
+  - '@next/eslint-plugin-next@16.3.1'
+  - '@next/swc-darwin-arm64@16.3.1'
+  - '@next/swc-darwin-x64@16.3.1'
+  - '@next/swc-linux-arm64-gnu@16.3.1'
+  - '@next/swc-linux-arm64-musl@16.3.1'
+  - '@next/swc-linux-x64-gnu@16.3.1'
+  - '@next/swc-linux-x64-musl@16.3.1'
+  - '@next/swc-win32-arm64-msvc@16.3.1'
+  - '@next/swc-win32-x64-msvc@16.3.1'
+  - eslint-config-next@16.3.1
+  - fumadocs-core@16.14.4
+  - fumadocs-ui@16.14.4
+  - miniflare@5.20260811.1-alpha
+  - next@16.3.1
+  - wrangler@4.123.0
