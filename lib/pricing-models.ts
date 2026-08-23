@@ -65,7 +65,7 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
   const seen = new Set<string>();
 
   return models
-    .map((model) => {
+    .map((model): ModelSupportItem | null => {
       const displayName = model.info?.name?.trim();
       if (!displayName) return null;
 
@@ -77,6 +77,7 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
       return {
         model: displayName,
         pricing: model.pricing,
+        timeBasedPricing: model.timeBasedPricing,
         deprecationDate: model.info.deprecationDate || '',
         inputModalities: model.info.modalities.input,
         company: providerToCompany[model.provider],

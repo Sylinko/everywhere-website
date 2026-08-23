@@ -345,6 +345,9 @@ function CreditModelRow({
   noWindowLimitHelper,
   limitedTimeOfferLabel,
   limitedTimeOfferHelper,
+  variablePricingLabel,
+  variablePricingHelper,
+  lang,
   modalitiesPositionOffset,
   creditsPositionOffset,
   isLast,
@@ -355,11 +358,19 @@ function CreditModelRow({
   noWindowLimitHelper: string;
   limitedTimeOfferLabel: string;
   limitedTimeOfferHelper: string;
+  variablePricingLabel: string;
+  variablePricingHelper: string;
+  lang: string;
   modalitiesPositionOffset?: string;
   creditsPositionOffset?: string;
   isLast?: boolean;
 }) {
   const basePricing = item.pricing[0]?.pricing;
+  const pricingDescription = item.timeBasedPricing?.description;
+  const pricingNotice =
+    pricingDescription?.[lang] ??
+    pricingDescription?.en ??
+    variablePricingHelper;
   return (
     <div
       className={cn(
@@ -389,6 +400,15 @@ function CreditModelRow({
                 className="shrink-0 cursor-help rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[11px] leading-none font-medium text-amber-600 dark:text-amber-400"
               >
                 {limitedTimeOfferLabel}
+              </span>
+            )}
+            {item.timeBasedPricing && (
+              <span
+                title={pricingNotice}
+                aria-label={`${variablePricingLabel}: ${pricingNotice}`}
+                className="shrink-0 cursor-help rounded-full border border-cyan-500/25 bg-cyan-500/10 px-2 py-0.5 text-[11px] leading-none font-medium text-cyan-700 dark:text-cyan-400"
+              >
+                {variablePricingLabel}
               </span>
             )}
           </div>
@@ -434,6 +454,9 @@ function TierFolder({
   noWindowLimitHelper,
   limitedTimeOfferLabel,
   limitedTimeOfferHelper,
+  variablePricingLabel,
+  variablePricingHelper,
+  lang,
   children,
 }: {
   tier: 'pro' | 'plus' | 'starter';
@@ -446,6 +469,9 @@ function TierFolder({
   noWindowLimitHelper: string;
   limitedTimeOfferLabel: string;
   limitedTimeOfferHelper: string;
+  variablePricingLabel: string;
+  variablePricingHelper: string;
+  lang: string;
   children?: ReactNode;
 }) {
   const style = tierStyles[tier];
@@ -481,6 +507,9 @@ function TierFolder({
               noWindowLimitHelper={noWindowLimitHelper}
               limitedTimeOfferLabel={limitedTimeOfferLabel}
               limitedTimeOfferHelper={limitedTimeOfferHelper}
+              variablePricingLabel={variablePricingLabel}
+              variablePricingHelper={variablePricingHelper}
+              lang={lang}
               isLast={idx === models.length - 1}
             />
           ))}
@@ -525,6 +554,8 @@ export function ModelSupportTable({
           noWindowLimitHelper: '该模型不受 5 小时或 7 天使用窗口限制。',
           limitedTimeOfferLabel: '限时特惠',
           limitedTimeOfferHelper: '该模型当前享受限时优惠。',
+          variablePricingLabel: '峰谷定价',
+          variablePricingHelper: '该模型的积分价格会按指定时区和时段变化。',
         }
       : {
           model: 'Model',
@@ -538,6 +569,9 @@ export function ModelSupportTable({
           limitedTimeOfferLabel: 'Limited-time offer',
           limitedTimeOfferHelper:
             'This model is currently available at a special limited-time offer.',
+          variablePricingLabel: 'Variable pricing',
+          variablePricingHelper:
+            'Credit pricing for this model varies by the specified time zone and schedule.',
         };
 
   const disclaimers =
@@ -606,6 +640,9 @@ export function ModelSupportTable({
               noWindowLimitHelper={headers.noWindowLimitHelper}
               limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
               limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
+              variablePricingLabel={headers.variablePricingLabel}
+              variablePricingHelper={headers.variablePricingHelper}
+              lang={lang}
               borderRadius="rounded-2xl"
               modalitiesPositionOffset="relative right-6"
               creditsPositionOffset="relative left-[4px]"
@@ -618,6 +655,9 @@ export function ModelSupportTable({
                 noWindowLimitHelper={headers.noWindowLimitHelper}
                 limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
                 limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
+                variablePricingLabel={headers.variablePricingLabel}
+                variablePricingHelper={headers.variablePricingHelper}
+                lang={lang}
                 modalitiesPositionOffset="relative right-4"
                 creditsPositionOffset="relative left-[12px]"
                 borderRadius="rounded-xl"
@@ -630,6 +670,9 @@ export function ModelSupportTable({
                   noWindowLimitHelper={headers.noWindowLimitHelper}
                   limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
                   limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
+                  variablePricingLabel={headers.variablePricingLabel}
+                  variablePricingHelper={headers.variablePricingHelper}
+                  lang={lang}
                   modalitiesPositionOffset="relative right-2"
                   creditsPositionOffset="relative left-[20px]"
                   borderRadius="rounded-lg"

@@ -19,12 +19,7 @@ export function canAccessPlan(currentPlan: Plan, minimumTier: Plan): boolean {
 }
 
 export type ModelProvider =
-  | 'openai'
-  | 'anthropic'
-  | 'google'
-  | 'deepseek'
-  | 'moonshotai'
-  | 'minimax';
+  'openai' | 'anthropic' | 'google' | 'deepseek' | 'moonshotai' | 'minimax';
 export const MODEL_PROVIDERS: ModelProvider[] = [
   'openai',
   'anthropic',
@@ -46,11 +41,34 @@ export interface PricingTier {
 
 export type ModelPricing = PricingTier[];
 
+export type PricingDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
+
+export interface TimeBasedPricingWindow {
+  fromHour: number;
+  toHour: number;
+  pricing: ModelPricing;
+}
+
+export interface TimeBasedPricing {
+  description: Partial<Record<string, string>>;
+  utcOffsetMinutes: number;
+  activeDays: PricingDay[];
+  windows: TimeBasedPricingWindow[];
+}
+
 export type Modality = 'text' | 'image' | 'video' | 'audio' | 'pdf';
 
 export interface ModelConfig {
   provider: ModelProvider;
   pricing: ModelPricing;
+  timeBasedPricing?: TimeBasedPricing;
   availablePlan: Plan;
   quotaLimited: boolean;
   limitedTimeOffer: boolean;
@@ -80,6 +98,7 @@ export interface ModelConfig {
 export interface ModelSupportItem {
   model: string;
   pricing: ModelPricing;
+  timeBasedPricing?: TimeBasedPricing;
   deprecationDate: string;
   inputModalities: Modality[];
   company: string;
