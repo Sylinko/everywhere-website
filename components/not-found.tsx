@@ -1,40 +1,26 @@
+'use client';
+
 import { buttonVariants } from '@/components/common/variants';
-import { getLocalePath, i18n } from '@/lib/i18n';
-import type { Metadata } from 'next';
-import { headers } from 'next/headers';
+import { getLocalePath } from '@/lib/i18n';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 const i18nMap = {
-  'en': {
+  en: {
     title: 'Page Not Found',
     description: 'We searched Everywhere, but this place remains untouched.',
     action: 'Take me home',
   },
-  'zh': {
+  zh: {
     title: '页面未找到',
     description: '我们寻遍了 Everywhere，唯独此处是无人踏足的秘境。',
     action: '返回主页',
   },
 };
 
-export const metadata: Metadata = {
-  title: 'Page Not Found',
-  description: 'We searched Everywhere, but this place remains untouched.',
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
-async function getCurrentLang(): Promise<keyof typeof i18nMap> {
-  const headerLang = (await headers()).get('x-current-lang');
-  return i18n.languages.includes(headerLang ?? '')
-    ? (headerLang as keyof typeof i18nMap)
-    : 'en';
-}
-
-export default async function NotFound() {
-  const lang = await getCurrentLang();
+export function NotFoundContent({ lang: locale }: { lang?: string }) {
+  const params = useParams<{ lang?: string }>();
+  const lang = (locale ?? params?.lang) === 'zh' ? 'zh' : 'en';
   const content = i18nMap[lang];
 
   return (

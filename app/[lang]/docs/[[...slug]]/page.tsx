@@ -25,6 +25,8 @@ const owner = 'Sylinko';
 const repo = 'everywhere-website';
 const branch = 'master';
 
+export const dynamicParams = false;
+
 export default async function Page(props: {
   params: Promise<{ lang: string; slug?: string[] }>;
 }) {

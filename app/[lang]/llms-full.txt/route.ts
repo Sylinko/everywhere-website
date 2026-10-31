@@ -1,6 +1,12 @@
 import { getLLMText, source } from '@/lib/source';
+import { i18n } from '@/lib/i18n';
 
 export const revalidate = false;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return i18n.languages.map((lang) => ({ lang }));
+}
 
 export async function GET(
   _req: Request,

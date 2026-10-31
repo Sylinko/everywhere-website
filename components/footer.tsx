@@ -372,6 +372,7 @@ export function Footer({ lang }: FooterProps) {
                     href={
                       link.external ? link.href : getLocalePath(lang, link.href)
                     }
+                    prefetch={false}
                     target={link.external ? '_blank' : undefined}
                     rel={link.external ? 'noopener' : undefined}
                     className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"

@@ -95,6 +95,8 @@ export async function generateMetadata(props: {
   });
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return policySource.generateParams();
 }

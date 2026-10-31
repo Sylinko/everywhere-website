@@ -9,7 +9,11 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   trailingSlash: false,
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'github.com' },
       { protocol: 'https', hostname: 'pic1.afdiancdn.com' },

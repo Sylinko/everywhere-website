@@ -2,7 +2,7 @@ import { defineI18n } from 'fumadocs-core/i18n';
 import { i18nProvider, uiTranslations } from 'fumadocs-ui/i18n';
 import { i18n } from '@/lib/i18n';
 import { Provider } from '@/components/provider';
-import '../global.css';
+import { SiteDocument } from '@/components/site-document';
 import type { Metadata } from 'next';
 import { createMetadata, baseUrl } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
@@ -12,6 +12,8 @@ import {
   EverywhereTitles,
   OfficialUrl,
 } from '@/lib/constants';
+
+export { viewport } from '@/components/site-document';
 
 const ogTitles: Record<string, string> = {
   en: 'AI Assistant that flows with your desktop.',
@@ -67,6 +69,7 @@ export async function generateMetadata({
       template: titles.template,
     },
     description: titles.description,
+    other: { charset: 'utf-8' },
     authors: [{ name: 'Sylinko', url: OfficialUrl }],
     creator: 'Sylinko',
     openGraph: {
@@ -94,9 +97,11 @@ export default async function RootLayout({
   }
 
   return (
-    <Provider i18n={i18nProvider(translations, lang)} lang={lang}>
-      <JsonLdScript data={softwareApplicationSchema(lang)} />
-      {children}
-    </Provider>
+    <SiteDocument lang={lang}>
+      <Provider i18n={i18nProvider(translations, lang)} lang={lang}>
+        <JsonLdScript data={softwareApplicationSchema(lang)} />
+        {children}
+      </Provider>
+    </SiteDocument>
   );
 }
