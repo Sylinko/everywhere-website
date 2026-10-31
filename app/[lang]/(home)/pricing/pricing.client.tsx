@@ -10,37 +10,19 @@ import {
   Check,
   ChevronDown,
   Sparkles,
-  Type,
-  Image,
-  Video,
-  AudioLines,
-  FileText,
-  TriangleAlert,
   Info,
-  RefreshCw,
   Calculator,
   Search,
   Banknote,
 } from 'lucide-react';
 import Link from 'next/link';
-import { type ReactNode, JSX, useState } from 'react';
+import { useState } from 'react';
 import {
   type PricingPlan,
   type FAQGroup,
   type UsageLimitContent,
   planData,
-  upgradeNoticeContent,
 } from './pricing-data';
-import { UpgradeNotice } from './pricing-upgrade-notice';
-import { type ModelSupportItem, type Modality } from './types';
-import {
-  AnthropicClaudeIcon,
-  DeepSeekIcon,
-  GoogleGeminiIcon,
-  MiniMaxIcon,
-  MoonshotKimiIcon,
-  OpenAIIcon,
-} from '@/components/common/icons';
 import { AccountUrl } from '@/lib/constants';
 
 export function PricingCard({
@@ -58,7 +40,7 @@ export function PricingCard({
   return (
     <div
       className={cn(
-        'relative flex flex-col rounded-3xl p-5 transition-all duration-300',
+        'relative flex h-full flex-col rounded-3xl p-5 transition-all duration-300',
         !isHighlighted && 'bg-fd-card border hover:shadow-xl',
         isHighlighted && [
           'shadow-brand/20 scale-[1.04] shadow-lg',
@@ -118,7 +100,7 @@ export function PricingCard({
               {notes.map((note, noteIdx) => (
                 <span
                   key={noteIdx}
-                  className="text-fd-muted-foreground pl-[26px] text-xs"
+                  className="text-fd-muted-foreground mt-1 pl-[26px] text-sm whitespace-pre-line"
                 >
                   {note}
                 </span>
@@ -199,8 +181,6 @@ export function PrimaryPlansSection({
     }
   }
 
-  const notice = upgradeNoticeContent[lang] || upgradeNoticeContent['en'];
-
   return (
     <section className="mx-auto max-w-340 px-4">
       <div className="mb-6 text-center">
@@ -214,11 +194,6 @@ export function PrimaryPlansSection({
           </div>
         )}
       </div>
-
-      {/* Upgrade Notice */}
-      {/* <div className="mb-10 flex items-center justify-center">
-        <UpgradeNotice data={notice} lang={lang} />
-      </div> */}
 
       {/* Promo Banner */}
       {promoBanner && (
@@ -266,441 +241,7 @@ export function PrimaryPlansSection({
   );
 }
 
-function formatCredits(value: number): string {
-  if (value === 0) return '0';
-  const rounded = Math.round(value * 10000) / 1000000;
-  if (Number.isInteger(rounded)) {
-    return rounded.toLocaleString('en-US') + 'M';
-  }
-  if (rounded >= 1) {
-    return rounded.toLocaleString('en-US', { maximumFractionDigits: 2 }) + 'M';
-  }
-  return rounded.toLocaleString('en-US', { maximumFractionDigits: 4 }) + 'M';
-}
-
-const modalityIcons: Record<Modality, { icon: typeof Type; label: string }> = {
-  text: { icon: Type, label: 'Text' },
-  image: { icon: Image, label: 'Image' },
-  video: { icon: Video, label: 'Video' },
-  audio: { icon: AudioLines, label: 'Audio' },
-  pdf: { icon: FileText, label: 'PDF' },
-};
-
-function ModalityBadges({ modalities }: { modalities: Modality[] }) {
-  return (
-    <div className="flex items-center gap-1">
-      {modalities.map((m) => {
-        const { icon: Icon, label } = modalityIcons[m];
-        return (
-          <span
-            key={m}
-            title={label}
-            className="text-fd-muted-foreground/70 hover:text-fd-foreground transition-colors"
-          >
-            <Icon className="size-4" />
-          </span>
-        );
-      })}
-    </div>
-  );
-}
-
-function DeprecationWarning({ date }: { date: string }) {
-  if (!date) return null;
-  return (
-    <span
-      className="ml-1.5 inline-flex cursor-help text-amber-500 transition-colors hover:text-amber-600"
-      title={`Deprecated: ${date}`}
-    >
-      <TriangleAlert className="size-4" />
-    </span>
-  );
-}
-
-const tierStyles = {
-  pro: {
-    bg: 'bg-amber-600/5 dark:bg-amber-950/15',
-    bar: 'bg-amber-600/75 text-white',
-    borderColor: 'border-amber-600/75',
-    line: 'bg-amber-400 dark:bg-amber-500/70',
-  },
-  plus: {
-    bg: 'bg-purple-600/5 dark:bg-purple-950/15',
-    bar: 'bg-purple-600/75 text-white',
-    borderColor: 'border-purple-600/75',
-    line: 'bg-purple-400 dark:bg-purple-500/70',
-  },
-  starter: {
-    bg: 'bg-blue-600/5 dark:bg-blue-950/15',
-    bar: 'bg-blue-600/75 text-white',
-    borderColor: 'border-blue-600/75',
-    line: 'bg-blue-400 dark:bg-blue-500/70',
-  },
-};
-
-function CreditModelRow({
-  item,
-  providerIcon,
-  noWindowLimitLabel,
-  noWindowLimitHelper,
-  limitedTimeOfferLabel,
-  limitedTimeOfferHelper,
-  variablePricingLabel,
-  variablePricingHelper,
-  lang,
-  modalitiesPositionOffset,
-  creditsPositionOffset,
-  isLast,
-}: {
-  item: ModelSupportItem;
-  providerIcon: Record<string, JSX.Element>;
-  noWindowLimitLabel: string;
-  noWindowLimitHelper: string;
-  limitedTimeOfferLabel: string;
-  limitedTimeOfferHelper: string;
-  variablePricingLabel: string;
-  variablePricingHelper: string;
-  lang: string;
-  modalitiesPositionOffset?: string;
-  creditsPositionOffset?: string;
-  isLast?: boolean;
-}) {
-  const basePricing = item.pricing[0]?.pricing;
-  const pricingDescription = item.timeBasedPricing?.description;
-  const pricingNotice =
-    pricingDescription?.[lang] ??
-    pricingDescription?.en ??
-    variablePricingHelper;
-  return (
-    <div
-      className={cn(
-        'flex items-center gap-4 px-3 py-2.5',
-        !isLast && 'border-b border-current/5'
-      )}
-    >
-      <div className="flex min-w-0 flex-1 items-center gap-3">
-        <div className="bg-fd-muted text-fd-muted-foreground flex size-9 shrink-0 items-center justify-center rounded-lg border text-xs font-bold">
-          {providerIcon[item.company] || item.company[0]}
-        </div>
-        <div className="min-w-0">
-          <div className="flex min-w-0 items-center gap-2 text-sm font-medium">
-            <span className="truncate">{item.model}</span>
-            <DeprecationWarning date={item.deprecationDate} />
-            {!item.quotaLimited && (
-              <span
-                title={noWindowLimitHelper}
-                className="shrink-0 cursor-help rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[11px] leading-none font-medium text-emerald-600 dark:text-emerald-400"
-              >
-                {noWindowLimitLabel}
-              </span>
-            )}
-            {item.limitedTimeOffer && (
-              <span
-                title={limitedTimeOfferHelper}
-                className="shrink-0 cursor-help rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[11px] leading-none font-medium text-amber-600 dark:text-amber-400"
-              >
-                {limitedTimeOfferLabel}
-              </span>
-            )}
-            {item.timeBasedPricing && (
-              <span
-                title={pricingNotice}
-                aria-label={`${variablePricingLabel}: ${pricingNotice}`}
-                className="shrink-0 cursor-help rounded-full border border-cyan-500/25 bg-cyan-500/10 px-2 py-0.5 text-[11px] leading-none font-medium text-cyan-700 dark:text-cyan-400"
-              >
-                {variablePricingLabel}
-              </span>
-            )}
-          </div>
-          <div className="text-fd-muted-foreground text-xs">{item.company}</div>
-        </div>
-      </div>
-      <div
-        className={cn(
-          'hidden w-24 shrink-0 lg:block',
-          modalitiesPositionOffset
-        )}
-      >
-        <ModalityBadges modalities={item.inputModalities} />
-      </div>
-      <div
-        className={cn(
-          'hidden w-32 shrink-0 text-center text-sm tabular-nums sm:block sm:w-40',
-          creditsPositionOffset
-        )}
-      >
-        {basePricing ? formatCredits(basePricing.input) : '—'}
-      </div>
-      <div
-        className={cn(
-          'hidden w-32 shrink-0 text-center text-sm tabular-nums sm:block sm:w-40',
-          creditsPositionOffset
-        )}
-      >
-        {basePricing ? formatCredits(basePricing.output) : '—'}
-      </div>
-    </div>
-  );
-}
-
-function TierFolder({
-  tier,
-  models,
-  borderRadius,
-  modalitiesPositionOffset,
-  creditsPositionOffset,
-  providerIcon,
-  noWindowLimitLabel,
-  noWindowLimitHelper,
-  limitedTimeOfferLabel,
-  limitedTimeOfferHelper,
-  variablePricingLabel,
-  variablePricingHelper,
-  lang,
-  children,
-}: {
-  tier: 'pro' | 'plus' | 'starter';
-  models: ModelSupportItem[];
-  borderRadius?: string;
-  modalitiesPositionOffset?: string;
-  creditsPositionOffset?: string;
-  providerIcon: Record<string, JSX.Element>;
-  noWindowLimitLabel: string;
-  noWindowLimitHelper: string;
-  limitedTimeOfferLabel: string;
-  limitedTimeOfferHelper: string;
-  variablePricingLabel: string;
-  variablePricingHelper: string;
-  lang: string;
-  children?: ReactNode;
-}) {
-  const style = tierStyles[tier];
-  const label = tier.charAt(0).toUpperCase() + tier.slice(1);
-
-  return (
-    <div className="relative">
-      <div
-        className={cn(
-          'overflow-hidden border-t-2 border-r-2 border-b-2 border-l-2',
-          borderRadius,
-          style.borderColor,
-          style.bg
-        )}
-      >
-        {/* Solid color bar header */}
-        <div
-          className={cn('px-4 py-1 text-lg font-bold tracking-wide', style.bar)}
-        >
-          {label}
-        </div>
-
-        <div className="px-2 py-2">
-          {/* Model rows */}
-          {models.map((item, idx) => (
-            <CreditModelRow
-              key={idx}
-              item={item}
-              modalitiesPositionOffset={modalitiesPositionOffset}
-              creditsPositionOffset={creditsPositionOffset}
-              providerIcon={providerIcon}
-              noWindowLimitLabel={noWindowLimitLabel}
-              noWindowLimitHelper={noWindowLimitHelper}
-              limitedTimeOfferLabel={limitedTimeOfferLabel}
-              limitedTimeOfferHelper={limitedTimeOfferHelper}
-              variablePricingLabel={variablePricingLabel}
-              variablePricingHelper={variablePricingHelper}
-              lang={lang}
-              isLast={idx === models.length - 1}
-            />
-          ))}
-
-          {/* Nested tier folders */}
-          {children && (
-            <div className={cn(models.length > 0 && 'mt-2')}>{children}</div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ModelSupportTable({
-  title,
-  models,
-  lang,
-}: {
-  title: string;
-  models: ModelSupportItem[];
-  lang: string;
-}) {
-  const providerIcon: Record<string, JSX.Element> = {
-    OpenAI: OpenAIIcon,
-    Google: GoogleGeminiIcon,
-    Anthropic: AnthropicClaudeIcon,
-    DeepSeek: DeepSeekIcon,
-    MoonshotAI: MoonshotKimiIcon,
-    MiniMax: MiniMaxIcon,
-  };
-
-  const headers =
-    lang === 'zh'
-      ? {
-          model: '模型',
-          modality: '输入模态',
-          input: '输入积分',
-          output: '输出积分',
-          unit: '(1M Token)',
-          noWindowLimitLabel: '无窗口限制',
-          noWindowLimitHelper: '该模型不受 5 小时或 7 天使用窗口限制。',
-          limitedTimeOfferLabel: '限时特惠',
-          limitedTimeOfferHelper: '该模型当前享受限时优惠。',
-          variablePricingLabel: '峰谷定价',
-          variablePricingHelper: '该模型的积分价格会按指定时区和时段变化。',
-        }
-      : {
-          model: 'Model',
-          modality: 'Input Modality',
-          input: 'Input Credits',
-          output: 'Output Credits',
-          unit: '(1M Token)',
-          noWindowLimitLabel: 'No window limit',
-          noWindowLimitHelper:
-            'This model is not subject to 5-hour or 7-day usage window limits.',
-          limitedTimeOfferLabel: 'Limited-time offer',
-          limitedTimeOfferHelper:
-            'This model is currently available at a special limited-time offer.',
-          variablePricingLabel: 'Variable pricing',
-          variablePricingHelper:
-            'Credit pricing for this model varies by the specified time zone and schedule.',
-        };
-
-  const disclaimers =
-    lang === 'zh'
-      ? {
-          tierAccess:
-            '我们会根据您的订阅方案提供相应的模型访问权限。升级到更高级别计划，即可解锁包括低等级在内的所有模型。',
-          noWindowLimit:
-            '标记为“无窗口限制”的模型不受 5 小时或 7 天使用窗口限制，仅消耗每月积分。',
-          priceChange:
-            '由于各模型官方更新频繁，模型可用性、积分消耗和滚动限制状态可能会动态调整。',
-        }
-      : {
-          tierAccess:
-            'Your access depends on your current plan. Upgrading to a higher tier automatically unlocks all models from the lower tiers.',
-          noWindowLimit:
-            'Models marked “No window limit” are not subject to 5-hour or 7-day usage windows. They only consume monthly credits.',
-          priceChange:
-            'To keep pace with frequent official updates, model availability, credit pricing, and rolling-limit status may be adjusted dynamically.',
-        };
-
-  const proModels = models.filter((m) => m.minimumTier === 'pro');
-  const plusModels = models.filter((m) => m.minimumTier === 'plus');
-  const starterModels = models.filter(
-    (m) => m.minimumTier === 'starter' || m.minimumTier === 'free'
-  );
-
-  return (
-    <section className="mx-auto mt-20 max-w-300 px-4">
-      <div className="mb-10 text-center">
-        <h2 className={cn(headingVariants({ variant: 'h2' }), 'mb-3')}>
-          {title}
-        </h2>
-      </div>
-
-      <div className="overflow-x-auto">
-        <div className="bg-fd-card relative overflow-hidden rounded-xl rounded-b-3xl">
-          {/* Column headers */}
-          <div className="text-fd-muted-foreground flex items-center gap-4 py-3 pr-5 pl-5">
-            <div className="min-w-0 flex-1 text-xs font-medium sm:text-sm">
-              {headers.model}
-            </div>
-            <div className="relative right-2 mx-4 hidden w-28 shrink-0 text-xs font-medium sm:text-sm lg:block">
-              {headers.modality}
-            </div>
-            <div className="mx-5 hidden w-24 shrink-0 text-center text-xs font-medium sm:block sm:text-sm">
-              {headers.input}
-              <span className="text-fd-muted-foreground ml-1 block">
-                {headers.unit}
-              </span>
-            </div>
-            <div className="mx-8 hidden w-28 shrink-0 text-center text-xs font-medium sm:block sm:text-sm">
-              {headers.output}
-              <span className="text-fd-muted-foreground ml-1 block">
-                {headers.unit}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-2">
-            <TierFolder
-              tier="pro"
-              models={proModels}
-              providerIcon={providerIcon}
-              noWindowLimitLabel={headers.noWindowLimitLabel}
-              noWindowLimitHelper={headers.noWindowLimitHelper}
-              limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
-              limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
-              variablePricingLabel={headers.variablePricingLabel}
-              variablePricingHelper={headers.variablePricingHelper}
-              lang={lang}
-              borderRadius="rounded-2xl"
-              modalitiesPositionOffset="relative right-6"
-              creditsPositionOffset="relative left-[4px]"
-            >
-              <TierFolder
-                tier="plus"
-                models={plusModels}
-                providerIcon={providerIcon}
-                noWindowLimitLabel={headers.noWindowLimitLabel}
-                noWindowLimitHelper={headers.noWindowLimitHelper}
-                limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
-                limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
-                variablePricingLabel={headers.variablePricingLabel}
-                variablePricingHelper={headers.variablePricingHelper}
-                lang={lang}
-                modalitiesPositionOffset="relative right-4"
-                creditsPositionOffset="relative left-[12px]"
-                borderRadius="rounded-xl"
-              >
-                <TierFolder
-                  tier="starter"
-                  models={starterModels}
-                  providerIcon={providerIcon}
-                  noWindowLimitLabel={headers.noWindowLimitLabel}
-                  noWindowLimitHelper={headers.noWindowLimitHelper}
-                  limitedTimeOfferLabel={headers.limitedTimeOfferLabel}
-                  limitedTimeOfferHelper={headers.limitedTimeOfferHelper}
-                  variablePricingLabel={headers.variablePricingLabel}
-                  variablePricingHelper={headers.variablePricingHelper}
-                  lang={lang}
-                  modalitiesPositionOffset="relative right-2"
-                  creditsPositionOffset="relative left-[20px]"
-                  borderRadius="rounded-lg"
-                />
-              </TierFolder>
-            </TierFolder>
-          </div>
-        </div>
-      </div>
-
-      {/* Disclaimers */}
-      <div className="mt-6 space-y-3 px-2">
-        <div className="text-fd-muted-foreground flex items-start gap-2.5 text-sm">
-          <Info className="mt-0.5 size-4 shrink-0 text-blue-500" />
-          <span>{disclaimers.tierAccess}</span>
-        </div>
-        <div className="text-fd-muted-foreground flex items-start gap-2.5 text-sm">
-          <Info className="mt-0.5 size-4 shrink-0 text-emerald-500" />
-          <span>{disclaimers.noWindowLimit}</span>
-        </div>
-        <div className="text-fd-muted-foreground flex items-start gap-2.5 text-sm">
-          <RefreshCw className="mt-0.5 size-4 shrink-0 text-amber-500" />
-          <span>{disclaimers.priceChange}</span>
-        </div>
-      </div>
-    </section>
-  );
-}
+export { ModelSupportTable } from './model-support-table';
 
 function RatioBar({ value, max }: { value: number; max: number }) {
   return (
@@ -726,6 +267,8 @@ export function UsageLimitSection({
       name: 'Starter',
       fiveHourRequests: planData.starter.fiveHourRequests,
       sevenDayRequests: planData.starter.sevenDayRequests,
+      fiveHourCredits: planData.starter.fiveHourCredits,
+      sevenDayCredits: planData.starter.sevenDayCredits,
       ratio: planData.starter.ratio,
     },
     {
@@ -733,6 +276,8 @@ export function UsageLimitSection({
       name: 'Plus',
       fiveHourRequests: planData.plus.fiveHourRequests,
       sevenDayRequests: planData.plus.sevenDayRequests,
+      fiveHourCredits: planData.plus.fiveHourCredits,
+      sevenDayCredits: planData.plus.sevenDayCredits,
       ratio: planData.plus.ratio,
     },
     {
@@ -740,13 +285,16 @@ export function UsageLimitSection({
       name: 'Pro',
       fiveHourRequests: planData.pro.fiveHourRequests,
       sevenDayRequests: planData.pro.sevenDayRequests,
+      fiveHourCredits: planData.pro.fiveHourCredits,
+      sevenDayCredits: planData.pro.sevenDayCredits,
       ratio: planData.pro.ratio,
     },
   ];
   const maxCapacity = Math.max(...rows.flatMap((row) => [row.ratio]));
 
   const approxLabel = lang === 'zh' ? '约' : '~';
-  const requestsLabel = lang === 'zh' ? '次请求' : ' requests';
+  const requestsLabel = lang === 'zh' ? '次请求' : 'requests';
+  const creditsLabel = lang === 'zh' ? '积分' : 'credits';
 
   return (
     <section className="mx-auto mt-20 max-w-260 px-4">
@@ -761,15 +309,22 @@ export function UsageLimitSection({
 
       <div className="bg-fd-card overflow-hidden rounded-2xl border">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-180 table-fixed text-left text-sm">
+          <table className="w-full table-fixed text-left text-sm">
             <thead className="text-fd-muted-foreground bg-fd-muted/40 text-xs font-medium uppercase">
               <tr>
-                <th className="w-1/6 px-4 py-3 sm:px-6">
+                <th scope="col" className="w-1/5 px-3 py-3 sm:px-6">
                   {content.headers.plan}
                 </th>
-                <th className="w-1/4 px-4 py-3">{content.headers.fiveHour}</th>
-                <th className="w-1/4 px-4 py-3">{content.headers.sevenDay}</th>
-                <th className="w-1/3 px-4 py-3 sm:pr-6">
+                <th scope="col" className="w-3/10 px-3 py-3 sm:w-1/4 sm:px-4">
+                  {content.headers.fiveHour}
+                </th>
+                <th scope="col" className="w-3/10 px-3 py-3 sm:w-1/4 sm:px-4">
+                  {content.headers.sevenDay}
+                </th>
+                <th
+                  scope="col"
+                  className="w-1/5 px-2 py-3 sm:w-3/10 sm:px-4 sm:pr-6"
+                >
                   {content.headers.ratio}
                 </th>
               </tr>
@@ -777,16 +332,40 @@ export function UsageLimitSection({
             <tbody>
               {rows.map((row) => (
                 <tr key={row.id} className="border-t border-current/5">
-                  <td className="px-4 py-4 font-medium sm:px-6">{row.name}</td>
-                  <td className="px-4 py-4 tabular-nums">
-                    {approxLabel} {row.fiveHourRequests.toLocaleString('en-US')}{' '}
-                    {requestsLabel}
+                  <th scope="row" className="px-3 py-4 font-medium sm:px-6">
+                    {row.name}
+                  </th>
+                  <td className="px-3 py-4 tabular-nums sm:px-4">
+                    <span className="block font-medium">
+                      <span className="whitespace-nowrap">
+                        {approxLabel}{' '}
+                        {row.fiveHourRequests.toLocaleString('en-US')}
+                      </span>{' '}
+                      <span className="whitespace-nowrap">{requestsLabel}</span>
+                    </span>
+                    <span className="text-fd-muted-foreground mt-0.5 block">
+                      {(row.fiveHourCredits / 1_000_000).toLocaleString(
+                        'en-US'
+                      )}
+                      M {creditsLabel}
+                    </span>
                   </td>
-                  <td className="px-4 py-4 tabular-nums">
-                    {approxLabel} {row.sevenDayRequests.toLocaleString('en-US')}{' '}
-                    {requestsLabel}
+                  <td className="px-3 py-4 tabular-nums sm:px-4">
+                    <span className="block font-medium">
+                      <span className="whitespace-nowrap">
+                        {approxLabel}{' '}
+                        {row.sevenDayRequests.toLocaleString('en-US')}
+                      </span>{' '}
+                      <span className="whitespace-nowrap">{requestsLabel}</span>
+                    </span>
+                    <span className="text-fd-muted-foreground mt-0.5 block">
+                      {(row.sevenDayCredits / 1_000_000).toLocaleString(
+                        'en-US'
+                      )}
+                      M {creditsLabel}
+                    </span>
                   </td>
-                  <td className="px-4 py-4 sm:pr-6">
+                  <td className="px-3 py-4 sm:px-4 sm:pr-6">
                     <div className="max-w-56">
                       <span className="tabular-nums">
                         {row.ratio.toLocaleString('en-US')}×
@@ -804,7 +383,7 @@ export function UsageLimitSection({
       {/* Notes outside the card */}
       <div className="mt-5 space-y-3">
         <div className="flex items-start gap-2.5">
-          <Calculator className="mt-0.5 size-4 shrink-0 text-gray-500" />
+          <Calculator className="text-fd-muted-foreground mt-0.5 size-4 shrink-0" />
           <p className="text-fd-muted-foreground text-sm">
             {content.estimationNote}
           </p>

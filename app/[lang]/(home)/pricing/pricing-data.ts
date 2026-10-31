@@ -33,8 +33,7 @@ export type PricingPlan = {
 // A feature line is either plain text, or text with one or more muted sub-notes
 // rendered beneath it (each note becomes its own line).
 export type PlanFeatureLine =
-  | string
-  | { text: string; note?: string | string[] };
+  string | { text: string; note?: string | string[] };
 
 export type FAQItem = {
   question: string;
@@ -74,6 +73,8 @@ type PaidPlanData = {
   ratio: number;
   fiveHourRequests: number;
   sevenDayRequests: number;
+  fiveHourCredits: number;
+  sevenDayCredits: number;
 };
 
 type PlanData = {
@@ -93,8 +94,8 @@ export const planData: PlanData = {
   freeCredits: '300,000',
   starter: {
     price: '$10',
-    credits: '5,000,000',
-    shortCredits: '5M',
+    credits: '8,000,000',
+    shortCredits: '8M',
     freeWebSearchCount: '150',
     modelAccessLabel: {
       en: 'Basic Model Access',
@@ -105,13 +106,15 @@ export const planData: PlanData = {
       zh: '基础使用配额',
     },
     ratio: 1,
-    fiveHourRequests: 226,
-    sevenDayRequests: 565,
+    fiveHourRequests: 2_720,
+    sevenDayRequests: 9_090,
+    fiveHourCredits: 1_200_000,
+    sevenDayCredits: 4_000_000,
   },
   plus: {
     price: '$20',
-    credits: '12,000,000',
-    shortCredits: '12M',
+    credits: '16,000,000',
+    shortCredits: '16M',
     freeWebSearchCount: '400',
     modelAccessLabel: {
       en: 'All Model Access',
@@ -121,14 +124,16 @@ export const planData: PlanData = {
       en: 'Higher usage quota',
       zh: '更高使用配额',
     },
-    ratio: 2.4,
-    fiveHourRequests: 542,
-    sevenDayRequests: 1356,
+    ratio: 2,
+    fiveHourRequests: 5_450,
+    sevenDayRequests: 18_180,
+    fiveHourCredits: 2_400_000,
+    sevenDayCredits: 8_000_000,
   },
   pro: {
     price: '$60',
-    credits: '36,000,000',
-    shortCredits: '36M',
+    credits: '48,000,000',
+    shortCredits: '48M',
     freeWebSearchCount: '1,500',
     modelAccessLabel: {
       en: 'All Model Access',
@@ -138,9 +143,11 @@ export const planData: PlanData = {
       en: 'Highest usage quota',
       zh: '最高使用配额',
     },
-    ratio: 7.2,
-    fiveHourRequests: 1627,
-    sevenDayRequests: 4068,
+    ratio: 6,
+    fiveHourRequests: 16_360,
+    sevenDayRequests: 54_540,
+    fiveHourCredits: 7_200_000,
+    sevenDayCredits: 24_000_000,
   },
 };
 
@@ -186,7 +193,7 @@ export const pricingContent: Record<
     webSearchExtraNote:
       'Extra web searches beyond the included limit cost 8,000 credits each.',
     requestEstimateNote:
-      'Request estimates assume an average of 2,000 input tokens, 12,000 cached tokens, and 240 output tokens per request.',
+      'Each estimate uses the full monthly allowance on one model, with 2,000 uncached input tokens, 12,000 cached input tokens and 240 output tokens per request.',
 
     plans: [
       {
@@ -218,9 +225,8 @@ export const pricingContent: Record<
           {
             text: `${planData.starter.credits} credits`,
             note: [
-              '≈ 4,130 DeepSeek V4 Pro requests',
-              '≈ 1,410 GPT-5.4 Mini requests',
-              '≈ 1,040 Kimi K2.6 requests',
+              'DeepSeek V4.1 Flash\n≈ 8,330–16,660 requests',
+              'GPT-6 Luna\n≈ 18,180 requests',
             ],
           },
           `Includes ${planData.starter.freeWebSearchCount} free web searches`,
@@ -244,9 +250,8 @@ export const pricingContent: Record<
           {
             text: `${planData.plus.credits} credits`,
             note: [
-              '≈ 9,920 DeepSeek V4 Pro requests',
-              '≈ 3,380 GPT-5.4 Mini requests',
-              '≈ 2,510 Kimi K2.6 requests',
+              'DeepSeek V4.1 Flash\n≈ 16,660–33,330 requests',
+              'GPT-6 Luna\n≈ 36,360 requests',
             ],
           },
           `Includes ${planData.plus.freeWebSearchCount} free web searches`,
@@ -268,12 +273,11 @@ export const pricingContent: Record<
           {
             text: `${planData.pro.credits} credits`,
             note: [
-              '≈ 29,780 DeepSeek V4 Pro requests',
-              '≈ 10,160 GPT-5.4 Mini requests',
-              '≈ 7,530 Kimi K2.6 requests',
+              'DeepSeek V4.1 Flash\n≈ 50,000–100,000 requests',
+              'GPT-6 Luna\n≈ 109,090 requests',
             ],
           },
-          `Includes ${planData.pro.freeWebSearchCount} web searches`,
+          `Includes ${planData.pro.freeWebSearchCount} free web searches`,
           planData.pro.usageLimitLabel.en,
           planData.pro.modelAccessLabel.en,
           'Message Cloud Sync',
@@ -327,7 +331,7 @@ export const pricingContent: Record<
         ratio: 'Relative Ratio',
       },
       estimationNote:
-        'Request estimates assume an average of 2,000 input tokens, 12,000 cached tokens, and 240 output tokens per request.',
+        'Request counts are estimated at GPT-6 Luna prices, using 2,000 uncached input tokens, 12,000 cached input tokens and 240 output tokens per request. GPT-6 Luna is used only as a pricing reference and has no window limit.',
     },
 
     faq: [
@@ -407,7 +411,7 @@ export const pricingContent: Record<
     faqTitle: '常见问题',
     webSearchExtraNote: '超出计划包含的网络搜索次数后，每次会扣 8000 积分。',
     requestEstimateNote:
-      '请求数预估基于每次请求平均 2,000 个输入 token、12,000 个缓存 token 和 240 个输出 token 计算。',
+      '每项估算均按全部月度积分用于该模型计算，每次请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。',
     plans: [
       {
         id: 'free',
@@ -438,9 +442,8 @@ export const pricingContent: Record<
           {
             text: `${planData.starter.credits} 积分`,
             note: [
-              '约 4,130 次 DeepSeek V4 Pro 请求',
-              '约 1,410 次 GPT-5.4 Mini 请求',
-              '约 1,040 次 Kimi K2.6 请求',
+              'DeepSeek V4.1 Flash\n约 8,330–16,660 次请求',
+              'GPT-6 Luna\n约 18,180 次请求',
             ],
           },
           `含 ${planData.starter.freeWebSearchCount} 次网络搜索`,
@@ -464,9 +467,8 @@ export const pricingContent: Record<
           {
             text: `${planData.plus.credits} 积分`,
             note: [
-              '约 9,920 次 DeepSeek V4 Pro 请求',
-              '约 3,380 次 GPT-5.4 Mini 请求',
-              '约 2,510 次 Kimi K2.6 请求',
+              'DeepSeek V4.1 Flash\n约 16,660–33,330 次请求',
+              'GPT-6 Luna\n约 36,360 次请求',
             ],
           },
           `含 ${planData.plus.freeWebSearchCount} 次网络搜索`,
@@ -488,9 +490,8 @@ export const pricingContent: Record<
           {
             text: `${planData.pro.credits} 积分`,
             note: [
-              '约 29,780 次 DeepSeek V4 Pro 请求',
-              '约 10,160 次 GPT-5.4 Mini 请求',
-              '约 7,530 次 Kimi K2.6 请求',
+              'DeepSeek V4.1 Flash\n约 50,000–100,000 次请求',
+              'GPT-6 Luna\n约 109,090 次请求',
             ],
           },
           `含 ${planData.pro.freeWebSearchCount} 次网络搜索`,
@@ -547,7 +548,7 @@ export const pricingContent: Record<
         ratio: '相对比例',
       },
       estimationNote:
-        '请求数预估基于每次请求平均 2,000 个输入 token、12,000 个缓存 token 和 240 个输出 token 计算。',
+        '按 GPT-6 Luna 价格估算，每请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。该模型仅用于价格折算，本身无窗口限制。',
     },
 
     faq: [
@@ -624,17 +625,3 @@ export type UpgradeNotice = {
 export function getPricingContent(lang: string) {
   return pricingContent[lang] || pricingContent['en'];
 }
-
-export const upgradeNoticeContent: Record<string, UpgradeNotice> = {
-  en: {
-    title: "We're Adjusting Plan Benefits & Quotas",
-    description: `We're upgrading our subscription plans with more monthly credits and new short-term usage quotas`,
-    buttonText: 'Learn More',
-  },
-  zh: {
-    title: '我们正在调整计划权益和额度',
-    description:
-      '我们近期将对订阅计划进行升级：全面提升每月积分，同时引入短周期使用配额',
-    buttonText: '查看详情',
-  },
-};
