@@ -1,0 +1,7 @@
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Allow: /api/badges/
+Disallow: /api/
+
+Sitemap: https://everywhere.sylinko.com/sitemap.xml

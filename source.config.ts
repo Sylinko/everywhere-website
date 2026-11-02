@@ -1,6 +1,7 @@
 import { pageSchema, metaSchema } from 'fumadocs-core/source/schema';
 import { defineConfig, defineDocs } from 'fumadocs-mdx/config';
 import lastModified from 'fumadocs-mdx/plugins/last-modified';
+import { llmMarkdownOptions, remarkLLMUrls } from './lib/llm-markdown';
 
 // You can customise Zod schemas for frontmatter and `meta.json` here
 // see https://fumadocs.dev/docs/mdx/collections
@@ -9,7 +10,7 @@ export const docs = defineDocs({
   docs: {
     schema: pageSchema,
     postprocess: {
-      includeProcessedMarkdown: true,
+      includeProcessedMarkdown: llmMarkdownOptions,
     },
   },
   meta: {
@@ -22,7 +23,7 @@ export const policies = defineDocs({
   docs: {
     schema: pageSchema,
     postprocess: {
-      includeProcessedMarkdown: true,
+      includeProcessedMarkdown: llmMarkdownOptions,
     },
   },
   meta: {
@@ -40,6 +41,6 @@ export const notices = defineDocs({
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
-    // MDX options
+    remarkPlugins: [remarkLLMUrls],
   },
 });

@@ -1,5 +1,6 @@
 import { getLLMText, source } from '@/lib/source';
 import { i18n } from '@/lib/i18n';
+import { absoluteUrl } from '@/lib/metadata';
 
 export const revalidate = false;
 export const dynamicParams = false;
@@ -21,6 +22,8 @@ export async function GET(
   return new Response(scanned.join('\n\n'), {
     headers: {
       'Content-Type': 'text/markdown;charset=utf-8',
+      'X-Robots-Tag': 'noindex',
+      Link: `<${absoluteUrl('/llms.txt')}>; rel="describedby"`,
     },
   });
 }

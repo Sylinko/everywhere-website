@@ -46,6 +46,19 @@ export function createMetadata(
       : {
           ...defaultRobots,
           ...overrideRobots,
+          googleBot:
+            typeof overrideRobots?.googleBot === 'string'
+              ? overrideRobots.googleBot
+              : {
+                  ...defaultRobots.googleBot,
+                  ...(overrideRobots?.index === undefined
+                    ? {}
+                    : { index: overrideRobots.index }),
+                  ...(overrideRobots?.follow === undefined
+                    ? {}
+                    : { follow: overrideRobots.follow }),
+                  ...overrideRobots?.googleBot,
+                },
         };
 
   const og = override.openGraph;

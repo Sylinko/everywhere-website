@@ -14,11 +14,7 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/page-actions';
 import { onRateAction } from '@/lib/github';
 import { absoluteUrl, createMetadata } from '@/lib/metadata';
-import {
-  getLanguageAlternates,
-  getLocalePath,
-  i18n,
-} from '@/lib/i18n';
+import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n';
 import { articleSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 
 const owner = 'Sylinko';
@@ -146,6 +142,11 @@ export async function generateMetadata(props: {
       images: [ogImage],
     },
     alternates: {
+      types: {
+        'text/markdown': absoluteUrl(
+          `/${lang}/llms.mdx${page.slugs.length ? '/' + page.slugs.join('/') : ''}`
+        ),
+      },
       languages:
         availableLanguages.length > 0
           ? getLanguageAlternates(absoluteUrl, docsPath, availableLanguages)

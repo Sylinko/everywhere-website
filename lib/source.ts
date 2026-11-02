@@ -2,6 +2,7 @@ import { docs, policies, notices } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import { i18n } from '@/lib/i18n';
+import { absoluteUrl } from '@/lib/metadata';
 
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
@@ -38,5 +39,8 @@ export async function getLLMText(page: InferPageType<typeof source>) {
 
   return `# ${page.data.title}
 
-${processed}`;
+Source: ${absoluteUrl(page.url)}
+
+${processed.trim()}
+`;
 }

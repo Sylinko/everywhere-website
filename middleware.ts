@@ -9,10 +9,10 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - og (Open Graph images)
-     * - favicon.ico, robots.txt, sitemap.xml
+     * - favicon.ico, robots.txt, sitemap.xml, llms.txt
      * - Common file extensions for static assets (images, fonts, etc.)
      */
-    '/((?!api|_next/static|_next/image|og|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot)$).*)',
+    '/((?!api|_next/static|_next/image|og|favicon.ico|robots.txt|sitemap.xml|llms\\.txt$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot)$).*)',
   ],
 };
 
@@ -40,7 +40,7 @@ function appendVary(response: NextResponse, values: string[]): NextResponse {
           .split(',')
           .map((value) => value.trim())
           .filter(Boolean)
-      : [],
+      : []
   );
 
   for (const value of values) {
@@ -80,7 +80,8 @@ export function middleware(request: NextRequest) {
 
   // 301 Redirect legacy locale paths
   if (isLocalePath(pathname, 'en-US')) {
-    const newPath = pathname === '/en-US' ? '/en' : `/en${pathname.slice('/en-US'.length)}`;
+    const newPath =
+      pathname === '/en-US' ? '/en' : `/en${pathname.slice('/en-US'.length)}`;
     const url = new URL(request.url);
     url.pathname = newPath;
     return NextResponse.redirect(url, 301);
@@ -93,7 +94,7 @@ export function middleware(request: NextRequest) {
     url.pathname = newPath;
     return NextResponse.redirect(url, 301);
   }
-  
+
   const langCookie = request.cookies.get(COOKIE_NAME)?.value;
 
   // URL has locale prefix
@@ -116,7 +117,10 @@ export function middleware(request: NextRequest) {
   // Root path
   // No locale prefix on /. Cookie → Accept-Language → Default.
   if (pathname === '/') {
-    const targetLang = resolveBestLocale(langCookie, request.headers.get('accept-language') ?? '');
+    const targetLang = resolveBestLocale(
+      langCookie,
+      request.headers.get('accept-language') ?? ''
+    );
     const url = new URL(request.url);
     url.pathname = `/${targetLang}`;
     const response = markDynamicRedirect(NextResponse.redirect(url, 307));
@@ -133,7 +137,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(url, 307);
 }
 
-function resolveBestLocale(cookie: string | undefined, acceptLanguage: string): string {
+function resolveBestLocale(
+  cookie: string | undefined,
+  acceptLanguage: string
+): string {
   if (cookie && i18n.languages.includes(cookie)) {
     return cookie;
   }
