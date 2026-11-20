@@ -1,105 +1,110 @@
 ---
 title: Cookie 政策
+description: 查阅本站及 Sylinko Passport 使用的必要、功能和分析 Cookie，以及如何选择或更改同意设置。
 ---
+
+<Callout type="warning" title="译本说明">
+本页为中文译本。如与[英文版 Cookie 政策](/en/policies/cookie)有任何冲突，以英文版为准。
+</Callout>
 
 <Callout type="info" title="生效日期">
 2026年1月27日
 </Callout>
 
 <Callout type="warning" title="与上一版本的变化">
-2026年6月14日更新:
-- `__Secure-sylinko_passport.session_data` Cookie 已添加到**严格必要的 Cookie**列表中。这个 Cookie 用于维护您的登录状态并保护您的会话安全。
+2026年6月14日：
 
-2026年5月5日更新: 
-- 新增了对 **Google Analytics** 的说明，明确我们使用 Google Analytics 进行匿名网站流量分析。
-- 我们采用了基于 Cloudflare Zaraz 的**同意管理平台**。当您首次访问本站时，除‘绝对必要’的 Cookie 外，所有分析和性能技术（如 Google Analytics）均处于停用状态。您必须在同意横幅中接受，我们才会加载这些分析工具。
+- 将 `__Secure-sylinko_passport.session_data` 加入**严格必要的 Cookie** 列表，用于维持登录状态和保障会话安全。
+
+2026年5月5日：
+
+- 新增 **Google Analytics** 的用途说明：我们使用它进行匿名网站流量分析。
+- 我们采用了基于 Cloudflare Zaraz 的**同意管理平台**。您首次访问时，除严格必要的 Cookie 外，所有分析和性能技术（如 Google Analytics）均处于停用状态。只有在您通过同意横幅表示接受后，我们才会加载这些分析工具。
 </Callout>
 
-## 1. Introduction
+## 1. 简介 [#1-introduction]
 
-This Cookie Policy explains how **Sylinko Inc.** ("we," "us," and "our") uses cookies and similar technologies (such as local storage and web beacons) when you visit our websites, including our **Documentation Site** and **Sylinko Passport** (collectively, the "Websites").
+本政策说明您访问我们的文档网站、Sylinko Passport 等网站（统称“网站”）时，**Sylinko Inc.**（“我们”）如何使用 Cookie 及类似技术（如本地存储和网络信标）。
 
-This policy provides you with clear information about the cookies we use and your choices regarding these technologies.
+本政策列明我们使用的 Cookie，以及您对这些技术可以作出的选择。
 
-## 2. What are Cookies?
+## 2. 什么是 Cookie？ [#2-what-are-cookies]
 
-Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the owners of the site.
+Cookie 是您访问网站时存放在您的设备（电脑、智能手机或平板电脑）上的小型文本文件。网站通常使用 Cookie 提高运行效率，并向网站所有者提供信息。
 
-We use two main types of cookies:
+我们主要使用两类 Cookie：
 
-* **Session Cookies:** These are temporary cookies that expire when you close your browser.
-* **Persistent Cookies:** These remain on your device for a set period or until you delete them.
+- **会话 Cookie：** 临时存储，在您关闭浏览器时失效。
+- **持久 Cookie：** 在设定期限内保存在设备上，或保留至您将其删除。
 
-We also use **"Similar Technologies"** such as **Local Storage** (used to store your theme preferences, like "Dark Mode") which function similarly to cookies but store data in your browser for longer periods.
+我们还使用与 Cookie 功能相似的技术，例如**本地存储**。它在浏览器中保存数据的时间更长，可用于记住“深色模式”等主题偏好。
 
-## 3. How We Use Cookies
+## 3. 我们如何使用 Cookie [#3-how-we-use-cookies]
 
-We use cookies for the following purposes:
+1. **身份验证与安全：** 在您登录 Sylinko Passport 时识别您的身份，保护服务免受恶意攻击（例如机器人攻击）。
+2. **网站功能：** 记住您的语言、主题（浅色或深色模式）等偏好设置。
+3. **性能与分析：** 了解网站的使用情况、发现错误并提升系统稳定性。
 
-1. **Authentication & Security:** To identify you when you log in to Sylinko Passport and to protect our services from malicious attacks (e.g., bot attacks).
-2. **Functionality:** To remember your preferences, such as your language settings or theme (Light/Dark mode).
-3. **Performance & Analytics:** To understand how our Websites are used, detect errors, and improve system stability.
+## 4. 我们使用的 Cookie [#4-cookies-we-use]
 
-## 4. Cookies We Use
+以下是我们在网站上使用的 Cookie 及相关技术。
 
-Below is a detailed list of the cookies and technologies we use on our Websites:
+### 4.1 严格必要的 Cookie [#41-strictly-necessary-cookies-essential]
 
-### 4.1. Strictly Necessary Cookies (Essential)
+这些 Cookie 是网站正常运行所必需的，您无法在我们的系统设置中将其关闭。
 
-These cookies are essential for the Websites to function properly. You cannot switch these off in our systems.
+| Cookie 名称 | 提供方 | 用途 |
+| --- | --- | --- |
+| `__Secure-sylinko_passport.session_token` | Sylinko Passport | **身份验证。** 维持登录状态并保障会话安全。 |
+| `__Secure-sylinko_passport.session_data` | Sylinko Passport | **身份验证。** 维持登录状态并保障会话安全。 |
+| `__Secure-sylinko_passport.state` | Sylinko Passport | **身份验证。** 在登录过程中防止跨站请求伪造（CSRF）攻击。 |
+| `better-auth.last_used_login_method` | Sylinko Passport | **身份验证。** 记住您上次使用的登录方式（如电子邮件、Google 或 GitHub），方便下次登录。 |
+| `cf_clearance` / `cf_uvid` | Cloudflare | **安全。** Cloudflare Turnstile 用于验证访问者是人而非机器人。 |
+| `cf_consent` | Cloudflare | **同意管理。** Cloudflare Zaraz 用于管理您的 Cookie 同意偏好。 |
 
-| Cookie Name                               | Provider         | Purpose                                                                                                                     |
-| ----------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `__Secure-sylinko_passport.session_token` | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
-| `__Secure-sylinko_passport.session_data`  | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
-| `__Secure-sylinko_passport.state`         | Sylinko Passport | **Authentication.** Used to prevent CSRF attacks during the login process.                                                  |
-| `better-auth.last_used_login_method`      | Sylinko Passport | **Authentication.** Remembers the last login method you used (e.g., email, Google, GitHub) for a smoother login experience. |
-| `cf_clearance` / `cf_uvid`                | Cloudflare       | **Security.** Used by Cloudflare Turnstile to verify that you are a human and not a bot.                                    |
-| `cf_consent`                              | Cloudflare       | **Consent Management.** Used by Cloudflare Zaraz to manage your cookie consent preferences.                                 |
+### 4.2 功能性 Cookie（偏好设置） [#42-functional-cookies-preferences]
 
-### 4.2. Functional Cookies (Preferences)
+这些技术为网站提供增强功能和个性化设置。
 
-These technologies enable the website to provide enhanced functionality and personalization.
+| 名称 | 类型 | 用途 |
+| --- | --- | --- |
+| `NEXT_LOCALE` | Cookie | **本地化。** 记住您偏好的语言（如英语或中文），无需每次确认。 |
+| `theme` | 本地存储 | **外观。** 保存您对浅色或深色模式的偏好。 |
 
-| Cookie Name   | Type          | Purpose                                                                                                                   |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_LOCALE` | Cookie        | **Localization.** Remembers your preferred language (e.g., English or Chinese) so you don't have to verify it every time. |
-| `theme`       | Local Storage | **Appearance.** Stores your preference for Light Mode or Dark Mode.                                                       |
+### 4.3 性能与分析 Cookie [#43-performance--analytics-cookies]
 
-### 4.3. Performance & Analytics Cookies
+这些 Cookie 用于统计访问次数和流量来源，以衡量并改善网站性能。
 
-These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.
+| Cookie 名称 | 提供方 | 用途 |
+| --- | --- | --- |
+| `sentryReplaySession` | Sentry | **错误跟踪。** 在应用发生错误时识别不同的用户会话，帮助我们更快定位和修复问题。 |
+| `_ga`、`_ga_<container-id>` | Google Analytics | **分析。** 以匿名跟踪 Cookie 区分用户并分析网站流量模式。 |
+| `cfz_google-analytics_v4` | Cloudflare Zaraz | **分析。** 管理您对 Google Analytics 的同意偏好。 |
+| `cfzs_google-analytics_v4` | Cloudflare Zaraz | **分析。** 管理您对 Google Analytics 的同意偏好。 |
 
-| Cookie Name                 | Provider         | Purpose                                                                                                                      |
-| --------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `sentryReplaySession`       | Sentry           | **Error Tracking.** Helps us identify unique user sessions when an application error occurs, allowing us to fix bugs faster. |
-| `_ga`, `_ga_<container-id>` | Google Analytics | **Analytics.** Anonymous tracking cookies used to distinguish users and analyze website traffic patterns.                    |
-| `cfz_google-analytics_v4`   | Cloudflare Zaraz | **Analytics.** Used by Cloudflare Zaraz to manage your consent preferences for Google Analytics.                             |
-| `cfzs_google-analytics_v4`  | Cloudflare Zaraz | **Analytics.** Used by Cloudflare Zaraz to manage your consent preferences for Google Analytics.                             |
+## 5. 第三方服务 [#5-third-party-services]
 
-## 5. Third-Party Services
+除我们自己的 Cookie 外，我们还使用可信的第三方服务，这些服务可能会检查您设备上的 Cookie。具体包括：
 
-In addition to our own cookies, we use trusted third-party services that may verify cookies on your device. Specifically:
+- **Stripe：** 我们使用 Stripe 处理付款。Stripe 设置 Cookie 以侦测欺诈并完成交易。见 [Stripe 隐私政策](https://stripe.com/zh-sg/privacy)。
+- **Cloudflare：** 见 [Cloudflare 隐私政策](https://www.cloudflare.com/privacypolicy/)。
+  - 我们使用 Cloudflare Turnstile 提供安全保护。该服务设置 Cookie 以区分人与机器人。
+  - 我们还使用 Cloudflare Web Analytics 进行匿名网站流量分析。
+- **Sentry：** 我们使用 Sentry 进行匿名错误跟踪和性能监控。见 [Sentry 隐私政策](https://sentry.io/privacy/)。
+- **Google Analytics：** 我们使用 Google Analytics 进行匿名网站流量分析。见 [Google 隐私政策](https://policies.google.com/privacy)。
 
-* **Stripe:** We use Stripe for payment processing. Stripe sets cookies to detect fraud and facilitate transactions. (See [Stripe Privacy Policy](https://stripe.com/zh-sg/privacy))
-* **Cloudflare:** (See [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/))
-  * We use Cloudflare Turnstile for security. This service sets cookies to distinguish between humans and bots.
-  * We also use Cloudflare Web Analytics for anonymous website traffic analysis.
-* **Sentry:** We use Sentry for anonymous error tracking and performance monitoring. (See [Sentry Privacy Policy](https://sentry.io/privacy/))
-* **Google Analytics:** We use Google Analytics for anonymous website traffic analysis. (See [Google Privacy Policy](https://policies.google.com/privacy))
+## 6. 管理 Cookie 偏好 [#6-managing-your-cookie-preferences]
 
-## 6. Managing Your Cookie Preferences
+您有权决定接受或拒绝 Cookie。您可以通过 Cookie 同意管理工具或浏览器设置行使这项权利：
 
-You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the Cookie Consent Manager or through your browser settings. Here are some ways to manage your cookie preferences:
+- **Cloudflare Zaraz：** 我们使用它管理 Cookie 同意设置。首次访问时，所有非必要 Cookie（如 Google Analytics）默认停用。只有您在同意横幅上点击“接受”后，我们才会加载这些分析工具。
+- **浏览器设置：** 大多数浏览器允许您在“选项”或“偏好设置”菜单中管理 Cookie。
+- **禁用的影响：** 如果您禁用**严格必要的 Cookie**（如身份验证令牌），您可能无法使用网站的某些功能，例如登录 Sylinko Passport。
 
-* **Cloudflare Zaraz:** We use Cloudflare Zaraz to manage cookie consent. When you first visit our site, all non-essential cookies (like Google Analytics) are disabled by default. You must click "Accept" on the consent banner for us to load these analytics tools.
-* **Browser Settings:** Most web browsers allow you to control cookies through their settings preferences. You can usually find these settings in the "Options" or "Preferences" menu of your browser.
-* **Consequences of Disabling:** Please note that if you disable **Strictly Necessary Cookies** (like authentication tokens), you may not be able to use certain features of our Websites, such as logging in to Sylinko Passport.
+## 7. 政策更新 [#7-updates-to-this-policy]
 
-## 7. Updates to This Policy
+我们可能不时更新本政策，以反映所用 Cookie 的变化，或出于其他运营、法律或监管原因进行更新。请定期查看本政策，了解我们如何使用 Cookie 及相关技术。
 
-We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal, or regulatory reasons. Please revisit this Cookie Policy regularly to stay informed about our use of cookies and related technologies.
+## 8. 联系我们 [#8-contact-us]
 
-## 8. Contact Us
-
-If you have any questions about our use of cookies or other technologies, please email us at [contact@sylinko.com](mailto:contact@sylinko.com).
+如对我们使用 Cookie 或其他技术的方式有任何疑问，请发送邮件至 [contact@sylinko.com](mailto:contact@sylinko.com)。

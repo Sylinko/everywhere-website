@@ -14,7 +14,7 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/page-actions';
 import { onRateAction } from '@/lib/github';
 import { absoluteUrl, createMetadata } from '@/lib/metadata';
-import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n';
+import { getLanguageAlternates, getLocalePath, getOpenGraphLocale, i18n } from '@/lib/i18n';
 import { articleSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 
 const owner = 'Sylinko';
@@ -64,9 +64,6 @@ export default async function Page(props: {
           title: page.data.title,
           description: page.data.description,
           url: pageUrl,
-          datePublished: lastModifiedTime
-            ? new Date(lastModifiedTime).toISOString()
-            : undefined,
           dateModified: lastModifiedTime
             ? new Date(lastModifiedTime).toISOString()
             : undefined,
@@ -134,6 +131,7 @@ export async function generateMetadata(props: {
     canonical: pageUrl,
     openGraph: {
       type: 'article',
+      locale: getOpenGraphLocale(lang),
       images: [
         { url: ogImage, width: 1200, height: 630, alt: page.data.title },
       ],

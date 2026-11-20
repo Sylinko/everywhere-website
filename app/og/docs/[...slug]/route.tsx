@@ -1,41 +1,32 @@
-import { getPageImage, source } from '@/lib/source';
+import { getPageImage, pageImageFilename, source } from '@/lib/source';
+import { i18n } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
-import { ImageResponse } from 'next/og';
-import { generate as DefaultImage } from 'fumadocs-ui/og';
-import { siteName } from '@/lib/metadata';
+import { createDocsOgResponse } from '@/lib/og';
 
 export const revalidate = false;
+export const dynamicParams = false;
 
 export async function GET(
   _req: Request,
   { params }: RouteContext<'/og/docs/[...slug]'>
 ) {
   const { slug } = await params;
-  const page = source.getPage(slug.slice(0, -1));
+  const lang = i18n.languages.find(
+    (locale) => pageImageFilename(locale) === slug.at(-1)
+  );
+  if (!lang) notFound();
+  const page = source.getPage(slug.slice(0, -1), lang);
   if (!page) notFound();
 
-  return new ImageResponse(
-    <DefaultImage
-      title={page.data.title}
-      description={page.data.description}
-      site={siteName}
-    />,
-    {
-      width: 1200,
-      height: 630,
-    }
-  );
+  return createDocsOgResponse({
+    lang,
+    title: page.data.title,
+    description: page.data.description,
+  });
 }
 
 export function generateStaticParams() {
-  const seen = new Set<string>();
-
-  return source.getPages().flatMap((page) => {
-    const slug = getPageImage(page).segments;
-    const key = slug.join('/');
-    if (seen.has(key)) return [];
-
-    seen.add(key);
-    return [{ slug }];
-  });
+  return source.getPages().map((page) => ({
+    slug: getPageImage(page).segments,
+  }));
 }

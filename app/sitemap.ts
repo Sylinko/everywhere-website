@@ -56,20 +56,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return alternates;
   }
 
-  const latestModifiedByLang = new Map<string, Date>();
-  const homeEntries: MetadataRoute.Sitemap = [];
-
   for (const lang of i18n.languages) {
-    const entry: MetadataRoute.Sitemap[number] = {
+    entries.push({
       url: `${url}${getLocalePath(lang)}`,
       changeFrequency: 'daily',
       priority: 1.0,
       alternates: {
         languages: generateAlternates(i18n.languages, '', { xDefault: '/' }),
       },
-    };
-    entries.push(entry);
-    homeEntries.push(entry);
+    });
   }
 
   const pagesBySlug = new Map<
@@ -85,14 +80,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         pagesBySlug.set(slugKey, []);
       }
       pagesBySlug.get(slugKey)!.push({ lang, page });
-
-      const lm = toDate(page.data.lastModified);
-      if (lm) {
-        const prev = latestModifiedByLang.get(lang);
-        if (!prev || lm.getTime() > prev.getTime()) {
-          latestModifiedByLang.set(lang, lm);
-        }
-      }
     }
   }
 
@@ -144,22 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         policiesBySlug.set(slugKey, []);
       }
       policiesBySlug.get(slugKey)!.push({ lang, page });
-
-      const lm = toDate(page.data.lastModified);
-      if (lm) {
-        const prev = latestModifiedByLang.get(lang);
-        if (!prev || lm.getTime() > prev.getTime()) {
-          latestModifiedByLang.set(lang, lm);
-        }
-      }
     }
-  }
-
-  for (const entry of homeEntries) {
-    const match = entry.url.replace(url, '').split('/').filter(Boolean)[0];
-    if (!match) continue;
-    const lm = latestModifiedByLang.get(match);
-    if (lm) entry.lastModified = lm;
   }
 
   for (const [slugKey, langPages] of policiesBySlug) {

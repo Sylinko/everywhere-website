@@ -28,6 +28,27 @@ export function absoluteUrl(path: string): string {
   return `${baseUrl.origin}${cleanPath}`;
 }
 
+export function getSiteOgImageUrl(
+  lang: string,
+  page: 'home' | 'download' | 'pricing'
+): string {
+  const safeLang = lang === 'zh' ? 'zh' : 'en';
+  return `/og/site/${safeLang}/${page}.png`;
+}
+
+export function getPolicyOgImageUrl(lang: string, slugs: string[]): string {
+  const safeLang = lang === 'zh' ? 'zh' : 'en';
+  const path = slugs.length > 0 ? slugs.join('/') : 'index';
+  return `/og/site/${safeLang}/policies/${path}.png`;
+}
+
+const defaultOgImage = {
+  url: getSiteOgImageUrl('en', 'home'),
+  width: 1200,
+  height: 630,
+  alt: 'Everywhere',
+};
+
 /**
  * Create merged metadata with sensible defaults for OpenGraph, Twitter, icons,
  * and optional canonical URL. Hreflang alternates are set per-page.
@@ -83,16 +104,14 @@ export function createMetadata(
       url: canonical ?? baseUrl.origin,
       siteName,
       type: 'website',
-      images: {
-        url: '/banner.jpg',
-        alt: 'Everywhere Banner',
-      },
+      images: [defaultOgImage],
       ...og,
     },
     twitter: {
       card: 'summary_large_image',
       title: override.title ?? undefined,
       description: override.description ?? undefined,
+      images: [defaultOgImage.url],
       site: '@everywhere_team',
       creator: '@everywhere_team',
       ...tw,

@@ -39,6 +39,14 @@ for (const lang of ['en', 'zh']) {
     'utf8'
   );
   assert.match(html, new RegExp(`<html[^>]*lang="${lang}"`));
+  const quickStart = await readFile(
+    new URL(`.next/server/app/${lang}/docs/quick-start.html`, root),
+    'utf8'
+  );
+  assert.ok(
+    quickStart.includes(`href="/${lang}/docs/chat-tools"`),
+    'Quick Start must link to Chat Tools in the initial HTML'
+  );
   assert.ok(
     !html.includes('/_next/image?'),
     'Local images must bypass the Worker image proxy'
@@ -84,6 +92,24 @@ const baseUrl = process.argv[2];
 if (baseUrl) {
   for (const lang of ['en', 'zh']) {
     const headers = { Cookie: `NEXT_LOCALE=${lang}` };
+    const legacyLocale = lang === 'en' ? 'en-US' : 'zh-CN';
+    for (const [oldSlug, newSlug] of [
+      ['', ''],
+      ['/essential', '/essential'],
+      ['/file-system', '/file-system'],
+      ['/visual-context', '/visual-context'],
+      ['/web-browser', '/web'],
+      ['/windows-specific/everything', '/windows-specific/everything'],
+      ['/windows-specific/powershell', '/terminal'],
+    ]) {
+      const oldUrl = new URL(`/${legacyLocale}/docs/chat-plugin${oldSlug}?from=docs`, baseUrl);
+      const response = await fetch(oldUrl, { redirect: 'manual' });
+      assert.equal(response.status, 301, oldUrl.href);
+      assert.equal(
+        new URL(response.headers.get('location'), baseUrl).href,
+        new URL(`/${lang}/docs/chat-tools${newSlug}?from=docs`, baseUrl).href
+      );
+    }
     for (const suffix of [
       '',
       '/download',

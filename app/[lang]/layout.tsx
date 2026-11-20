@@ -4,9 +4,8 @@ import { i18n } from '@/lib/i18n';
 import { Provider } from '@/components/provider';
 import { SiteDocument } from '@/components/site-document';
 import type { Metadata } from 'next';
-import { createMetadata, baseUrl } from '@/lib/metadata';
+import { createMetadata, baseUrl, getSiteOgImageUrl } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
-import { softwareApplicationSchema, JsonLdScript } from '@/lib/json-ld';
 import {
   EverywhereDescriptions,
   EverywhereTitles,
@@ -61,6 +60,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const lang = (await params).lang;
   const titles = titleMap[lang] || titleMap[i18n.defaultLanguage];
+  const ogImage = getSiteOgImageUrl(lang, 'home');
+  const ogTitle = ogTitles[lang] ?? ogTitles['en'];
 
   return createMetadata({
     metadataBase: baseUrl,
@@ -73,7 +74,11 @@ export async function generateMetadata({
     authors: [{ name: 'Sylinko', url: OfficialUrl }],
     creator: 'Sylinko',
     openGraph: {
-      title: ogTitles[lang] ?? ogTitles['en'],
+      title: ogTitle,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+    },
+    twitter: {
+      images: [ogImage],
     },
   });
 }
@@ -99,7 +104,6 @@ export default async function RootLayout({
   return (
     <SiteDocument lang={lang}>
       <Provider i18n={i18nProvider(translations, lang)} lang={lang}>
-        <JsonLdScript data={softwareApplicationSchema(lang)} />
         {children}
       </Provider>
     </SiteDocument>

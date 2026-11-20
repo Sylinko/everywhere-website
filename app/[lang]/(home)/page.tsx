@@ -24,9 +24,15 @@ import type { Metadata } from 'next';
 import {
   getLanguageAlternates,
   getLocalePath,
+  getOpenGraphLocale,
 } from '@/lib/i18n';
-import { baseUrl, absoluteUrl } from '@/lib/metadata';
-import { breadcrumbSchema, JsonLdScript, webPageSchema } from '@/lib/json-ld';
+import { absoluteUrl, createMetadata, getSiteOgImageUrl } from '@/lib/metadata';
+import {
+  breadcrumbSchema,
+  JsonLdScript,
+  softwareApplicationSchema,
+  webPageSchema,
+} from '@/lib/json-ld';
 import { EverywhereDescriptions, EverywhereTitles } from '@/lib/constants';
 
 const contentMap = {
@@ -263,18 +269,25 @@ export async function generateMetadata({
   };
   const t = titles[lang] || titles['en'];
   const canonical = absoluteUrl(getLocalePath(lang));
+  const ogImage = getSiteOgImageUrl(lang, 'home');
 
-  return {
-    metadataBase: baseUrl,
+  return createMetadata({
+    canonical,
     title: t.default,
     description: t.description,
+    openGraph: {
+      locale: getOpenGraphLocale(lang),
+      images: [{ url: ogImage, width: 1200, height: 630, alt: t.default }],
+    },
+    twitter: {
+      images: [ogImage],
+    },
     alternates: {
-      canonical,
       languages: getLanguageAlternates(absoluteUrl, '', i18n.languages, {
         xDefault: '/',
       }),
     },
-  };
+  });
 }
 
 export default async function Page({
@@ -351,6 +364,7 @@ export default async function Page({
 
   return (
     <main className="text-landing-foreground dark:text-landing-foreground-dark pt-4 pb-6 md:pb-12">
+      <JsonLdScript data={softwareApplicationSchema(lang)} />
       <JsonLdScript
         data={webPageSchema({
           url: pageUrl,

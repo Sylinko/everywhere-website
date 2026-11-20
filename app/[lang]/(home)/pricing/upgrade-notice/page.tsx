@@ -2,7 +2,7 @@ import { noticeSource } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { absoluteUrl, createMetadata } from '@/lib/metadata';
+import { absoluteUrl, createMetadata, getSiteOgImageUrl } from '@/lib/metadata';
 import { getLocalePath } from '@/lib/i18n';
 import { buttonVariants } from '@/components/common/variants';
 import { ArrowLeft } from 'lucide-react';
@@ -22,11 +22,20 @@ export async function generateMetadata({
   if (!page) notFound();
 
   const pageUrl = absoluteUrl(getLocalePath(lang, 'pricing/upgrade-notice'));
+  const ogImage = getSiteOgImageUrl(lang, 'pricing');
 
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
     canonical: pageUrl,
+    openGraph: {
+      images: [
+        { url: ogImage, width: 1200, height: 630, alt: page.data.title },
+      ],
+    },
+    twitter: {
+      images: [ogImage],
+    },
     robots: { index: false, follow: false },
   });
 }
@@ -50,7 +59,7 @@ export default async function UpgradeNoticePage({
         href={backHref}
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'sm' }),
-          'mb-8 gap-2',
+          'mb-8 gap-2'
         )}
       >
         <ArrowLeft className="size-4" />

@@ -25,8 +25,12 @@ export const noticeSource = loader({
   source: notices.toFumadocsSource(),
 });
 
+export function pageImageFilename(lang = i18n.defaultLanguage) {
+  return lang === i18n.defaultLanguage ? 'image.png' : `image.${lang}.png`;
+}
+
 export function getPageImage(page: InferPageType<typeof source>) {
-  const segments = [...page.slugs, 'image.png'];
+  const segments = [...page.slugs, pageImageFilename(page.locale)];
 
   return {
     segments,

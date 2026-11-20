@@ -1,71 +1,80 @@
 ---
 title: 退款政策
+description: 了解如何取消订阅、哪些情形可以退款，以及如何在交易之日起 30 天内提交申请。
 ---
 
 import Link from 'fumadocs-core/link';
 import { AccountUrl } from '@/lib/constants';
 
+<Callout type="warning" title="译本说明">
+本页为中文译本。如与[英文版退款政策](/en/policies/refund)有任何冲突，以英文版为准。
+</Callout>
+
 <Callout type="info" title="生效日期">
 2026年4月19日
 </Callout>
 
-Thank you for choosing Sylinko Inc. ("Company", "we", "us", or "our"). We strive to ensure our users have the best experience with our software products, including Everywhere and other services managed via Sylinko Passport.
+感谢您选择 Sylinko Inc.（“公司”或“我们”）。我们致力于为用户提供良好的软件产品体验，包括 Everywhere 及通过 Sylinko Passport 管理的其他服务。
 
-## 1. Subscription Cancellation
-You may cancel your subscription at any time. To cancel, please follow these steps:
+## 1. 取消订阅 [#1-subscription-cancellation]
 
-Log in to your account at <Link href={AccountUrl} target='_blank'>Sylinko Passport</Link>.
+您可以随时取消订阅。操作步骤如下：
 
-Navigate to the "Everywhere" section.
+1. 登录您的 <Link href={AccountUrl} target='_blank'>Sylinko Passport</Link> 账户。
+2. 进入“Everywhere”栏目。
+3. 点击“Manage Subscription”（管理订阅），前往 Stripe 客户门户。
+4. 选择“Cancel Subscription”（取消订阅），按提示完成操作。
 
-Click "Manage Subscription" and then redirect to the Stripe Customer Portal.
+取消后，您仍可使用高级功能，直至当前计费周期结束。本周期结束后不会再扣费。
 
-Then select "Cancel Subscription" and follow the prompts to complete the cancellation process.
+## 2. 退款规则 [#2-refund-policy]
 
-Upon cancellation, you will continue to have access to the premium features until the end of your current billing cycle. No further charges will be applied after the current cycle ends.
+我们力求在向用户提供价值与防止服务滥用之间保持公平。退款资格按以下条件确定：
 
-## 2. Refund Policy
-We strive to maintain a fair balance between providing value to our users and preventing service abuse. Our refund eligibility is based on the following criteria:
+### 2.1 全额退款：额度尚未使用 [#21-full-refund-eligibility-unused-quota]
 
-### 2.1 Full Refund Eligibility (Unused Quota)
-If you have not consumed any credits or used any service quota within the current billing cycle, you are eligible for a full refund within 30 days of the transaction date.
+如果您在当前计费周期内未消耗任何点数，也未使用任何服务额度，您可在交易之日起 30 天内获得全额退款。
 
-### 2.2 Conditional Refunds (Used Quota)
-If you have already started using your credits or quota, refunds are not guaranteed and will be evaluated on a case-by-case basis. Circumstances we consider include:
+### 2.2 有条件退款：已使用额度 [#22-conditional-refunds-used-quota]
 
-- Software Failure during Testing: If you encounter a verified technical defect while testing the software within a reasonable usage threshold, and our team cannot resolve it.
+如果您已开始使用点数或额度，我们不保证退款，而会逐案评估。考虑因素包括：
 
-- Service Unavailability: Significant and prolonged downtime that prevents you from accessing our core services. This excludes any scheduled maintenance or issues caused by upstream providers, as these are outside of our control.
+- **测试期间的软件故障：** 您在合理的使用量范围内测试软件时遇到经核实的技术缺陷，且我们的团队无法解决。
+- **服务不可用：** 严重且持续的服务中断导致您无法访问核心服务。计划维护或上游提供商引发的问题不在此列，因为这些情况不受我们控制。
 
-### 2.3 Billing Errors
-We will provide a full and immediate refund for:
+### 2.3 计费错误 [#23-billing-errors]
 
-- Duplicate Payments: Multiple charges for the same subscription due to a glitch in the payment process.
+出现以下情况时，我们将立即全额退款：
 
-- Incorrect Charges: Any amount charged in error that does not match our listed pricing.
+- **重复付款：** 支付流程发生故障，导致同一订阅被多次扣款。
+- **错误扣款：** 因错误收取了与我们公布的价格不符的金额。
 
-### 2.4 Connectivity and Network Restrictions
-You are responsible for ensuring that your network environment allows access to our Services and any integrated third-party providers (e.g., OpenAI, Anthropic). 
+### 2.4 连接与网络限制 [#24-connectivity-and-network-restrictions]
 
-We **do not** grant refunds for the inability to access the Services due to:
-- Local network restrictions, firewalls, or proxy/VPN configurations.
-- Internet Service Provider (ISP) issues.
-- Government censorship or regional blocks.
+您有责任确保自己的网络环境允许访问我们的服务及接入的第三方提供商（如 OpenAI、Anthropic）。
 
-These situations are outside of our control and do not constitute grounds for a refund, as the digital service remains operational on our end.
+若因以下原因无法访问服务，我们**不予退款**：
 
-### 2.5 No Refund for Violations
-If your account is suspended or terminated due to a violation of our Terms of Service (e.g., abusing the API, reverse engineering, or engaging in prohibited activities as outlined in Section 8 of the TOS), you will forfeit the right to any refund, including for any unused quota or remaining subscription period.
+- 本地网络限制、防火墙或代理／VPN 配置；
+- 互联网服务提供商（ISP）的问题；
+- 政府审查或地区性封锁。
 
-All refund requests must be submitted within 30 days of the transaction date via [support@sylinko.com](mailto:support@sylinko.com).
+上述情况不受我们控制，且我们的数字服务仍在正常运行，因此不构成退款理由。
 
-## 3. Free Trials (If Applicable)
-If we offer a free trial, you will not be charged until the trial period expires. You must cancel before the end of the trial period to avoid being charged for the subsequent billing cycle.
+### 2.5 违规不予退款 [#25-no-refund-for-violations]
 
-## 4. Chargebacks and Disputes
-We encourage users to contact our support team directly to resolve any billing issues. We aim to provide a fair and rapid resolution. Initiating a chargeback without contacting us first may result in the suspension of your account to protect against fraud. If you believe your account was suspended in error due to a chargeback dispute (e.g., bank error), you may submit an appeal to [support@sylinko.com](mailto:support@sylinko.com) to request account restoration.
+如您的账户因违反服务条款而被暂停或终止（例如滥用 API、进行逆向工程或从事服务条款第 8 节所列的禁止活动），您将失去获得任何退款的权利，包括未使用的额度或剩余订阅期对应的款项。
 
-## 5. Contact Us
-If you have any questions concerning our refund and cancellation policy, please contact us at:
+所有退款申请均须在交易之日起 30 天内通过 [support@sylinko.com](mailto:support@sylinko.com) 提交。
 
-Email: [support@sylinko.com](mailto:support@sylinko.com)
+## 3. 免费试用（如适用） [#3-free-trials-if-applicable]
+
+如果我们提供免费试用，试用期届满前不会向您收费。如不希望被收取下一计费周期的费用，您必须在试用期结束前取消。
+
+## 4. 拒付与争议 [#4-chargebacks-and-disputes]
+
+如有计费问题，我们鼓励您直接联系支持团队。我们力求公正、迅速地解决问题。若您未先联系我们就发起拒付，为防范欺诈，我们可能会暂停您的账户。若您认为账户因拒付争议被错误暂停（例如银行出错），可向 [support@sylinko.com](mailto:support@sylinko.com) 提出申诉，请求恢复账户。
+
+## 5. 联系我们 [#5-contact-us]
+
+如对退款及取消订阅政策有任何疑问，请发送邮件至 [support@sylinko.com](mailto:support@sylinko.com)。

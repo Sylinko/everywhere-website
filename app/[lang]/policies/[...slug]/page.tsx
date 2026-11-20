@@ -1,7 +1,11 @@
 import { policySource } from '@/lib/source';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
-import { createMetadata, absoluteUrl } from '@/lib/metadata';
+import {
+  createMetadata,
+  absoluteUrl,
+  getPolicyOgImageUrl,
+} from '@/lib/metadata';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -14,6 +18,7 @@ import { breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 import {
   getLanguageAlternates,
   getLocalePath,
+  getOpenGraphLocale,
   i18n,
 } from '@/lib/i18n';
 
@@ -34,10 +39,6 @@ export default async function Page(props: {
     {
       name: lang === 'zh' ? '首页' : 'Home',
       url: absoluteUrl(getLocalePath(lang)),
-    },
-    {
-      name: lang === 'zh' ? '政策' : 'Policies',
-      url: absoluteUrl(getLocalePath(lang, 'policies')),
     },
     { name: page.data.title, url: pageUrl },
   ];
@@ -82,10 +83,21 @@ export async function generateMetadata(props: {
     Boolean(policySource.getPage(slug, locale))
   );
 
+  const ogImage = getPolicyOgImageUrl(lang, page.slugs);
+
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
     canonical: pageUrl,
+    openGraph: {
+      locale: getOpenGraphLocale(lang),
+      images: [
+        { url: ogImage, width: 1200, height: 630, alt: page.data.title },
+      ],
+    },
+    twitter: {
+      images: [ogImage],
+    },
     alternates: {
       languages:
         availableLanguages.length > 0

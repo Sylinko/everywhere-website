@@ -8,7 +8,7 @@ import { DownloadAutoDetect } from './download-auto-detect';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 import { ChannelToggle } from './channel-toggle';
 import { WindowsIcon, AppleIcon, GitHubIcon } from '@/components/common/icons';
-import { absoluteUrl } from '@/lib/metadata';
+import { absoluteUrl, createMetadata, getSiteOgImageUrl } from '@/lib/metadata';
 import {
   softwareApplicationSchema,
   breadcrumbSchema,
@@ -17,6 +17,7 @@ import {
 import {
   getLanguageAlternates,
   getLocalePath,
+  getOpenGraphLocale,
 } from '@/lib/i18n';
 import { RepoUrl } from '@/lib/github';
 
@@ -138,17 +139,25 @@ export async function generateMetadata({
   const content =
     contentMap[lang as keyof typeof contentMap] || contentMap['en'];
   const pageUrl = absoluteUrl(getLocalePath(lang, 'download'));
-  return {
+  const ogImage = getSiteOgImageUrl(lang, 'download');
+  return createMetadata({
+    canonical: pageUrl,
+    openGraph: {
+      locale: getOpenGraphLocale(lang),
+      images: [{ url: ogImage, width: 1200, height: 630, alt: content.title }],
+    },
+    twitter: {
+      images: [ogImage],
+    },
     title: content.title,
     description:
       lang === 'zh'
         ? '下载 Everywhere — 获取你的通用 AI 智能体。随处感知情境，即刻提供协助。支持 Windows 和 macOS。'
         : 'Download Everywhere — Get your Universal AI Agent. On-screen awareness assistance, delivered instantly. Supporting Windows and macOS.',
     alternates: {
-      canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'download'),
     },
-  };
+  });
 }
 
 export default async function Page({

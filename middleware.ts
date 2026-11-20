@@ -37,9 +37,9 @@ function appendVary(response: NextResponse, values: string[]): NextResponse {
   const merged = new Set(
     existing
       ? existing
-          .split(',')
-          .map((value) => value.trim())
-          .filter(Boolean)
+        .split(',')
+        .map((value) => value.trim())
+        .filter(Boolean)
       : []
   );
 
@@ -71,45 +71,38 @@ function nextWithLang(request: NextRequest, lang: string): NextResponse {
   return response;
 }
 
-function isLocalePath(pathname: string, locale: string): boolean {
-  return pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
-}
+const renamedDocs = new Map([
+  ['/docs/chat-plugin', '/docs/chat-tools'],
+  ['/docs/chat-plugin/essential', '/docs/chat-tools/essential'],
+  ['/docs/chat-plugin/file-system', '/docs/chat-tools/file-system'],
+  ['/docs/chat-plugin/visual-context', '/docs/chat-tools/visual-context'],
+  ['/docs/chat-plugin/web-browser', '/docs/chat-tools/web'],
+  ['/docs/chat-plugin/windows-specific/everything', '/docs/chat-tools/windows-specific/everything'],
+  ['/docs/chat-plugin/windows-specific/powershell', '/docs/chat-tools/terminal'],
+  ['/docs/chat-tools/web-browser', '/docs/chat-tools/web'],
+  ['/docs/chat-tools/windows-specific/powershell', '/docs/chat-tools/terminal'],
+]);
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 301 Redirect legacy locale paths
-  if (isLocalePath(pathname, 'en-US')) {
-    const newPath =
-      pathname === '/en-US' ? '/en' : `/en${pathname.slice('/en-US'.length)}`;
-    const url = new URL(request.url);
-    url.pathname = newPath;
-    return NextResponse.redirect(url, 301);
-  }
-
-  if (isLocalePath(pathname, 'zh-CN')) {
-    const newPath =
-      pathname === '/zh-CN' ? '/zh' : `/zh${pathname.slice('/zh-CN'.length)}`;
-    const url = new URL(request.url);
-    url.pathname = newPath;
-    return NextResponse.redirect(url, 301);
-  }
-
   const langCookie = request.cookies.get(COOKIE_NAME)?.value;
+  const localized = /^\/(en(?:-US)?|zh(?:-CN)?)(\/.*)?$/.exec(pathname);
+  if (localized) {
+    const [, locale, path = ''] = localized;
+    const lang = locale.slice(0, 2);
+    const renamed = renamedDocs.get(path);
 
-  // URL has locale prefix
-  if (isLocalePath(pathname, 'en')) {
-    const response = nextWithLang(request, 'en');
-    if (langCookie !== 'en') {
-      setLangCookie(response, 'en');
+    // Resolve locale and document migrations together to avoid redirect chains.
+    if (locale !== lang || renamed) {
+      const url = new URL(request.url);
+      url.pathname = `/${lang}${renamed ?? path}`;
+      return NextResponse.redirect(url, 301);
     }
-    return response;
-  }
 
-  if (isLocalePath(pathname, 'zh')) {
-    const response = nextWithLang(request, 'zh');
-    if (langCookie !== 'zh') {
-      setLangCookie(response, 'zh');
+    const response = nextWithLang(request, lang);
+    if (langCookie !== lang) {
+      setLangCookie(response, lang);
     }
     return response;
   }

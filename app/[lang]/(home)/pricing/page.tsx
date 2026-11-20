@@ -8,11 +8,12 @@ import {
   FAQSection,
 } from './pricing.client';
 import type { Metadata } from 'next';
-import { absoluteUrl } from '@/lib/metadata';
+import { absoluteUrl, createMetadata, getSiteOgImageUrl } from '@/lib/metadata';
 import { faqSchema, breadcrumbSchema, JsonLdScript } from '@/lib/json-ld';
 import {
   getLanguageAlternates,
   getLocalePath,
+  getOpenGraphLocale,
 } from '@/lib/i18n';
 
 // Keep this page force-dynamic for Worker Binding
@@ -25,17 +26,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const pageUrl = absoluteUrl(getLocalePath(lang, 'pricing'));
-  return {
-    title: lang === 'zh' ? '定价' : 'Pricing',
+  const title = lang === 'zh' ? '定价' : 'Pricing';
+  const ogImage = getSiteOgImageUrl(lang, 'pricing');
+  return createMetadata({
+    canonical: pageUrl,
+    openGraph: {
+      locale: getOpenGraphLocale(lang),
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      images: [ogImage],
+    },
+    title,
     description:
       lang === 'zh'
         ? '选择适合您的 Everywhere 计划。无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。'
         : "Choose the Everywhere plan that fits you. From web pages to documents and every spark of genius in between—there's a plan designed to keep up with you.",
     alternates: {
-      canonical: pageUrl,
       languages: getLanguageAlternates(absoluteUrl, 'pricing'),
     },
-  };
+  });
 }
 
 export default async function PricingPage({
