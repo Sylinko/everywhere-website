@@ -28,8 +28,8 @@ minimumReleaseAgeExclude:
   - '@next/swc-win32-arm64-msvc@16.3.1'
   - '@next/swc-win32-x64-msvc@16.3.1'
   - eslint-config-next@16.3.1
-  - fumadocs-core@16.14.4
-  - fumadocs-ui@16.14.4
+  - fumadocs-core@16.14.4 || 16.19.7
+  - fumadocs-ui@16.14.4 || 16.19.7
   - miniflare@5.20260811.1-alpha || 5.20260908.0-alpha
   - next@16.3.1
   - wrangler@4.123.0 || 4.130.0

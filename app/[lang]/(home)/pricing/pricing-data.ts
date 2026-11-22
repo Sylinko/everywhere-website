@@ -88,15 +88,70 @@ type PlanData = {
   pro: PaidPlanData;
 };
 
+type PaidTier = Exclude<Plan, 'free'>;
+const registrationBonusCredits = 300_000;
+const extraSearchCredits = 8_000;
+const paidPlans = {
+  starter: {
+    displayPriceUsd: 10, firstMonthPriceUsd: 8, monthlyDisplayCredits: 8_000_000,
+    freeWebSearchLimit: 150, fiveHourCredits: 1_200_000, sevenDayCredits: 4_000_000,
+  },
+  plus: {
+    displayPriceUsd: 20, firstMonthPriceUsd: 16, monthlyDisplayCredits: 16_000_000,
+    freeWebSearchLimit: 400, fiveHourCredits: 2_400_000, sevenDayCredits: 8_000_000,
+  },
+  pro: {
+    displayPriceUsd: 60, firstMonthPriceUsd: 48, monthlyDisplayCredits: 48_000_000,
+    freeWebSearchLimit: 1_500, fiveHourCredits: 7_200_000, sevenDayCredits: 24_000_000,
+  },
+};
+
+const formatNumber = (n: number) => n.toLocaleString('en-US');
+
+// Estimates for the sample request described on the page, rounded down to tens.
+const lunaCreditsPerRequest = 440;
+const requests = (credits: number, perRequest: number) =>
+  Math.floor(credits / perRequest / 10) * 10;
+
+function figures(tier: PaidTier) {
+  const p = paidPlans[tier];
+  const { fiveHourCredits: five, sevenDayCredits: seven } = p;
+  return {
+    price: '$' + p.displayPriceUsd,
+    credits: formatNumber(p.monthlyDisplayCredits),
+    shortCredits: new Intl.NumberFormat('en-US', { notation: 'compact' }).format(p.monthlyDisplayCredits),
+    freeWebSearchCount: formatNumber(p.freeWebSearchLimit),
+    fiveHourCredits: five,
+    sevenDayCredits: seven,
+    fiveHourRequests: requests(five, lunaCreditsPerRequest),
+    sevenDayRequests: requests(seven, lunaCreditsPerRequest),
+    ratio: seven / paidPlans.starter.sevenDayCredits,
+  };
+}
+
+function cardPrices(tier: PaidTier) {
+  const { displayPriceUsd, firstMonthPriceUsd } = paidPlans[tier];
+  return firstMonthPriceUsd === null
+    ? { price: '$' + displayPriceUsd }
+    : { price: '$' + firstMonthPriceUsd, originalPrice: '$' + displayPriceUsd };
+}
+
+function modelNotes(tier: PaidTier, lang: 'en' | 'zh') {
+  const credits = paidPlans[tier].monthlyDisplayCredits;
+  const estimates = [
+    ['DeepSeek V4.1 Flash', `${formatNumber(requests(credits, 960))}–${formatNumber(requests(credits, 480))}`],
+    ['GPT-6 Luna', formatNumber(requests(credits, lunaCreditsPerRequest))],
+  ];
+  return estimates.map(([model, range]) =>
+    lang === 'en' ? `${model}\n≈ ${range} requests` : `${model}\n约 ${range} 次请求`);
+}
+
 export const planData: PlanData = {
   // saleBadge: {
   // },
-  freeCredits: '300,000',
+  freeCredits: formatNumber(registrationBonusCredits),
   starter: {
-    price: '$10',
-    credits: '8,000,000',
-    shortCredits: '8M',
-    freeWebSearchCount: '150',
+    ...figures('starter'),
     modelAccessLabel: {
       en: 'Basic Model Access',
       zh: '基础模型权限',
@@ -105,17 +160,9 @@ export const planData: PlanData = {
       en: 'Basic usage quota',
       zh: '基础使用配额',
     },
-    ratio: 1,
-    fiveHourRequests: 2_720,
-    sevenDayRequests: 9_090,
-    fiveHourCredits: 1_200_000,
-    sevenDayCredits: 4_000_000,
   },
   plus: {
-    price: '$20',
-    credits: '16,000,000',
-    shortCredits: '16M',
-    freeWebSearchCount: '400',
+    ...figures('plus'),
     modelAccessLabel: {
       en: 'All Model Access',
       zh: '所有模型权限',
@@ -124,17 +171,9 @@ export const planData: PlanData = {
       en: 'Higher usage quota',
       zh: '更高使用配额',
     },
-    ratio: 2,
-    fiveHourRequests: 5_450,
-    sevenDayRequests: 18_180,
-    fiveHourCredits: 2_400_000,
-    sevenDayCredits: 8_000_000,
   },
   pro: {
-    price: '$60',
-    credits: '48,000,000',
-    shortCredits: '48M',
-    freeWebSearchCount: '1,500',
+    ...figures('pro'),
     modelAccessLabel: {
       en: 'All Model Access',
       zh: '所有模型权限',
@@ -143,11 +182,6 @@ export const planData: PlanData = {
       en: 'Highest usage quota',
       zh: '最高使用配额',
     },
-    ratio: 6,
-    fiveHourRequests: 16_360,
-    sevenDayRequests: 54_540,
-    fiveHourCredits: 7_200_000,
-    sevenDayCredits: 24_000_000,
   },
 };
 
@@ -191,7 +225,7 @@ export const pricingContent: Record<
     modelSupportTitle: 'Models & Credits',
     faqTitle: 'Frequently Asked Questions',
     webSearchExtraNote:
-      'Extra web searches beyond the included limit cost 8,000 credits each.',
+      `Extra web searches beyond the included limit cost ${formatNumber(extraSearchCredits)} credits each.`,
     requestEstimateNote:
       'Each estimate uses the full monthly allowance on one model, with 2,000 uncached input tokens, 12,000 cached input tokens and 240 output tokens per request.',
 
@@ -216,18 +250,14 @@ export const pricingContent: Record<
       {
         id: 'starter',
         name: 'Starter',
-        price: '$8',
-        originalPrice: '$10',
+        ...cardPrices('starter'),
         period: '/month',
         cta: 'Subscribe Now',
         includes: 'Everything in Community and',
         features: [
           {
             text: `${planData.starter.credits} credits`,
-            note: [
-              'DeepSeek V4.1 Flash\n≈ 8,330–16,660 requests',
-              'GPT-6 Luna\n≈ 18,180 requests',
-            ],
+            note: modelNotes('starter', 'en'),
           },
           `Includes ${planData.starter.freeWebSearchCount} free web searches`,
           planData.starter.usageLimitLabel.en,
@@ -239,8 +269,7 @@ export const pricingContent: Record<
       {
         id: 'plus',
         name: 'Plus',
-        price: '$16',
-        originalPrice: '$20',
+        ...cardPrices('plus'),
         period: '/month',
         cta: 'Subscribe Now',
         highlighted: true,
@@ -249,10 +278,7 @@ export const pricingContent: Record<
         features: [
           {
             text: `${planData.plus.credits} credits`,
-            note: [
-              'DeepSeek V4.1 Flash\n≈ 16,660–33,330 requests',
-              'GPT-6 Luna\n≈ 36,360 requests',
-            ],
+            note: modelNotes('plus', 'en'),
           },
           `Includes ${planData.plus.freeWebSearchCount} free web searches`,
           planData.plus.usageLimitLabel.en,
@@ -264,18 +290,14 @@ export const pricingContent: Record<
       {
         id: 'pro',
         name: 'Pro',
-        price: '$48',
-        originalPrice: '$60',
+        ...cardPrices('pro'),
         period: '/month',
         cta: 'Subscribe Now',
         includes: 'Everything in Community and',
         features: [
           {
             text: `${planData.pro.credits} credits`,
-            note: [
-              'DeepSeek V4.1 Flash\n≈ 50,000–100,000 requests',
-              'GPT-6 Luna\n≈ 109,090 requests',
-            ],
+            note: modelNotes('pro', 'en'),
           },
           `Includes ${planData.pro.freeWebSearchCount} free web searches`,
           planData.pro.usageLimitLabel.en,
@@ -409,7 +431,7 @@ export const pricingContent: Record<
     comparisonSubtitle: '查看每个计划包含的功能',
     modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
-    webSearchExtraNote: '超出计划包含的网络搜索次数后，每次会扣 8000 积分。',
+    webSearchExtraNote: `超出计划包含的网络搜索次数后，每次会扣 ${formatNumber(extraSearchCredits)} 积分。`,
     requestEstimateNote:
       '每项估算均按全部月度积分用于该模型计算，每次请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。',
     plans: [
@@ -433,20 +455,16 @@ export const pricingContent: Record<
       {
         id: 'starter',
         name: 'Starter',
-        price: '$8',
-        originalPrice: '$10',
+        ...cardPrices('starter'),
         period: '/月',
         cta: '立即订阅',
         includes: '包含社区版的全部功能，以及',
         features: [
           {
             text: `${planData.starter.credits} 积分`,
-            note: [
-              'DeepSeek V4.1 Flash\n约 8,330–16,660 次请求',
-              'GPT-6 Luna\n约 18,180 次请求',
-            ],
+            note: modelNotes('starter', 'zh'),
           },
-          `含 ${planData.starter.freeWebSearchCount} 次网络搜索`,
+          `含 ${planData.starter.freeWebSearchCount} 次免费网络搜索`,
           planData.starter.usageLimitLabel.zh,
           planData.starter.modelAccessLabel.zh,
           '消息云同步',
@@ -456,8 +474,7 @@ export const pricingContent: Record<
       {
         id: 'plus',
         name: 'Plus',
-        price: '$16',
-        originalPrice: '$20',
+        ...cardPrices('plus'),
         period: '/月',
         cta: '立即订阅',
         highlighted: true,
@@ -466,12 +483,9 @@ export const pricingContent: Record<
         features: [
           {
             text: `${planData.plus.credits} 积分`,
-            note: [
-              'DeepSeek V4.1 Flash\n约 16,660–33,330 次请求',
-              'GPT-6 Luna\n约 36,360 次请求',
-            ],
+            note: modelNotes('plus', 'zh'),
           },
-          `含 ${planData.plus.freeWebSearchCount} 次网络搜索`,
+          `含 ${planData.plus.freeWebSearchCount} 次免费网络搜索`,
           planData.plus.usageLimitLabel.zh,
           planData.plus.modelAccessLabel.zh,
           '消息云同步',
@@ -481,20 +495,16 @@ export const pricingContent: Record<
       {
         id: 'pro',
         name: 'Pro',
-        price: '$48',
-        originalPrice: '$60',
+        ...cardPrices('pro'),
         period: '/月',
         cta: '立即订阅',
         includes: '包含社区版的全部功能，以及',
         features: [
           {
             text: `${planData.pro.credits} 积分`,
-            note: [
-              'DeepSeek V4.1 Flash\n约 50,000–100,000 次请求',
-              'GPT-6 Luna\n约 109,090 次请求',
-            ],
+            note: modelNotes('pro', 'zh'),
           },
-          `含 ${planData.pro.freeWebSearchCount} 次网络搜索`,
+          `含 ${planData.pro.freeWebSearchCount} 次免费网络搜索`,
           planData.pro.usageLimitLabel.zh,
           planData.pro.modelAccessLabel.zh,
           '消息云同步',

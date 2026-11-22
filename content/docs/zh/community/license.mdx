@@ -1,31 +1,26 @@
 ---
-title: 许可证
-description: 查看 Business Source License (BUSL 1.1) 的条款细则、商业使用规则及相关限制。
+title: 软件许可证
+description: 了解 Everywhere 桌面应用、独立模组和 Modding SDK 各自适用的许可证。
 icon: ScrollText
 ---
 
-我们致力于在维护开源精神的同时，确保项目的长期可持续发展。因此，本项目采用 BUSL 1.1 许可证。
+自[这次许可变更](https://github.com/Sylinko/Everywhere/commit/9b25f6513d2ab3bcbf3aba61928088c9d7867e42)起，Everywhere 桌面应用采用 GNU Affero 通用公共许可证第 3 版（`AGPL-3.0-only`）开源。下载已发布版本时，请查看对应源码标签中的许可证。例如，[v0.8.2 随附的是 Business Source License 1.1](https://github.com/Sylinko/Everywhere/blob/v0.8.2/LICENSE)。
 
-<Callout type="info">
-您可以在[此处](https://github.com/Sylinko/Everywhere/blob/main/LICENSE)查看许可证的完整文本。
-</Callout>
+## 使用与分发 Everywhere
 
-## 快速了解
+你可以在家中或工作场所运行 AGPL 版本，也可以将其用于商业用途。再分发时须保留许可证及其要求保留的声明。分发修改版时，须标明所做的修改，并以 AGPL 授权受其约束的作品。分发二进制版本时，须按[许可证](https://github.com/Sylinko/Everywhere/blob/main/LICENSE)第 6 条规定的方式之一提供对应源码。
 
-以下是该许可证的关键点：
-* **✅ 您可以：** 免费地将 Everywhere 用于个人学习、内部使用、非商业研究，以及**在公司内部进行部署使用**。
-* **❌ 您不可以：** 在没有获得 Sylinko Inc. 授权的情况下，直接基于 Everywhere 提供竞争性的商业托管服务（例如：直接售卖 Everywhere 的云托管版）。
-* **最终开源：** 本项目的每个版本在发布 **4 年**后，都会自动转为 **Apache License 2.0** 协议，变为完全自由的开源软件。
+如果你修改了 Everywhere，且用户通过网络与你的修改版远程交互，第 13 条要求你在修改版中向这些用户显著提供免费获取对应源码的途径。
 
-## 常见问题
+如需以闭源方式分发主程序或协商其他授权条件，请联系 [Sylinko Inc.](mailto:contact@sylinko.com)。订阅提供的官方在线服务适用[服务条款](/zh/policies/terms)。
 
-### 我可以在公司内部生产环境使用 Everywhere 吗？
-**可以。** 只要您不是将 Everywhere 的功能直接作为一种服务（SaaS/PaaS）转手卖给您的客户，公司内部的业务流程使用是完全免费且被允许的。
+## 开发独立模组
 
-### 什么是竞争性用途 (Competing Use)？
-简单来说，如果您构建了一个产品或服务，其核心价值是提供 Everywhere 的全部或部分功能，并且以此牟利，即视为竞争。
-* **❌ 违规示例：** 搭建一个“Everywhere 云平台”，让用户付费登录并使用该软件。
-* **✅ 合规示例：** 您在您的电商系统中使用了 Everywhere 的技术来处理内部数据，而您的客户是为商品付费，而非为 Everywhere 的功能付费。
+根据[模组接口附加许可](https://github.com/Sylinko/Everywhere/blob/main/EXCEPTIONS)，你可以编译、链接、加载符合条件的独立模组，并按自选许可证分发，包括闭源许可。适用条件包括：
 
-### 如果我需要进行商业化二次开发怎么办？
-如果您不确定您的商业模式是否构成竞争，或者您确实需要移除 BUSL 的限制，请联系我们：[contact@sylinko.com](mailto:contact@sylinko.com)。
+- 模组是独立作品，仅通过文档规定的模组加载机制和公开的主程序或模组服务接口与 Everywhere 交互。模组本身不得修改、派生或再分发主程序。
+- 模组须维护账户与认证、云同步、官方模型网关、模组签名验证及仓库信任标识的完整性，并保留官方链接、版权与许可声明、署名以及赞助和捐赠入口。
+
+对主程序本身的修改适用主程序许可证。如果你分发自己的 AGPL 派生版本，可以将这项附加许可延伸至该版本，也可以移除例外声明。发布时请按[品牌政策](/zh/policies/trademark)选择可与官方版本区分的名称、标识符和视觉素材。
+
+Modding SDK 和契约库采用 Apache-2.0 许可证。第三方组件各自适用的许可证见[第三方声明](https://github.com/Sylinko/Everywhere/blob/main/ThirdPartyNotices.txt)。

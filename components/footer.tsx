@@ -158,11 +158,6 @@ interface FooterTranslation {
       contactUs: string;
     };
   };
-  license: {
-    prefix: string;
-    linkText: string;
-    suffix: string;
-  };
   copyright: {
     prefix: string;
     suffix: string;
@@ -199,11 +194,6 @@ const translations: Record<string, FooterTranslation> = {
         contactUs: 'Contact Us',
       },
     },
-    license: {
-      prefix: 'Released under the ',
-      linkText: 'Business Source License 1.1',
-      suffix: '.',
-    },
     copyright: {
       prefix: 'Copyright © ',
       suffix: ' Sylinko Inc. All rights reserved.',
@@ -237,11 +227,6 @@ const translations: Record<string, FooterTranslation> = {
         officialWebsite: '官方网站',
         contactUs: '联系我们',
       },
-    },
-    license: {
-      prefix: '基于 ',
-      linkText: 'Business Source License 1.1',
-      suffix: ' 许可发布',
     },
     copyright: {
       prefix: '版权所有 © ',

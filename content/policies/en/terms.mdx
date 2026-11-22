@@ -1,28 +1,22 @@
 ---
 title: Terms of Service
-description: The terms that govern your use of Everywhere and Sylinko services, including subscriptions, software licensing, AI features, and dispute resolution.
+description: Terms for Sylinko’s website, accounts, subscriptions, and hosted AI services, with license information for the Everywhere desktop application.
 ---
 
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
-import Link from 'fumadocs-core/link';
-import { LicenseRepoUrl } from '@/lib/github';
 
 <Callout type="info" title="Effective Date">
-March 5, 2026
+This revision is dated November 23, 2026 and takes effect upon publication on this site.
 </Callout>
 
 <Callout type="warning" title="Changes from Previous Version">
-May 13, 2026:
-- Free Trial section added Trial Abuse Prevention clause, clarifying our rights to monitor and terminate abuse of the trial offer.
-- Scope of License section updated for consistency with the actual license terms in the repository.
+This revision clarifies which terms apply to Sylinko’s online services and identifies the licenses for the Everywhere desktop application, independent mods, and SDK packages.
 </Callout>
 
 ## Agreement to Our Legal Terms
 We are Sylinko Inc. ("Company," "we," "us," "our"), a company aiming to bridge human intent and digital action through intelligent software.
 
-We operate the website sylinko.com (the "Site"), the application Everywhere (the "Software"), as well as any other related products and services that refer or link to these legal terms (the "Legal Terms") (collectively, the "Services").
-
-A context-aware AI assistant for your desktop. Ready to respond intelligently, seamlessly integrating multiple LLMs and MCP tools.
+These legal terms (the "Legal Terms") govern your use of the Sylinko website (the "Site"), Sylinko accounts, and online services operated by Sylinko, including the official model gateway and Cloud Sync (collectively, the "Services"). You may access the Services from the Everywhere desktop application (the "Software"). Section 7 describes the separate licenses for the Software.
 
 You can contact us by email at [contact@sylinko.com](mailto:contact@sylinko.com).
 
@@ -36,8 +30,6 @@ We may update this agreement from time to time. The updated version will be indi
 The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Services from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.
 
 The Services are not tailored to comply with industry-specific regulations (e.g., HIPAA, FISMA), so if your interactions would be subjected to such laws, you may not use the Services.
-
-**The Services and Software are protected by a commercial license and are not purely open-source software.**
 
 ## 2. Content & Intellectual Property
 
@@ -114,25 +106,17 @@ We may, from time to time, modify subscription fees. We will provide you with re
 
 ## 7. Software and Licensing
 
-### Business Source License (BUSL 1.1)
-The software provided in connection with our Services, including the "Everywhere" desktop application (the "Software"), is licensed under the **Business Source License 1.1 (BUSL 1.1)**. The full text of the license, including specific "Additional Use Grants" and the "Change License" date, can be found in [the LICENSE file](https://github.com/Sylinko/Everywhere/blob/main/LICENSE) in our GitHub repository.
+### Desktop software
 
-### Scope of License
-The Software is "Source-Available," meaning the source code is visible and available for inspection, auditing, and modification. However, it is not "Open Source" software (as defined by the OSI) until the Change Date specified in the LICENSE file.
+The [relicensing commit](https://github.com/Sylinko/Everywhere/commit/9b25f6513d2ab3bcbf3aba61928088c9d7867e42) adopted the [GNU Affero General Public License, version 3 only (AGPL-3.0-only)](https://github.com/Sylinko/Everywhere/blob/main/LICENSE) for the Everywhere application. It permits commercial use, modification, and distribution subject to its conditions. For a particular release, consult the license and notices included with that version. They govern your rights in the Software, including where these Legal Terms differ. See the <DynamicLink href="/[lang]/docs/community/license">software license guide</DynamicLink>.
 
-- **Internal Use (Permitted Purpose):** In accordance with the BUSL, you are granted a worldwide, royalty-free license to use, copy, and modify the Software for your internal use and access. This applies to individuals, freelancers, and business entities (including affiliates and subsidiaries) regardless of size or employee count.
-- **Commercial Services & Subscriptions:** While internal use is royalty-free, we may offer paid Commercial Subscriptions that provide additional benefits such as professional support, enterprise-grade SLAs, or indemnification which are not covered under the standard BUSL terms.
-- **Competitive Restriction (Competing Use):** You are strictly prohibited from a "Competing Use." This means you may not make the Software (or its derivative works) available to others as a commercial product or service that substitutes for the Software, mimics its core functionality, or provides it as a hosted/managed service (e.g., PaaS/SaaS).
+### Independent mods and components
 
-### Precedence
-In the event of any conflict between these Legal Terms and the BUSL license file located in the Software repository, the terms of the BUSL license shall prevail regarding the use of the Software source code.
-
-### Open Source Components
-The Software may include third-party open-source software components ("OSS Components"). These OSS Components remain subject to their original open-source licenses (e.g., MIT, Apache 2.0). The BUSL restrictions apply to the Sylinko Application code, not to the standalone OSS Components.
+Under the [Mod Interface Additional Permission](https://github.com/Sylinko/Everywhere/blob/main/EXCEPTIONS), authors may distribute qualifying independent mods under a license of their choice, including a proprietary license. The mod must use the documented mod loading mechanism and public interfaces, stay separate from the host application, and meet all the conditions in the permission. Changes to the host itself are governed by the applicable host license. The Modding SDK and contract packages use Apache-2.0. Third-party components retain their respective licenses.
 
 ## 8. Prohibited Activities
 
-You may not access or use the Services for any purpose other than that for which we make them available. As a user of the Services (including the Software and our subscription-based AI features), you agree not to:
+The following activities are prohibited when accessing our website, accounts, or hosted features.
 
 **1. Compliance & Safety**
 - Use the Services in any way that violates applicable laws or regulations.
@@ -142,17 +126,12 @@ You may not access or use the Services for any purpose other than that for which
 - You explicitly agree not to use the Services to design, develop, or produce missiles, chemical/biological weapons, or for offensive cyber operations.
 
 **2. Service Integrity & Security**
-- Attempt to bypass, disable, or circumvent any security measures, rate limits, or billing/licensing mechanisms implemented in the Services.
+- Attempt to bypass security measures, rate limits, billing, or account entitlement checks on the Services.
 - Access the Services through any unauthorized interface or "wrapper" that attempts to hide usage patterns or evade subscription fees.
 - Engage in activities that place an undue burden on our infrastructure, including the repetitive or high-volume use of AI API features that exceeds reasonable individual or business usage.
 - Upload or transmit viruses, Trojan horses, or any code designed to disrupt the Software or our servers.
 
-**3. License & Commercial Boundaries**
-- Use the Software in violation of the Business Source License 1.1 (BUSL 1.1) or the terms specified in the repository's LICENSE file.
-- Engage in any "Commercial Use" (as defined in Section 7 and the LICENSE file) without a valid Commercial Subscription.
-- Use the Services or our proprietary logic to build a competing product or service that directly mimics Sylinko's core offerings.
-
-**4. Automated Abuse**
+**3. Automated Abuse**
 - Use bots, scripts, or scrapers to systematically extract data from our website/platform or to automate the creation of accounts.
 - Sell, trade, or otherwise transfer your Sylinko account or API access to third parties.
 
@@ -262,7 +241,7 @@ By using the Services, you consent to receive electronic communications from us.
 The Services may be subject to U.S. export control laws and regulations, including the Export Administration Regulations ("EAR"). You represent and warrant that you are not located in, under the control of, or a national or resident of any country to which the United States has embargoed goods. You agree not to access, use, export, re-export, or transfer the Services, directly or indirectly, to any prohibited country or region, or to any person or entity on any U.S. government list of prohibited or restricted parties, or for any end-use prohibited by the EAR.
 
 ## 24. Miscellaneous
-These Legal Terms and any policies or operating rules posted by us on the Services or in respect to the Services constitute the entire agreement and understanding between you and us. Our failure to exercise or enforce any right or provision of these Legal Terms shall not operate as a waiver of such right or provision. These Legal Terms operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control. If any provision or part of a provision of these Legal Terms is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Legal Terms and does not affect the validity and enforceability of any remaining provisions. There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Legal Terms or use of the Services. You agree that these Legal Terms will not be construed against us by virtue of having drafted them. You hereby waive any and all defenses you may have based on the electronic form of these Legal Terms and the lack of signing by the parties hereto to execute these Legal Terms.
+These Legal Terms and any policies or operating rules posted by us on the Services or in respect to the Services constitute the entire agreement between you and us concerning the Services. Our failure to exercise or enforce any right or provision of these Legal Terms shall not operate as a waiver of such right or provision. These Legal Terms operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control. If any provision or part of a provision of these Legal Terms is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Legal Terms and does not affect the validity and enforceability of any remaining provisions. There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Legal Terms or use of the Services. You agree that these Legal Terms will not be construed against us by virtue of having drafted them. You hereby waive any and all defenses you may have based on the electronic form of these Legal Terms and the lack of signing by the parties hereto to execute these Legal Terms.
 
 **Language Interpretation.** These Legal Terms are written in English. While we may provide translations into other languages for your convenience, the English version shall be the sole version used to interpret these Legal Terms and shall prevail in the event of any conflict or inconsistency between the English version and any translated version.
 
