@@ -2,8 +2,8 @@
 
 import { buttonVariants } from '@/components/common/variants';
 import { getLocalePath } from '@/lib/i18n';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname } from '@/lib/navigation';
+import Link from '@/components/site-link';
 
 const i18nMap = {
   en: {
@@ -19,8 +19,8 @@ const i18nMap = {
 };
 
 export function NotFoundContent({ lang: locale }: { lang?: string }) {
-  const params = useParams<{ lang?: string }>();
-  const lang = (locale ?? params?.lang) === 'zh' ? 'zh' : 'en';
+  const path = usePathname();
+  const lang = (locale ?? path.split('/')[1]) === 'zh' ? 'zh' : 'en';
   const content = i18nMap[lang];
 
   return (

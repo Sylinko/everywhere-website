@@ -1,7 +1,22 @@
 @import 'tailwindcss';
+
+@import 'fumadocs-ui/css/generated/spacious.css';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 @plugin 'tailwindcss-animate';
+
+@font-face {
+  font-family: 'Noto Sans Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2')
+    format('woff2');
+}
+
+html {
+  font-family: 'Noto Sans Variable', Arial, sans-serif;
+}
 
 @theme {
   --spacing-fd-container: 1436px;
@@ -63,6 +78,20 @@ body {
   font-feature-settings:
     'rlig' 1,
     'calt' 1;
+}
+
+/* Leave room for the language link in the marketing site's inline navigation. */
+@media (40rem <= width < 80rem) {
+  #nd-home-layout #nd-nav nav > div > ul {
+    gap: 0;
+    padding-inline: 0.25rem;
+  }
+}
+
+@media (40rem <= width < 48rem) {
+  #nd-home-layout #nd-nav nav > div > a:first-child span {
+    display: none;
+  }
 }
 
 /* Homepage card enhanced styles */
@@ -227,4 +256,9 @@ body {
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Prevent Base UI NavigationMenu positioner from flashing full viewport width before Floating UI resolves --anchor-width */
+[role='presentation']:has(.fd-docs-menu) {
+  max-width: min(var(--available-width, 100%), 1400px);
 }

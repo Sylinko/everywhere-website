@@ -13,8 +13,8 @@ import {
 import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
 import { CookieSettingsButton } from '@/components/consent';
-import { RepoUrl } from '@/lib/github';
-import { DiscordUrl, OfficialUrl, ProductHuntUrl, QQGroupUrl, XUrl, YoutubeUrl } from '@/lib/constants';
+import { RepoUrl } from '@/lib/constants';
+import { DiscordUrl, OfficialUrl, ProductHuntUrl, QQGroupUrl } from '@/lib/constants';
 
 interface FooterProps {
   lang: string;
@@ -51,29 +51,14 @@ const followUsLinks: { name: string; href: string; icon: React.ReactNode }[] = [
     icon: BilibiliIcon,
   },
   {
-    name: 'Youtube',
-    href: YoutubeUrl,
-    icon: YoutubeIcon,
-  },
-  {
-    name: 'X',
-    href: XUrl,
-    icon: XIcon,
-  },
-  {
     name: 'Xiaohongshu',
     href: 'https://www.xiaohongshu.com/user/profile/60261d54000000000101f684',
     icon: XiaohongshuIcon,
   },
   {
-    name: 'Mastodon',
-    href: 'https://mastodon.social/@sylinko_everywhere',
-    icon: MastodonIcon,
-  },
-  {
-    name: 'Bluesky',
-    href: 'https://bsky.app/profile/sylinko-everywhere.bsky.social',
-    icon: BlueskyIcon,
+    name: 'X',
+    href: 'https://x.com/sylanko',
+    icon: XIcon,
   },
 ];
 
@@ -88,46 +73,46 @@ const sylinkoLinks: {
   key: keyof FooterTranslation['sections']['aboutSylinko'];
   href: string;
 }[] = [
-  {
-    key: 'officialWebsite',
-    href: OfficialUrl,
-  },
-  {
-    key: 'contactUs',
-    href: 'mailto:contact@sylinko.com',
-  },
-];
+    {
+      key: 'officialWebsite',
+      href: OfficialUrl,
+    },
+    {
+      key: 'contactUs',
+      href: 'mailto:contact@sylinko.com',
+    },
+  ];
 
 const policyLinks: {
   key: keyof FooterTranslation['sections']['policies'];
   href: string;
   external?: boolean;
 }[] = [
-  {
-    key: 'privacyPolicy',
-    href: '/policies/privacy',
-  },
-  {
-    key: 'termsOfService',
-    href: '/policies/terms',
-  },
-  {
-    key: 'refundPolicy',
-    href: '/policies/refund',
-  },
-  {
-    key: 'disclaimer',
-    href: '/policies/disclaimer',
-  },
-  {
-    key: 'cookiePolicy',
-    href: '/policies/cookie',
-  },
-  {
-    key: 'contributorLicenseAgreement',
-    href: '/policies/cla',
-  },
-];
+    {
+      key: 'privacyPolicy',
+      href: '/policies/privacy',
+    },
+    {
+      key: 'termsOfService',
+      href: '/policies/terms',
+    },
+    {
+      key: 'refundPolicy',
+      href: '/policies/refund',
+    },
+    {
+      key: 'disclaimer',
+      href: '/policies/disclaimer',
+    },
+    {
+      key: 'cookiePolicy',
+      href: '/policies/cookie',
+    },
+    {
+      key: 'contributorLicenseAgreement',
+      href: '/policies/cla',
+    },
+  ];
 
 interface FooterTranslation {
   sections: {

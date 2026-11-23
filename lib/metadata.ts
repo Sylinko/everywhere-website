@@ -1,20 +1,8 @@
-import type { Metadata } from 'next';
-
-export const siteName = 'Everywhere';
-type RobotsObject = NonNullable<Exclude<Metadata['robots'], string>>;
-
-const defaultRobots = {
-  index: true,
-  follow: true,
-  googleBot: {
-    index: true,
-    follow: true,
-    'max-image-preview': 'large',
-    'max-snippet': -1,
-    'max-video-preview': -1,
-  },
-} satisfies RobotsObject;
-
+import {
+  getLanguageAlternates,
+  getLocalePath,
+  getOpenGraphLocale,
+} from './i18n';
 export const baseUrl =
   process.env.NODE_ENV === 'development'
     ? new URL('http://localhost:3000')
@@ -42,79 +30,89 @@ export function getPolicyOgImageUrl(lang: string, slugs: string[]): string {
   return `/og/site/${safeLang}/policies/${path}.png`;
 }
 
-const defaultOgImage = {
-  url: getSiteOgImageUrl('en', 'home'),
-  width: 1200,
-  height: 630,
-  alt: 'Everywhere',
-};
-
-/**
- * Create merged metadata with sensible defaults for OpenGraph, Twitter, icons,
- * and optional canonical URL. Hreflang alternates are set per-page.
- */
-export function createMetadata(
-  override: Metadata & { canonical?: string }
-): Metadata {
-  const { canonical, ...rest } = override;
-  const overrideRobots =
-    typeof override.robots === 'object' && override.robots !== null
-      ? override.robots
-      : undefined;
-  const robots: Metadata['robots'] =
-    typeof override.robots === 'string'
-      ? override.robots
-      : {
-          ...defaultRobots,
-          ...overrideRobots,
-          googleBot:
-            typeof overrideRobots?.googleBot === 'string'
-              ? overrideRobots.googleBot
-              : {
-                  ...defaultRobots.googleBot,
-                  ...(overrideRobots?.index === undefined
-                    ? {}
-                    : { index: overrideRobots.index }),
-                  ...(overrideRobots?.follow === undefined
-                    ? {}
-                    : { follow: overrideRobots.follow }),
-                  ...overrideRobots?.googleBot,
-                },
-        };
-
-  const og = override.openGraph;
-  const tw = override.twitter;
-
+export const siteName = 'Everywhere';
+interface HeadOptions {
+  lang: string;
+  path: string;
+  title: string;
+  description?: string;
+  image: string;
+  languages?: readonly string[];
+  article?: boolean;
+  markdownUrl?: string;
+  noindex?: boolean;
+}
+export function pageHead({
+  lang,
+  path,
+  title,
+  description,
+  image,
+  languages,
+  article,
+  markdownUrl,
+  noindex,
+}: HeadOptions) {
+  const url = absoluteUrl(getLocalePath(lang, path));
+  const picture = new URL(image, baseUrl).href;
+  const alternates = noindex
+    ? {}
+    : getLanguageAlternates(
+        absoluteUrl,
+        path,
+        languages,
+        path === '' ? { xDefault: '/' } : {}
+      );
+  const robots = noindex ? 'noindex, nofollow' : 'index, follow';
+  const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
   return {
-    ...rest,
-    metadataBase: baseUrl,
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/Everywhere.webp',
-    },
-    alternates: {
-      ...rest.alternates,
-      canonical: canonical ?? rest.alternates?.canonical,
-    },
-    robots,
-    openGraph: {
-      title: override.title ?? undefined,
-      description: override.description ?? undefined,
-      url: canonical ?? baseUrl.origin,
-      siteName,
-      type: 'website',
-      images: [defaultOgImage],
-      ...og,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: override.title ?? undefined,
-      description: override.description ?? undefined,
-      images: [defaultOgImage.url],
-      site: '@everywhere_team',
-      creator: '@everywhere_team',
-      ...tw,
-    },
+    meta: [
+      { title: fullTitle },
+      { name: 'description', content: description },
+      { name: 'robots', content: robots },
+      {
+        name: 'googlebot',
+        content:
+          robots +
+          ', max-video-preview:-1, max-image-preview:large, max-snippet:-1',
+      },
+      ...Object.entries({
+        'og:title': title,
+        'og:description': description,
+        'og:url': url,
+        'og:locale': getOpenGraphLocale(lang),
+        'og:site_name': siteName,
+        'og:type': article ? 'article' : 'website',
+        'og:image': picture,
+        'og:image:width': '1200',
+        'og:image:height': '630',
+        'og:image:alt': title,
+      }).map(([property, content]) => ({ property, content })),
+      ...Object.entries({
+        'twitter:card': 'summary_large_image',
+        'twitter:site': '@everywhere_team',
+        'twitter:creator': '@everywhere_team',
+        'twitter:title': fullTitle,
+        'twitter:description': description,
+        'twitter:image': picture,
+      }).map(([name, content]) => ({ name, content })),
+    ],
+    links: [
+      { rel: 'canonical', href: url },
+      ...Object.entries(alternates).map(([hrefLang, href]) => ({
+        rel: 'alternate',
+        hrefLang,
+        href,
+      })),
+      ...(markdownUrl
+        ? [
+            {
+              rel: 'alternate',
+              type: 'text/markdown',
+              href: new URL(markdownUrl, baseUrl).href,
+            },
+          ]
+        : []),
+    ],
   };
 }

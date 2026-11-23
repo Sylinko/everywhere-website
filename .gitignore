@@ -22,9 +22,19 @@ yarn-error.log*
 
 # others
 .env*.local
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+!.dev.vars.*.example
 .vercel
 next-env.d.ts
 .open-next/
 .wrangler/
 certificates
 app/\[lang]/(home)/pricing/mock.ts
+
+# Workers + Vite outputs
+/dist/
+/.tanstack/
+/public/og/
+/cloudflare-env.d.ts

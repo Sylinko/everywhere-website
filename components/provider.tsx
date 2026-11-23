@@ -1,6 +1,6 @@
-'use client';
+import { Image } from '@/components/site-image';
 
-import { RootProvider } from 'fumadocs-ui/provider/next';
+import { RootProvider } from 'fumadocs-ui/provider/tanstack';
 import type { ReactNode } from 'react';
 import { ConsentProvider } from '@/components/consent';
 import { DocsClickTracking } from '@/components/analytics/docs-click-tracking';
@@ -17,6 +17,20 @@ export function Provider({
 }) {
   return (
     <RootProvider
+      components={{
+        Image: ({ src, ...props }) => (
+          <Image
+            {...props}
+            src={
+              typeof src === 'string' || src === undefined
+                ? src
+                : 'default' in src
+                  ? src.default.src
+                  : src.src
+            }
+          />
+        ),
+      }}
       i18n={i18n}
       search={{
         SearchDialog: DocsSearchDialog,

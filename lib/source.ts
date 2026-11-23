@@ -1,5 +1,5 @@
-import { docs, policies, notices } from 'fumadocs-mdx:collections/server';
-import { type InferPageType, loader } from 'fumadocs-core/source';
+import { docs, policies } from 'fumadocs-mdx:collections/server';
+import { type InferPageType, llms, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import { i18n } from '@/lib/i18n';
 import { absoluteUrl } from '@/lib/metadata';
@@ -19,12 +19,6 @@ export const policySource = loader({
   plugins: [lucideIconsPlugin()],
 });
 
-export const noticeSource = loader({
-  baseUrl: '/',
-  i18n,
-  source: notices.toFumadocsSource(),
-});
-
 export function pageImageFilename(lang = i18n.defaultLanguage) {
   return lang === i18n.defaultLanguage ? 'image.png' : `image.${lang}.png`;
 }
@@ -38,13 +32,7 @@ export function getPageImage(page: InferPageType<typeof source>) {
   };
 }
 
-export async function getLLMText(page: InferPageType<typeof source>) {
-  const processed = await page.data.getText('processed');
-
-  return `# ${page.data.title}
-
-Source: ${absoluteUrl(page.url)}
-
-${processed.trim()}
-`;
-}
+export const docsLlms = llms(source, {
+  renderPage: async (page) =>
+    `# ${page.data.title}\n\nSource: ${absoluteUrl(page.url)}\n\n${(await page.data.getText('processed')).trim()}\n`,
+});

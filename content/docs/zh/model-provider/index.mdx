@@ -1,22 +1,32 @@
 ---
 title: AI 模型提供商配置
-description: 探索模型配置指南，了解如何接入并管理官方支持的各类 AI 模型服务。
-icon: Album
+description: 探索 Everywhere 模型配置指南，对比云服务原生模式与自带密钥 (BYOK) 预设模式，快速接入 OpenAI、Claude、Gemini、DeepSeek 等主流大模型。
+icon: SquareBookmark
 ---
 
-import { DynamicLink } from "fumadocs-core/dynamic-link";
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-这里列举了在预设模式下，部分模型提供商的 API Key 获取方式。
+Everywhere 支持两种模型接入方式：**云服务原生模式**与**自定义预设模式（BYOK / 本地模型）**。您可以根据使用习惯自由选择，无需折腾复杂环境即可开始对话。
 
-## 云服务
+## 云服务（原生模式）
 
-我们推荐您通过云服务以使用 **原生模式** 的方式使用我们提供的模型，无需任何本地部署或配置。
+我们推荐您通过 Everywhere 云服务以**原生模式**直接使用前沿大模型，无需自行申请多家 API 密钥或进行本地部署。
 
-前往 <DynamicLink href="/[lang]/docs/quick-start">快速开始</DynamicLink> 页面了解更多详情。
+- **开箱即用**：登录账号即可切换 OpenAI、Anthropic (Claude)、Google (Gemini)、DeepSeek、Moonshot (Kimi)、MiniMax 等主流模型。
+- **内置联网**：云服务已集成网页搜索等能力，无需额外配置第三方搜索密钥。
 
-## 关于第三方服务
+前往 <DynamicLink href="/[lang]/docs/quick-start">快速开始</DynamicLink> 与 <DynamicLink href="/[lang]/pricing">定价与模型列表</DynamicLink> 页面了解更多详情。
+
+## 预设模式（自带 API Key 与本地模型）
+
+如果您希望使用自己的 API 配额或在本地离线运行，可以在助手设置中选择 **预设模式**，按对应提供商文档获取并填入密钥：
+
+- **国际模型提供商**：OpenAI、Anthropic (Claude)、Google (Gemini)、OpenRouter
+- **国内模型提供商**：DeepSeek、Moonshot (Kimi)、SiliconCloud (硅基流动)、MiniMax
+- **本地与兼容服务**：Ollama（本地私有部署）以及其他兼容 OpenAI / Anthropic 协议的端点
+
+## 关于第三方中转服务
 
 请注意，由于兼容性适配需要投入大量的开发时间，我们无法受理因使用第三方中转或代理 API 而产生的任何问题。
 
-如果您在使用受支持的模型提供商时遇到问题，请在[GitHub 提出问题](https://github.com/Sylinko/Everywhere/issues)以寻求帮助。
-
+如果您在使用受支持的官方模型提供商时遇到问题，请在 [GitHub 提出问题](https://github.com/Sylinko/Everywhere/issues) 以寻求帮助。

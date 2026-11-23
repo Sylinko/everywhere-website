@@ -1,0 +1,11 @@
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.33%);
+  }
+}
+.providerMarquee {
+  animation: infinite-scroll var(--animation-duration) linear infinite;
+}

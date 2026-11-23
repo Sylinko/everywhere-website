@@ -6,7 +6,6 @@
   "pages": [
     "index",
     "contributor",
-    "roadmap",
     "support",
     "license",
     "external:[Build Guide](https://github.com/Sylinko/Everywhere/blob/main/docs/build.md)",

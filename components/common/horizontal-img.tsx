@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from '@/components/site-image';
 
 interface HorizontalImgProps {
   src: string;

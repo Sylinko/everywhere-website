@@ -1,19 +1,35 @@
-/_next/static/*
+/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/_next/image*
-  Cache-Control: public, max-age=31536000, immutable
+/en
+  Content-Language: en
 
-/*.png
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-/*.jpg
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-/*.webp
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-/*.svg
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-/*.gif
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+/en/*
+  Content-Language: en
+
+/zh
+  Content-Language: zh-CN
+
+/zh/*
+  Content-Language: zh-CN
+
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/:lang/llms-full.txt
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+  Link: <https://everywhere.sylinko.com/llms.txt>; rel="describedby"
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+
+/:lang/docs.md
+  Link: <https://everywhere.sylinko.com/:lang/docs>; rel="canonical", <https://everywhere.sylinko.com/llms.txt>; rel="describedby"
+
+/:lang/docs/*.md
+  Link: <https://everywhere.sylinko.com/:lang/docs/:splat>; rel="canonical", <https://everywhere.sylinko.com/llms.txt>; rel="describedby"
 
 /*
   X-Content-Type-Options: nosniff

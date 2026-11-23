@@ -8,6 +8,6 @@
     "libDir": "./lib"
   },
   "baseDir": "",
-  "uiLibrary": "radix-ui",
+  "uiLibrary": "base-ui",
   "commands": {}
 }

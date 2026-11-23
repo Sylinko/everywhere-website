@@ -8,8 +8,8 @@ import {
   CollapsibleContent,
 } from 'fumadocs-ui/components/ui/collapsible';
 import { cva } from 'class-variance-authority';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname } from '@/lib/navigation';
+import Link from '@/components/site-link';
 
 const rateButtonVariants = cva(
   'inline-flex items-center gap-2 px-3 py-2 rounded-full font-medium border text-sm [&_svg]:size-4 disabled:cursor-not-allowed cursor-pointer transition-colors',
@@ -52,6 +52,7 @@ const translations = {
     submitAgain: 'Submit Again',
     placeholder: 'Leave your feedback...',
     submit: 'Submit',
+    failure: 'Could not send your feedback. Please try again.',
   },
   'zh': {
     question: '这篇文档对您有帮助吗？',
@@ -62,6 +63,7 @@ const translations = {
     submitAgain: '重新提交',
     placeholder: '请留下您的反馈...',
     submit: '提交',
+    failure: '反馈未发送，请重试。',
   },
 };
 
@@ -70,6 +72,7 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
   const [previous, setPrevious] = useState<Result | null>(null);
   const [opinion, setOpinion] = useState<'good' | 'bad' | null>(null);
   const [message, setMessage] = useState('');
+  const [failed, setFailed] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const t =
@@ -95,7 +98,9 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
   }, [previous, url]);
 
   function submit(e?: SyntheticEvent) {
-    if (opinion == null) return;
+    e?.preventDefault();
+    if (opinion == null || isPending || !message.trim()) return;
+    setFailed(false);
 
     startTransition(async () => {
       const feedback: Feedback = {
@@ -103,17 +108,18 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
         message,
       };
 
-      void onRateAction(url, feedback).then((response) => {
+      try {
+        const response = await onRateAction(url, feedback);
         setPrevious({
           response,
           ...feedback,
         });
         setMessage('');
         setOpinion(null);
-      });
+      } catch {
+        setFailed(true);
+      }
     });
-
-    e?.preventDefault();
   }
 
   const activeOpinion = previous?.opinion ?? opinion;
@@ -212,6 +218,7 @@ export function Feedback({ lang, onRateAction }: FeedbackProps) {
             >
               {t.submit}
             </button>
+            {failed && <p role="alert">{t.failure}</p>}
           </form>
         )}
       </CollapsibleContent>

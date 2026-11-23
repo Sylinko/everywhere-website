@@ -1,22 +1,32 @@
 ---
 title: AI Model Provider Setup
-description: Explore the guide to connecting and configuring supported AI model providers.
-icon: Album
+description: Compare Everywhere Cloud Native Mode with Preset BYOK Mode and configure OpenAI, Claude, Gemini, DeepSeek, Ollama, and other AI model providers.
+icon: SquareBookmark
 ---
 
-import { DynamicLink } from "fumadocs-core/dynamic-link";
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-This category lists the API Key acquisition methods for some model providers in Preset Mode.
+Everywhere supports two ways to power your assistants: **Everywhere Cloud (Native Mode)** and **Preset Mode (BYOK / Local Models)**. Pick whichever workflow fits your needs.
 
-## Cloud Services
+## Cloud Services (Native Mode)
 
-We recommend using our provided models through cloud services in **Native Mode** without any local deployment or configuration.
+For the fastest setup, we recommend using our managed models via **Native Mode** with no third-party key management or local setup required:
 
-Go to the <DynamicLink href="/[lang]/docs/quick-start">Quick Start</DynamicLink> page for more details.
+- **Ready out of the box**: Switch seamlessly across frontier models from OpenAI, Anthropic (Claude), Google (Gemini), DeepSeek, Moonshot (Kimi), and MiniMax.
+- **Integrated web search**: Built-in web search works immediately without configuring separate search provider keys.
+
+Visit <DynamicLink href="/[lang]/docs/quick-start">Quick Start</DynamicLink> or <DynamicLink href="/[lang]/pricing">Pricing & Supported Models</DynamicLink> for details.
+
+## Preset Mode (Bring Your Own Key & Local Models)
+
+If you prefer using your own API quotas or running models locally, choose **Preset Mode** in assistant settings and follow the setup guide for your provider:
+
+- **Global providers**: OpenAI, Anthropic (Claude), Google (Gemini), OpenRouter
+- **Regional providers**: DeepSeek, Moonshot (Kimi), SiliconCloud (SiliconFlow), MiniMax
+- **Local & custom endpoints**: Ollama for local inference, plus Other Providers supporting standard OpenAI-compatible APIs
 
 ## Regarding Third-Party Services
 
 Due to the significant development time required for compatibility adaptation, we cannot handle any issues arising from the use of third-party transit or proxy APIs.
 
 If you encounter any issues while using a supported model provider, please [open an issue on GitHub](https://github.com/Sylinko/Everywhere/issues) for assistance.
-

@@ -1,0 +1,345 @@
+import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { useLayoutOptions, linkItems } from '@/components/layout.shared';
+import {
+  NavbarMenu,
+  NavbarMenuContent,
+  NavbarMenuLink,
+  NavbarMenuTrigger,
+} from 'fumadocs-ui/layouts/home/navbar';
+import { Footer } from '@/components/footer';
+import { buttonVariants } from '@/components/common/variants';
+import Link from 'fumadocs-core/link';
+import Image from '@/components/site-image';
+import {
+  Rocket,
+  CircleQuestionMark,
+  Sparkles,
+  PlugIcon,
+  HelpCircle,
+  type LucideIcon,
+  Download,
+  Users,
+  CodeXml,
+  Gem,
+  LogIn,
+  Rss,
+} from 'lucide-react';
+import { cn } from '@/lib/cn';
+import { getLocalePath } from '@/lib/i18n';
+import { AccountUrl } from '@/lib/constants';
+import { SiteBanner } from '@/components/site-banner';
+
+const docsSubNavItems = [
+  { key: 'getting-started', icon: Rocket, path: '' },
+  { key: 'faq', icon: CircleQuestionMark, path: '/faq' },
+  { key: 'model-provider', icon: Sparkles, path: '/model-provider' },
+  { key: 'chat-tools', icon: PlugIcon, path: '/chat-tools' },
+  { key: 'support', icon: HelpCircle, path: '/community/support' },
+] as const;
+
+// Internationalization text
+const i18nText: Record<
+  string,
+  Record<string, { text: string; desc: string }>
+> = {
+  en: {
+    title: { text: 'Docs', desc: '' },
+    download: { text: 'Download', desc: '' },
+    login: { text: 'Login', desc: '' },
+    pricing: { text: 'Pricing', desc: '' },
+    community: { text: 'Community', desc: '' },
+    blog: { text: 'Blog', desc: '' },
+    'getting-started': {
+      text: 'Getting Started',
+      desc: 'How to use and configure Everywhere.',
+    },
+    faq: {
+      text: 'FAQ',
+      desc: 'Frequently Asked Questions about Everywhere.',
+    },
+    'model-provider': {
+      text: 'Model Providers',
+      desc: 'Configure and use each supported model provider.',
+    },
+    'chat-tools': {
+      text: 'Chat Tools',
+      desc: 'Allow your assistant to accomplish more complex tasks.',
+    },
+    support: {
+      text: 'Support',
+      desc: 'Get support from community or our team.',
+    },
+  },
+  zh: {
+    title: { text: '文档', desc: '' },
+    download: { text: '下载', desc: '' },
+    login: { text: '登录', desc: '' },
+    pricing: { text: '定价', desc: '' },
+    community: { text: '社区', desc: '' },
+    blog: { text: '博客', desc: '' },
+    'getting-started': {
+      text: '快速开始',
+      desc: '学习如何使用并配置 Everywhere。',
+    },
+    faq: {
+      text: '常见问题',
+      desc: '关于 Everywhere 的常见问题解答。',
+    },
+    'model-provider': {
+      text: '模型提供商',
+      desc: '配置和使用每个支持的模型提供商。',
+    },
+    'chat-tools': {
+      text: '聊天工具',
+      desc: '让您的助手完成更复杂的任务。',
+    },
+    support: {
+      text: '支持',
+      desc: '从社区或我们的团队获得支持。',
+    },
+  },
+};
+
+const getTexts = (lang: string) => i18nText[lang] || i18nText['en'];
+
+const buildNavItems = (lang: string) => {
+  const texts = getTexts(lang);
+  return docsSubNavItems.map(({ key, icon: Icon, path }) => ({
+    text: texts[key].text,
+    desc: texts[key].desc,
+    url: getLocalePath(lang, path ? `docs${path}` : 'docs'),
+    Icon,
+  }));
+};
+
+function MenuLinkItem({
+  item,
+  className,
+}: {
+  item: { text: string; desc: string; url: string; Icon: LucideIcon };
+  className?: string;
+}) {
+  const { Icon, text, desc, url } = item;
+  return (
+    <NavbarMenuLink href={url} className={className}>
+      <Icon className="bg-fd-primary text-fd-primary-foreground mb-2 rounded-md p-1" />
+      <p className="font-medium">{text}</p>
+      <p className="text-fd-muted-foreground text-sm">{desc}</p>
+    </NavbarMenuLink>
+  );
+}
+
+export function SiteLayout({
+  lang,
+  children,
+}: {
+  lang: string;
+  children: React.ReactNode;
+}) {
+  const layoutOptions = useLayoutOptions(lang);
+  const texts = getTexts(lang);
+  const docsUrl = getLocalePath(lang, 'docs');
+  const navItems = buildNavItems(lang);
+
+  const bannerText =
+    lang === 'zh'
+      ? '🚀 模型上新！Kimi 及 MiniMax 系列模型现已在云服务上线。'
+      : '🚀 New Models! Kimi and MiniMax series are now live on Cloud.';
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      {/* <SiteBanner
+        id="kimi-minimax-launch"
+        className="site-banner text-md"
+        height="2.25rem"
+      >
+        {bannerText}
+      </SiteBanner> */}
+      <HomeLayout
+        {...layoutOptions}
+        nav={{
+          ...layoutOptions.nav,
+          children: (
+            <div className="ms-auto flex shrink-0 items-center gap-1 sm:ms-1 lg:order-last">
+              {layoutOptions.nav?.children}
+              <Link
+                href={AccountUrl}
+                external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
+                className={cn(
+                  buttonVariants({ size: 'sm' }),
+                  'gap-1.5 rounded-xl sm:hidden'
+                )}
+              >
+                <LogIn className="size-4" />
+                {texts.login.text}
+              </Link>
+            </div>
+          ),
+        }}
+        links={[
+          // Mobile navigation
+          {
+            type: 'menu',
+            on: 'menu',
+            text: texts.title.text,
+            items: navItems.map(({ text, url, Icon }) => ({
+              text,
+              url,
+              icon: <Icon />,
+            })),
+          },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.download.text,
+            url: getLocalePath(lang, 'download'),
+            icon: <Download />,
+          },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.pricing.text,
+            url: getLocalePath(lang, 'pricing'),
+            icon: <Gem />,
+          },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.community.text,
+            url: getLocalePath(lang, 'docs/community'),
+            icon: <Users />,
+          },
+          {
+            type: 'main',
+            on: 'menu',
+            text: texts.blog.text,
+            url: 'https://blog.sylinko.com',
+            icon: <Rss />,
+          },
+          // Desktop navigation
+          {
+            type: 'custom',
+            on: 'nav',
+            children: (
+              <NavbarMenu>
+                <NavbarMenuTrigger>
+                  <Link href={docsUrl}>{texts.title.text}</Link>
+                </NavbarMenuTrigger>
+                <NavbarMenuContent className="fd-docs-menu w-full text-[15px]">
+                  {/* First item with preview image */}
+                  <NavbarMenuLink href={docsUrl} className="md:row-span-2">
+                    <div className="-mx-3 -mt-3 aspect-[1672/941] overflow-hidden rounded-t-lg">
+                      <Image
+                        src="/banner.jpg"
+                        width={1672}
+                        height={941}
+                        alt="Preview"
+                        className="size-full object-cover"
+                        fetchPriority="low"
+                        sizes="600px"
+                        style={{
+                          maskImage:
+                            'linear-gradient(to bottom,white 50%,transparent)',
+                        }}
+                      />
+                    </div>
+                    <p className="font-medium">{navItems[0].text}</p>
+                    <p className="text-fd-muted-foreground text-sm">
+                      {navItems[0].desc}
+                    </p>
+                  </NavbarMenuLink>
+                  {/* Second column */}
+                  <MenuLinkItem item={navItems[1]} className="lg:col-start-2" />
+                  <MenuLinkItem item={navItems[2]} className="lg:col-start-2" />
+                  {/* Third column */}
+                  <MenuLinkItem
+                    item={navItems[3]}
+                    className="lg:col-start-3 lg:row-start-1"
+                  />
+                  <MenuLinkItem
+                    item={navItems[4]}
+                    className="lg:col-start-3 lg:row-start-2"
+                  />
+                </NavbarMenuContent>
+              </NavbarMenu>
+            ),
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.download.text,
+            url: getLocalePath(lang, 'download'),
+            icon: <Download />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.pricing.text,
+            url: getLocalePath(lang, 'pricing'),
+            icon: <Gem />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.community.text,
+            url: getLocalePath(lang, 'docs/community'),
+            icon: <Users />,
+          },
+          {
+            type: 'main',
+            on: 'nav',
+            text: texts.blog.text,
+            url: 'https://blog.sylinko.com',
+            icon: <Rss />,
+          },
+          {
+            type: 'custom',
+            on: 'nav',
+            children: (
+              <Link
+                href={AccountUrl}
+                external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
+                className={cn(
+                  buttonVariants({ size: 'sm' }),
+                  'ml-2 hidden min-w-24 gap-1.5 rounded-xl px-4 sm:inline-flex lg:hidden'
+                )}
+              >
+                <LogIn className="size-4" />
+                {texts.login.text}
+              </Link>
+            ),
+          },
+          ...linkItems,
+          {
+            type: 'custom',
+            on: 'nav',
+            secondary: true,
+            children: (
+              <Link
+                href={AccountUrl}
+                external
+                data-track-event="docs_cloud_signup_click"
+                data-track-section="navbar"
+                className={cn(
+                  buttonVariants({ size: 'sm' }),
+                  'ml-3 min-w-24 gap-1.5 rounded-xl px-4'
+                )}
+              >
+                <LogIn className="size-4" />
+                {texts.login.text}
+              </Link>
+            ),
+          },
+        ]}
+        className="flex-1 dark:bg-neutral-950 dark:[--color-fd-background:var(--color-neutral-950)]"
+      >
+        {children}
+      </HomeLayout>
+      <Footer lang={lang} />
+    </div>
+  );
+}

@@ -3,6 +3,7 @@
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,18 +19,17 @@
       "@/*": ["./*"],
       "fumadocs-mdx:collections/*": ["./.source/*"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "types": ["node", "vite/client", "@cloudflare/workers-types"]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    "app/global.css",
+    "components",
+    "lib",
+    "src",
+    "scripts",
+    "mdx-components.tsx",
+    "source.config.ts",
+    "vite.config.ts"
   ],
-  "exclude": ["node_modules", "app/[lang]/(home)/pricing/mock.ts"]
+  "exclude": ["node_modules", "build", "dist"]
 }

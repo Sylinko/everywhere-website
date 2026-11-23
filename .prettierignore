@@ -47,3 +47,7 @@ yarn.lock
 
 # mdx files (prevent prettier from breaking fumadocs format)
 content/**/*.mdx
+.tanstack
+.wrangler
+public/og
+src/routeTree.gen.ts

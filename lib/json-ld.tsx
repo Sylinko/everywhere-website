@@ -9,8 +9,8 @@ import {
   EverywhereDescriptions,
   OfficialUrl,
   ProductHuntUrl,
+  RepoUrl,
 } from './constants';
-import { RepoUrl } from './github';
 import { getHreflang, i18n } from './i18n';
 import { baseUrl, siteName } from './metadata';
 
@@ -20,7 +20,14 @@ function stringifyJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c');
 }
 
-export function organizationSchema({ description }: { description: string }) {
+export function organizationSchema({
+  description,
+  lang = 'en',
+}: {
+  description: string;
+  lang?: string;
+}) {
+  const safeLang = i18n.languages.includes(lang) ? lang : i18n.defaultLanguage;
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -33,7 +40,7 @@ export function organizationSchema({ description }: { description: string }) {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Support',
-      url: `${siteUrl}/en/docs/community/support`,
+      url: `${siteUrl}/${safeLang}/docs/community/support`,
     },
   } as const;
 }
@@ -56,14 +63,6 @@ export function websiteSchema({
       '@type': 'Organization',
       name: siteName,
       url: siteUrl,
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/en/docs?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
     },
   } as const;
 }

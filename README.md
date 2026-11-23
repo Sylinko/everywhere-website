@@ -1,106 +1,28 @@
 # Everywhere Website
 
-A documentation site for Everywhere, built with [Next.js](https://nextjs.org) and [Fumadocs](https://fumadocs.dev).
+The English and Simplified Chinese site for [Everywhere](https://everywhere.sylinko.com). TanStack Start serves the site on Cloudflare Workers; Fumadocs compiles the MDX and powers document navigation and search.
 
-## 🚀 Key Features
+## Develop locally
 
-- **Framework:** Built on [Next.js](https://nextjs.org), leveraging React Server Components.
-- **Documentation:** Powered by [Fumadocs](https://fumadocs.dev), offering a robust MDX-based documentation workflow.
-- **Styling:** Styled with [Tailwind CSS v4](https://tailwindcss.com) and `tailwindcss-animate` for a beautiful, responsive UI.
-- **Icons:** Uses [Lucide React](https://lucide.dev) for consistent and crisp iconography.
-- **Internationalization:** Built-in support for multiple languages (e.g., English, Simplified Chinese).
-- **Search:** Integrated search functionality for quick navigation.
+Use Node.js 26 and the pnpm version in `package.json`..
 
-## 🛠️ Tech Stack
-
-- **Core:** TypeScript, React, Next.js
-- **Content:** MDX (Fumadocs MDX)
-- **UI/UX:** Tailwind CSS, Radix UI (via Fumadocs UI)
-- **Package Manager:** pnpm
-
-## 📂 Project Structure
-
-```text
-everywhere-website
-├── app/                    # Next.js App Router (pages, layouts, API)
-│   ├── api/                # API routes
-│   ├── og/                 # Open Graph image generation
-│   └── [lang]              # Internationalized routes
-│       ├── (home)/         # Landing page routes
-│       ├── docs/           # Documentation routes
-│       ├── llms-full.txt/  # Full Documentation text file
-│       ├── llms.mdx/       # Text file for pages
-│       └── policies/       # Policy pages
-├── components/             # Reusable React components
-├── content/                # MDX content source
-│   ├── docs/               # Documentation files
-│   └── policies/           # Policy documents
-├── lib/                    # Utilities and configurations
-├── public/                 # Static assets
-├── next.config.mjs         # Next.js configuration
-├── open-next.config.ts     # Open Next configuration
-└── source.config.ts        # Fumadocs configuration
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-## 🏁 Getting Started
+Open [localhost:3000](http://localhost:3000). Edit documentation in `content/docs/{en,zh}/` and legal policies in `content/policies/{en,zh}/`. Routes live in `src/routes/` and shared page code in `src/features/`.
 
-### Prerequisites
+Page URLs start with `/en` or `/zh`. If the prefix is missing, the site redirects to the same path using the browser's preferred language, defaulting to English. If the browser prefers Chinese, for example, `/pricing` redirects to `/zh/pricing`, while `/en/pricing` stays in English. API and static asset URLs do not need a language prefix.
 
-Ensure you have the following installed:
+## Build and verify
 
-- Node.js (LTS version recommended)
-- pnpm (Project package manager)
-
-### Installation
-
-1.  Clone the repository:
-
-    ```bash
-    git clone https://github.com/Sylinko/everywhere-website.git
-    cd everywhere-website
-    ```
-
-2.  Install dependencies:
-    ```bash
-    pnpm install
-    ```
-
-### Development
-
-Start the development server:
-
-```bash
- pnpm dev
+```sh
+pnpm types:check
+pnpm build
+pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
-
-### Build
-
-To build the application for production:
-
-```bash
- pnpm build
-```
-
-To start the production server:
-
-```bash
- pnpm start
-```
-
-## 🔍 Code Quality
-
-We maintain high code quality standards using ESLint and Prettier.
-
-- **Lint:** `pnpm lint` (Checks for code issues)
-- **Format:** `pnpm format` (Formats code with Prettier)
-- **Type Check:** `pnpm types:check` (Runs TypeScript type checking)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please check the `content` directory to add or update documentation.
-
-## 📄 License
+## License
 
 [Apache 2.0](LICENSE) © Sylinko Inc.

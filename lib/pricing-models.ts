@@ -1,16 +1,14 @@
-import 'server-only';
-
-import { getCloudflareContext } from '@opennextjs/cloudflare';
+import '@tanstack/react-start/server-only';
+import { env } from 'cloudflare:workers';
 
 import type {
   ModelConfig,
   ModelProvider,
   ModelSupportItem,
-} from '@/app/[lang]/(home)/pricing/types';
+} from '@/src/features/site/pricing/types';
 
 type AIServiceBinding = {
   getModels?: () => Promise<unknown> | unknown;
-  fetch?: unknown;
 };
 
 function parseModels(raw: unknown): ModelConfig[] {
@@ -95,26 +93,14 @@ function toSupportItems(models: ModelConfig[]): ModelSupportItem[] {
 
 export async function getSupportedModels(): Promise<ModelSupportItem[]> {
   try {
-    const { env } = await getCloudflareContext({ async: true });
-    const gateway = (
-      env as CloudflareEnv & {
-        EVERYWHERE_AI_GATEWAY?: AIServiceBinding;
-      }
-    ).EVERYWHERE_AI_GATEWAY;
+    const gateway = (env as { EVERYWHERE_AI_GATEWAY?: AIServiceBinding })
+      .EVERYWHERE_AI_GATEWAY;
 
     if (!gateway?.getModels) {
       return [];
     }
 
-    const result = await gateway.getModels();
-    const modelConfigs = parseModels(result);
-
-    if (modelConfigs.length === 0) {
-      return [];
-    }
-
-    const models = toSupportItems(modelConfigs);
-    return models;
+    return toSupportItems(parseModels(await gateway.getModels()));
   } catch (error) {
     console.error('Error fetching models:', error);
     return [];

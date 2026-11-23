@@ -1,9 +1,6 @@
 import { App, Octokit } from 'octokit';
 import type { ActionResponse, Feedback } from '@/components/feedback';
 
-// Everywhere GitHub repository url
-export const RepoUrl = 'https://github.com/Sylinko/Everywhere';
-
 // Docs GitHub repository info
 export const owner = 'Sylinko';
 export const repo = 'everywhere-docs';
@@ -92,7 +89,6 @@ export async function onRateAction(
   url: string,
   feedback: Feedback
 ): Promise<ActionResponse> {
-  'use server';
   const octokit = await getOctokit();
   const destination = await getFeedbackDestination();
   if (!octokit || !destination) {

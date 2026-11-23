@@ -17,20 +17,14 @@ minimumReleaseAgeExclude:
   - typescript-eslint@8.61.1
   - fumadocs-mdx@15.2.2
   - '@fumari/image-size@0.1.0'
-  - '@next/env@16.3.1'
-  - '@next/eslint-plugin-next@16.3.1'
-  - '@next/swc-darwin-arm64@16.3.1'
-  - '@next/swc-darwin-x64@16.3.1'
-  - '@next/swc-linux-arm64-gnu@16.3.1'
-  - '@next/swc-linux-arm64-musl@16.3.1'
-  - '@next/swc-linux-x64-gnu@16.3.1'
-  - '@next/swc-linux-x64-musl@16.3.1'
-  - '@next/swc-win32-arm64-msvc@16.3.1'
-  - '@next/swc-win32-x64-msvc@16.3.1'
-  - eslint-config-next@16.3.1
   - fumadocs-core@16.14.4 || 16.19.7
-  - fumadocs-ui@16.14.4 || 16.19.7
   - miniflare@5.20260811.1-alpha || 5.20260908.0-alpha
-  - next@16.3.1
   - wrangler@4.123.0 || 4.130.0
-  - lucide-react@1.33.0 || 1.43.0
+  - lucide-react@1.33.0 || 1.43.0 || 1.78.0
+  - '@cloudflare/workers-types@5.20261123.1'
+  - '@fumadocs/base-ui@16.19.7'
+# Fumadocs supports multiple routers; this application uses its TanStack providers.
+overrides:
+  'fumadocs-core>next': '-'
+  '@fumadocs/base-ui>next': '-'
+  'fumadocs-mdx>next': '-'

@@ -31,16 +31,10 @@ export const policies = defineDocs({
   },
 });
 
-export const notices = defineDocs({
-  dir: 'content/notices',
-  docs: {
-    schema: pageSchema,
-  },
-});
-
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
+    remarkImageOptions: { useImport: false, external: false },
     remarkPlugins: [remarkLLMUrls],
   },
 });

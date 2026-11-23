@@ -1,39 +1,26 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
   "name": "everywhere-website",
+  "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/*/"]
+  },
   "compatibility_date": "2026-03-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS",
-  },
   "observability": {
     "logs": {
       "enabled": true,
       "head_sampling_rate": 0.1,
       "invocation_logs": true,
     },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 0.1,
-    },
+    "traces": { "enabled": true, "head_sampling_rate": 0.1 },
   },
   "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "everywhere-website",
-    },
     {
       "binding": "EVERYWHERE_AI_GATEWAY",
       "service": "everywhere-ai-gateway-production",
       "entrypoint": "GatewayBinding",
-    },
-  ],
-  "r2_buckets": [
-    {
-      "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "everywhere-website-cache",
     },
   ],
 }

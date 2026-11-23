@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from '@/components/site-image';
+import Link from '@/components/site-link';
 import { cn } from '@/lib/cn'; // Assuming cn utility exists here
 import { cardVariants } from './common/variants';
 import { GitHubIcon } from '@/components/common/icons';
@@ -60,10 +60,12 @@ interface SponsorResponse {
 const AvatarImage = ({
   src,
   alt,
+  size,
   className,
 }: {
   src: string;
   alt: string;
+  size: number;
   className?: string;
 }) => {
   const [loading, setLoading] = useState(true);
@@ -74,13 +76,14 @@ const AvatarImage = ({
       <Image
         src={src}
         alt={alt}
+        width={size}
+        height={size}
         fill
         className={cn(
           'object-cover transition-opacity duration-300',
           loading ? 'opacity-0' : 'opacity-100',
           className
         )}
-        unoptimized
         onLoad={() => setLoading(false)}
       />
     </>
@@ -109,14 +112,22 @@ export const CoreTeamCard: React.FC<CoreTeamCardProps> = ({
     >
       <div className="relative size-18 shrink-0 overflow-hidden rounded-full">
         {displayAvatar && (
-          <AvatarImage src={displayAvatar} alt={displayName || 'User'} />
+          <AvatarImage
+            src={displayAvatar}
+            alt={displayName || 'User'}
+            size={72}
+          />
         )}
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
         <div className="flex flex-col items-baseline">
-          <p className="truncate text-lg font-semibold mt-0 mb-0">{displayName}</p>
-          <p className="text-fd-muted-foreground truncate text-xs mt-0 mb-1">{role}</p>
+          <p className="mt-0 mb-0 truncate text-lg font-semibold">
+            {displayName}
+          </p>
+          <p className="text-fd-muted-foreground mt-0 mb-1 truncate text-xs">
+            {role}
+          </p>
         </div>
         <div className="flex items-center gap-3">
           {links.map((link, idx) => (
@@ -160,7 +171,11 @@ export const CommunityMemberCard: React.FC<CommunityMemberCardProps> = ({
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-full">
         {displayAvatar && (
-          <AvatarImage src={displayAvatar} alt={displayName || 'Member'} />
+          <AvatarImage
+            src={displayAvatar}
+            alt={displayName || 'Member'}
+            size={64}
+          />
         )}
       </div>
       <div className="flex flex-1 flex-col justify-between gap-1">
@@ -216,7 +231,11 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({
       <div className="bg-muted relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border">
         {/* Handle cases where avatar might be empty or broken? assuming provided */}
         {displayAvatar ? (
-          <AvatarImage src={displayAvatar} alt={displayName || 'Sponsor'} />
+          <AvatarImage
+            src={displayAvatar}
+            alt={displayName || 'Sponsor'}
+            size={32}
+          />
         ) : (
           <div className="text-muted-foreground text-xs">?</div>
         )}
