@@ -1,0 +1,63 @@
+---
+title: macOS System (macOS)
+description: Control macOS built-in apps (Reminders, Calendar, Mail, Maps, Notes) and run AppleScript on macOS.
+icon: AppWindow
+---
+
+import { Table } from "@/components/common/table";
+import { PermissionBadge } from '@/components/common/permissions';
+
+Available on **macOS** only (listed under **Tools > Built-in > macOS System**). Allows your assistant to interact with native macOS applications and system tasks.
+
+<Callout type="info" title="System Permissions">
+First-time interactions with Reminders, Calendar, Mail, Notes, or other apps may trigger macOS Automation / privacy permission prompts.
+</Callout>
+
+## Functions
+
+<Table columnWidths={['24%', '56%', '20%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Manage Reminders</td>
+      <td>Creates, lists, updates, deletes, or completes items in the macOS <strong>Reminders</strong> app (prompts for confirmation before updating, deleting, or completing).</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Manage Calendar</td>
+      <td>Creates, lists, or deletes events in the macOS <strong>Calendar</strong> app (prompts for confirmation before deleting).</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Send Email</td>
+      <td>Composes a new outgoing draft in the macOS <strong>Mail</strong> app with recipient, subject, and body, then brings Mail to the foreground.</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Open Maps</td>
+      <td>Opens Apple <strong>Maps</strong> and searches for a specified location or query.</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Manage Notes</td>
+      <td>Creates, lists, or deletes notes in the macOS <strong>Notes</strong> app (prompts for confirmation).</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Open URL</td>
+      <td>Opens a web link in the system default browser.</td>
+      <td><PermissionBadge risk="low">Access Network</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>Execute AppleScript</td>
+      <td>Runs custom AppleScript when specialized system functions do not cover a task. Always prompts for confirmation in <strong>Request approval</strong> mode.</td>
+      <td><PermissionBadge risk="high">Execute Shell Script</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

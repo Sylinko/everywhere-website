@@ -4,10 +4,11 @@ import tseslint from 'typescript-eslint';
 const eslintConfig = defineConfig([
   ...tseslint.configs.recommended,
   globalIgnores([
-    '.next/**', 'dist/**', '.tanstack/**', 'src/routeTree.gen.ts',
+    'dist/**',
+    '.tanstack/**',
+    'src/routeTree.gen.ts',
     'out/**',
     'build/**',
-    'next-env.d.ts',
     '.source/**',
   ]),
   {

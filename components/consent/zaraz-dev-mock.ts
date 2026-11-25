@@ -20,7 +20,7 @@ const PURPOSES: Record<string, { id: string; name: string; description: string; 
     id: 'analytics',
     name: 'Analytics & Performance',
     description:
-      'These cookies help us understand how visitors interact with our website by collecting anonymous information.',
+      'Google Analytics uses cookies to distinguish visits and measure how people use the website.',
     order: 1,
   },
 };
@@ -117,7 +117,7 @@ export function initZarazDevMock() {
 
   const consent = createMockConsent();
 
-  (window as any).zaraz = {
+  window.zaraz = {
     consent,
     track(eventName: string, properties?: Record<string, unknown>) {
       if (!consent.get('analytics')) {

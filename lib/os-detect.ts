@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
-import { WindowsIcon, AppleIcon, SmallWindowsIcon, SmallAppleIcon } from '@/components/common/icons';
+import { createElement, useEffect, useState } from 'react';
+import {
+  WindowsIcon,
+  AppleIcon,
+  LinuxIcon,
+  SmallWindowsIcon,
+  SmallAppleIcon,
+} from '@/components/common/icons';
 import { DownloadLinks } from './constants';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
-export type OSId = 'windows' | 'macos';
+export type OSId = 'windows' | 'macos' | 'linux';
 
 export interface OSPlatform {
   id: OSId;
@@ -32,6 +38,20 @@ export const platforms: Record<OSId, OSPlatform> = {
     smallIcon: SmallAppleIcon,
     primaryLink: DownloadLinks.macos.silicon,
   },
+  linux: {
+    id: 'linux',
+    name: 'Linux',
+    icon: LinuxIcon,
+    smallIcon: createElement(
+      'span',
+      {
+        className:
+          'inline-flex size-4 items-center justify-center [&>svg]:size-4',
+      },
+      LinuxIcon
+    ),
+    primaryLink: '/download#linux',
+  },
 };
 
 // ── Detection rules ──────────────────────────────────────────────────────
@@ -40,6 +60,7 @@ export const platforms: Record<OSId, OSPlatform> = {
 const detectionRules: [(ua: string) => boolean, OSId][] = [
   [(ua) => ua.indexOf('win') !== -1, 'windows'],
   [(ua) => ua.indexOf('mac') !== -1, 'macos'],
+  [(ua) => ua.indexOf('linux') !== -1 && ua.indexOf('android') === -1, 'linux'],
 ];
 
 export function detectOS(): OSId | null {

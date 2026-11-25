@@ -4,17 +4,19 @@ import {
   QQIcon,
   ProductHuntIcon,
   BilibiliIcon,
-  YoutubeIcon,
   XIcon,
   XiaohongshuIcon,
-  MastodonIcon,
-  BlueskyIcon,
 } from '@/components/common/icons';
 import { getLocalePath } from '@/lib/i18n';
 import Link from 'fumadocs-core/link';
 import { CookieSettingsButton } from '@/components/consent';
 import { RepoUrl } from '@/lib/constants';
-import { DiscordUrl, OfficialUrl, ProductHuntUrl, QQGroupUrl } from '@/lib/constants';
+import {
+  DiscordUrl,
+  OfficialUrl,
+  ProductHuntUrl,
+  QQGroupUrl,
+} from '@/lib/constants';
 
 interface FooterProps {
   lang: string;
@@ -73,46 +75,61 @@ const sylinkoLinks: {
   key: keyof FooterTranslation['sections']['aboutSylinko'];
   href: string;
 }[] = [
-    {
-      key: 'officialWebsite',
-      href: OfficialUrl,
-    },
-    {
-      key: 'contactUs',
-      href: 'mailto:contact@sylinko.com',
-    },
-  ];
+  {
+    key: 'officialWebsite',
+    href: OfficialUrl,
+  },
+  {
+    key: 'contactUs',
+    href: 'mailto:contact@sylinko.com',
+  },
+];
 
 const policyLinks: {
-  key: keyof FooterTranslation['sections']['policies'];
+  key: keyof Omit<FooterTranslation['sections']['policies'], 'title'>;
   href: string;
   external?: boolean;
 }[] = [
-    {
-      key: 'privacyPolicy',
-      href: '/policies/privacy',
-    },
-    {
-      key: 'termsOfService',
-      href: '/policies/terms',
-    },
-    {
-      key: 'refundPolicy',
-      href: '/policies/refund',
-    },
-    {
-      key: 'disclaimer',
-      href: '/policies/disclaimer',
-    },
-    {
-      key: 'cookiePolicy',
-      href: '/policies/cookie',
-    },
-    {
-      key: 'contributorLicenseAgreement',
-      href: '/policies/cla',
-    },
-  ];
+  {
+    key: 'privacyPolicy',
+    href: '/policies/privacy',
+  },
+  {
+    key: 'cookiePolicy',
+    href: '/policies/cookie',
+  },
+  {
+    key: 'refundPolicy',
+    href: '/policies/refund',
+  },
+  {
+    key: 'trademarkPolicy',
+    href: '/policies/trademark',
+  },
+];
+
+const legalLinks: {
+  key: keyof Omit<FooterTranslation['sections']['legal'], 'title'>;
+  href: string;
+  external?: boolean;
+}[] = [
+  {
+    key: 'termsOfService',
+    href: '/policies/terms',
+  },
+  {
+    key: 'disclaimer',
+    href: '/policies/disclaimer',
+  },
+  {
+    key: 'contributorLicenseAgreement',
+    href: '/policies/cla',
+  },
+  {
+    key: 'softwareLicense',
+    href: '/docs/community/license',
+  },
+];
 
 interface FooterTranslation {
   sections: {
@@ -131,11 +148,16 @@ interface FooterTranslation {
     policies: {
       title: string;
       privacyPolicy: string;
+      cookiePolicy: string;
+      refundPolicy: string;
+      trademarkPolicy: string;
+    };
+    legal: {
+      title: string;
       termsOfService: string;
       disclaimer: string;
-      cookiePolicy: string;
       contributorLicenseAgreement: string;
-      refundPolicy: string;
+      softwareLicense: string;
     };
     aboutSylinko: {
       title: string;
@@ -150,7 +172,7 @@ interface FooterTranslation {
 }
 
 const translations: Record<string, FooterTranslation> = {
-  'en': {
+  en: {
     sections: {
       joinOurCommunity: {
         title: 'Join Our Community',
@@ -165,13 +187,18 @@ const translations: Record<string, FooterTranslation> = {
       },
       relatedProjects: 'Related Projects',
       policies: {
-        title: 'Legal & Policies',
+        title: 'Policies',
         privacyPolicy: 'Privacy Policy',
-        termsOfService: 'Terms of Service',
-        refundPolicy: 'Refund Policy',
-        disclaimer: 'Disclaimer',
         cookiePolicy: 'Cookie Policy',
+        refundPolicy: 'Refund Policy',
+        trademarkPolicy: 'Brand & Naming Policy',
+      },
+      legal: {
+        title: 'Legal',
+        termsOfService: 'Terms of Service',
+        disclaimer: 'Disclaimer',
         contributorLicenseAgreement: 'Contributor License Agreement',
+        softwareLicense: 'Software License',
       },
       aboutSylinko: {
         title: 'About Sylinko',
@@ -184,7 +211,7 @@ const translations: Record<string, FooterTranslation> = {
       suffix: ' Sylinko Inc. All rights reserved.',
     },
   },
-  'zh': {
+  zh: {
     sections: {
       joinOurCommunity: {
         title: '加入社群',
@@ -199,13 +226,18 @@ const translations: Record<string, FooterTranslation> = {
       },
       relatedProjects: '相关项目',
       policies: {
-        title: '法律与政策',
+        title: '相关政策',
         privacyPolicy: '隐私政策',
-        termsOfService: '服务条款',
-        refundPolicy: '退款政策',
-        disclaimer: '免责声明',
         cookiePolicy: 'Cookie 政策',
+        refundPolicy: '退款政策',
+        trademarkPolicy: '品牌与命名政策',
+      },
+      legal: {
+        title: '法律条款',
+        termsOfService: '服务条款',
+        disclaimer: '免责声明',
         contributorLicenseAgreement: '贡献者许可协议',
+        softwareLicense: '软件许可证',
       },
       aboutSylinko: {
         title: '关于 Sylinko',
@@ -230,7 +262,7 @@ export function Footer({ lang }: FooterProps) {
     <footer className="border-fd-border bg-fd-card/30 mt-auto border-t backdrop-blur-sm">
       <div className="mx-auto max-w-350 px-6 py-12">
         {/* Top: Links Grid */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-5 lg:gap-x-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 md:grid-cols-6 lg:gap-x-12">
           {/* Section 1: Community & Follow Us (Icons) */}
           <div className="flex flex-col gap-6">
             <div>
@@ -330,7 +362,7 @@ export function Footer({ lang }: FooterProps) {
             </ul>
           </div>
 
-          {/* Section 4: Legal & Policies (Text) */}
+          {/* Section 4: Policies (Text) */}
           <div>
             <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
               {t.sections.policies.title}
@@ -354,7 +386,31 @@ export function Footer({ lang }: FooterProps) {
             </ul>
           </div>
 
-          {/* Section 5: About Sylinko (Text) */}
+          {/* Section 5: Legal (Text) */}
+          <div>
+            <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
+              {t.sections.legal.title}
+            </h3>
+            <ul className="space-y-3">
+              {legalLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={
+                      link.external ? link.href : getLocalePath(lang, link.href)
+                    }
+                    prefetch={false}
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noopener' : undefined}
+                    className="text-fd-muted-foreground hover:text-fd-foreground text-sm transition-colors"
+                  >
+                    {t.sections.legal[link.key]}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Section 6: About Sylinko (Text) */}
           <div>
             <h3 className="text-fd-foreground mb-4 text-sm font-semibold">
               {t.sections.aboutSylinko.title}

@@ -8,7 +8,6 @@ import {
   Check,
   ChevronDown,
   Sparkles,
-  Info,
   Calculator,
   Search,
   Banknote,

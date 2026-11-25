@@ -43,7 +43,7 @@ export interface FeedbackProps {
 }
 
 const translations = {
-  'en': {
+  en: {
     question: 'How is this guide?',
     good: 'Good',
     bad: 'Bad',
@@ -54,16 +54,16 @@ const translations = {
     submit: 'Submit',
     failure: 'Could not send your feedback. Please try again.',
   },
-  'zh': {
-    question: '这篇文档对您有帮助吗？',
+  zh: {
+    question: '这篇文档对你有帮助吗？',
     good: '有帮助',
     bad: '没帮助',
-    thanks: '感谢您的反馈！',
+    thanks: '感谢你的反馈！',
     viewOnGitHub: '在 GitHub 查看',
     submitAgain: '重新提交',
-    placeholder: '请留下您的反馈...',
+    placeholder: '请留下你的反馈...',
     submit: '提交',
-    failure: '反馈未发送，请重试。',
+    failure: '反馈发送失败，请重试。',
   },
 };
 

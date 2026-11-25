@@ -4,11 +4,13 @@ description: Learn how Sylinko collects, uses, shares, and retains personal info
 ---
 
 <Callout type="info" title="Effective Date">
-April 13, 2026
+November 25, 2026
 </Callout>
 
 <Callout type="warning" title="Changes from Previous Version">
-May 5, 2026: 
+November 25, 2026: Clarified payment and service providers, analytics consent, account deletion and how to exercise your privacy rights.
+
+May 5, 2026:
 - How do we process your information?
   - To identify usage trends.
     - Add explicit mention of Google Analytics data processing and clarify that it is based on explicit consent.
@@ -26,9 +28,7 @@ This Privacy Notice for Sylinko Inc. ("we," "us," or "our"), describes how and w
 
 **What personal information do we process?** When you visit, use, or navigate our Services, we may process personal information depending on how you interact with us and the Services, the choices you make, and the products and features you use. Learn more about [Information You Provide & We Collect Automatically](#information-you-provide--we-collect-automatically).
 
-**Do we process any sensitive personal information?** Some of the information may be considered "special" or "sensitive" in certain jurisdictions, for example your racial or ethnic origins, sexual orientation, and religious beliefs. We do not process sensitive personal information.
-
-**Do we collect any information from third parties?** We may collect information from public databases, marketing partners, social media platforms, and other outside sources. Learn more about [information collected from other sources](#information-collected-from-other-sources).
+**Do we process any sensitive personal information?** Some of the information may be considered "special" or "sensitive" in certain jurisdictions, for example your racial or ethnic origins, sexual orientation, and religious beliefs. We do not require this information to open an account; content you choose to submit to AI or support may contain it.
 
 **How do we process your information?** We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Learn more about [how do we process your information](#2-how-do-we-process-your-information).
 
@@ -49,27 +49,23 @@ We collect information that you provide to us, as well as information automatica
 **Personal & Account Information**
 - **Account Details:** Name, email address, contact data, billing address, and other profile information you voluntarily provide.
 - **Social Media Login Data:** If you register using social media accounts (like Google or GitHub), we collect basic profile information (name, email and profile picture) from the provider.
-- **Payment Data:** We use Stripe for payment, analytics, and other business services. Stripe collects identifying information about the devices that connect to its services. Stripe uses this information to operate and improve the services it provides to us, including for fraud detection. You can learn more about Stripe and read its privacy policy at https://stripe.com/privacy.
-- **Sensitive Information:** We do not process sensitive information.
+- **Payment Data:** In standard checkout, including Alipay, Sylinko is the merchant and Stripe processes payments on our behalf. In eligible regions, if checkout says “Sold through Link” (Stripe Managed Payments), Stripe or its affiliate is the merchant of record and an independent controller for the transaction, invoicing and tax. Using the Link wallet alone does not change the merchant. Stripe collects identifying information about the devices that connect to its services. Stripe uses this information to operate and improve the services it provides to us, including for fraud detection. Stripe also acts as a controller for its own fraud prevention and legal obligations. You can learn more about Stripe and read its privacy policy at https://stripe.com/privacy.
+- **Sensitive Information:** We do not ask for sensitive information to create an account.
 
 **Everywhere Application Data (Desktop)**
 *Crucially, our desktop application is designed with a "Local First" privacy architecture.*
 - **Desktop Context & Screen Data:** To provide context-aware assistance, Everywhere may process content displayed on your screen (via screenshots or accessibility APIs). **This processing is performed locally on your device.** We do not upload raw screen recordings or full screenshots to our servers unless you explicitly trigger a feature that requires cloud processing (e.g., sending a specific screenshot to an LLM).
 - **Chat History & Settings:** Stored locally on your device by default. If you enable cloud sync, encrypted data is stored on our servers to facilitate synchronization.
 - **Telemetry & Diagnostics:** We use **Sentry** to monitor performance and stability. To protect your privacy:
-    - **PII Scrubbing:** We automatically filter and remove personally identifiable information from crash reports before they leave your device.
-    - **Anonymous Identifiers:** We use random, hashed identifiers that cannot be reverse-engineered to identify you as an individual.
-    - **No Code Access:** Diagnostics strictly contain obfuscated call stack information and system metrics; we never collect your source code, prompts, or local project files.
+    - **PII Scrubbing:** The desktop app omits email, username and IP address from Sentry user fields; Passport filters sensitive data from error reports and logs.
+    - **Pseudonymous Identifiers:** The desktop app uses a random identifier stored on your device. Passport uses a one-way hash of your account ID.
+    - **Diagnostic Controls:** The desktop essential-data setting can still send errors, metrics and higher-severity logs. Optional Passport session replay is subject to the [consent controls below](#5-do-we-use-cookies-and-other-tracking-technologies).
 - **Push Notifications:** We may request to send notifications regarding your account or features. You can opt out in your device settings.
 
 **Service Usage & Device Data**
 - **Log & Usage Data:** IP address, browser/device characteristics, operating system, language preferences, and usage timestamps.
 - **Device Data:** Device IDs, hardware model, and system configuration.
 - **Location Data:** Approximate location (country/city) derived from IP address. We do not collect precise GPS data.
-
-### Information collected from other sources
-
-In order to enhance our ability to provide relevant marketing, offers, and services to you and update our records, we may obtain information about you from other sources, such as public databases, joint marketing partners, affiliate programs, data providers, social media platforms, and from other third parties. This information includes email addresses, intent data (or user behavior data), Internet Protocol (IP) addresses, social media profiles, social media URLs, and custom profiles, for purposes of targeted advertising and event promotion.
 
 **Data Controller:** For the purposes of the GDPR and UK GDPR, Sylinko Inc. is the Data Controller of your personal information.
 
@@ -82,12 +78,11 @@ In order to enhance our ability to provide relevant marketing, offers, and servi
 - **To send administrative information to you.** We may process your information to send you details about our products and services, changes to our terms and policies, and other similar information. (Legal Basis: Performance of a Contract or Legitimate Interest)
 - **To fulfill and manage your orders.** We may process your information to fulfill and manage your orders, payments, returns, and exchanges made through the Services. (Legal Basis: Performance of a Contract)
 - **To request feedback.** We may process your information when necessary to request feedback and to contact you about your use of our Services. (Legal Basis: Legitimate Interest)
-- **To send you marketing and promotional communications.** We may process the personal information you send to us for our marketing purposes, if this is in accordance with your marketing preferences. You can opt out of our marketing emails at any time. (Legal Basis: Consent or Legitimate Interest)
+- **To send you marketing and promotional communications.** We may process the personal information you send to us for our marketing purposes, only if you opt in. You can opt out of our marketing emails at any time. (Legal Basis: Consent)
 - **To protect our Services.** We may process your information as part of our efforts to keep our Services safe and secure, including fraud monitoring and prevention. (Legal Basis: Legitimate Interest or Legal Obligation)
 - **To identify usage trends.**
   - We may process information about how you use our Services to better understand how they are being used so we can improve them. (Legal Basis: Legitimate Interest)
   - For data processing related to Google Analytics. (Legal Basis: Explicit Consent)
-- **To determine the effectiveness of our marketing and promotional campaigns.** We may process your information to better understand how to provide marketing and promotional campaigns that are most relevant to you. (Legal Basis: Legitimate Interest)
 - **To save or protect an individual's vital interest.** We may process your information when necessary to save or protect an individual’s vital interest, such as to prevent harm. (Legal Basis: Vital Interest)
 - **To monitor license compliance.** We may process information (such as IP addresses and activation records) to identify unauthorized use of our commercial licenses and to verify eligibility for organizational subscriptions. (Legal Basis: Legitimate Interest or Performance of a Contract)
 
@@ -97,7 +92,7 @@ We process your personal information only when we have a valid legal reason to d
 
 - **Consent:** When you have given us permission to use your information for a specific purpose. You can withdraw your consent at any time.
 - **Performance of a Contract:** To fulfill our contractual obligations to you (e.g., providing the Services you requested).
-- **Legitimate Interests:** For our legitimate business interests, such as improving our Services, marketing, security, and fraud prevention, provided these interests do not override your fundamental rights and freedoms.
+- **Legitimate Interests:** For our legitimate business interests, such as improving our Services, security, and fraud prevention, provided these interests do not override your fundamental rights and freedoms.
 - **Legal Obligations:** To comply with applicable laws, regulations, or legal requests (e.g., tax laws, law enforcement requests).
 - **Vital Interests:** To protect your vital interests or those of others (e.g., in emergencies).
 
@@ -105,27 +100,34 @@ We process your personal information only when we have a valid legal reason to d
 
 ## 4. When and with whom do we share your personal information?
 
-**Vendors, Consultants, and Other Third-Party Service Providers.** We may share your data with service providers who assist us in our operations, including: **AI model providers, cloud storage services, payment processors, and analytics tools.** We ensure all third parties are bound by data processing agreements and confidentiality obligations to protect your personal information.
+**Vendors, Consultants, and Other Third-Party Service Providers.** We may share your data with service providers who assist us in our operations, including:
+- **Cloudflare** (global, including the US): Workers hosting, R2 avatar storage, Hyperdrive database connections, Turnstile security checks and Zaraz consent management.
+- **Neon** (US): Hosts our PostgreSQL databases.
+- **Resend** (US): Delivers account emails and marketing emails you opt in to.
+- **Sentry** (US): Processes filtered diagnostics and optional Passport session replays.
+- **Turso** (US, `aws-us-west-2`): cloud chat storage when you enable CloudSync.
+- **Stripe** (US and other regions): payments, including as merchant of record for Managed Payments.
+- **Google, GitHub and Microsoft** (global, including the US): sign-in when you select their accounts. Google Analytics handles website usage data only with your consent.
+- **AI and search providers** (regions vary by provider and endpoint): OpenAI, Anthropic, Google Vertex AI or DeepSeek process requests sent to their models; Tavily processes queries or URLs when you request a search or page retrieval.
 
 We also may need to share your personal information in the following situations:
 - **Business Transfers.** We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
-- **Business Partners.** We may share your information with our business partners to offer you certain products, services, or promotions.
 
 ## 5. Do we use cookies and other tracking technologies?
 
-We use cookies and similar tracking technologies (such as pixels, SDKs, and local storage) to provide, secure, and improve our Services. By integrating these details here, we aim to be transparent about how we track data.
+We use cookies and similar tracking technologies (such as SDKs and local storage) to provide, secure, and improve our Services. By integrating these details here, we aim to be transparent about how we track data.
 
 **Types of Technologies We Use:**
 
 - **Strictly Necessary:** Essential for the Services to function, such as Sylinko Passport's authentication tokens. These cannot be disabled.
 - **Functional & Preferences:** Used to remember your settings (e.g., theme preferences, language) and provide enhanced features.
-- **Marketing:** We may use tracking pixels to measure the effectiveness of our marketing campaigns. We do not sell this data to third parties.
+- **Analytics:** Google Analytics and masked Passport session replay are off by default. They require your explicit analytics consent through Cloudflare Zaraz. Replay masks text and inputs and blocks media.
 
 **How to Control Cookies:**
 - **Browser Settings:** You can set your browser to refuse all or some browser cookies, or to alert you when websites set or access cookies.
-- **Do Not Track:** Note that our systems may not currently respond to "Do Not Track" (DNT) signals from browsers, but we honor your explicit opt-out choices in our app settings.
+- **Do Not Track:** Note that our systems may not currently respond to "Do Not Track" (DNT) signals from browsers, but we honor your explicit opt-out choices in our app settings. The website and Passport also recognize Global Privacy Control (GPC). With GPC on and no prior explicit site choice, optional tracking stays off without a prompt. Passport never starts replay while GPC is on.
 
-- **Notice:** Explicitly state that these technologies (such as GA) are disabled by default and are only activated upon your explicit opt-in selection.
+- **[Cookie preferences](/en/policies/cookie):** Change or withdraw consent in **Cookie Preferences** in the website footer or **Cookie Settings** in the Passport footer. Withdrawal stops recording and clears the replay session marker.
 
 ## 6. Do we offer artificial intelligence-based products?
 
@@ -150,8 +152,8 @@ Our documentation website includes a feedback feature that allows you to rate pa
 
 **Data Processing & Third-Party Disclosure:**
 - **Public Visibility:** All feedback submitted through this mechanism becomes publicly accessible on GitHub. Do not include personal or sensitive information in your feedback.
-- **Third-Party Processing:** GitHub acts as a data processor for this information. GitHub's collection and processing of your data is governed by [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
-- **Data Storage Location:** GitHub's servers are located primarily in the United States. By submitting feedback, you consent to the transfer of your feedback data to the United States.
+- **Third-Party Processing:** GitHub's collection and processing of your data is governed by [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+- **Data Storage Location:** GitHub's servers are located primarily in the United States.
 - **No Account Required:** You may submit feedback without creating a Sylinko account. However, your feedback will be associated with the page URL and timestamp.
 
 **Your Rights:**
@@ -160,24 +162,24 @@ Our documentation website includes a feedback feature that allows you to rate pa
 
 **Cross-Border Data Transfer (GDPR/PIPL Compliance):**
 - When you submit feedback, your data is transferred to GitHub's servers in the United States.
-- We rely on GitHub's compliance with Standard Contractual Clauses (SCCs) and other appropriate safeguards for international data transfers.
-- For users in China (under PIPL), by using the feedback feature, you expressly consent to the cross-border transfer of your feedback data to the United States via GitHub's platform.
+- For the safeguards that apply to international transfers, see [section 9](#9-is-your-information-transferred-internationally).
+- Where applicable law requires separate consent for this transfer, we must obtain it before transferring your data.
 
 ## 8. How do we handle your social logins?
 
-Our Services offer you the ability to register and log in using your third-party social media account details (like your Google or GitHub logins). Where you choose to do this, we will receive certain profile information about you from your social media provider. The profile information we receive may vary depending on the social media provider concerned, but will often include your name, email address, friends list, and profile picture, as well as other information you choose to make public on such a social media platform.
+Our Services offer you the ability to register and log in using your third-party social media account details (like your Google or GitHub logins). Where you choose to do this, we will receive certain profile information about you from your social media provider. The profile information we receive may vary depending on the social media provider concerned, but will often include your provider account identifier, name, email address and profile picture.
 
 We will use the information we receive only for the purposes that are described in this Privacy Notice or that are otherwise made clear to you on the relevant Services. Please note that we do not control, and are not responsible for, other uses of your personal information by your third-party social media provider. We recommend that you review their privacy notice to understand how they collect, use, and share your personal information, and how you can set your privacy preferences on their sites and apps.
 
 ## 9. Is your information transferred internationally?
 
-Our servers are located in the United States. Regardless of your location, your information may be transferred to and processed in the United States and other countries.
+Our providers operate in the United States and other regions listed in [section 4](#4-when-and-with-whom-do-we-share-your-personal-information). Regardless of your location, your information may be transferred to and processed in the United States and other countries.
 
-We implement appropriate safeguards, such as the European Commission's Standard Contractual Clauses (SCCs), to ensure your personal information remains protected in accordance with applicable laws when transferred internationally.
+Where European data protection law applies, transfers outside the EEA or UK require an adequacy decision or another lawful mechanism. Where safeguards are needed, we require the European Commission’s Standard Contractual Clauses (SCCs) with applicable UK transfer terms, or an equivalent lawful safeguard.
 
 ## 10. How long do we keep your information?
 
-We will only keep your personal information for as long as it is necessary for the purposes set out in this Privacy Notice, unless a longer retention period is required or permitted by law (such as tax, accounting, or other legal requirements). No purpose in this notice will require us keeping your personal information for longer than six (6) months past the termination of the user's account, unless a longer retention period is required by law (e.g., 7 years for financial and transaction records).
+We will only keep your personal information for as long as it is necessary for the purposes set out in this Privacy Notice, unless a longer retention period is required or permitted by law (such as tax, accounting, or other legal requirements). Under the updated Passport deletion process, we immediately delete the active profile, sessions and verification records and initiate deletion of the avatar and CloudSync database. We remove identifying details from retained billing records and keep necessary financial and subscription records for up to seven years for tax and accounting. Stripe may retain historical invoices under its own legal obligations. On the updated service, later authentication activity clears expired sessions and verification records for active accounts.
 
 When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymize such information, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.
 
@@ -187,7 +189,7 @@ We have implemented appropriate and reasonable technical and organizational secu
 
 ## 12. Do we collect information from minors?
 
-We do not knowingly collect, solicit data from, or market to children under 18 years of age or the equivalent age as specified by law in your jurisdiction, nor do we knowingly sell such personal information. By using the Services, you represent that you are at least 18 or the equivalent age as specified by law in your jurisdiction or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the Services. If we learn that personal information from users less than 18 years of age or the equivalent age as specified by law in your jurisdiction has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 18, please contact us at [contact@sylinko.com](mailto:contact@sylinko.com).
+You must be at least 13, or the applicable age of digital consent where you live if higher (for example, 16 in some EU countries). If under 18, you must also have permission from a parent or legal guardian. We do not knowingly collect, solicit data from, or market to children below the applicable minimum age. If we learn that personal information from users below that minimum age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children below that age, please contact us at [contact@sylinko.com](mailto:contact@sylinko.com).
 
 ## 13. What are your privacy rights?
 
@@ -207,7 +209,7 @@ To exercise any of these rights, please contact us at [contact@sylinko.com](mail
 
 **Additional Regional Information:**
 - **EEA/UK/Switzerland:** You have the right to lodge a complaint with your local data protection authority.
-- **US States (e.g., California):** We do not sell your personal information. We respect Global Privacy Control (GPC) signals where applicable.
+- **US States (e.g., California):** We do not sell your personal information or share it for cross-context behavioral advertising. We respect Global Privacy Control (GPC) signals where applicable.
 
 ### Account Information
 If you would at any time like to review or change the information in your account or terminate your account, you can log in to your account settings or contact us.
@@ -220,4 +222,4 @@ We may update this Privacy Notice from time to time. We encourage you to review 
 If you have questions or comments about this notice, you may email us at [contact@sylinko.com](mailto:contact@sylinko.com).
 
 ## 16. Governing Law & Dispute Resolution
-This Privacy Notice and your use of the Services are governed by the laws of the State of Delaware. Any dispute arising from or relating to the subject matter of this Policy shall be finally settled by arbitration in Delaware, using the English language.
+This Privacy Notice and your use of the Services are governed by the laws of the State of Delaware. Any dispute arising from or relating to the subject matter of this Policy shall be finally settled by arbitration in Delaware, using the English language. These provisions do not limit mandatory rights under applicable data protection laws, including the EU GDPR, UK GDPR and California CCPA as amended by the CPRA, such as the right to complain to the regulator where you live or bring a claim in a competent local court.

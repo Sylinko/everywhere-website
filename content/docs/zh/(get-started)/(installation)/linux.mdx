@@ -1,0 +1,58 @@
+---
+title: Linux
+description: 了解 Linux 桌面环境兼容性与安装要求。
+icon: Terminal
+---
+
+Linux 目前仅提供 **Canary 测试版**，可能不稳定。推荐使用 **Hyprland**。X11 和下表列出的其他 Wayland 桌面仅支持部分功能；未列出的 Wayland 桌面暂不支持。
+
+## 桌面环境兼容性
+
+| 桌面环境 | 当前支持情况 |
+| --- | --- |
+| **Hyprland** | 窗口规则与全局快捷键需要支持 Lua IPC 的 Hyprland 版本，截图需要 `grim`。支持无障碍、视觉元素选择和划词工具栏。 |
+| **X11** | 限单屏、1× 缩放。支持基础窗口、无障碍、视觉元素选择和可见区域截图；截图要求 32 位小端 TrueColor 像素格式。暂不支持划词工具栏。 |
+| **KDE Plasma / GNOME Wayland** | 基础窗口与快捷键支持；暂不支持截图、视觉元素选择及划词工具栏。 |
+| **Niri Wayland** | 基础窗口支持；需在 Niri 配置中手动绑定全局快捷键，暂不支持截图、视觉元素选择及划词工具栏。 |
+
+Plasma 5 使用 KGlobalAccel；Plasma 6、GNOME 及支持 GlobalShortcuts portal 的 X11 桌面需要通过系统授权全局快捷键。Niri 中仅修改应用内快捷键不会更新桌面绑定。
+
+## 安装要求
+
+当前发布包支持 **x64（x86-64）**。安装器需要 **curl** 和 **Python 3.9 或更高版本**：
+
+- **Ubuntu 24.04 / 25.10、Debian 13 / 14**：通过 apt 安装官方 DEB 包及依赖。
+- **Fedora 44**：通过 dnf 安装官方 RPM 包；所选版本必须提供 RPM 资产。
+- **Arch Linux、EndeavourOS、Manjaro**：需要 makepkg、fakeroot 和 zstd，通过 makepkg 打包后使用 pacman 安装，无需 AUR helper。
+
+其他发行版以及没有对应发布资产的架构暂不支持。
+
+## 安装 Canary
+
+在终端运行命令并按提示操作（出现通道选择时选 **Canary**；在非交互式终端中可在末尾加上 `-s -- --channel canary`）：
+
+<Command
+  label="$"
+  command="curl -fsSL https://aka.sylinko.com/get-everywhere.sh | sh"
+  lang="zh"
+  aria-label="Linux 安装命令"
+/>
+
+已安装 `yay` 的 Arch 用户也可以选择 AUR 命令：
+
+<Command
+  label="AUR"
+  command="yay -S everywhere-bin"
+  lang="zh"
+  aria-label="AUR 安装命令"
+  className="mt-3"
+/>
+
+如果需要离线安装包，也可以前往[下载页面](/zh/download)切换至 **Canary** 通道，直接下载 `x64` 架构的 `.deb`（Debian / Ubuntu）、`.rpm`（Fedora）或 `.tar.zst`（通用归档）。
+
+## 更新
+
+- 若通过安装器安装：在终端运行 `ew update`，按提示更新。
+- 若通过 AUR 安装：使用自己的 AUR 工具更新 `everywhere-bin`。更新完成后重新启动 Everywhere。
+
+安装器的发行版适配和依赖说明可参阅[文档](https://github.com/Sylinko/Everywhere/blob/main/tools/linux-installer/README.md)。

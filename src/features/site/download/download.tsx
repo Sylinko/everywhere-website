@@ -28,6 +28,7 @@ const contentMap = {
     autoDetect: {
       downloadFor: 'Download for {os}',
       loading: 'Detecting your system...',
+      linuxInstall: 'Install on Linux',
     },
     comingSoon: 'Coming Soon',
     allVersions: 'All Versions',
@@ -36,29 +37,19 @@ const contentMap = {
       desc: 'Requires Windows 10 (19041) or later.',
       action: 'Download',
       distros: [
-        { name: 'Installer', note: '.msi', key: 'installer' },
+        { name: 'Installer', note: '.exe', key: 'installer' },
         { name: 'Portable', note: '.zip', key: 'portable' },
       ],
     },
     macos: {
       title: 'macOS',
-      desc: 'Requires macOS Monterey 12.0 or later.',
+      desc: 'Requires macOS Sonoma 14.0 or later.',
       action: 'Download',
       distros: [
         { name: 'Apple Silicon (for M Series)', note: '.pkg', key: 'silicon' },
         { name: 'Intel (x64)', note: '.pkg', key: 'intel' },
       ],
     },
-    // linux: {
-    //   title: 'Linux',
-    //   desc: 'Community maintained distributions.',
-    //   action: 'Download',
-    //   distros: [
-    //     { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
-    //     { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
-    //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
-    //   ],
-    // },
     channel: {
       stable: 'Stable',
       canary: 'Canary',
@@ -81,6 +72,7 @@ const contentMap = {
     autoDetect: {
       downloadFor: '下载 {os} 版本',
       loading: '正在检测您的系统...',
+      linuxInstall: '在 Linux 上安装',
     },
     comingSoon: '敬请期待',
     allVersions: '所有版本',
@@ -89,29 +81,19 @@ const contentMap = {
       desc: '需要 Windows 10 (19041) 或更高版本。',
       action: '下载',
       distros: [
-        { name: '安装包', note: '.msi', key: 'installer' },
+        { name: '安装包', note: '.exe', key: 'installer' },
         { name: '便携版', note: '.zip', key: 'portable' },
       ],
     },
     macos: {
       title: 'macOS',
-      desc: '需要 macOS Monterey 12.0 或更高版本。',
+      desc: '需要 macOS Sonoma 14.0 或更高版本。',
       action: '下载',
       distros: [
         { name: 'Apple Silicon (M 系列芯片)', note: '.pkg', key: 'silicon' },
         { name: 'Intel (x64)', note: '.pkg', key: 'intel' },
       ],
     },
-    // linux: {
-    //   title: 'Linux',
-    //   desc: '社区维护版本。',
-    //   action: '下载',
-    //   distros: [
-    //     { name: 'Debian / Ubuntu', note: '.deb', key: 'deb' },
-    //     { name: 'Fedora / RedHat', note: '.rpm', key: 'rpm' },
-    //     { name: 'Arch Linux', note: 'AUR', key: 'aur' },
-    //   ],
-    // },
     channel: {
       stable: '稳定通道',
       canary: 'Canary 通道',
@@ -143,13 +125,6 @@ export function Download({ lang }: { lang: string }) {
       data: content.macos,
       comingSoon: false,
     },
-    // {
-    //   id: 'linux',
-    //   icon: LinuxIcon,
-    //   name: 'Linux',
-    //   data: content.linux,
-    //   comingSoon: true,
-    // },
   ];
 
   return (
@@ -167,7 +142,7 @@ export function Download({ lang }: { lang: string }) {
           },
         ])}
       />
-      <div className="mx-auto max-w-300">
+      <div className="mx-auto max-w-300 px-4 sm:px-6">
         <div className="mb-24 flex flex-col items-center text-center">
           <h1 className="text-foreground mb-6 text-4xl font-bold tracking-tight sm:text-6xl">
             <span>{content.title}</span>

@@ -14,7 +14,6 @@ import {
   DeepSeekIcon,
   GoogleGeminiIcon,
   MoonshotKimiIcon,
-  OllamaIcon,
   OpenAIIcon,
   SiliconCloudIcon,
   MiniMaxIcon,
@@ -79,17 +78,17 @@ const contentMap = {
       {
         icon: 'eye' as const,
         title: 'Broad On-screen Awareness',
-        desc: 'We integrate deep accessibility APIs and UI automation to accurately extract structured data across apps with near-zero intrusion.',
+        desc: 'Built on native system accessibility features, Everywhere reads what is on your screen across apps—cleanly and unobtrusively.',
       },
       {
         icon: 'zap' as const,
-        title: 'Scenario Invocation & Strategy Engine',
-        desc: 'Skip the copy-paste routine. One shortcut instantly reads your on-screen context and pushes tailored AI strategies, keeping you in a flow state.',
+        title: 'Instant Actions & Text Selection',
+        desc: 'Skip the copy-paste routine. Press one shortcut—or select any text—to read your current context and run tailored quick actions on the spot.',
       },
       {
         icon: 'shield' as const,
         title: 'Commitment to Core Quality',
-        desc: 'We prioritize rigorous system engineering over rushed development. Every line is meticulously polished for better performance and security.',
+        desc: 'Built with careful engineering instead of shortcuts. Every detail is refined for better performance, stability, and security.',
       },
     ],
     // Model Providers
@@ -126,7 +125,7 @@ const contentMap = {
       {
         label: 'Scenario 03',
         title: 'Natural Language System Commands',
-        desc: "Invoke your system's shell, see live output, and handle permission elevations. Manage services, free up ports, clear caches, and run scripts—all with natural language.",
+        desc: 'Run system commands in plain language, watch live output, and approve elevated actions when needed—manage services, free ports, clear caches, and run scripts effortlessly.',
         imgName: 'terminal-calling.webp',
         width: 1000,
         height: 505,
@@ -134,7 +133,7 @@ const contentMap = {
       {
         label: 'Scenario 04',
         title: 'Instant Error Diagnosis',
-        desc: 'Capture context from error, identify the cause, and get suggested commands and solutions to resolve it.',
+        desc: 'Capture error context, pinpoint the cause, and get suggested commands and fixes right away.',
         imgName: 'error-analysis.webp',
         width: 1200,
         height: 660,
@@ -192,17 +191,17 @@ const contentMap = {
       {
         icon: 'eye' as const,
         title: '智能上下文感知',
-        desc: '我们深度集成底层无障碍 API 与 UI 自动化技术，以近乎零的侵入性，跨应用提取结构化环境数据。',
+        desc: '借助系统原生的无障碍能力，在不打扰你当前操作的前提下，跨应用准确读取屏幕内容。',
       },
       {
         icon: 'zap' as const,
-        title: '场景唤醒与策略引擎',
-        desc: '告别繁琐的复制粘贴。一键快捷唤醒，瞬间感知当前上下文并推送对应 AI 执行策略，助你始终保持心流状态。',
+        title: '自动划词与快捷指令',
+        desc: '告别繁琐的复制粘贴。只需按下快捷键，或随手选中一段文字，即可结合当前上下文，原地调用专属 AI 快捷指令。',
       },
       {
         icon: 'shield' as const,
         title: '坚守核心质量',
-        desc: '我们尊崇严谨的系统工程，拒绝盲目赶工。每一行代码都经过精心打磨，以实现更好的性能表现与系统安全。',
+        desc: '坚持严谨的工程打磨，不图快、不将就。每一个细节都经过反复优化，只为带来更流畅的体验与更可靠的安全保障。',
       },
     ],
     // Model Providers
@@ -212,16 +211,16 @@ const contentMap = {
     // Sponsors
     sponsorsTitle: '赞助方',
     sponsorsDesc:
-      '鸣谢所有认同本项目理念并给予慷慨支持的个人与机构，感谢你们见证我们的成长。',
+      '感谢所有认可我们理念并慷慨支持的个人与团队，一路见证 Everywhere 的成长。',
     // AI Without Boundaries
     boundlessTitle: 'AI 无界应用',
     boundlessDesc:
-      '在日常工作流中释放人工智能的无限潜力。从简单的自动化到复杂的创造性任务，一切皆有可能。',
+      '把 AI 融入你的日常工作。从轻松的小任务到复杂的创意工作，得心应手。',
     boundlessItems: [
       {
         label: '场景 01',
         title: '页内提要，一目了然',
-        desc: '无需切换页面，在当前页面即可呈现关键点、术语和相关条目。',
+        desc: '不用来回切换标签页，就在当前页面快速提炼要点、术语与关键信息。',
         imgName: 'content-summary.webp',
         width: 1000,
         height: 550,
@@ -238,7 +237,7 @@ const contentMap = {
       {
         label: '场景 03',
         title: '自然语言，高效执行系统命令',
-        desc: '调用系统 Shell，实时展示输出，处理权限提升。用自然语言管理服务、释放端口、清理缓存、运行脚本等。',
+        desc: '调用系统终端，实时查看运行输出并安全处理授权确认。用自然语言就能管理服务、释放端口、清理缓存或运行脚本。',
         imgName: 'terminal-calling.webp',
         width: 1002,
         height: 509,
@@ -246,7 +245,7 @@ const contentMap = {
       {
         label: '场景 04',
         title: '即时错误诊断与分析',
-        desc: '捕获错误，定位原因，提供修复建议、备用方案和参考资料。',
+        desc: '自动获取报错上下文，快速定位原因，并给出修复命令与解决思路。',
         imgName: 'error-analysis.webp',
         width: 1200,
         height: 660,
@@ -254,7 +253,7 @@ const contentMap = {
     ],
     cta: {
       title: '让灵感，从不间断',
-      desc: '感受与思绪同频的前沿智能。无需跳出当前工作流，尽享沉浸体验。',
+      desc: '让 AI 跟上你的思考节奏，不用打断手头的工作，一切一气呵成。',
       action: '立即体验 Everywhere',
     },
   },
@@ -291,24 +290,18 @@ export function Home({ lang }: { lang: string }) {
     {
       icon: MoonshotKimiIcon,
       link: 'https://www.kimi.com/',
-      title: 'Moonshot (Kimi)',
+      title: 'Moonshot AI (Kimi)',
       inversedIconColor: true,
     },
     {
       icon: SiliconCloudIcon,
       link: 'https://www.siliconflow.cn/',
-      title: 'SiliconCloud',
+      title: 'SiliconFlow',
     },
     {
       icon: MiniMaxIcon,
       link: 'https://www.minimaxi.com/',
       title: 'MiniMax',
-    },
-    {
-      icon: OllamaIcon,
-      link: 'https://ollama.com/',
-      title: 'Ollama',
-      inversedIconColor: true,
     },
   ];
 
@@ -363,7 +356,7 @@ export function Home({ lang }: { lang: string }) {
           <div className="flex w-fit flex-row flex-wrap items-center justify-center gap-4">
             <HeroDownloadButton label={content.download} lang={lang} />
             <DynamicLink
-              href="/[lang]/docs/quick-start"
+              href="/[lang]/docs/installation"
               data-track-event="docs_get_started_click"
               data-track-section="hero"
               data-track-param-cta-id="hero_get_started"

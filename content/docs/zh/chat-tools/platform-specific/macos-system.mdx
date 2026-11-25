@@ -1,0 +1,63 @@
+---
+title: macOS 系统 (macOS)
+description: 在 macOS 上控制提醒事项、日历、邮件、地图、备忘录等系统应用并执行 AppleScript。
+icon: AppWindow
+---
+
+import { Table } from "@/components/common/table";
+import { PermissionBadge } from '@/components/common/permissions';
+
+仅在 **macOS** 上提供（位于 **工具 > 内置 > macOS 系统**）。让助手能够与 macOS 原生系统应用交互并执行系统级自动化任务。
+
+<Callout type="info" title="系统授权提示">
+首次通过助手访问“提醒事项”、“日历”、“邮件”、“备忘录”或其他应用时，macOS 可能会弹出自动化或隐私访问权限确认框。
+</Callout>
+
+## 功能
+
+<Table columnWidths={['22%', '58%', '20%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>管理提醒事项</td>
+      <td>在 macOS <strong>提醒事项</strong> 中创建、列出、修改、删除或完成提醒（修改、删除或完成操作会请求用户确认）。</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>管理日历</td>
+      <td>在 macOS <strong>日历</strong> 中创建、查看或删除日程事件（删除操作会请求用户确认）。</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>发送邮件</td>
+      <td>在 macOS <strong>邮件</strong> 中新建一封包含收件人、主题与正文的草稿，并切换到邮件窗口方便你确认发送。</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>打开地图</td>
+      <td>打开 Apple <strong>地图</strong> 并搜索指定地点或关键词。</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>管理备忘录</td>
+      <td>在 macOS <strong>备忘录</strong> 中创建、列出或删除备忘录（操作前会请求确认）。</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>打开链接</td>
+      <td>使用系统默认浏览器打开网页链接。</td>
+      <td><PermissionBadge risk="low">访问网络</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>执行 AppleScript</td>
+      <td>当上面的专用功能无法满足需求时，运行自定义 AppleScript。在 <strong>请求批准</strong> 模式下，每次都会先让你确认脚本内容。</td>
+      <td><PermissionBadge risk="high">执行终端脚本</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

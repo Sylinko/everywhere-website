@@ -1,10 +1,10 @@
 ---
 title: Terminal
-description: Provides the ability to execute shell commands and scripts for your assistant.
+description: Execute shell commands and scripts in an interactive cross-platform terminal.
 icon: SquareCode
 ---
 
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { PermissionBadge } from '@/components/common/permissions';
 
 <Callout type="error" title="Security">
@@ -23,8 +23,8 @@ Enabling this tool allows the assistant to execute powerful system commands, whi
   </thead>
   <tbody>
     <tr>
-      <td>Execute Script</td>
-      <td>Invoke the system terminal to execute scripts.</td>
+      <td>Execute In Terminal</td>
+      <td>Runs single- or multi-line shell commands in an interactive terminal with live streaming output. Long-running commands (or commands interrupted by a new message) automatically move to the background so you can keep chatting.</td>
       <td>
         <PermissionBadge risk="low">Access Network</PermissionBadge>
         <PermissionBadge risk="medium">Access Clipboard</PermissionBadge>
@@ -41,12 +41,15 @@ Enabling this tool allows the assistant to execute powerful system commands, whi
 
 ### Terminal Path
 
+Located under **Tools > Terminal > Settings**.
+
 Custom path for the terminal executable, supporting only PowerShell, zsh, and bash.
 
-**Leave blank**: Auto-detect based on the operating system.
+**Leave blank**: Automatically detects the system default terminal (on Windows, PowerShell 7+ is preferred when installed, otherwise Windows PowerShell; macOS uses zsh; Linux uses bash).
 
-### Auto Approval <PermissionBadge risk="high">High Risk</PermissionBadge>
+## Approval Behavior
 
-When enabled, all terminal operations will be automatically approved without manual confirmation. Improper use by the assistant may lead to serious system crashes or irreversible file loss. **Enabling this option means you have assessed and are willing to assume the risk**.
-
-**Default**: Disabled
+For security, **Execute In Terminal** cannot be set to permanently bypass approval in **Tools > Terminal**. Depending on the active **Tool Approval Mode** in the chat window:
+* **Request approval**: Prompts before each command, with **Allow once** and **Allow in session** choices.
+* **Approve for me**: Reviewed automatically by the configured approval assistant.
+* **Full access**: Executes without prompting.

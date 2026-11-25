@@ -84,7 +84,17 @@ export function remarkLLMUrls() {
         const title = attribute(node, 'title');
         const label = typeof title === 'string' ? title : '';
         const risk = attribute(node, 'risk');
-        if (name === 'HorizontalImg' || name === 'img') {
+        if (name === 'Command') {
+          const command = attribute(node, 'command');
+          if (typeof command === 'string') {
+            replaceSource(
+              file,
+              node,
+              `\`\`\`sh\n${command}\n\`\`\``,
+              'markdown'
+            );
+          }
+        } else if (name === 'HorizontalImg' || name === 'img') {
           if (typeof src === 'string')
             replaceSource(
               file,

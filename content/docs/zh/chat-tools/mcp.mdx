@@ -5,29 +5,31 @@ icon: Plug
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 除了<DynamicLink href="/[lang]/docs/chat-tools">内置工具</DynamicLink>，Everywhere 还可以连接由外部 **MCP (Model Context Protocol)** 服务器提供的工具。支持两种传输方式：
 
 - **Stdio** —— 启动一个本地进程，并通过标准输入/输出进行通信。
-- **Streamable HTTP** —— 通过 HTTP 连接到远程服务器。
+- **HTTP** —— 通过 HTTP 连接到远程服务器（默认使用 **Streamable HTTP** 或 **自动检测**，同时兼容旧版 **SSE**）。
 
 <Callout type="warning" title="SSE">
 HTTP+SSE 支持已被弃用，推荐使用 Streamable HTTP。请为新服务器使用 Streamable HTTP。
 </Callout>
 
-在 **聊天工具** 页面打开 **MCP 服务器** 区域。你可以手动 **添加** 一个服务器，或从已有的 MCP 配置（JSON）中 **导入**。
+在 **工具** 页面打开 **MCP 服务器** 标签页。你可以手动 **添加** 一个服务器，或 **从 JSON 导入**。
 
 ## 添加服务器
 
 点击 **添加** 打开配置对话框。带 `*` 的字段为必填项。
 
 <HorizontalImg
-    src="/chat-tools/mcp-zh.webp"
-    alt="添加 MCP 服务器对话框"
-    width="550px"
-  />
+  src="/chat-tools/mcp-zh.webp"
+  alt="添加 MCP 服务器表单中填写了 DeepWiki 的 URL，传输模式为 Streamable HTTP。"
+  width="min(100%, 640px)"
+/>
+
+点击 **确定** 后，Everywhere 会在弹窗内校验连接并实时显示启动进度。你可以按 `Esc` 或点击 **取消** 中断校验；如果初次验证失败，配置仍会保留并显示警告图标，方便之后再编辑或启动。
 
 ### Stdio
 
@@ -53,27 +55,27 @@ HTTP+SSE 支持已被弃用，推荐使用 Streamable HTTP。请为新服务器�
     <tr>
       <td>协议</td>
       <td>是</td>
-      <td>Stdio</td>
+      <td>选择 <code>Stdio</code>。</td>
     </tr>
     <tr>
       <td>命令</td>
       <td>是</td>
-      <td>要启动的可执行程序，例如 <code>npx</code>、<code>uvx</code> 或绝对路径。</td>
+      <td>要启动的可执行程序，例如 <code>npx</code>、<code>uvx</code>、<code>bunx</code> 或绝对路径。</td>
     </tr>
     <tr>
-      <td>命令行参数 (每行一个)</td>
+      <td>命令行参数</td>
       <td>否</td>
-      <td>传递给命令的参数，可逐条添加。</td>
+      <td>传递给命令的参数，可逐条添加和拖拽排序。</td>
     </tr>
     <tr>
       <td>工作目录</td>
       <td>否</td>
-      <td>命令运行所在的目录。留空则使用默认值。</td>
+      <td>命令运行所在的目录（可点击选择文件夹）。留空时默认使用插件数据目录。</td>
     </tr>
     <tr>
       <td>环境变量</td>
       <td>否</td>
-      <td>注入进程环境的键值对，例如用于 API Key。</td>
+      <td>传给进程的环境变量键值对，例如用于配置 API Key。</td>
     </tr>
   </tbody>
 </Table>
@@ -102,25 +104,45 @@ HTTP+SSE 支持已被弃用，推荐使用 Streamable HTTP。请为新服务器�
     <tr>
       <td>协议</td>
       <td>是</td>
-      <td>HTTP</td>
+      <td>选择 <code>HTTP</code>。</td>
     </tr>
     <tr>
       <td>URL</td>
       <td>是</td>
-      <td>MCP 服务器的 URL。</td>
+      <td>MCP 服务器的完整 HTTP/HTTPS URL。</td>
     </tr>
     <tr>
       <td>传输模式</td>
       <td>否</td>
-      <td>默认为自动检测。你也可以明确选择 <code>Streamable HTTP</code> 或 <code>SSE</code>。</td>
+      <td>默认为 <code>自动检测</code>，也可以明确选择 <code>Streamable HTTP</code> 或 <code>SSE</code>。</td>
     </tr>
     <tr>
       <td>请求头</td>
       <td>否</td>
-      <td>HTTP 请求的可选头部。</td>
+      <td>HTTP 请求的可选头部（如 <code>Authorization</code>）。</td>
     </tr>
   </tbody>
 </Table>
+
+## 从 JSON 导入
+
+点击 **添加** 旁的 **从 JSON 导入** 按钮，可直接粘贴 JSON 配置，或点击 **打开** 选择本地 `.json` 文件（支持 `//` 注释与尾随逗号）。
+
+支持的 JSON 格式：
+* `{ "mcpServers": { "name": { ... } } }`
+* `{ "server1": { ... }, "server2": { ... } }`
+* `[ { "name": "...", "command": "..." }, ... ]`
+* 单个服务器配置对象 `{ "command": "...", ... }` 或 `{ "type": "sse", "url": "..." }`
+
+可识别的字段包括 `name`、`command`、`args` / `arguments`、`env` / `environmentVariables`、`url`、`headers` 以及 `type`（`"stdio"`、`"http"` / `"streamable-http"`、`"sse"`）。*（注：`工作目录` 需在编辑表单中单独设置。）*
+
+## 管理服务器、运行环境与审批
+
+* **状态与生命周期**：列表中的每个 MCP 服务器都会显示运行状态圆点（**灰色** = 未运行，**绿色** = 正在运行），并提供 **运行**、**停止**、**编辑** 与 **删除** 按钮。对话开始时，已启用的 MCP 服务器会自动启动；即使某一台启动失败，当前对话仍会使用其余可用工具继续进行，并给出提示。
+* **工具与日志标签页**：已发现的工具列表会缓存在本地，未启动服务器时也可以提前启用或调整审批设置；**日志** 标签页会记录近期的服务输出与错误日志，支持 **显示时间戳** 和 **复制全部日志到剪切板**。
+* **运行环境自动检测与安装**：当 Stdio 服务器需要 `uv` / `uvx`、`node` / `npm` / `npx`、`bun` / `bunx` 或 `docker` 但本机尚未安装时，界面会提示缺失依赖并显示 **解决** 按钮，点击即可自动下载安装 `uv`、`Node.js`（LTS）或 `Bun`（或打开 Docker 安装指南）。
+* **审批控制**：MCP 工具默认需要确认。你可以在服务器卡片顶部开启 **所有工具均绕过审批**，或在 **工具** 表格中为单个工具开启 **绕过审批**，也可以在授权弹窗中选择 **总是允许来自“...”的所有工具**。
+* **自动重连**：当远程 HTTP 会话意外过期时，Everywhere 会自动尝试重新连接。
 
 ## 示例
 
@@ -136,7 +158,7 @@ HTTP+SSE 支持已被弃用，推荐使用 Streamable HTTP。请为新服务器�
     <tr><td>名称</td><td>Filesystem</td></tr>
     <tr><td>协议</td><td>Stdio</td></tr>
     <tr><td>命令</td><td><code>npx</code></td></tr>
-    <tr><td>命令行参数</td><td><code>-y</code> · <code>@modelcontextprotocol/server-filesystem</code> · <code>D:\Documents</code></td></tr>
+    <tr><td>命令行参数</td><td><code>-y</code> & <code>@modelcontextprotocol/server-filesystem</code> & <code>D:\Documents</code></td></tr>
   </tbody>
 </Table>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface ZarazConsent {
   modal: boolean;
@@ -18,6 +18,7 @@ interface ZarazConsent {
 
 interface ZarazGlobal {
   consent: ZarazConsent;
+  track?(eventName: string, properties?: Record<string, unknown>): void;
 }
 
 declare global {
@@ -31,6 +32,7 @@ export type ConsentStatus = 'pending' | 'accepted' | 'rejected';
 export interface ConsentState {
   /** Whether the Zaraz Consent API is ready */
   apiReady: boolean;
+  gpcActive: boolean;
   /** Current consent status: pending (no choice yet), accepted, or rejected */
   status: ConsentStatus;
   /** Per-purpose consent map */
@@ -103,6 +105,7 @@ function normalizePurposeMeta(
 
 export function useZarazConsent(lang: string): ConsentState & ConsentActions {
   const [apiReady, setApiReady] = useState(false);
+  const [gpcActive, setGpcActive] = useState(false);
   const [status, setStatus] = useState<ConsentStatus>(() =>
     hasExistingConsent() ? 'accepted' : 'pending',
   );
@@ -112,10 +115,13 @@ export function useZarazConsent(lang: string): ConsentState & ConsentActions {
   >({});
   const [showToast, setShowToast] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const initialized = useRef(false);
 
   // Initialize when Zaraz API is ready
   useEffect(() => {
+    const gpc = (navigator as Navigator & { globalPrivacyControl?: boolean })
+      .globalPrivacyControl === true;
+    setGpcActive(gpc);
+
     function initConsent() {
       const zaraz = window.zaraz?.consent;
       if (!zaraz) return;
@@ -126,12 +132,15 @@ export function useZarazConsent(lang: string): ConsentState & ConsentActions {
         setPurposeMeta(normalizePurposeMeta(zaraz.purposes, lang));
       }
 
+      const hasChoice = hasExistingConsent();
+      if (gpc && !hasChoice) {
+        zaraz.setAll(false);
+      }
       const allConsent = zaraz.getAll();
       setPurposes(allConsent);
 
-      if (hasExistingConsent()) {
-        // User has already made a choice
-        const allGranted = Object.values(allConsent).every(Boolean);
+      if (hasChoice || gpc) {
+        const allGranted = hasChoice && Object.values(allConsent).every(Boolean);
         setStatus(allGranted ? 'accepted' : 'rejected');
         setShowToast(false);
       } else {
@@ -139,8 +148,6 @@ export function useZarazConsent(lang: string): ConsentState & ConsentActions {
         setStatus('pending');
         setShowToast(true);
       }
-
-      initialized.current = true;
     }
 
     // If API is already ready
@@ -153,7 +160,7 @@ export function useZarazConsent(lang: string): ConsentState & ConsentActions {
     const handler = () => initConsent();
     document.addEventListener('zarazConsentAPIReady', handler);
     return () => document.removeEventListener('zarazConsentAPIReady', handler);
-  }, []);
+  }, [lang]);
 
   // Listen for consent changes from other sources
   useEffect(() => {
@@ -224,6 +231,7 @@ export function useZarazConsent(lang: string): ConsentState & ConsentActions {
 
   return {
     apiReady,
+    gpcActive,
     status,
     purposes,
     purposeMeta,

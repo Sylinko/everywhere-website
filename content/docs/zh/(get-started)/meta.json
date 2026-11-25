@@ -5,9 +5,12 @@
   "root": true,
   "pages": [
     "index",
-    "installation",
-    "quick-start",
+    "(installation)",
+    "models",
     "assistants",
+    "prompts",
+    "skills",
+    "text-selection",
     "shortcuts",
     "faq",
     "guides"

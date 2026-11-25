@@ -9,6 +9,7 @@ interface ConsentSettingsDialogProps {
   open: boolean;
   translation: ConsentTranslation['dialog'];
   purposes: Record<string, boolean>;
+  gpcActive: boolean;
   purposeMeta: Record<string, { id: string; name: string; description: string; order: number }>;
   onAcceptAll: () => void;
   onRejectAll: () => void;
@@ -20,6 +21,7 @@ export function ConsentSettingsDialog({
   open,
   translation: t,
   purposes,
+  gpcActive,
   purposeMeta,
   onAcceptAll,
   onRejectAll,
@@ -104,7 +106,7 @@ export function ConsentSettingsDialog({
       {/* Dialog */}
       <div
         className={cn(
-          'relative z-10 mx-4 w-full max-w-lg',
+          'relative z-10 mx-4 max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto',
           'rounded-2xl border shadow-2xl',
           'bg-fd-card border-fd-border',
           'dark:bg-fd-card dark:border-fd-border/80',
@@ -140,6 +142,11 @@ export function ConsentSettingsDialog({
           <p className="text-fd-muted-foreground mb-5 text-sm leading-relaxed">
             {t.description}
           </p>
+          {gpcActive && (
+            <p className="border-brand text-fd-foreground mb-5 border-s-2 ps-3 text-sm leading-relaxed">
+              {t.gpcNotice}
+            </p>
+          )}
 
           {/* Strictly necessary (always on) */}
           <div className="mb-3">

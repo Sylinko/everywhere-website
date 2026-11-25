@@ -1,0 +1,72 @@
+---
+title: Windows & macOS
+description: System requirements and installation steps for Everywhere on Windows and macOS.
+icon: Monitor
+---
+
+import { getLocalePath } from '@/lib/i18n';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+## System Requirements
+
+- **Windows**: Windows 10 (19041) or later (`x64`).
+- **macOS**: macOS Sonoma 14.0 or later (Apple Silicon & Intel).
+
+For Linux installation and desktop compatibility, see the <DynamicLink href="/[lang]/docs/linux">Linux guide</DynamicLink>.
+
+## Download
+
+<Callout type="info">
+Everywhere is an open-source project available from our download page or GitHub Releases.
+</Callout>
+
+<Cards>
+    <Card
+        href={getLocalePath('en', 'download')}
+        title="Go to Download Page"
+    >
+        Download via CDN
+    </Card>
+    <Card
+        href="https://github.com/Sylinko/Everywhere/releases"
+        title="Visit GitHub Releases"
+    >
+        Browse all releases and older versions
+    </Card>
+</Cards>
+
+## Windows Installation
+
+You can download either the installer (`.exe`) or the portable archive (`.zip`). Both include the exact same features.
+
+- **Installer (Recommended)**: `Everywhere-Windows-x64-Setup-v<version>.exe`. Double-click to run the setup wizard, and choose **Yes** if Windows UAC prompts for permission.
+- **Portable**: `Everywhere-Windows-x64-v<version>.zip`. Extract the archive to a folder and run `Everywhere.exe`.
+
+<Callout type="info" title="Interacting with Administrator Apps (Service Mode)">
+If you need Everywhere to recognize and interact with apps running as administrator on Windows, turn on **Install as a service** under **Settings > Common** instead of manually relaunching Everywhere as administrator.
+</Callout>
+
+## macOS Installation
+
+Everywhere provides signed and notarized `.pkg` installers for Apple Silicon and Intel Macs:
+
+- **Apple Silicon (M-series)**: `Everywhere-macOS-arm64-v<version>.pkg`
+- **Intel Mac**: `Everywhere-macOS-x64-v<version>.pkg`
+
+Double-click the `.pkg` package and follow the installer steps to install Everywhere into `/Applications`.
+
+<Callout type="warning" title="Required macOS Permissions">
+On first launch, grant **Accessibility** (for global shortcuts, text selection, and screen element reading) and **Screen Recording** (for screenshots and visual context) permissions in **System Settings > Privacy & Security**.
+
+Everywhere runs from the top-right macOS menu bar rather than the Dock.
+</Callout>
+
+## Data Storage Location
+
+Regardless of how you install Everywhere, your user data (settings, chat history, prompts, logs, and workspaces) and custom skill files are stored in standard per-user folders:
+
+| Platform | Application Data | Custom Skills Folder |
+| :--- | :--- | :--- |
+| **Windows** | `C:\Users\<username>\AppData\Roaming\Everywhere` | `%USERPROFILE%\.everywhere\skills` |
+| **macOS** | `~/Library/Application Support/Everywhere` | `~/.everywhere/skills` |
+| **Linux** | `~/.config/Everywhere` | `~/.everywhere/skills` |

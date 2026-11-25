@@ -1,5 +1,5 @@
 {
-  "title": "Chat Tools",
+  "title": "Tools",
   "description": "Enhance Your Assistant",
   "icon": "Blocks",
   "root": true,
@@ -11,6 +11,7 @@
     "web",
     "file-system",
     "terminal",
-    "windows-specific"
+    "office",
+    "platform-specific"
   ]
 }

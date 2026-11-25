@@ -1,0 +1,33 @@
+---
+title: Office Suite
+description: Read, create, edit, and automate Word, Excel, and PowerPoint files without installing Microsoft Office.
+icon: FileText
+---
+
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table";
+
+**Office Suite** includes a built-in Office document engine across **Windows, macOS, and Linux**, letting your assistant work directly with `.docx`, `.xlsx`, and `.pptx` documents with no local Office installation required.
+
+<Callout type="tip">
+The built-in **Read File** tool does not parse `.docx`, `.xlsx`, or `.pptx` files—when working with Office documents, Everywhere uses **Office Suite** instead.
+</Callout>
+
+## Functions
+
+<Table columnWidths={['22%', '62%', '16%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Office Suite</td>
+      <td>Inspects, creates, edits, formats, and automates Word (<code>.docx</code>), Excel (<code>.xlsx</code>), and PowerPoint (<code>.pptx</code>) files. Bypasses approval prompts by default unless overridden in <strong>Tools &gt; Office Suite</strong>.</td>
+      <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

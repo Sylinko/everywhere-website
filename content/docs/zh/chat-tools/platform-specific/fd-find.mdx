@@ -1,0 +1,34 @@
+---
+title: fd-find (Linux)
+description: 在 Linux 上借助 fd-find 实现快速本地文件搜索。
+icon: Search
+---
+
+import { Table } from "@/components/common/table";
+import { PermissionBadge } from '@/components/common/permissions';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+仅在 **Linux** 上提供（**默认关闭**）。作为 <DynamicLink href="/[lang]/docs/chat-tools/file-system">文件系统</DynamicLink> 内置工具的补充，借助 `fd` / `fdfind` 快速检索本地文件。
+
+<Callout type="info" title="前置依赖">
+使用前需先在系统中安装 <code>fd</code> 或 <code>fdfind</code>（例如 Debian/Ubuntu：<code>sudo apt install fd-find</code>；Fedora：<code>sudo dnf install fd-find</code>；Arch Linux：<code>sudo pacman -S fd</code>）。
+</Callout>
+
+## 功能
+
+<Table columnWidths={['22%', '62%', '16%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>搜索文件</td>
+      <td>在指定目录下按条件搜索文件与文件夹，并支持按名称、大小或时间排序。</td>
+      <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

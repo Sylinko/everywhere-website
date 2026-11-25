@@ -1,6 +1,6 @@
 {
-  "title": "聊天工具",
-  "description": "增强您的助手",
+  "title": "工具",
+  "description": "增强你的助手",
   "icon": "Blocks",
   "root": true,
   "pages": [
@@ -11,6 +11,7 @@
     "web",
     "file-system",
     "terminal",
-    "windows-specific"
+    "office",
+    "platform-specific"
   ]
 }

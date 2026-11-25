@@ -1,14 +1,15 @@
 ---
 title: 必备
-description: 为你的助手配置核心实用工具，以管理待办事项、向用户提问以及委派任务。
+description: 为助手配备待办管理、向用户提问、看图和委派子任务等基础实用工具。
 icon: ToolCase
 ---
 
-import { Table } from "@/components/common/table"
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table";
 
 ## 功能
 
-<Table columnWidths={['15%', '70%', '15%']}>
+<Table columnWidths={['18%', '66%', '16%']}>
   <thead>
     <tr>
       <th>功能</th>
@@ -19,18 +20,27 @@ import { Table } from "@/components/common/table"
   <tbody>
     <tr>
       <td>指派新助手</td>
-      <td>允许助手指派一个全新的助手去执行子任务，有利于节省单个模型的上下文，同时更好地处理复杂任务</td>
+      <td>分派一个全新的独立子助手来处理子任务，既能节省主对话上下文，也更适合拆解复杂步骤。可在 <strong>设置 &gt; 系统助手</strong> 中为子助手或图像理解单独指定模型；耗时较长的子任务也会自动在后台继续运行。</td>
       <td>无</td>
     </tr>
     <tr>
       <td>管理待办清单</td>
-      <td>允许助手维护一个简洁的待办清单，这在处理复杂任务时非常有用。请注意此清单是临时的，会在切换对话或退出 Everywhere 后消失</td>
+      <td>在当前对话中维护一份简洁的临时待办清单（支持新建、更新、查看与清空）。待办清单仅在当前对话有效，切换对话或退出 Everywhere 后会自动清空。</td>
       <td>无</td>
     </tr>
     <tr>
-      <td>询问用户</td>
-      <td>允许助手通过交互式对话框向用户提问并收集输入</td>
+      <td>询问问题</td>
+      <td>在需要进一步明确需求时弹出交互问卷，支持单选、多选以及自由输入，可一次呈现一个或多个问题。</td>
       <td>无</td>
+    </tr>
+    <tr>
+      <td>查看图像</td>
+      <td>按需读取并查看本地图片（单次最多 8 张，大图会自动缩放），仅在当前模型支持图像输入时可用。</td>
+      <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
     </tr>
   </tbody>
 </Table>
+
+## 管理后台任务
+
+当 **在终端中执行** 或 **指派新助手** 等耗时任务转入后台后，助手会自动启用 **管理后台任务** 功能，用于查看实时输出或按需停止任务；你也可以直接在聊天窗口的任务栏中查看或停止。

@@ -1,24 +1,26 @@
 ---
 title: File System
-description: Grant file system access to let Everywhere directly read, write, and manage your local files.
+description: Grant file system access to let Everywhere directly read, search, edit, and manage your local files.
 icon: FileBox
 ---
 
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { PermissionBadge } from '@/components/common/permissions';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
+Listed in the app under **Tools > Built-in > File Operations**.
+
 <Callout type="error" title="Security">
-File operations performed by the assistant are **irreversible**. Please ensure you have backed up important data before allowing modifications.
+File operations performed by the assistant are **irreversible** (deletions permanently remove files rather than moving them to Trash). Please ensure you have backed up important data before allowing modifications.
 </Callout>
 
 <Callout type="tip">
-On Windows, pair these tools with the <DynamicLink href="/[lang]/docs/chat-tools/windows-specific/everything">Everything</DynamicLink> integration for near-instant local file search.
+On Windows, pair these tools with <DynamicLink href="/[lang]/docs/chat-tools/platform-specific/everything">Everything</DynamicLink> (or <DynamicLink href="/[lang]/docs/chat-tools/platform-specific/fd-find">fd-find</DynamicLink> on Linux) for ultra-fast local file discovery. For <code>.docx</code>, <code>.xlsx</code>, and <code>.pptx</code> documents, use <DynamicLink href="/[lang]/docs/chat-tools/office">Office Suite</DynamicLink>.
 </Callout>
 
 ## Functions
 
-<Table columnWidths={['20%', '65%', '15%']}>
+<Table columnWidths={['20%', '64%', '16%']}>
   <thead>
     <tr>
       <th>Function</th>
@@ -29,48 +31,56 @@ On Windows, pair these tools with the <DynamicLink href="/[lang]/docs/chat-tools
   <tbody>
     <tr>
       <td>Search Files</td>
-      <td>Search for files or directories in a specified path matching the given pattern.</td>
+      <td>Searches for files or directories matching a pattern under a specified path, automatically ignoring common build and hidden folders.</td>
       <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
     </tr>
     <tr>
       <td>Get File Info</td>
-      <td>Get information about a file or directory at the specified path.</td>
+      <td>Gets file or directory metadata (path, size, timestamps, and attributes) at a specified path.</td>
       <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
     </tr>
     <tr>
       <td>Search File Content</td>
-      <td>Search for a specific text within file(s) and return matching lines.</td>
+      <td>Searches for matching text or patterns inside text files and PDFs under a specified path (skipping binary and oversized files).</td>
       <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
     </tr>
     <tr>
       <td>Read File</td>
-      <td>Read the content of a file at the specified path.</td>
+      <td>Reads text files (by line range), PDFs (extracting text with page numbers for non-scanned, non-encrypted PDFs), binary files (hex preview), and installed Skills. Office files (<code>.docx</code>/<code>.xlsx</code>/<code>.pptx</code>) and images are not read here—use <strong>Office Suite</strong> or <strong>View images</strong> instead.</td>
       <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
     </tr>
     <tr>
-      <td>Move or Rename File</td>
-      <td>Move or rename a file or directory.</td>
+      <td>Copy or Move Path</td>
+      <td>Copies or moves (renames) a local file or directory to a new path. The destination must not already exist, and symbolic links cannot be copied.</td>
       <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
     </tr>
     <tr>
-      <td>Delete File(s)</td>
-      <td>Delete files or directories at the specified path.</td>
+      <td>Delete Paths</td>
+      <td>Permanently deletes specified local files or folders. Non-empty folders require explicit confirmation. System files, drive roots, symbolic links, and the active chat working folder cannot be deleted.</td>
       <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
     </tr>
     <tr>
       <td>Create Directory</td>
-      <td>Create a new directory at the specified path.</td>
+      <td>Creates a new folder at the specified path.</td>
       <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
     </tr>
     <tr>
-      <td>Write to File</td>
-      <td>Write content to a text file at the specified path.</td>
-      <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
-    </tr>
-    <tr>
-      <td>Edit File Content</td>
-      <td>Replace content in a text file.</td>
+      <td>Modify File</td>
+      <td>Applies edits to add, update, move, or delete local text files, with an interactive diff review card where you can accept, reject, or comment on each change.</td>
       <td><PermissionBadge risk="medium">Access File</PermissionBadge></td>
     </tr>
   </tbody>
 </Table>
+
+## Settings & Approved Paths
+
+### Approved paths
+
+Located under **Tools > File Operations > Settings**.
+
+You can configure a list of folder path rules (using `/` as separator and `**` for nested folders, for example `C:/Source/Everywhere/**`). File operations within matching folders skip repeated folder-approval prompts (except high-impact actions such as deleting non-empty folders).
+
+<Callout type="info" title="Chat Workspace & Quick Approval">
+* **Chat Workspace**: Routine file operations inside the conversation's own working folder are approved automatically.
+* **Quick Approval Options**: When prompted for a file operation outside approved paths, you can choose **Always allow the listed paths**, **Always allow** the parent folder, or **Always allow a selected folder…** to save the rule right away.
+</Callout>

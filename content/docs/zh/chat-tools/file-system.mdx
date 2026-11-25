@@ -1,24 +1,26 @@
 ---
 title: 文件系统
-description: 授予文件系统访问权限，让 Everywhere 直接读取、写入和管理您的本地文件。
+description: 授予文件操作权限，让 Everywhere 直接读取、搜索、编辑和管理本地文件。
 icon: FileBox
 ---
 
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { PermissionBadge } from '@/components/common/permissions';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
+在应用内位于 **工具 > 内置 > 文件操作**。
+
 <Callout type="error" title="安全性">
-助手的文件操作**不可逆**，在允许其修改重要数据前请确保已做好备份。
+助手执行的文件操作**不可撤销**（删除操作会永久删掉文件，不会移入回收站）。在允许修改重要数据前，请先做好备份。
 </Callout>
 
 <Callout type="tip">
-在 Windows 上，可将这些工具与 <DynamicLink href="/[lang]/docs/chat-tools/windows-specific/everything">Everything</DynamicLink> 集成搭配使用，实现近乎即时的本地文件搜索。
+在 Windows 上，可将这些工具与 <DynamicLink href="/[lang]/docs/chat-tools/platform-specific/everything">Everything</DynamicLink>（或在 Linux 上与 <DynamicLink href="/[lang]/docs/chat-tools/platform-specific/fd-find">fd-find</DynamicLink>）搭配使用，实现极速本地文件搜索。如需处理 <code>.docx</code>、<code>.xlsx</code> 或 <code>.pptx</code> 文档，请使用 <DynamicLink href="/[lang]/docs/chat-tools/office">Office 办公套件</DynamicLink>。
 </Callout>
 
 ## 功能
 
-<Table columnWidths={['20%', '65%', '15%']}>
+<Table columnWidths={['20%', '64%', '16%']}>
   <thead>
     <tr>
       <th>功能</th>
@@ -29,48 +31,56 @@ import { DynamicLink } from 'fumadocs-core/dynamic-link';
   <tbody>
     <tr>
       <td>查找文件</td>
-      <td>在指定路径中搜索匹配条件的文件或文件夹</td>
+      <td>在指定目录下按条件搜索文件或文件夹，自动跳过常见的构建目录与隐藏目录。</td>
       <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
     </tr>
     <tr>
       <td>获取文件信息</td>
-      <td>获取指定路径下文件或文件夹的信息</td>
+      <td>查看指定文件或文件夹的基本信息（路径、大小、创建与修改时间等）。</td>
       <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
     </tr>
     <tr>
       <td>搜索文件内容</td>
-      <td>在文件中搜索指定文本并返回匹配的行</td>
+      <td>在指定目录下的文本文件和 PDF 中搜索关键词或匹配内容（会自动跳过二进制与过大文件）。</td>
       <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
     </tr>
     <tr>
       <td>读取文件</td>
-      <td>读取指定路径下文件的内容</td>
+      <td>读取文本文件（支持按行分段）、可提取文字的未加密 PDF（附带页码）、二进制文件（十六进制预览）以及已安装的技能说明。不支持直接读取 Office 文档（<code>.docx</code>/<code>.xlsx</code>/<code>.pptx</code>）与图片，请分别使用 <strong>Office 办公套件</strong> 或 <strong>查看图像</strong>。</td>
       <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
     </tr>
     <tr>
-      <td>移动或重命名文件</td>
-      <td>移动或重命名文件或文件夹</td>
+      <td>复制或移动路径</td>
+      <td>将本地文件或文件夹复制或移动（重命名）到新位置。目标位置不能已有同名项目，且不支持复制符号链接。</td>
       <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
     </tr>
     <tr>
-      <td>删除一个或多个文件</td>
-      <td>删除指定路径的文件或文件夹</td>
+      <td>删除路径</td>
+      <td>永久删除指定的本地文件或文件夹。删除非空文件夹时始终会请求确认。系统文件、磁盘根目录、符号链接及当前对话工作目录不允许删除。</td>
       <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
     </tr>
     <tr>
       <td>创建文件夹</td>
-      <td>在指定路径下创建文件夹</td>
+      <td>在指定位置创建本地文件夹。</td>
       <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
     </tr>
     <tr>
-      <td>写到文件</td>
-      <td>将内容写入指定路径下的文本文件</td>
-      <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
-    </tr>
-    <tr>
-      <td>修改文件内容</td>
-      <td>替换指定文本文件中的内容</td>
+      <td>修改文件</td>
+      <td>对一个或多个本地文本文件执行新增、修改、移动或删除，并在界面中展示改动对比卡片，你可以逐项接受、拒绝或添加修改意见。</td>
       <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
     </tr>
   </tbody>
 </Table>
+
+## 设置与已批准的路径
+
+### 已批准的路径
+
+位于 **工具 > 文件操作 > 设置**。
+
+你可以提前添加信任的文件夹路径规则（使用 `/` 分隔目录，并用 `**` 匹配任意层级的子文件夹，例如 `C:/Source/Everywhere/**`）。落入这些规则范围内的文件操作无需再逐次确认目录权限（删除非空文件夹等高风险操作除外）。
+
+<Callout type="info" title="工作目录与快捷授权">
+* **对话工作目录**：当前对话工作目录内的常规文件操作会自动获得批准。
+* **弹窗快捷选项**：当操作位于已批准路径之外的文件时，弹窗提供 **总是允许上述路径**、**总是允许** 父文件夹或 **总是允许选择的文件夹…** 选项，点击即可保存为后续规则。
+</Callout>

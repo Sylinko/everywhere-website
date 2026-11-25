@@ -1,16 +1,15 @@
 ---
-title: 网页
-description: 配置 Everywhere 网页工具，赋予 AI 助手实时联网检索与解析网页正文内容的能力。
+title: 网络
+description: 开启网络工具，让助手能够实时搜索公开网页并提取页面正文内容。
 icon: PanelsTopLeft
 ---
 
-import { HorizontalImg } from '@/components/common/horizontal-img';
 import { PermissionBadge } from '@/components/common/permissions';
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 
 ## 功能
 
-<Table columnWidths={['10.7%', '65%', '9.2%']}>
+<Table columnWidths={['18%', '66%', '16%']}>
   <thead>
     <tr>
       <th>功能</th>
@@ -20,8 +19,13 @@ import { Table } from "@/components/common/table"
   </thead>
   <tbody>
     <tr>
+      <td>网络搜索</td>
+      <td>使用所选搜索引擎检索实时公开网页，默认已开启“绕过审批”。</td>
+      <td><PermissionBadge risk="low">访问网络</PermissionBadge></td>
+    </tr>
+    <tr>
       <td>提取网页内容</td>
-      <td>提取网页的主要内容。这会在后台通过 Puppeteer 运行一个隐藏的网络浏览器，并通过此浏览器访问网页。出于兼容性考虑，首次打开可能会自动下载网络浏览器，视网络情况可能需要较长的时间。</td>
+      <td>在后台通过浏览器打开网页并提取正文内容。Everywhere 会优先调用本机已安装的 Microsoft Edge 或 Google Chrome；如果本机都没有，首次使用时可能会自动下载内置浏览器。</td>
       <td><PermissionBadge risk="low">访问网络</PermissionBadge></td>
     </tr>
   </tbody>
@@ -29,12 +33,24 @@ import { Table } from "@/components/common/table"
 
 ## 设置
 
+所有网络相关设置均位于 **工具 > 网络 > 设置**。
+
+### 网络搜索引擎
+
+选择 **网络搜索** 所使用的搜索引擎提供商：
+
+* **Everywhere 云搜索**：基于 Everywhere Cloud 账号的云端搜索服务，支持配置 **搜索深度**、**限定领域**（通用 / 新闻）与 **时间范围**。
+* **AnySearch** *(默认)*：支持选填 API 密钥和自定义 API 调用地址。
+* **博查 (Bocha)**、**Brave**、**Jina**、**Serply**、**Tavily**、**UniFuncs**：需配置 API 密钥（可选自定义 API 调用地址）。
+* **Google**：需配置 API 密钥和可编程 **搜索引擎 ID**。
+* **SearXNG**：自托管元搜索引擎，只需填写 **API 调用地址**，无需 API 密钥。
+
 ### 在前台显示浏览器
 
-开启后，提取网页内容时将会显示浏览器，通常不建议开启。需重启软件生效。
+开启后，**提取网页内容** 运行时会弹出并显示浏览器窗口，通常不建议开启。
 
 **默认**：关闭
 
 ### 打开浏览器
 
-打开一个提取网页所用的网络浏览器实例，可以提前登录常用网站以减少提取网页时被当做机器人而拦截的机率。出于兼容性考虑，首次打开可能会自动下载网络浏览器，视网络情况可能需要较长的时间。
+打开提取网页所使用的浏览器，方便你提前登录常用网站，减少抓取网页时被识别为机器人的情况。如果本地没有可用的兼容浏览器，首次打开可能会自动下载，耗时取决于当前网络情况。

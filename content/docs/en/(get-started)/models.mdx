@@ -1,0 +1,177 @@
+---
+title: Models & Providers
+description: Choose between Everywhere Cloud, Preset Mode with built-in providers, or Advanced Mode for local and custom API endpoints.
+icon: Sparkles
+---
+
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import { Table } from '@/components/common/table';
+
+Everywhere supports three ways to power your assistants: **Everywhere Cloud** (called **Native Mode** in Assistant settings), **Preset Mode**, and **Advanced Mode**. You can pick one during initial setup and switch or mix modes per assistant anytime in **Assistants** settings.
+
+## Everywhere Cloud (Native Mode) [#everywhere-cloud]
+
+For a zero-setup experience without managing third-party API keys or running local models, sign in to your **Sylinko Passport** and use **Everywhere Cloud**:
+
+- **Ready out of the box**: Access models from **OpenAI**, **Anthropic (Claude)**, **Google (Gemini)**, **DeepSeek**, **Moonshot (Kimi)**, and **MiniMax** in one place.
+- **Integrated web search**: Built-in **Everywhere Cloud Search** works immediately with your account credits or subscription quota, with no external search provider key required.
+- **Automatic model details**: **Context Length**, **Maximum Output Length**, **Input Modalities**, and reasoning options stay up to date automatically.
+
+Visit <DynamicLink href="/[lang]/pricing">Pricing & Supported Models</DynamicLink> for current plans, credit rates, and supported models.
+
+## Preset Mode (Built-in Providers) [#preset-mode]
+
+If you prefer using your own API keys, **Preset Mode** (called **Built-in Providers** during initial setup) includes ready-to-use templates for mainstream providers. Select a **Model Provider**, attach a saved **API Key** (or add a new one directly from the dropdown), and choose a **Model Name**.
+
+Everywhere fills in the **URL** and **API Schema** for you and keeps the model list, **Context Length**, **Maximum Output Length**, **Input Modalities**, **Tools Usage Support**, and reasoning options up to date automatically (click the refresh button beside **Model Name** if a newly launched model hasn't appeared yet).
+
+<Table columnWidths={['28%', '24%', '48%']}>
+  <thead>
+    <tr>
+      <th>Provider</th>
+      <th>API Schema</th>
+      <th>Preset URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OpenAI</td>
+      <td>OpenAI (Responses API)</td>
+      <td><code>https://api.openai.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>Anthropic</td>
+      <td>Anthropic</td>
+      <td><code>https://api.anthropic.com</code></td>
+    </tr>
+    <tr>
+      <td>Google</td>
+      <td>Google (Interactions API)</td>
+      <td><code>https://generativelanguage.googleapis.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>Mistral AI</td>
+      <td>Mistral</td>
+      <td><code>https://api.mistral.ai/v1</code></td>
+    </tr>
+    <tr>
+      <td>DeepSeek</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.deepseek.com</code></td>
+    </tr>
+    <tr>
+      <td>Moonshot AI</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.moonshot.ai/v1</code></td>
+    </tr>
+    <tr>
+      <td>Moonshot AI (China)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.moonshot.cn/v1</code></td>
+    </tr>
+    <tr>
+      <td>MiniMax</td>
+      <td>Anthropic</td>
+      <td><code>https://api.minimax.io/anthropic</code></td>
+    </tr>
+    <tr>
+      <td>MiniMax (China)</td>
+      <td>Anthropic</td>
+      <td><code>https://api.minimaxi.com/anthropic</code></td>
+    </tr>
+    <tr>
+      <td>OpenRouter</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://openrouter.ai/api/v1</code></td>
+    </tr>
+    <tr>
+      <td>SiliconFlow</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.siliconflow.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>SiliconFlow (China)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.siliconflow.cn/v1</code></td>
+    </tr>
+    <tr>
+      <td>Z.AI</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.z.ai/api/paas/v4</code></td>
+    </tr>
+    <tr>
+      <td>Zhipu AI (China)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://open.bigmodel.cn/api/paas/v4</code></td>
+    </tr>
+  </tbody>
+</Table>
+
+<Callout type="warning" title="API Billing vs Consumer Subscriptions">
+Most model providers bill developer APIs separately from consumer web subscriptions (such as ChatGPT Plus/Pro, Claude Pro/Max, Gemini Pro, or Kimi memberships). Make sure you create an API key on the provider's developer platform and have sufficient API balance.
+</Callout>
+
+## Advanced Mode (Custom Protocol) [#advanced-mode]
+
+Use **Advanced Mode** (called **Custom Protocol** during initial setup) when connecting local models (such as **Ollama** or **LM Studio**), custom endpoints, or providers not included in Preset Mode.
+
+In Advanced Mode, configure:
+
+- **API Schema**: Choose the protocol supported by your endpoint:
+  - `OpenAI (Chat Completions)` — requests `/chat/completions`
+  - `OpenAI (Responses API)` — requests `/responses`
+  - `Anthropic` — requests `/v1/messages`
+  - `Google (Generate Content)` — requests `/models/{model}:generateContent`
+  - `Google (Interactions API)` — requests `/interactions`
+  - `Mistral` — requests `/chat/completions`
+  - `Ollama` — requests `/api/chat`
+- **URL & Live Preview**: Everywhere cleans up pasted URLs automatically (trimming extra suffixes like `/chat/completions` or `/v1/messages`, and adding `/v1` or `/v1beta` when missing) and previews the final request address below the field. To use an exact custom URL without automatic rewriting, append `#` to the end (for example, `https://example.com/api/chat#`).
+- **Model ID & Capabilities**: Enter the exact **Model ID**, **Context Length**, **Maximum Output Length**, **Input Modalities** (`Text`, `Image`, `Audio`, `Video`, `PDF`), and **Tools Usage Support** to match your model.
+
+## Local and Custom Endpoints [#local-and-custom-endpoints]
+
+<Callout type="warning" title="Notice">
+The endpoints below are not included in Everywhere's built-in Preset list. Compatibility and stability depend on the service and the capabilities of the model you run.
+</Callout>
+
+### Ollama (Local Models)
+
+1. Download and install [Ollama](https://ollama.com/download), then pull a model (for example, `gemma3:12b`):
+
+```bash
+ollama pull gemma3:12b
+```
+
+2. Run `ollama list` in a terminal to confirm the model is downloaded.
+3. In Everywhere (**Advanced Mode** / **Custom Protocol**):
+   - **API Schema**: `Ollama`
+   - **URL**: `http://localhost:11434` (default Ollama address; `http://127.0.0.1:11434` also works)
+   - **Model ID**: the model name shown in `ollama list` (e.g., `gemma3:12b`)
+   - **Capabilities**: only enable **Tools Usage Support** or **Image** under **Input Modalities** if the local model supports them.
+
+### LM Studio
+
+- **API Schema**: `OpenAI (Chat Completions)`
+- **URL**: `http://localhost:1234/v1` (adjust to match your LM Studio Local Server port)
+- **Model ID**: the identifier of your loaded model in [LM Studio](https://lmstudio.ai/models)
+
+### Qwen (Alibaba Cloud Model Studio / Bailian)
+
+- **API Schema**: `OpenAI (Chat Completions)`
+- **URL** ([API Reference](https://www.alibabacloud.com/help/model-studio/qwen-api-reference)):
+  - **Singapore**: `https://dashscope-intl.aliyuncs.com/compatible-mode/v1`
+  - **USA**: `https://dashscope-us.aliyuncs.com/compatible-mode/v1`
+  - **Beijing**: `https://dashscope.aliyuncs.com/compatible-mode/v1`
+- **Model ID**: see the [Alibaba Cloud Model List](https://www.alibabacloud.com/help/model-studio/models)
+
+### Doubao (ByteDance Volcengine)
+
+- **API Schema**: `OpenAI (Chat Completions)`
+- **URL** ([API Reference](https://www.volcengine.com/docs/82379/1494384)): `https://ark.cn-beijing.volces.com/api/v3`
+- **Model ID**: see the [Volcengine Model List](https://www.volcengine.com/docs/82379/1330310)
+
+## Regarding Third-Party Transit & Proxy Services [#third-party-services]
+
+Because maintaining compatibility across third-party relays requires extensive engineering effort, we cannot provide support for issues caused by third-party transit or proxy APIs.
+
+If you encounter any issues while using a supported official model provider, please [open an issue on GitHub](https://github.com/Sylinko/Everywhere/issues) for assistance.

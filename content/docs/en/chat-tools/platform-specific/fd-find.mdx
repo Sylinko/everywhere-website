@@ -1,0 +1,34 @@
+---
+title: fd-find (Linux)
+description: Use fd-find for fast local file discovery on Linux.
+icon: Search
+---
+
+import { Table } from "@/components/common/table";
+import { PermissionBadge } from '@/components/common/permissions';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+Available on **Linux** only (**disabled by default**). Complements the built-in <DynamicLink href="/[lang]/docs/chat-tools/file-system">File System</DynamicLink> tools with fast local file search powered by `fd` / `fdfind`.
+
+<Callout type="info" title="Prerequisite">
+Requires <code>fd</code> or <code>fdfind</code> installed on your system (e.g. <code>sudo apt install fd-find</code> on Debian/Ubuntu, <code>sudo dnf install fd-find</code> on Fedora, or <code>sudo pacman -S fd</code> on Arch Linux).
+</Callout>
+
+## Functions
+
+<Table columnWidths={['24%', '60%', '16%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search files</td>
+      <td>Searches files and folders under a directory by pattern, with options to sort results by name, size, or timestamp.</td>
+      <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

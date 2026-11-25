@@ -19,7 +19,6 @@ import {
   type LucideIcon,
   Download,
   Users,
-  CodeXml,
   Gem,
   LogIn,
   Rss,
@@ -27,12 +26,11 @@ import {
 import { cn } from '@/lib/cn';
 import { getLocalePath } from '@/lib/i18n';
 import { AccountUrl } from '@/lib/constants';
-import { SiteBanner } from '@/components/site-banner';
 
 const docsSubNavItems = [
   { key: 'getting-started', icon: Rocket, path: '' },
   { key: 'faq', icon: CircleQuestionMark, path: '/faq' },
-  { key: 'model-provider', icon: Sparkles, path: '/model-provider' },
+  { key: 'models', icon: Sparkles, path: '/models' },
   { key: 'chat-tools', icon: PlugIcon, path: '/chat-tools' },
   { key: 'support', icon: HelpCircle, path: '/community/support' },
 ] as const;
@@ -57,9 +55,9 @@ const i18nText: Record<
       text: 'FAQ',
       desc: 'Frequently Asked Questions about Everywhere.',
     },
-    'model-provider': {
-      text: 'Model Providers',
-      desc: 'Configure and use each supported model provider.',
+    models: {
+      text: 'Models & Providers',
+      desc: 'Everywhere Cloud, Preset Mode, and Custom Protocol.',
     },
     'chat-tools': {
       text: 'Chat Tools',
@@ -85,17 +83,17 @@ const i18nText: Record<
       text: '常见问题',
       desc: '关于 Everywhere 的常见问题解答。',
     },
-    'model-provider': {
-      text: '模型提供商',
-      desc: '配置和使用每个支持的模型提供商。',
+    models: {
+      text: '模型与提供商',
+      desc: 'Everywhere Cloud、预设模式与自定义协议接入。',
     },
     'chat-tools': {
       text: '聊天工具',
-      desc: '让您的助手完成更复杂的任务。',
+      desc: '让你的助手帮你处理更复杂的任务。',
     },
     support: {
       text: '支持',
-      desc: '从社区或我们的团队获得支持。',
+      desc: '向社区或团队寻求帮助。',
     },
   },
 };
@@ -141,20 +139,8 @@ export function SiteLayout({
   const docsUrl = getLocalePath(lang, 'docs');
   const navItems = buildNavItems(lang);
 
-  const bannerText =
-    lang === 'zh'
-      ? '🚀 模型上新！Kimi 及 MiniMax 系列模型现已在云服务上线。'
-      : '🚀 New Models! Kimi and MiniMax series are now live on Cloud.';
-
   return (
     <div className="flex min-h-screen flex-col">
-      {/* <SiteBanner
-        id="kimi-minimax-launch"
-        className="site-banner text-md"
-        height="2.25rem"
-      >
-        {bannerText}
-      </SiteBanner> */}
       <HomeLayout
         {...layoutOptions}
         nav={{

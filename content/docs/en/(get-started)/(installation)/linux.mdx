@@ -1,0 +1,53 @@
+---
+title: Linux
+description: Check Linux desktop compatibility and installation requirements.
+icon: Terminal
+---
+
+Linux is available in **Canary only** and may be unstable. We recommend **Hyprland**. X11 and the other Wayland desktops listed below have limited support. Unlisted Wayland desktops are unsupported.
+
+## Desktop compatibility
+
+| Desktop environment | Current support |
+| --- | --- |
+| **Hyprland** | Window rules and global shortcuts require a Hyprland version with Lua IPC. Screenshots require `grim`. Accessibility, visual element selection, and the text-selection toolbar are supported. |
+| **X11** | One screen at 1× scale. Supports basic windows, accessibility, visual element selection, and visible-screen capture. Capture requires a 32-bit little-endian TrueColor pixel format. No text-selection toolbar. |
+| **KDE Plasma / GNOME Wayland** | Basic windows and shortcuts. Screenshots, visual element selection, and the text-selection toolbar are not supported yet. |
+| **Niri Wayland** | Basic windows. Global shortcuts require a manual Niri binding. Screenshots, visual element selection, and the text-selection toolbar are not supported yet. |
+
+Plasma 5 uses KGlobalAccel. Plasma 6, GNOME, and X11 desktops with a GlobalShortcuts portal require system approval for global shortcuts. Changing a shortcut inside Everywhere does not update Niri's desktop bindings.
+
+## Installation requirements
+
+Current packages support **x64 (x86-64)**. The installer requires **curl** and **Python 3.9 or later**:
+
+- **Ubuntu 24.04 / 25.10 and Debian 13 / 14**: apt installs the official DEB package and its dependencies.
+- **Fedora 44**: dnf installs the official RPM package. The selected release must include an RPM asset.
+- **Arch Linux, EndeavourOS, and Manjaro**: requires makepkg, fakeroot, and zstd. The installer builds a package with makepkg and installs it with pacman; no AUR helper is needed.
+
+Other distributions and architectures without release assets are not supported yet.
+
+## Install Canary
+
+Run the first command in a terminal and follow the prompts (select **Canary** when prompted for a channel, or append `-s -- --channel canary` for non-interactive shells). Arch users with `yay` installed can use the second command to install via AUR instead:
+
+<Command
+  label="$"
+  command="curl -fsSL https://aka.sylinko.com/get-everywhere.sh | sh"
+  aria-label="Linux install command"
+/>
+
+<Command
+  label="AUR"
+  command="yay -S everywhere-bin"
+  aria-label="AUR install command"
+  className="mt-3"
+/>
+
+Direct offline `.deb` (Debian / Ubuntu), `.rpm` (Fedora), and `.tar.zst` (generic archive) downloads for `x64` are also available on the [Download Page](/en/download) under the **Canary** channel.
+
+## Updates
+
+If you used the installer, run `ew update` in a terminal and follow the prompts. If you installed via AUR, update `everywhere-bin` with your AUR tool. Restart Everywhere after updating.
+
+See the [documentation](https://github.com/Sylinko/Everywhere/blob/main/tools/linux-installer/README.md) for distribution support and dependency details.

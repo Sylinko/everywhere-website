@@ -1,3 +1,5 @@
+export const RepoUrl = 'https://github.com/Sylinko/Everywhere';
+
 export const DownloadLinks = {
   windows: {
     installer:
@@ -12,14 +14,18 @@ export const DownloadLinks = {
       'https://download.sylinko.com/download?product=everywhere&os=osx-x64&type=pkg&version=latest',
   },
   linux: {
-    deb: '',
-    rpm: '',
-    aur: '',
+    deb: 'https://download.sylinko.com/download?product=everywhere&os=linux-x64&type=deb&version=latest',
+    rpm: 'https://download.sylinko.com/download?product=everywhere&os=linux-x64&type=rpm&version=latest',
+    tarZst:
+      'https://download.sylinko.com/download?product=everywhere&os=linux-x64&type=tar.zst&version=latest',
   },
 } as const;
 
+export const LinuxInstallCommand =
+  'curl -fsSL https://aka.sylinko.com/get-everywhere.sh | sh';
+export const LinuxAurInstallCommand = 'yay -S everywhere-bin';
+
 export const OfficialUrl = 'https://sylinko.com';
-export const RepoUrl = 'https://github.com/Sylinko/Everywhere';
 export const AccountUrl = 'https://account.sylinko.com';
 
 export const ProductHuntUrl = 'https://www.producthunt.com/products/everywhere';

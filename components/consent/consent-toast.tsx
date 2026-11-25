@@ -10,6 +10,7 @@ interface ConsentToastProps {
   translation: ConsentTranslation['toast'];
   lang: string;
   onAccept: () => void;
+  onReject: () => void;
   onSettings: () => void;
 }
 
@@ -18,6 +19,7 @@ export function ConsentToast({
   translation: t,
   lang,
   onAccept,
+  onReject,
   onSettings,
 }: ConsentToastProps) {
   const [mounted, setMounted] = useState(false);
@@ -41,6 +43,11 @@ export function ConsentToast({
   if (!mounted) return null;
 
   const cookiePolicyHref = `/${lang}/policies/cookie`;
+  const choiceClass = cn(
+    'min-h-11 rounded-lg px-2 text-sm font-medium transition-colors',
+    'bg-fd-secondary text-fd-foreground hover:bg-fd-accent',
+    'focus-visible:ring-brand/50 focus-visible:ring-2 focus-visible:outline-none',
+  );
 
   return (
     <div
@@ -81,23 +88,18 @@ export function ConsentToast({
         </p>
 
         {/* Actions */}
-        <div className="flex gap-2">
-          <button
-            onClick={onAccept}
-            className={cn(
-              'flex-1 rounded-lg px-4 py-2 text-xs font-medium transition-colors',
-              'bg-brand text-brand-foreground hover:bg-brand-secondary',
-              'focus-visible:ring-brand/50 focus-visible:ring-2 focus-visible:outline-none',
-            )}
-          >
+        <div className="grid grid-cols-2 gap-2 min-[420px]:grid-cols-3">
+          <button onClick={onAccept} className={choiceClass}>
             {t.accept}
+          </button>
+          <button onClick={onReject} className={choiceClass}>
+            {t.reject}
           </button>
           <button
             onClick={onSettings}
             className={cn(
-              'flex-1 rounded-lg border px-4 py-2 text-xs font-medium transition-colors',
-              'border-fd-border text-fd-foreground',
-              'hover:bg-fd-muted',
+              'col-span-2 min-h-11 rounded-lg px-2 text-sm font-medium transition-colors min-[420px]:col-span-1',
+              'text-fd-foreground underline underline-offset-4 hover:bg-fd-muted',
               'focus-visible:ring-fd-border/50 focus-visible:ring-2 focus-visible:outline-none',
             )}
           >

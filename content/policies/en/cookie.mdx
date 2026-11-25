@@ -4,16 +4,19 @@ description: Learn which cookies the documentation site and Sylinko Passport use
 ---
 
 <Callout type="info" title="Effective Date">
-January 27, 2026
+November 25, 2026
 </Callout>
 
 <Callout type="warning" title="Changes from Previous Version">
+November 25, 2026:
+- Corrected the Passport cookie names and clarified how to reject analytics, withdraw consent and use Global Privacy Control (GPC).
+
 June 14, 2026:
-- The `__Secure-sylinko_passport.session_data` cookie has been added to the list of **Strictly Necessary Cookies**. This cookie is used to maintain your logged-in status and secure your session.
+- The `__Secure-sylinko-passport.session_data` cookie has been added to the list of **Strictly Necessary Cookies**. This cookie is used to maintain your logged-in status and secure your session.
 
 May 5, 2026: 
-- Added explanation of **Google Analytics** usage, clarifying that we use Google Analytics for anonymous website traffic analysis.
-- We have implemented a **consent management platform** based on Cloudflare Zaraz. When you first visit our site, all analytics and performance technologies (such as Google Analytics) are disabled except for 'absolutely necessary' cookies. You must accept the consent banner for us to load these analytics tools.
+- Added explanation of **Google Analytics** usage, clarifying that we use Google Analytics for website traffic analysis.
+- We have implemented a **consent management platform** based on Cloudflare Zaraz. Optional analytics, such as Google Analytics, are off until you consent.
 </Callout>
 
 ## 1. Introduction
@@ -51,45 +54,48 @@ These cookies are essential for the Websites to function properly. You cannot sw
 
 | Cookie Name                               | Provider         | Purpose                                                                                                                     |
 | ----------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `__Secure-sylinko_passport.session_token` | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
-| `__Secure-sylinko_passport.session_data`  | Sylinko Passport | **Authentication.** Used to maintain your logged-in status and secure your session.                                         |
-| `__Secure-sylinko_passport.state`         | Sylinko Passport | **Authentication.** Used to prevent CSRF attacks during the login process.                                                  |
-| `better-auth.last_used_login_method`      | Sylinko Passport | **Authentication.** Remembers the last login method you used (e.g., email, Google, GitHub) for a smoother login experience. |
-| `cf_clearance` / `cf_uvid`                | Cloudflare       | **Security.** Used by Cloudflare Turnstile to verify that you are a human and not a bot.                                    |
+| `__Secure-sylinko-passport.session_token` | Sylinko Passport | **Authentication.** Keeps you signed in (up to 7 days per renewal).                                                         |
+| `__Secure-sylinko-passport.session_data`  | Sylinko Passport | **Authentication.** Caches encrypted session data for up to 30 seconds.                                                     |
+| `__Secure-sylinko-passport.state`         | Sylinko Passport | **Authentication.** Helps prevent CSRF during third-party sign-in; expires after 5 minutes.                                 |
+| `cf_clearance` / `_cfuvid`                | Cloudflare       | **Security.** Records a passed challenge or, where enabled, distinguishes visitors sharing an IP address for rate limiting. |
 | `cf_consent`                              | Cloudflare       | **Consent Management.** Used by Cloudflare Zaraz to manage your cookie consent preferences.                                 |
 
 ### 4.2. Functional Cookies (Preferences)
 
-- **Language.** The Everywhere website uses the language in the page URL. If the URL does not specify a language, the site uses your browser's language preference, defaulting to English. Sylinko Passport uses a cookie to remember your language choice on the account site.
+- **Language.** The Everywhere website uses the language in the page URL. If the URL does not specify a language, the site uses your browser's language preference, defaulting to English. Sylinko Passport remembers your language choice in the `NEXT_LOCALE` cookie for up to one year.
 - **Appearance.** The `theme` setting in local storage remembers your choice of light or dark mode.
+- **Passport preferences.** `sidebar_state` remembers whether the sidebar is open for 7 days. `better-auth.last_used_login_method` remembers your last sign-in method for 30 days.
 
 ### 4.3. Performance & Analytics Cookies
 
 These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.
 
-| Cookie Name                 | Provider         | Purpose                                                                                                                      |
+| Name                        | Provider         | Purpose                                                                                                                      |
 | --------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `sentryReplaySession`       | Sentry           | **Error Tracking.** Helps us identify unique user sessions when an application error occurs, allowing us to fix bugs faster. |
-| `_ga`, `_ga_<container-id>` | Google Analytics | **Analytics.** Anonymous tracking cookies used to distinguish users and analyze website traffic patterns.                    |
-| `cfz_google-analytics_v4`   | Cloudflare Zaraz | **Analytics.** Used by Cloudflare Zaraz to manage your consent preferences for Google Analytics.                             |
-| `cfzs_google-analytics_v4`  | Cloudflare Zaraz | **Analytics.** Used by Cloudflare Zaraz to manage your consent preferences for Google Analytics.                             |
+| `sentryReplaySession`       | Sentry           | **Session replay.** Links a masked Passport replay to the current tab (session storage, not a cookie).                       |
+| `_ga`, `_ga_<container-id>` | Google Analytics | **Analytics.** Distinguish browsers and visits on the Everywhere website.                                                    |
+| `cfz_google-analytics_v4`   | Cloudflare Zaraz | **Analytics.** Stores analytics identifiers for the website’s Google Analytics integration.                                  |
+| `cfzs_google-analytics_v4`  | Cloudflare Zaraz | **Analytics.** Stores session information for the same integration.                                                          |
+
+Passport does not write `sentryReplaySession` by default. Replay requires analytics consent through Zaraz and stays off while GPC is on. It masks text and form inputs, blocks media and excludes sensitive pages such as password resets. Withdrawing consent stops recording and removes the entry.
 
 ## 5. Third-Party Services
 
 In addition to our own cookies, we use trusted third-party services that may verify cookies on your device. Specifically:
 
-* **Stripe:** We use Stripe for payment processing. Stripe sets cookies to detect fraud and facilitate transactions. (See [Stripe Privacy Policy](https://stripe.com/zh-sg/privacy))
+* **Stripe:** We use Stripe for payment processing. Stripe sets cookies to detect fraud and facilitate transactions. (See [Stripe Cookie Policy](https://stripe.com/legal/cookies-policy))
 * **Cloudflare:** (See [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/))
-  * We use Cloudflare Turnstile for security. This service sets cookies to distinguish between humans and bots.
+  * We use Cloudflare Turnstile for security. A Cloudflare challenge may set a cookie once you pass it.
   * We also use Cloudflare Web Analytics for anonymous website traffic analysis.
-* **Sentry:** We use Sentry for anonymous error tracking and performance monitoring. (See [Sentry Privacy Policy](https://sentry.io/privacy/))
-* **Google Analytics:** We use Google Analytics for anonymous website traffic analysis. (See [Google Privacy Policy](https://policies.google.com/privacy))
+* **Sentry:** We use Sentry for error tracking and performance monitoring, with personal identifiers removed or masked. (See [Sentry Privacy Policy](https://sentry.io/privacy/))
+* **Google Analytics:** We use Google Analytics for website traffic analysis. (See [Google Privacy Policy](https://policies.google.com/privacy))
 
 ## 6. Managing Your Cookie Preferences
 
 You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the Cookie Consent Manager or through your browser settings. Here are some ways to manage your cookie preferences:
 
-* **Cloudflare Zaraz:** We use Cloudflare Zaraz to manage cookie consent. When you first visit our site, all non-essential cookies (like Google Analytics) are disabled by default. You must click "Accept" on the consent banner for us to load these analytics tools.
+* **Cloudflare Zaraz:** We use Cloudflare Zaraz to manage cookie consent. When you first visit our site, analytics are off by default. Choose **Accept All**, **Reject All** or **Preferences**. To change or withdraw consent, open **Cookie Preferences** in the website footer or **Cookie Settings** in the Passport footer.
+* **Global Privacy Control (GPC):** If your browser sends GPC and you have no saved choice, both sites automatically reject optional tracking without showing a prompt. You can change a saved choice in the footer. Passport never records replays while GPC is on.
 * **Browser Settings:** Most web browsers allow you to control cookies through their settings preferences. You can usually find these settings in the "Options" or "Preferences" menu of your browser.
 * **Consequences of Disabling:** Please note that if you disable **Strictly Necessary Cookies** (like authentication tokens), you may not be able to use certain features of our Websites, such as logging in to Sylinko Passport.
 

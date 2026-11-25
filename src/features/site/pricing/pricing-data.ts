@@ -1,18 +1,5 @@
 import type { Plan } from './types';
 
-export type PlanFeature = {
-  key: string;
-  // true = checkmark, false = x mark, string = custom text/number
-  starter: boolean | string;
-  plus: boolean | string;
-  pro: boolean | string;
-};
-
-export type FeatureCategory = {
-  category: string;
-  features: PlanFeature[];
-};
-
 export type PricingPlan = {
   id: Plan;
   name: string;
@@ -224,9 +211,6 @@ export const pricingContent: Record<
     requestEstimateNote: string;
     // Primary plans
     plans: PricingPlan[];
-    // Feature comparison table
-    featureCategories: FeatureCategory[];
-    featureLabels: Record<string, string>;
     usageLimit: UsageLimitContent;
     // FAQ
     faq: FAQGroup[];
@@ -260,9 +244,9 @@ export const pricingContent: Record<
         features: [
           'All Local Features',
           'Bring Your Own Key',
-          `limited-time ${planData.freeCredits} free credits`,
+          `Limited-time ${planData.freeCredits} free credits`,
+          'Message Cloud Sync',
           'Community Support',
-          '',
           '',
         ],
       },
@@ -326,40 +310,6 @@ export const pricingContent: Record<
         ],
       },
     ],
-
-    featureCategories: [
-      {
-        category: 'Core Features',
-        features: [
-          {
-            key: 'credits',
-            starter: planData.starter.credits,
-            plus: planData.plus.credits,
-            pro: planData.pro.credits,
-          },
-          {
-            key: 'modelAccess',
-            starter: planData.starter.modelAccessLabel.en,
-            plus: planData.plus.modelAccessLabel.en,
-            pro: planData.pro.modelAccessLabel.en,
-          },
-        ],
-      },
-      {
-        category: 'Support',
-        features: [
-          { key: 'communitySupport', starter: true, plus: true, pro: true },
-          { key: 'prioritySupport', starter: false, plus: true, pro: true },
-        ],
-      },
-    ],
-
-    featureLabels: {
-      credits: 'Monthly Credits',
-      modelAccess: 'Model Access',
-      communitySupport: 'Community Support',
-      prioritySupport: 'Priority Support',
-    },
 
     usageLimit: {
       title: 'Usage Limits',
@@ -440,17 +390,17 @@ export const pricingContent: Record<
     ],
   },
   zh: {
-    pageTitle: '定价与计划',
+    pageTitle: '定价与方案',
     pageSubtitle:
-      '无论是在网页间、文档里，还是奇思妙想的瞬间，总有一个计划契合您的脚步。',
+      '无论是浏览网页、处理文档，还是捕捉一闪而过的灵感，总有一款方案适合你。',
     promoBanner: '新用户订阅任意套餐，首月立享 8 折',
-    primaryPlansTitle: '选择您的计划',
-    taxNote: '最终价格将在结账时根据您的地址和税法要求自动计算。',
+    primaryPlansTitle: '选择适合你的方案',
+    taxNote: '最终价格将在结账时根据您的地区和税费政策自动计算。',
     comparisonTitle: '功能对比',
-    comparisonSubtitle: '查看每个计划包含的功能',
+    comparisonSubtitle: '查看各方案包含的功能',
     modelSupportTitle: '模型与积分',
     faqTitle: '常见问题',
-    webSearchExtraNote: `超出计划包含的网络搜索次数后，每次会扣 ${formatNumber(extraSearchCredits)} 积分。`,
+    webSearchExtraNote: `超出方案包含的网络搜索次数后，每次消耗 ${formatNumber(extraSearchCredits)} 积分。`,
     requestEstimateNote:
       '每项估算均按全部月度积分用于该模型计算，每次请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。',
     plans: [
@@ -463,11 +413,11 @@ export const pricingContent: Record<
         ctaLink: '/download',
         includes: '包含',
         features: [
-          '所有本地功能',
+          '全部本地功能',
           '自带密钥 (BYOK)',
           `限时 ${planData.freeCredits} 免费积分`,
+          '消息云同步',
           '社区支持',
-          '',
           '',
         ],
       },
@@ -532,52 +482,18 @@ export const pricingContent: Record<
       },
     ],
 
-    featureCategories: [
-      {
-        category: '核心功能',
-        features: [
-          {
-            key: 'credits',
-            starter: planData.starter.credits,
-            plus: planData.plus.credits,
-            pro: planData.pro.credits,
-          },
-          {
-            key: 'modelAccess',
-            starter: planData.starter.modelAccessLabel.zh,
-            plus: planData.plus.modelAccessLabel.zh,
-            pro: planData.pro.modelAccessLabel.zh,
-          },
-        ],
-      },
-      {
-        category: '支持服务',
-        features: [
-          { key: 'communitySupport', starter: true, plus: true, pro: true },
-          { key: 'prioritySupport', starter: false, plus: true, pro: true },
-        ],
-      },
-    ],
-
-    featureLabels: {
-      credits: '每月积分',
-      modelAccess: '模型访问',
-      communitySupport: '社区支持',
-      prioritySupport: '优先支持',
-    },
-
     usageLimit: {
       title: '用量限制',
       intro:
-        '在计划包含的每月积分基础上，对于成本较高的模型，额度会通过 5 小时和 7 天滚动窗口进行平衡。',
+        '在方案包含的每月积分基础上，对于成本较高的模型，额度会通过 5 小时和 7 天滚动窗口进行动态平衡。',
       headers: {
-        plan: '计划',
+        plan: '方案',
         fiveHour: '5 小时限制',
         sevenDay: '7 天限制',
         ratio: '相对比例',
       },
       estimationNote:
-        '按 GPT-6 Luna 价格估算，每请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。该模型仅用于价格折算，本身无窗口限制。',
+        '按 GPT-6 Luna 价格估算，每次请求含 2,000 个未缓存输入 token、12,000 个缓存输入 token 和 240 个输出 token。该模型仅用于价格折算，本身无窗口限制。',
     },
 
     faq: [
@@ -592,17 +508,17 @@ export const pricingContent: Record<
           {
             question: '退款政策是什么？',
             answer:
-              '订阅后 30 天内，只要未消耗任何额度，即可申请全额退款。如果只使用了少量额度但觉得不合适，欢迎联系我们——我们会逐案处理，尽力为您妥善解决。完整退款政策请见页面底部。',
+              '订阅后 30 天内，只要未消耗任何额度，即可申请全额退款。如果只使用了少量额度但觉得不合适，欢迎联系我们——我们会根据具体情况为你妥善处理。完整条款请查看页面底部的退款政策。',
           },
           {
             question: '如何升级或降级我的方案？',
             answer:
-              '您可以随时在账户设置中升级或降级您的方案。升级时，您需要支付新的费用。降级后，新计划将在下一个计费周期生效。',
+              '你可以随时在账户设置中升级或降级方案。升级后会按新方案价格计费；降级则在下一个计费周期生效。',
           },
           {
             question: '如何取消订阅？',
             answer:
-              '您可以随时在客户门户中取消订阅。取消后，您将继续享受当前订阅的服务直至计费周期结束，之后不会再被收费。',
+              '你可以随时在订阅管理页面取消订阅。取消后，当前计费周期内仍可正常使用，到期后不再续费。',
           },
         ],
       },
@@ -612,17 +528,17 @@ export const pricingContent: Record<
           {
             question: '什么是滚动窗口？',
             answer:
-              '这里的滚动窗口是在您首次发起请求时触发的计时周期。例如：5 小时滚动窗口会从您的第一次有效请求起算，在接下来的 5 小时内统计用量；该周期结束后，窗口会自动重置并等待下次请求。',
+              '滚动窗口会在你首次发起请求时开始计时。例如，5 小时窗口会从你的第一次有效请求起算，持续统计 5 小时内的用量；周期结束后自动重置，并在下次请求时开启新周期。',
           },
           {
             question: '所有模型都会计入 5 小时和 7 天限制吗？',
             answer:
-              '并非如此。部分模型仅消耗您的每月积分，不计入 5 小时或 7 天的滚动窗口限制。具体请参阅上方的模型列表。',
+              '不是。部分模型仅消耗每月积分余额，不计入 5 小时或 7 天的滚动窗口限制，具体请查看上方的模型列表。',
           },
           {
             question: '如果触达用量限制会怎样？',
             answer:
-              '当请求量达到 5 小时或 7 天限制时，受限模型将暂停响应并返回 429 (Too Many Requests) 错误，直到当前的窗口期结束并重置后，服务即可恢复。',
+              '当用量达到 5 小时或 7 天上限时，对应模型会暂停响应并返回 429 错误，待当前窗口结束重置后即可恢复使用。',
           },
         ],
       },
@@ -632,12 +548,12 @@ export const pricingContent: Record<
           {
             question: '什么是 BYOK（自带密钥）？',
             answer:
-              'BYOK 允许您使用自己的 API 密钥，来自 OpenAI、Anthropic、Google 等提供商。这让您完全控制 API 使用量和成本。只需在设置中添加您的密钥，即可使用您自己的配额开始使用 Everywhere。',
+              '通过 BYOK，你可以直接填入自己在 OpenAI、Anthropic、Google 等平台申请的 API 密钥，自主掌控用量与费用。只需在设置中添加密钥，即可用自己的额度使用 Everywhere。',
           },
           {
             question: '在哪里可以获得帮助？',
             answer:
-              'QQ 或 Discord 社区可获得社区帮助，GitHub Issues 用于错误报告和功能请求，Plus 和 Pro 用户可获得优先支持。',
+              '遇到使用问题可以前往 QQ 群或 Discord 向社区求助，Bug 反馈和功能建议请提交至 GitHub Issues；Plus 和 Pro 订阅用户享有优先技术支持。',
           },
         ],
       },

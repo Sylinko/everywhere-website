@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useI18n } from 'fumadocs-ui/contexts/i18n';
 import Image from '@/components/site-image';
 import Link from '@/components/site-link';
 import { cn } from '@/lib/cn'; // Assuming cn utility exists here
@@ -197,6 +198,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({
   sponsor,
   className,
 }) => {
+  const { locale } = useI18n();
   const displayAvatar =
     sponsor.avatar ??
     (sponsor.login ? `https://github.com/${sponsor.login}.png` : '');
@@ -208,7 +210,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({
   let sourceLabel = '';
   let sourceClassName = '';
   if (sponsor.source === 'afdian') {
-    sourceLabel = '爱发电';
+    sourceLabel = locale === 'zh' ? '爱发电' : 'Afdian';
     sourceClassName =
       'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-300';
   } else {
@@ -257,6 +259,7 @@ export const SponsorCard: React.FC<SponsorCardProps> = ({
 };
 
 export const SponsorList: React.FC = () => {
+  const { locale } = useI18n();
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -292,14 +295,16 @@ export const SponsorList: React.FC = () => {
   if (loading) {
     return (
       <div className="text-muted-foreground animate-pulse text-center">
-        Loading contributors...
+        {locale === 'zh' ? '正在加载赞助者…' : 'Loading sponsors...'}
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center text-red-500">Failed to load sponsors.</div>
+      <div className="text-center text-red-500">
+        {locale === 'zh' ? '加载赞助者列表失败。' : 'Failed to load sponsors.'}
+      </div>
     );
   }
 

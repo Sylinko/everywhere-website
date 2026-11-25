@@ -1,0 +1,72 @@
+---
+title: Windows & macOS
+description: 查看系统要求，在 Windows 和 macOS 上下载并安装 Everywhere 桌面端。
+icon: Monitor
+---
+
+import { getLocalePath } from '@/lib/i18n';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+## 系统要求
+
+- **Windows**：Windows 10 (19041) 及更高版本（`x64`）。
+- **macOS**：macOS Sonoma 14.0 及更高版本（支持 Apple Silicon 与 Intel）。
+
+Linux 平台的兼容性与安装步骤请参阅 <DynamicLink href="/[lang]/docs/linux">Linux 安装指南</DynamicLink>。
+
+## 下载
+
+<Callout type="info">
+Everywhere 是开源项目，可直接通过官网下载页或 GitHub Releases 获取。
+</Callout>
+
+<Cards>
+    <Card
+        href={getLocalePath('zh', 'download')}
+        title="前往下载页"
+    >
+        通过 CDN 加速下载
+    </Card>
+    <Card
+        href="https://github.com/Sylinko/Everywhere/releases"
+        title="访问 GitHub Releases"
+    >
+        下载各版本安装包或历史版本
+    </Card>
+</Cards>
+
+## Windows 安装说明
+
+你可以选择安装版（`.exe`）或便携版（`.zip`），两者功能完全相同。
+
+- **安装版（推荐）**：`Everywhere-Windows-x64-Setup-v<版本号>.exe`。双击运行安装向导，若弹出用户账户控制（UAC）提示，点击“是”继续即可。
+- **便携版**：`Everywhere-Windows-x64-v<版本号>.zip`。解压到任意文件夹后，直接运行其中的 `Everywhere.exe`。
+
+<Callout type="info" title="在管理员权限窗口中使用 Everywhere">
+如果需要在以管理员身份运行的程序窗口（如任务管理器）中正常呼出或操作 Everywhere，请在主窗口 **设置 > 通用** 中开启 **以服务的方式安装**，无需手动用管理员身份重启客户端。
+</Callout>
+
+## macOS 安装说明
+
+Everywhere 为 Apple Silicon 和 Intel Mac 提供已签名公证的 `.pkg` 安装包：
+
+- **Apple Silicon（M 系列芯片）**：`Everywhere-macOS-arm64-v<版本号>.pkg`
+- **Intel Mac**：`Everywhere-macOS-x64-v<版本号>.pkg`
+
+双击 `.pkg` 安装包并按提示完成安装，应用会安装在 `/Applications` 目录中。
+
+<Callout type="warning" title="macOS 权限说明">
+首次启动后，请前往 **系统设置 > 隐私与安全性** 为 Everywhere 开启 **辅助功能**（用于全局快捷键、划词和屏幕元素读取）和 **录屏与系统录音**（用于截图和画面理解）权限。
+
+Everywhere 会常驻在屏幕右上角菜单栏中，不会占用程序坞（Dock）图标。
+</Callout>
+
+## 数据存储位置
+
+无论使用安装版还是便携版，设置、聊天记录、提示词、日志、工作区文件和自定义技能都会保存在当前用户的对应目录中：
+
+| 平台 | 应用数据目录 | 自定义技能目录 |
+| :--- | :--- | :--- |
+| **Windows** | `C:\Users\<用户名>\AppData\Roaming\Everywhere` | `%USERPROFILE%\.everywhere\skills` |
+| **macOS** | `~/Library/Application Support/Everywhere` | `~/.everywhere/skills` |
+| **Linux** | `~/.config/Everywhere` | `~/.everywhere/skills` |

@@ -30,7 +30,7 @@ const sitePageContent: Record<
       variant: 'download',
       title: 'Native AI that lives on your desktop.',
       description:
-        'Install Everywhere on Windows or macOS. Summon instant on-screen intelligence without switching apps.',
+        'Install Everywhere on Windows, macOS, or Linux. Summon instant on-screen intelligence without switching apps.',
     },
     pricing: {
       variant: 'pricing',
@@ -50,7 +50,7 @@ const sitePageContent: Record<
       variant: 'download',
       title: '即刻获取你的桌面 AI 助手',
       description:
-        '支持 Windows 与 macOS 原生安装。无需切换应用，随时随地一键呼出情境感知 AI 协助。',
+        '支持 Windows、macOS 与 Linux。无需切换应用，随时随地一键呼出情境感知 AI 协助。',
     },
     pricing: {
       variant: 'pricing',

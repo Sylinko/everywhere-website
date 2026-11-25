@@ -11,20 +11,29 @@ export function HeroDownloadButton({
 }) {
   const { os, mounted } = useDetectOS();
   const platform = os ? platforms[os] : null;
-  const href = platform ? platform.primaryLink : `/${lang}/download`;
+  const isExternal = Boolean(platform && os !== 'linux');
+  const href = platform
+    ? isExternal
+      ? platform.primaryLink
+      : `/${lang}${platform.primaryLink}`
+    : `/${lang}/download`;
 
   return (
     <Link
       href={href}
-      target={platform ? '_blank' : undefined}
-      rel={platform ? 'noopener' : undefined}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener' : undefined}
       data-track-event="docs_download_click"
       data-track-section="hero"
       data-track-param-os={os ?? undefined}
       data-track-param-variant="hero_primary"
       className="bg-brand text-brand-foreground hover:bg-brand-200 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-medium tracking-tight transition-colors max-sm:text-sm"
     >
-      {mounted && platform ? platform.smallIcon : <Download className="size-4" />}
+      {mounted && platform ? (
+        platform.smallIcon
+      ) : (
+        <Download className="size-4" />
+      )}
       {label}
     </Link>
   );

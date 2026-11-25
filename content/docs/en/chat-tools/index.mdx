@@ -1,6 +1,6 @@
 ---
-title: Chat Tools
-description: Enable tool calling to let your assistant execute complex tasks.
+title: Tools
+description: Enable built-in tools and MCP servers to let your assistant read files, run terminal commands, browse the web, and interact with on-screen UI.
 icon: SquareBookmark
 ---
 
@@ -9,32 +9,46 @@ import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 Everywhere supports **built-in** tools and tools based on the **<DynamicLink href="/[lang]/docs/chat-tools/mcp">MCP (Model Context Protocol)</DynamicLink>**.
 
-## How to Use Built-in Tools
+## How to Use Tools
 
-Built-in tools are distributed with the Everywhere application.
-
-1.  On the **Chat Tools** page, check the tools you want to enable.
+Built-in tools are included with Everywhere and managed on the **Tools** page in the main window, split into **Built-in** and **MCP Server** tabs.
 
 <HorizontalImg
-    src="/chat-tools/index/builtin-en.webp"
-    alt="Built-in Tool List"
-    width="500px"
-  />
+  src="/chat-tools/index/builtin-en.webp"
+  alt="File Operations selected on the Built-in tab, showing Enabled and Bypass Approval switches for each tool."
+  width="min(100%, 1010px)"
+/>
 
-2.  When chatting with the model, **make sure that**:
-    *   The model you are using supports Tool Calling. See <DynamicLink href="/[lang]/docs/model-provider">Model Providers</DynamicLink> for how to obtain and configure a capable model.
-    *   The **Tool Calling** option is enabled in the chat window.
+1. On the **Tools** page, turn on the plugins you want to enable.
+2. Select a plugin to open its **Tools** tab and configure individual functions:
+   * **Enabled**: Controls whether the function is available to your assistants.
+   * **Bypass Approval**: Allows the function to run without prompting in **Request approval** mode (low-risk read/network tools and **Office Suite** bypass approval by default; **Terminal** cannot be permanently bypassed here).
+3. When chatting with a model, **make sure that**:
+   * The model you are using supports tool calling (see **Tools Usage Support** in <DynamicLink href="/[lang]/docs/models">Models</DynamicLink>).
+   * **Tools** is turned on for the active assistant (toggle **Tools** inside the assistant selector menu or press `Ctrl + T` / `⌘ + T` in the chat window). You can also switch an assistant off **Follow global tool settings** to configure its tools individually.
 
-<HorizontalImg
-    src="/chat-tools/index/chat-window-en.webp"
-    alt="Enable Tool Calling in Chat Window"
-    width="250px"
-  />
+   <HorizontalImg
+     src="/chat-tools/index/chat-window-en.webp"
+     alt="The active assistant’s chat menu with its Tools switch on."
+     width="min(100%, 290px)"
+   />
 
-3.  When your message triggers a tool's functionality, the model **may attempt** to call the enabled tools to answer your question.
+4. When your message calls for a tool, the model **may** invoke enabled tools to help complete the task.
 
 <Callout type="warning" title="Limitations">
-Due to the inherent capabilities of the model, tool calling may not always work as expected. For example, the model might choose not to call a tool or may provide incorrect parameters when calling.
+Tool calling results depend on the model's own capabilities. Occasionally, a model may skip calling a tool or pass inaccurate parameters.
+</Callout>
+
+## Tool Approval Modes
+
+In the chat window toolbar, you can choose how tool operations that require approval are handled:
+
+* **Request approval** *(Default)*: Prompts you whenever a tool operation requires confirmation, with options such as **Allow once**, **Allow in session**, or folder/server-specific approvals depending on the tool.
+* **Approve for me**: Uses an AI reviewer assistant (your active chat assistant by default, or a dedicated assistant configured in **Settings > System Assistant > Tool approval**) to assess your task context and risk before allowing or denying the call. You can also opt in to **Allow approval assistant to read files** *(Experimental)* during review. High-risk actions (such as exposing sensitive data) are always denied.
+* **Full access**: Allows enabled tools to run without confirmation prompts within the permissions available to Everywhere. Use with caution.
+
+<Callout type="info" title="Chat Workspace & Background Tasks">
+Each conversation has its own working folder for resolving relative file paths and running terminal commands. Long-running tasks (such as lengthy terminal commands or delegated subtasks) automatically continue in the background and notify the conversation when finished; you can view or stop them anytime from the chat window's background tasks panel.
 </Callout>
 
 ## Contributing Built-in Tools

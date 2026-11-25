@@ -1,0 +1,33 @@
+---
+title: Office 办公套件
+description: 无需安装 Microsoft Office，即可直接读取、创建、编辑并自动化处理 Word、Excel 和 PowerPoint 文档。
+icon: FileText
+---
+
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table";
+
+**Office 办公套件** 在 **Windows、macOS 和 Linux** 上均内置了文档处理引擎，无需在电脑上安装 Microsoft Office，就能让助手直接处理 `.docx`、`.xlsx` 和 `.pptx` 文档。
+
+<Callout type="tip">
+内置的 **读取文件** 工具不支持直接解析 `.docx`、`.xlsx` 或 `.pptx` 文件——处理 Office 文档时，Everywhere 会自动使用 **Office 办公套件**。
+</Callout>
+
+## 功能
+
+<Table columnWidths={['20%', '64%', '16%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Office 办公套件</td>
+      <td>查看、创建、编辑和排版 Word（<code>.docx</code>）、Excel（<code>.xlsx</code>）和 PowerPoint（<code>.pptx</code>）文件。默认已开启“绕过审批”；如需每次弹窗确认，可在 <strong>工具 &gt; Office 办公套件</strong> 中关闭。</td>
+      <td><PermissionBadge risk="medium">操作文件</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

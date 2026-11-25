@@ -1,42 +1,56 @@
 ---
-title: 聊天工具
-description: 为您的 Everywhere 助手启用内置工具或 MCP 扩展，实现文件读写、终端命令、网页搜索与屏幕上下文交互。
+title: 工具
+description: 为 Everywhere 助手启用内置工具或 MCP 扩展，实现文件读写、终端命令、网页搜索与屏幕交互。
 icon: SquareBookmark
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-Everywhere 支持 **内置** 工具和基于 **<DynamicLink href="/[lang]/docs/chat-tools/mcp">MCP (Model Context Protocol)</DynamicLink>** 协议的工具。
+Everywhere 支持 **内置** 工具以及基于 **<DynamicLink href="/[lang]/docs/chat-tools/mcp">MCP (Model Context Protocol)</DynamicLink>** 协议的外部工具。
 
-## 如何使用内置工具
+## 如何使用工具
 
-内置工具随 Everywhere 本体一同分发。
-
-1.  在 **聊天工具** 页面，勾选你想要启用的工具。
+Everywhere 自带一组内置工具，可在主窗口的 **工具** 页面统一管理，分为 **内置** 和 **MCP 服务器** 两个标签页。
 
 <HorizontalImg
-    src="/chat-tools/index/builtin-zh.webp"
-    alt="内置工具列表"
-    width="500px"
-  />
+  src="/chat-tools/index/builtin-zh.webp"
+  alt="内置工具页选中了「文件操作」，右侧列出各工具的启用和绕过审批开关。"
+  width="min(100%, 1010px)"
+/>
 
-2.  在与模型聊天时，**请确保**：
-    *   你使用的模型支持工具调用（Tool Calling）。可参阅 <DynamicLink href="/[lang]/docs/model-provider">模型提供商</DynamicLink> 了解如何获取并配置支持工具调用的模型。
-    *   在聊天窗口中启用了 **工具调用** 选项。
+1. 在 **工具** 页面中，打开你想要启用的插件开关。
+2. 点击插件进入其 **工具** 标签页，可按单个功能精细调整：
+   * **启用**：控制是否允许助手使用该功能。
+   * **绕过审批**：在 **请求批准** 模式下跳过确认弹窗（低风险的读取、联网工具和 **Office 办公套件** 默认已开启；**终端** 工具出于安全考虑不能在此永久关闭确认）。
+3. 在与模型对话时，**请确保**：
+   * 所选模型支持工具调用（可在 <DynamicLink href="/[lang]/docs/models">模型与提供商</DynamicLink> 中确认 **支持使用工具** 选项）。
+   * 当前助手已开启 **工具** 开关（可在助手选择菜单中切换 **工具**，或在聊天窗口按 `Ctrl + T` / `⌘ + T`）。你也可以为单个助手关闭 **跟随全局工具设置**，单独配置它的可用工具。
 
-<HorizontalImg
-    src="/chat-tools/index/chat-window-zh.webp"
-    alt="聊天窗口启用工具调用"
-    width="250px"
-  />
+   <HorizontalImg
+     src="/chat-tools/index/chat-window-zh.webp"
+     alt="聊天窗口中当前助手的菜单，工具开关处于开启状态。"
+     width="min(100%, 290px)"
+   />
 
-3.  当你发送的消息触发了工具的功能时，模型 **可能** 会尝试调用你启用的工具来回答你的问题。
+4. 当你的需求需要借助工具时，模型会按需调用已启用的工具来完成任务。
 
-<Callout type="warning" title="限制">
-受限于模型能力，工具调用可能不会总按预期工作。例如，模型可能会选择不调用工具，或者在调用时提供了错误的参数。
+<Callout type="warning" title="说明">
+工具调用的实际效果取决于模型本身的能力。模型有时可能不会主动调用工具，或在调用时传入不准确的参数。
+</Callout>
+
+## 工具审批模式
+
+在聊天窗口的工具栏中，你可以选择工具操作需要确认时的处理方式：
+
+* **请求批准** *(默认)*：每当需要确认时弹窗询问，根据工具类型提供 **允许一次**、**当前聊天中允许**，或按文件夹、服务器级别保存信任规则。
+* **帮我批准**：交由审批助手自动判断。审批助手默认使用当前对话的助手（也可在 **设置 > 系统助手 > 工具审批** 中单独指定），会结合上下文与操作风险决定是否放行，并支持按需开启 **允许审批助手读取文件**（实验性）。涉及敏感数据外泄等高风险操作始终会被拒绝。
+* **完全访问权限**：已启用的工具可在应用权限范围内直接执行，不再逐次确认，请谨慎开启。
+
+<Callout type="info" title="对话工作目录与后台任务">
+每个对话都有各自的工作目录，用来解析相对路径并作为终端的默认启动位置。耗时较长的操作（例如运行时间较长的终端命令或委派的子任务）会自动转入后台继续运行，并在完成后通知当前对话；你也可以随时在聊天窗口的后台任务栏中查看或停止它们。
 </Callout>
 
 ## 贡献内置工具
 
-我们欢迎熟悉 C# 开发的开发者为 Everywhere 贡献更多的内置工具。如果你有好的想法或已经实现了一个工具，请通过[提交 Pull Request](https://github.com/Sylinko/Everywhere/pulls)的方式与我们分享。
+我们欢迎熟悉 C# 的开发者为 Everywhere 贡献更多内置工具。如果你有好点子，或者已经实现了一个新工具，欢迎[提交 Pull Request](https://github.com/Sylinko/Everywhere/pulls) 与我们分享。

@@ -1,0 +1,81 @@
+---
+title: 技能
+description: 使用模块化的 SKILL.md 技能包和本地技能目录扩展 Everywhere 助手的能力。
+icon: Box
+---
+
+import { HorizontalImg } from '@/components/common/horizontal-img';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+**技能** 让你可以把特定领域的知识、规范和工作流放进 `SKILL.md` 文件里。助手只在真正需要时才读取详细内容，平时只保留精简的摘要目录，不会白白占用大量系统提示词空间。
+
+<HorizontalImg
+  src="/get-started/skills/skill-page-zh.webp"
+  alt="技能页列出内置技能，并显示已启用的 officecli 技能的来源和说明。"
+  width="min(100%, 940px)"
+/>
+
+## 工作原理
+
+1. Everywhere 通过系统提示词里的 `{SkillsPrompt}` 占位符，把已启用技能的名称、简介和路径摘要带给模型。
+2. 当你的任务匹配某个技能的适用场景时，助手会用 **读取文件**（或文件/终端工具）按需打开对应的 `SKILL.md` 获取完整说明。
+3. 如果当前对话关闭了工具调用，或模型本身不支持工具，助手仍能看到技能简介作为参考，但不会主动读取技能文件。
+
+<Callout type="info" title="记得保留 {SkillsPrompt}">
+内置的 `{DefaultSystemPrompt}` 已自带 `{SkillsPrompt}`。如果你从零编写自定义提示词且没有引用 `{DefaultSystemPrompt}`，请务必加上 `{SkillsPrompt}` 占位符。
+</Callout>
+
+## 技能来源与自动发现
+
+Everywhere 会自动加载 **内置技能**，并扫描本机的 **技能目录**：
+
+### 内置技能
+
+- **`Everywhere`**：帮助助手更好配合 Everywhere 各项功能的使用指南。
+- **`OfficeCLI`**：与 <DynamicLink href="/[lang]/docs/chat-tools/office">Office 办公套件</DynamicLink> 工具配套的内置技能，用于自动化创建和编辑 `.docx`、`.xlsx` 和 `.pptx` 文档。
+
+### Everywhere 用户技能目录
+
+把自定义技能文件夹放到以下位置即可：
+
+```text
+~/.everywhere/skills/<技能名称>/SKILL.md
+```
+
+*（Windows 下路径为 `%USERPROFILE%\.everywhere\skills\<技能名称>\SKILL.md`。）*
+
+Everywhere 会自动监听 `~/.everywhere/skills` 和 `~/.agents/skills` 的文件变动并实时刷新列表。
+
+### 自动发现外部技能目录
+
+如果你的电脑上原本就有以下工具的技能目录，Everywhere 会在 **技能** 页面自动识别并按来源分组：
+
+| 来源 | 目录路径 |
+| :--- | :--- |
+| **Agents** | `~/.agents/skills` |
+| **Claude** | `~/.claude/skills` |
+| **Codex** | `~/.codex/skills` *（如设置了 `$CODEX_HOME`，也会扫描 `$CODEX_HOME/skills`）* |
+| **Copilot** | `~/.copilot/skills` |
+| **Cursor** | `~/.cursor/skills` |
+| **Gemini** | `~/.gemini/skills` |
+
+<Callout type="tip" title="默认启用规则">
+**内置**、**Everywhere**（`~/.everywhere/skills`）和 **Agents**（`~/.agents/skills`）来源下的技能默认开启；其余目录发现的技能默认关闭，你可以在 **技能** 页面按需开启。
+</Callout>
+
+## 编写 `SKILL.md`
+
+每个技能都应放在来源根目录的直接子文件夹中，里面包含带 `name` 和 `description` 元信息的 `SKILL.md` 文件：
+
+```markdown
+---
+name: my-workflow
+description: 说明这个技能适合在什么场景下使用。
+---
+
+# 我的工作流
+
+在这里写明详细步骤、约定规范或参考资料说明。
+```
+
+你也可以在同一个技能文件夹内放入辅助脚本或参考文档，并在 `SKILL.md` 中指引助手阅读。在 **技能** 页面，你可以按来源筛选（**全部来源**、**已启用**、**已禁用**）、搜索技能、开关单个技能、查看格式警告，或点击 **重新扫描技能** 手动刷新。

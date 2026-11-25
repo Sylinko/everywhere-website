@@ -5,6 +5,7 @@ import {
   CommunityMemberCard,
   SponsorCard,
 } from '@/components/community-cards';
+import { Command } from '@/components/command';
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -12,6 +13,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     CoreTeamCard,
     CommunityMemberCard,
     SponsorCard,
+    Command,
     ...components,
   };
 }

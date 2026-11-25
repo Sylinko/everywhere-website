@@ -1,16 +1,15 @@
 ---
 title: Web
-description: Activate the web tool to grant your assistant the ability to browse real-time web content.
+description: Activate the web tool to grant your assistant real-time web search and webpage content extraction capabilities.
 icon: PanelsTopLeft
 ---
 
-import { HorizontalImg } from '@/components/common/horizontal-img';
 import { PermissionBadge } from '@/components/common/permissions';
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 
 ## Functions
 
-<Table columnWidths={['18%', '63%', '16%']}>
+<Table columnWidths={['20%', '64%', '16%']}>
   <thead>
     <tr>
       <th>Function</th>
@@ -20,8 +19,13 @@ import { Table } from "@/components/common/table"
   </thead>
   <tbody>
     <tr>
+      <td>Web Search</td>
+      <td>Searches the public web for real-time information using the configured search engine provider. Bypasses interactive approval by default.</td>
+      <td><PermissionBadge risk="low">Access Network</PermissionBadge></td>
+    </tr>
+    <tr>
       <td>Extract Web Content</td>
-      <td>Extracts the main content of a webpage. This runs a hidden web browser in the background using Puppeteer to access the webpage. For compatibility, the first launch may automatically download the web browser, which may take some time depending on network conditions.</td>
+      <td>Extracts the main content from webpages in the background using a built-in browser (preferring locally installed Microsoft Edge or Google Chrome, or automatically downloading a compatible browser on first use).</td>
       <td><PermissionBadge risk="low">Access Network</PermissionBadge></td>
     </tr>
   </tbody>
@@ -29,12 +33,24 @@ import { Table } from "@/components/common/table"
 
 ## Settings
 
+All Web settings are located under **Tools > Web > Settings**.
+
+### Web Search Engine
+
+Select the search provider used by **Web Search**:
+
+* **Everywhere Cloud**: Built-in cloud search powered by your Everywhere Cloud account, with configurable **Search Depth**, **Search Topic** (`General` / `News`), and **Time Range**.
+* **AnySearch** *(Default)*: Supports an optional API Key and custom API Url.
+* **Bocha**, **Brave**, **Jina**, **Serply**, **Tavily**, **UniFuncs**: Require an API Key (and optional custom API Url).
+* **Google**: Requires an API Key and a programmable **Search Engine ID**.
+* **SearXNG**: Self-hosted meta-search endpoint (**API Url** only, no API Key required).
+
 ### Show Browser in Foreground
 
-When enabled, the browser will be displayed while extracting webpage content, which is generally not recommended. A restart is required for changes to take effect.
+When enabled, the browser window is displayed while **Extract Web Content** runs, which is generally not recommended.
 
 **Default**: Disabled
 
 ### Open Browser
 
-Opens an instance of the web browser used for extracting webpages. You can log in to frequently used sites in advance to reduce the chances of being flagged as a bot during extraction. For compatibility, the first launch may automatically download the web browser, which may take some time depending on network conditions.
+Opens an instance of the browser used for extracting webpages so you can sign in to frequently used sites in advance and reduce the chances of being flagged as a bot during extraction. If no compatible browser is available locally, the first launch may automatically download one, which may take some time depending on network conditions.

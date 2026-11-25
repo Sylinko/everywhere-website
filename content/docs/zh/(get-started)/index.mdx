@@ -1,70 +1,69 @@
 ---
 title: 介绍
-description: 探索 Everywhere：呼之即来的 AI 桌面助手。秒懂你的屏幕，即刻提供协助。
+description: 探索 Everywhere：呼之即来的 AI 桌面助手。看懂你的屏幕，即刻提供协助。
 icon: SquareBookmark
 ---
 
-import { CircleQuestionMark, Newspaper, Languages, Mail, Cpu, Puzzle, Shield, Rocket } from 'lucide-react';
+import { CircleQuestionMark, Newspaper, Languages, Mail } from 'lucide-react';
 import DynamicLink from 'fumadocs-core/dynamic-link';
 
 ## 🤔 什么是 Everywhere? [#what-is-everywhere]
 
-**Everywhere** 是一款具备情境感知能力的交互式 AI 助手，拥有简洁现代的用户界面和强大的集成功能。
+**Everywhere** 是一款能够看懂屏幕内容的桌面 AI 助手，支持 Windows、macOS 与 Linux，兼顾简洁流畅的界面与丰富的本地工具能力。
 
-与传统 AI 工具不同，Everywhere 能即时感知并理解您屏幕上的任何内容。无需截图、复制或切换应用——只需按下快捷键，即可在当前位置获得所需帮助，实现无缝的 AI 助手支持。
+和传统网页端 AI 不同，Everywhere 可以直接获取你当前窗口的上下文。无需反复截图、复制粘贴或来回切窗口，按下快捷键或划选文字，就能在当前界面直接获得帮助。
 
 ## 🌟 使用场景 [#use-cases]
 
 <Cards>
-  <Card title="故障排除专家" icon={<CircleQuestionMark/>}>
-    遇到不明报错？
+  <Card title="报错排查" icon={<CircleQuestionMark/>}>
+    遇到看不懂的报错提示？
 
-    📌 在错误旁呼出 Everywhere  
-    直接输入 "这是什么错误？如何解决？"
+    📌 在报错窗口旁呼出 Everywhere  
+    直接问：“这是什么错误？怎么解决？”
 
-    **Everywhere 将就地帮您捕获报错信息，并给出精准解答。**
+    **Everywhere 会读取屏幕上的报错上下文并给出排查方案。**
   </Card>
 
-  <Card title="快速网页摘要" icon={<Newspaper/>}>
-    浏览长文只想抓重点？
+  <Card title="网页快速总结" icon={<Newspaper/>}>
+    长文太长只想抓重点？
 
-    📌 在文章页面呼出 Everywhere  
-    对它说 "给我一个简短的总结"
+    📌 在网页界面呼出 Everywhere  
+    输入：“帮我总结一下要点”
 
-    **一秒之内，核心逻辑浮现眼前。**
+    **不用离开当前页面，几秒内即可提炼核心内容。**
   </Card>
 
-  <Card title="外语即时翻译" icon={<Languages/>}>
-    文献阅读遇到生词？
+  <Card title="划词即时翻译" icon={<Languages/>}>
+    阅读外文资料遇到生词或长句？
 
-    📌 划选或者直接对着文本呼出 Everywhere  
-    要求 "翻译成中文"
+    📌 划选文字弹出悬浮工具栏，或直接呼出 Everywhere  
+    输入：“翻译成中文”
 
-    **您无需再开启第二个翻译软件。**
+    **就地查看译文，无需再切换到其他翻译软件。**
   </Card>
 
   <Card title="邮件起草与润色" icon={<Mail/>}>
-    把握不好商务邮件的语气？
+    拿不准商务邮件的措辞与语气？
 
-    📌 在您的草稿框按下 Everywhere  
-    输入 "让这封邮件更专业一些"
+    📌 在草稿输入框旁呼出 Everywhere  
+    输入：“把这封邮件改得更专业一些”
 
-    **Everywhere 将帮您转化为得体的商务沟通。**
+    **几句话的草稿也能快速润色为得体的正式邮件。**
   </Card>
 </Cards>
 
-## ⚙️ 核心技术与架构 [#core-technology]
+## ✨ 核心能力 [#key-capabilities]
 
-与此同时，**Everywhere** 致力于维持您的思维与工作流程之间的心流状态。
-
-- 👁️ **广谱的语境感知**：在支持传统的屏幕多模态外，我们更深度融合了底层无障碍 API 与 UI 自动化技术。这使得应用能够在跨度极大的各类软件下，以低侵入的方式精准提取正在活动的结构化环境数据。
-- 🧠 **场景唤醒与策略引擎**：初衷在于彻底终结打断工作节奏的流程。
-  - 😔 以往使用大模型常常需要：选中复制 ➡️ 切换回模型页面 ➡️ 粘贴内容 ➡️ 手动打字补全执行意图。
-  - 🤩 而基于策略引擎的高级功能特性中，按快捷键呼出的 Everywhere 即刻感知了您正在浏览的场景或应用，无需赘述需求便直推相应场景的快捷执行策略，达成真正的心流层操作体感。
-- 🧱 **坚守底层质量**：我们非常重视软件的性能、代码质量和安全性，从系统底层出发，通过现代化的架构设计和精心打磨的系统架构，从根本上拒绝纯粹依赖 Vibe Coding 以及盲目的敏捷堆砌，每一行代码都精心编写并用心打磨。
+- 👁️ **屏幕内容感知**：结合图像识别与跨平台无障碍能力，低打扰地读取当前应用界面结构与上下文。
+- 🤖 **灵活的模型接入**：支持通过 **Everywhere Cloud**（**原生模式**）开箱即用，也可在 **预设模式** 中直连 14 家主流平台，或通过 **进阶模式** 接入 Ollama 等自定义服务。详情见 <DynamicLink href="/[lang]/docs/models">模型与提供商</DynamicLink>。
+- 📝 **提示词与快速配置**：内置 **默认提示词** 与可视化 **快速配置** 模板，支持 **可用占位符** 与 **实时预览**。详情见 <DynamicLink href="/[lang]/docs/prompts">提示词</DynamicLink>。
+- 🧩 **技能与工具生态**：支持通过 `SKILL.md` 扩展领域技能，内置 **文件操作**、**终端**、**网络**、**Office 办公套件**、**屏幕感知** 与 **必备** 等工具并支持 **MCP 服务器**；提供 **请求批准**、**帮我批准** 与 **完全访问权限** 三档 **工具审批** 模式。详情见 <DynamicLink href="/[lang]/docs/skills">技能</DynamicLink> 与 <DynamicLink href="/[lang]/docs/chat-tools">工具</DynamicLink>。
+- ✨ **划词工具栏**：在任意应用中选中文字即可弹出快捷 **划词工具栏**，就地翻译、解释、总结、改写或点击 **自由输入** 提问。详情见 <DynamicLink href="/[lang]/docs/text-selection">划词工具栏</DynamicLink>。
+- ⚡ **顺手的对话体验**：助手正在回复时可继续排队发送或立即插话引导，长对话支持自动或手动压缩，并在 **设置**（**通用**、**显示**、**快捷键**、**网络代理**、**聊天窗口**、**系统助手**、**划词**）中按习惯自由微调。
 
 ## 🚀 开始使用 [#get-started]
 
 **准备好开始了吗？**
 
-前往 <DynamicLink href="/[lang]/download">下载页面</DynamicLink> 获取 Everywhere，然后到文档侧边栏的 <DynamicLink href="/[lang]/docs/quick-start">快速开始</DynamicLink> 了解如何安装和配置您的 Everywhere 助手，开启无缝的 AI 助手体验！
+前往 <DynamicLink href="/[lang]/download">下载页面</DynamicLink> 或查看 <DynamicLink href="/[lang]/docs/installation">安装指南</DynamicLink> 安装 Everywhere，然后参考 <DynamicLink href="/[lang]/docs/models">模型与提供商</DynamicLink> 和 <DynamicLink href="/[lang]/docs/assistants">助手</DynamicLink> 完成配置。

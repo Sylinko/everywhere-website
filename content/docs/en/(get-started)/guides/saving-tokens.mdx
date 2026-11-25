@@ -1,110 +1,76 @@
 ---
 title: Saving Tokens
-description: How to better manage and optimize token consumption in Everywhere to reduce your costs.
+description: Practical tips in Everywhere to reduce token consumption, leverage prompt caching, and keep context lean.
 icon: Wallet
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-Every request you make to the assistant consumes tokens, and token consumption directly determines your API usage costs. With the right configuration and habits, you can significantly reduce token overhead while still getting high-quality responses.
+Every message sent to an AI model consumes tokens, which directly affects API bills or Everywhere Cloud credits. Tuning a few settings in Everywhere can cut token usage significantly without hurting answer quality.
 
-This guide covers a set of practical token optimization strategies.
+## Screen Awareness & Visual Context
 
-## Visual Context
+Screen awareness helps Everywhere understand what is on your screen, but large UI trees can add a lot of input tokens.
 
-Visual context is the core mechanism Everywhere uses to perceive and understand screen content — but it is also one of the largest sources of token consumption. Fine-tuning your visual context settings is the first step toward cost control.
-
-In the chat window, click the **Settings** icon button to find the visual context options:
+In the chat window, click the **Select assistant** menu in the bottom toolbar and open **Advanced Settings** (these same controls also live under **Assistants > Advanced Settings** in the main window):
 
 <HorizontalImg
-    src="/get-started/guides/saving-tokens/en/chat-window-settings.webp"
-    alt="Chat window settings"
-    width="200px"
-  />
+  src="/get-started/guides/saving-tokens/en/chat-window-settings.webp"
+  alt="The assistant’s Advanced Settings menu shows a Balanced screen awareness budget and unlimited context rounds."
+  width="min(100%, 620px)"
+/>
 
-### Length Budget
+### Screen Awareness Budget
 
-*   **Effect**: This setting limits the maximum number of tokens the visual tree text can occupy in each request.
-*   **Recommendation**: For most daily tasks, **Balanced** is sufficient. A limit that is too low may prevent the model from receiving enough screen information, while a limit that is too high will significantly increase the cost of each request.
+- **What it does**: Caps how much screen content is read per perception (**Minimal (~1024)**, **Balanced (~4096, Recommended)**, **Detailed (~10240)**, **Ultimate (~40960)**, or **Unlimited (⚠️)**).
+- **Tip**: **Balanced (~4096, Recommended)** works well for everyday tasks; switch to **Minimal (~1024)** when you only need a quick check on simple UI elements.
 
 <Callout type="tip">
-The value shown is an estimate. The actual number of visual tree tokens sent to the model may vary slightly depending on the complexity and structure of the visual tree content.
+This cap is an estimate; actual tokens sent depend on how complex the active window is.
 </Callout>
 
-### Detail Level
+### Maximum Context Rounds
 
-*   **Effect**: This setting controls how richly the elements in the visual tree are described. Higher verbosity provides more context information but also increases token consumption.
-*   **Recommendation**: **Compact** is recommended.
-
-### Maximum Rounds
-
-*   **Effect**: This setting limits how many recent user-message rounds are kept in context. One round consists of one user mesage and the corresponding assistant response.
-*   **Recommendation**: For complex tasks that require continuous context, you can increase the rounds appropriately; for simple single-turn interactions, keeping fewer rounds can save tokens.
+- **What it does**: Limits how many recent user-assistant turns stay in the conversation history sent to the model (`-1` for unlimited, `0` for current input only, up to `30`).
+- **Tip**: Keep `-1` for multi-step work (and let context compression handle long threads), or set a smaller number for one-off tasks like translation and quick Q&A.
 
 ### Automatically Add Element
 
-By default, Everywhere may automatically attach visual information for the current focus element when invoked. If you do not need the model to perceive screen content, you can disable **Automatically Add Element** in **Chat Settings** from the main window.
+In **Settings > Chat Window**, **Automatically Add Element** is **off by default**. Leaving it off ensures Everywhere does not attach screen context automatically whenever you open the chat window—attach a screen element or screenshot from the paperclip menu only when the assistant actually needs to see your screen.
 
 <HorizontalImg
-    src="/get-started/guides/saving-tokens/en/chat-settings-automatically-add-element.webp"
-    alt="Chat Settings - Automatically Add Element"
-    width="500px"
-  />
+  src="/get-started/guides/saving-tokens/en/chat-settings-automatically-add-element.webp"
+  alt="Automatically Add Element is off in the Attachments section of Chat Window settings."
+  width="min(100%, 750px)"
+/>
 
-Once disabled, only add visual elements as attachments in the **Chat Window** when you explicitly need the assistant to see your screen. For pure text interactions — such as writing code, translating, or casual conversation — this can save a considerable number of unnecessary tokens.
+## Context Compression & Usage Monitoring
 
-## System Prompt
+Long conversations grow steadily with each turn. Everywhere helps keep them compact:
 
-The System Prompt is a set of instructions preset for the model, guiding it on how to understand and execute tasks. Thoughtful design and management of your system prompt is key to controlling token consumption.
+- **Context usage**: Click or hover over the circular usage indicator next to the send button to open the **Context usage** panel and check used tokens, percentage, and **Cached input** tokens.
+- **Automatic Compression**: Set **Context Compression Threshold** (`5%–95%`, default `80%`) under **Assistants > Advanced Settings**. Once usage reaches this percentage, Everywhere summarizes earlier messages automatically.
+- **Manual Compaction & New Chats**: Open the **Context usage** panel anytime and click **Compact context** to shrink a long thread manually, or press `Ctrl + N` to start a fresh chat when switching topics.
 
-Everywhere provides a default system prompt for general use cases. Please <DynamicLink href="/[lang]/docs/assistants#system-prompt">refer to the Assistants page</DynamicLink> for details.
+## Prompt Caching & System Prompts
 
-If you have configured a custom system prompt for a **custom assistant**, review its contents carefully.
+Everywhere keeps leading system instructions and tool definitions stable within an active conversation so providers can reuse cached prefixes:
 
-*   Remove redundant instructions or rules that are no longer applicable.
-*   Keep instructions concise. An overly long prompt not only increases costs but may also distract the model's attention.
+- **Use `{Date}`**: Keeping dates at day granularity (`{Date}`) prevents your system prompt from changing every turn and breaking cache hits.
+- **Keep Custom Prompts Concise**: Review your prompts on the **Prompts** page and trim redundant instructions.
+- **Anthropic Prompt Cache**: When using the `Anthropic` schema, keep **Prompt Cache** enabled (set to **Ephemeral** by default) under **Assistants > Advanced Settings > Anthropic Messages Settings**.
+- **Parallel Tool Calls**: The built-in `{DefaultSystemPrompt}` already encourages models to run independent tool calls in parallel, cutting down extra round-trip turns.
 
-### Parallel Tool Calls
+## Per-Assistant Tools & `Ctrl/⌘ + T`
 
-When using a custom system prompt, it is recommended to explicitly allow the model to make **parallel tool calls**.
+Every enabled tool adds its name, description, and parameters to the model context:
 
-Parallel calling allows the model to request multiple tools simultaneously within a single response, reducing the number of conversation turns. This directly prevents repeated context accumulation from multiple back-and-forth interactions, thereby saving tokens.
-
-<Callout type="tip" title="Example">
-You can include the following snippet in your system prompt to encourage the model to work in parallel:
-
-> When multiple independent tool calls are needed, you SHOULD make them in parallel instead of sequentially.
-</Callout>
-
-## Conversation Management
-
-### Start a New Conversation Promptly
-
-As a conversation grows deeper, historical messages accumulate continuously, making the context longer with each subsequent request and increasing token consumption accordingly.
-
-When you finish one topic and are ready to start a new task, always **create a new conversation manually**.
-
-Clearing the context not only resets the token count to zero, but also eliminates interference from old information, helping the model focus more precisely on the new task.
-
-## Tools
-
-### Enable Tools On-Demand
-
-Click the **Tools** icon button in the chat window to manage your currently enabled tools.
+- **Turn Off Tools for Plain Chat**: For writing, translation, or brainstorming, press `Ctrl/⌘ + T` in the chat window (or turn off **Tools** in the assistant menu) to skip tool definitions altogether.
+- **Customize Tools Per Assistant**: Under **Assistants > Tools**, turn off **Follow global tool settings** to build focused, lightweight assistants that only enable the tools a workflow actually needs (also adjustable directly from the **Tools** panel inside the chat window's assistant menu).
 
 <HorizontalImg
-    src="/get-started/guides/saving-tokens/en/chat-window-tools.webp"
-    alt="Chat Window - Tools"
-    width="200px"
-  />
-
-Each enabled tool has its definition — including name, description, and parameter schema — injected into the system prompt, increasing token consumption.
-
-We recommend enabling only the tools required for your current task. For example, disable file operation or network request tools when doing creative writing; enable them again only when external data is needed.
-
-### Text-Only Conversation
-
-If your current task involves only question answering, creative writing, translation, or other work that requires no external tools, we recommend disabling the **Tool Calls** master switch directly in the chat window.
-
-In this mode, the model will not consider any tool call-related prompt content at all, focusing entirely on text generation and significantly reducing token consumption.
+  src="/get-started/guides/saving-tokens/en/chat-window-tools.webp"
+  alt="The assistant’s Tools menu with Follow global tool settings off and individual plugin switches available."
+  width="min(100%, 620px)"
+/>

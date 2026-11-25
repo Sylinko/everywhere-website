@@ -1,0 +1,177 @@
+---
+title: 模型与提供商
+description: 了解 Everywhere Cloud 原生模式、内置主流服务商的预设模式，以及用于本地模型与自定义端点的进阶模式。
+icon: Sparkles
+---
+
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+import { Table } from '@/components/common/table';
+
+Everywhere 支持三种方式为助手提供模型能力：**Everywhere Cloud**（助手设置中称为**原生模式**）、**预设模式**与**进阶模式**。首次配置时即可任选其一，后续也可以在 **助手** 页面为每个助手单独切换或搭配使用。
+
+## Everywhere Cloud（原生模式） [#everywhere-cloud]
+
+不想自己申请各家 API 密钥，也不想折腾本地部署？登录 **Sylinko 通行证**，直接使用 **Everywhere Cloud** 即可：
+
+- **零配置直连**：登录后即可切换使用 **OpenAI**、**Anthropic (Claude)**、**Google (Gemini)**、**DeepSeek**、**Moonshot (Kimi)** 与 **MiniMax** 等主流模型。
+- **内置联网搜索**：已内置 **Everywhere 云搜索**，直接使用账户积分或订阅额度就能联网查资料，不用再单独配置搜索引擎密钥。
+- **模型参数自动同步**：**最大上下文**、**最大输出长度**、**输入模态**与推理选项都会自动保持最新。
+
+前往 <DynamicLink href="/[lang]/pricing">定价与支持的模型</DynamicLink> 查看当前订阅计划、积分费率与模型列表。
+
+## 预设模式（内置提供商） [#preset-mode]
+
+如果您已有各平台的 API 配额，可以在 **预设模式**（初次引导中显示为 **主流平台直连**）中直接选用内置的模型提供商。只需选择 **模型提供商**、关联或新建 **API 密钥**，再选择 **模型名称** 就能开始对话。
+
+**URL** 和 **API 协议** 都会自动填好，模型列表、**最大上下文**、**最大输出长度**、**输入模态**、**支持使用工具**与推理选项也会自动更新；如果遇到官方刚上新模型而列表尚未更新，点一下 **模型名称** 旁的刷新按钮即可。
+
+<Table columnWidths={['28%', '24%', '48%']}>
+  <thead>
+    <tr>
+      <th>模型提供商</th>
+      <th>API 协议</th>
+      <th>预设地址</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OpenAI</td>
+      <td>OpenAI (Responses API)</td>
+      <td><code>https://api.openai.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>Anthropic</td>
+      <td>Anthropic</td>
+      <td><code>https://api.anthropic.com</code></td>
+    </tr>
+    <tr>
+      <td>Google</td>
+      <td>Google (Interactions API)</td>
+      <td><code>https://generativelanguage.googleapis.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>Mistral AI</td>
+      <td>Mistral</td>
+      <td><code>https://api.mistral.ai/v1</code></td>
+    </tr>
+    <tr>
+      <td>DeepSeek</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.deepseek.com</code></td>
+    </tr>
+    <tr>
+      <td>Moonshot AI</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.moonshot.ai/v1</code></td>
+    </tr>
+    <tr>
+      <td>Moonshot AI (中国)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.moonshot.cn/v1</code></td>
+    </tr>
+    <tr>
+      <td>MiniMax</td>
+      <td>Anthropic</td>
+      <td><code>https://api.minimax.io/anthropic</code></td>
+    </tr>
+    <tr>
+      <td>MiniMax (中国)</td>
+      <td>Anthropic</td>
+      <td><code>https://api.minimaxi.com/anthropic</code></td>
+    </tr>
+    <tr>
+      <td>OpenRouter</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://openrouter.ai/api/v1</code></td>
+    </tr>
+    <tr>
+      <td>硅基流动</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.siliconflow.com/v1</code></td>
+    </tr>
+    <tr>
+      <td>硅基流动 (中国)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.siliconflow.cn/v1</code></td>
+    </tr>
+    <tr>
+      <td>Z.AI</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://api.z.ai/api/paas/v4</code></td>
+    </tr>
+    <tr>
+      <td>智谱 (中国)</td>
+      <td>OpenAI (Chat Completions)</td>
+      <td><code>https://open.bigmodel.cn/api/paas/v4</code></td>
+    </tr>
+  </tbody>
+</Table>
+
+<Callout type="warning" title="API 计费与网页端订阅的区别">
+大多数模型提供商的网页版会员（如 ChatGPT Plus/Pro、Claude Pro/Max、Gemini Pro、Kimi 会员等）与开发者 API 是分开计费的。使用预设模式前，请确认已在对应开放平台创建有效的 API 密钥且账户余额充足。
+</Callout>
+
+## 进阶模式（自定义协议） [#advanced-mode]
+
+如需接入本地模型（如 **Ollama**、**LM Studio**）、自建服务，或预设列表之外的兼容接口，可以切换到 **进阶模式**（首次引导时显示为 **自定义协议接入**）。
+
+在进阶模式中，您可以配置：
+
+- **API 协议**：选择与接口匹配的协议：
+  - `OpenAI (Chat Completions)` — 请求 `/chat/completions`
+  - `OpenAI (Responses API)` — 请求 `/responses`
+  - `Anthropic` — 请求 `/v1/messages`
+  - `Google (Generate Content)` — 请求 `/models/{model}:generateContent`
+  - `Google (Interactions API)` — 请求 `/interactions`
+  - `Mistral` — 请求 `/chat/completions`
+  - `Ollama` — 请求 `/api/chat`
+- **URL 与实时预览**：Everywhere 会自动整理您输入的地址：误贴了末尾的 `/chat/completions`、`/responses`、`/v1/messages` 等路径会自动去掉，缺少版本路径时也会按协议补全 `/v1` 或 `/v1beta`，并在输入框下方实时预览最终的请求地址。如果您的接口地址比较特殊、不希望自动补全或改写路径，请在 URL 末尾加上 `#`（例如 `https://example.com/api/chat#`）。
+- **模型 ID 与能力设置**：根据实际模型填写 **模型 ID**、**最大上下文**、**最大输出长度**、**输入模态**（`文本`、`图像`、`音频`、`视频`、`PDF`）以及是否开启 **支持使用工具**。
+
+## 本地模型与自定义端点 [#local-and-custom-endpoints]
+
+<Callout type="warning" title="须知">
+以下服务不在 Everywhere 内置预设列表中，实际效果与稳定性取决于对应服务或本地模型本身的能力。
+</Callout>
+
+### Ollama（本地模型）
+
+1. 从 [Ollama 官网](https://ollama.com/download) 下载并安装应用，拉取所需模型（例如 `gemma3:12b`）：
+
+```bash
+ollama pull gemma3:12b
+```
+
+2. 在终端运行 `ollama list` 确认模型已就绪。
+3. 在 Everywhere 中切换到 **进阶模式**（或在首次引导选择 **自定义协议接入**）：
+   - **API 协议**：`Ollama`
+   - **URL**：`http://localhost:11434`（Ollama 默认地址；也可填 `http://127.0.0.1:11434`）
+   - **模型 ID**：填写 `ollama list` 中显示的模型名称（例如 `gemma3:12b`）
+   - **能力选项**：仅在确认该本地模型支持时，再勾选 **支持使用工具** 或在 **输入模态** 中勾选 **图像**。
+
+### LM Studio
+
+- **API 协议**：`OpenAI (Chat Completions)`
+- **URL**：`http://localhost:1234/v1`（请根据 LM Studio 本地服务器实际端口填写）
+- **模型 ID**：参考您在 [LM Studio](https://lmstudio.ai/models) 中实际加载的模型标识
+
+### 通义千问 Qwen（阿里云百炼）
+
+- **API 协议**：`OpenAI (Chat Completions)`
+- **URL**（[参考文档](https://www.alibabacloud.com/help/model-studio/qwen-api-reference)）：
+  - **新加坡**：`https://dashscope-intl.aliyuncs.com/compatible-mode/v1`
+  - **美国**：`https://dashscope-us.aliyuncs.com/compatible-mode/v1`
+  - **北京**：`https://dashscope.aliyuncs.com/compatible-mode/v1`
+- **模型 ID**：请参考阿里云百炼[模型列表](https://www.alibabacloud.com/help/model-studio/models)
+
+### 豆包 Doubao（字节跳动火山方舟）
+
+- **API 协议**：`OpenAI (Chat Completions)`
+- **URL**（[参考文档](https://www.volcengine.com/docs/82379/1494384)）：`https://ark.cn-beijing.volces.com/api/v3`
+- **模型 ID**：请参考火山方舟[模型列表](https://www.volcengine.com/docs/82379/1330310)
+
+## 关于第三方中转服务 [#third-party-services]
+
+由于接口兼容性适配需要投入大量开发精力，我们暂不处理因使用第三方中转或代理 API 引发的问题。
+
+如果您在使用官方支持的模型提供商时遇到问题，欢迎到 [GitHub Issues](https://github.com/Sylinko/Everywhere/issues) 反馈。

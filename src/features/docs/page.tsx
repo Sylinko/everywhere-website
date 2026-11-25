@@ -48,7 +48,7 @@ export function DocumentPage({
       tree={tree}
       links={[...linkItems]}
       tabs={article ? undefined : false}
-      sidebar={{ defaultOpenLevel: 0 }}
+      sidebar={{ defaultOpenLevel: 1 }}
     >
       <DocsPage
         toc={toc}
@@ -72,11 +72,11 @@ export function DocumentPage({
             { name: lang === 'zh' ? '首页' : 'Home', url: home },
             ...(article && page.path !== 'docs'
               ? [
-                  {
-                    name: lang === 'zh' ? '文档' : 'Docs',
-                    url: absoluteUrl(getLocalePath(lang, 'docs')),
-                  },
-                ]
+                {
+                  name: lang === 'zh' ? '文档' : 'Docs',
+                  url: absoluteUrl(getLocalePath(lang, 'docs')),
+                },
+              ]
               : []),
             {
               name:

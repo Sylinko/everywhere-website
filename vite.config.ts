@@ -10,7 +10,7 @@ import { staticPaths } from './scripts/static-paths.ts';
 const root = fileURLToPath(new URL('./', import.meta.url))
   .replaceAll('\\', '/')
   .replace(/\/$/, '');
-export default defineConfig({
+const config = defineConfig({
   envDir: false,
   // Generated MDX boundaries are invisible to Vite's initial dependency scan.
   environments: {
@@ -46,4 +46,12 @@ export default defineConfig({
     }),
     react(),
   ],
+});
+
+export default defineConfig(({ command, isPreview }) => {
+  if (command === 'serve' && !isPreview) {
+    process.env.CLOUDFLARE_ENV ??= 'dev';
+  }
+
+  return config;
 });

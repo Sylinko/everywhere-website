@@ -1,29 +1,51 @@
 ---
 title: Shortcuts
-description: Complete keyboard shortcuts reference for bringing up Everywhere, switching AI assistants, and managing chat windows on Windows and macOS.
+description: Complete keyboard shortcuts reference for summoning Everywhere, switching AI assistants, sending/queuing messages, and managing the chat window.
 icon: SquareSlash
 ---
 
-| Function                  | Windows               | macOS                | Note                                     |
-| :------------------------ | :-------------------- | :------------------- | :--------------------------------------- |
-| **Chat Window**           | Customizable          | Customizable         | Default is `Ctrl`/`⌘` + `Shift` + `E`   |
-| **Switch Assistant**      | `Ctrl` + `1`-`9`, `0` | `⌘` + `1`-`9`, `0`  | Or scroll on the icon in the bottom left |
-| **Switch Assistant**      | `Ctrl` + `1`-`9`, `0` | `⌘` + `1`-`9`, `0`  | Or scroll on the icon in the bottom left |
-| **Hide Window**           | `Esc`                 | `Esc`                |                                          |
-| **Pin Window**            | `Ctrl` + `D`          | `⌘` + `D`           |                                          |
-| **Send Message**          | `Enter`               | `Enter`              |                                          |
-| **New Chat**              | `Ctrl` + `N`          | `⌘` + `N`           | Must be in an existing chat              |
-| **Toggle History**        | `Ctrl` + `H`          | `⌘` + `H`           |                                          |
-| **Toggle Tools**          | `Ctrl` + `T`          | `⌘` + `T`           | Requires assistant support               |
-| **Select Visual Element** | Customizable          | Customizable         |                                          |
-| **Capture Screenshot**    | Customizable          | Customizable         |                                          |
+## Global & Window Shortcuts
 
-You can modify the customizable hotkeys in the `Settings` > `Shortcuts` section of the **Everywhere** main interface.
+| Function | Windows / Linux | macOS | Note |
+| :--- | :--- | :--- | :--- |
+| **Chat Window** | Customizable | Customizable | Default is `Ctrl + Shift + E` (can be bound to `Copilot` key on Windows) |
+| **Pick Visual Element** | Customizable | Customizable | Configure in **Settings > Shortcuts** |
+| **Take Screenshot** | Customizable | Customizable | Configure in **Settings > Shortcuts** |
+| **Switch Assistant** | `Ctrl` + `1`–`9`, `0` | `⌘` + `1`–`9`, `0` | Or scroll mouse wheel over the assistant icon |
+| **New Chat** | `Ctrl` + `N` | `Ctrl` + `N` | Available when in an existing chat |
+| **Toggle Pin Window** | `Ctrl` + `D` | `Ctrl` + `D` | Cycles pin mode on the chat window |
+| **Close / Hide Window** | `Ctrl` + `W` | `Ctrl` + `W` | Closes/hides the floating chat window |
+| **Hide / Cancel** | `Esc` | `Esc` | Closes in-chat search first, else cancels editing, else hides the chat window |
+| **Toggle Temporary Chat** | `Ctrl` + `G` | `⌘` + `G` | Switches between temporary and regular chat |
+| **Toggle History** | `Ctrl` + `H` | `⌘` + `H` | Opens or closes the chat history panel |
+| **Search Chat History** | `Ctrl` + `Shift` + `F` | `⌘` + `Shift` + `F` | Toggles search inside the history panel |
+| **Search in Chat** | `Ctrl` + `F` | `⌘` + `F` | Opens in-chat search (`Enter` next, `Shift + Enter` previous, `Esc` close) |
+| **Toggle Tool Calls** | `Ctrl` + `T` | `⌘` + `T` | Toggles tool calling for the active assistant (requires model support) |
 
-<Callout type="info" title="Tray Icon Operation">
-For Windows users, you can **click** the system tray icon to quickly bring up the chat window, or **double-click** the icon to open the main window.
+You can modify the customizable hotkeys in **Settings > Shortcuts** in the **Everywhere** main window.
+
+## Linux shortcuts
+
+Hyprland supports global shortcuts. Plasma 5 uses KGlobalAccel; Plasma 6, GNOME, and X11 desktops with a GlobalShortcuts portal require system approval. Niri requires a manual desktop binding to the Everywhere launch command; recording a shortcut inside the app does not create that binding.
+
+Screenshot and visual element selection support depends on the desktop environment. See [Linux compatibility](/en/docs/linux).
+
+## Composer Send Shortcuts
+
+In **Settings > Chat Window > Send message**, you can choose between **Enter** (default) and **Ctrl+Enter** (`⌘+Enter` on macOS). With **Default Send Behavior When Busy** (**Queue** or **Send Immediately**), this also controls the shortcut for switching between **Queue message** and **Steer now** while the assistant is replying:
+
+| Action | `Enter` Mode *(Default)* | `Ctrl+Enter` Mode |
+| :--- | :--- | :--- |
+| **Send Message** *(or default busy mode)* | `Enter` | `Ctrl + Enter` / `⌘ + Enter` |
+| **Insert Newline** | `Shift + Enter` | `Enter` |
+| **Opposite Busy Mode** *(Steer if Queue is default, or Queue if Steer is default)* | `Ctrl + Enter` / `⌘ + Enter` | `Ctrl + Shift + Enter` / `⌘ + Shift + Enter` |
+
+## Tray Icon & Copilot Key
+
+<Callout type="info" title="Tray Icon Operations">
+You can **click** the Everywhere system tray icon to quickly open the chat window, **double-click** it to open the main window, or **right-click** it to open the tray menu (**Open Chat Window**, **Open Window**, **Chat Window Shortcut** toggle, and **Exit**).
 </Callout>
 
-<Callout type="info" title="Copilot Shortcut">
-For Windows users, if your keyboard has a `Copilot` key, you can use it as a shortcut to bring up the chat window.
+<Callout type="info" title="Copilot Key Support">
+On Windows keyboards equipped with a dedicated `Copilot` key, you can bind it directly as the shortcut to summon the chat window.
 </Callout>

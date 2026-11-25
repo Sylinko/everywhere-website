@@ -1,15 +1,15 @@
 ---
 title: 终端
-description: 为您的 Everywhere 助手配置终端工具权限，用自然语言安全执行本地 Shell 命令与自动化脚本。
+description: 在跨平台交互式终端中运行命令和脚本，实时查看输出，长任务自动转入后台。
 icon: SquareCode
 ---
 
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { PermissionBadge } from '@/components/common/permissions';
 
 <Callout type="error" title="安全性">
-启用该工具后，助手将能够执行强大的系统命令，这可能会对您的系统产生**重大影响**。  
-在允许其执行任何操作前，请确保已做好充分的备份。
+启用该工具后，助手将能够运行强大的系统命令，可能会对你的电脑产生**重大影响**。  
+在允许执行任何操作前，请先做好重要数据备份。
 </Callout>
 
 ## 功能
@@ -24,11 +24,11 @@ import { PermissionBadge } from '@/components/common/permissions';
   </thead>
   <tbody>
     <tr>
-      <td>执行脚本</td>
-      <td>调用系统终端执行脚本。</td>
+      <td>在终端中执行</td>
+      <td>在跨平台交互式终端中运行单行或多行命令，并实时显示输出。运行时间较长的命令（或在执行过程中你发送了新消息）会自动转入后台继续运行。</td>
       <td>
         <PermissionBadge risk="low">访问网络</PermissionBadge>
-        <PermissionBadge risk="medium">操作剪贴板</PermissionBadge>
+        <PermissionBadge risk="medium">操作剪切板</PermissionBadge>
         <PermissionBadge risk="medium">操作屏幕</PermissionBadge>
         <PermissionBadge risk="medium">操作文件</PermissionBadge>
         <PermissionBadge risk="high">访问进程</PermissionBadge>
@@ -42,12 +42,15 @@ import { PermissionBadge } from '@/components/common/permissions';
 
 ### 终端路径
 
-自定义终端可执行文件的路径，只支持 PowerShell、zsh 和 bash。
+位于 **工具 > 终端 > 设置**。
 
-**留空**：自动检测系统默认终端
+自定义终端程序的路径（仅支持 PowerShell、zsh 和 bash）。
 
-### 自动批准 <PermissionBadge risk="high">高风险</PermissionBadge>
+**留空**：自动选用系统默认终端（Windows 会优先使用已安装的 PowerShell 7+，未安装时使用 Windows PowerShell；macOS 默认使用 zsh；Linux 默认使用 bash）。
 
-开启后，所有终端操作将自动放行，无需手动批准。助手的不当调用可能会造成严重的系统崩溃或者不可恢复的文件丢失。**开启此选项意味着你已评估并愿意自行承担风险。**
+## 审批方式
 
-**默认**：关闭
+出于安全考虑，**在终端中执行** 无法在 **工具 > 终端** 中设置为永久绕过审批。具体确认方式取决于聊天窗口当前的 **工具审批模式**：
+* **请求批准**：每次运行命令前都会弹窗确认，可选择 **允许一次** 或 **当前聊天中允许**。
+* **帮我批准**：交由你指定的审批助手结合上下文与风险自动审核。
+* **完全访问权限**：无需确认直接运行。

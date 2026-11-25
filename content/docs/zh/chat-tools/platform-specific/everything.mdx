@@ -1,0 +1,30 @@
+---
+title: Everything (Windows)
+description: 借助 Everything 搜索引擎，在 Windows 上实现极速本地文件搜索。
+icon: Search
+---
+
+import { Table } from "@/components/common/table";
+import { PermissionBadge } from '@/components/common/permissions';
+import { DynamicLink } from 'fumadocs-core/dynamic-link';
+
+仅在 **Windows** 上提供。作为 <DynamicLink href="/[lang]/docs/chat-tools/file-system">文件系统</DynamicLink> 内置工具的补充，借助 Everything 搜索引擎实现极速本地文件搜索。Everywhere 会在需要搜索时按需启动 Everything 服务，并在空闲后自动关闭。
+
+## 功能
+
+<Table columnWidths={['26%', '58%', '16%']}>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>描述</th>
+      <th>权限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>使用 Everything 搜索文件</td>
+      <td>使用 Everything 搜索语法在本地磁盘中快速查找文件。</td>
+      <td><PermissionBadge risk="low">读取文件</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>

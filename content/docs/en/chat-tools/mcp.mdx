@@ -5,29 +5,31 @@ icon: Plug
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
-import { Table } from "@/components/common/table"
+import { Table } from "@/components/common/table";
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 Besides <DynamicLink href="/[lang]/docs/chat-tools">built-in tools</DynamicLink>, Everywhere can connect to tools provided by external **MCP (Model Context Protocol)** servers. Two transports are supported:
 
 - **Stdio** — launches a local process and communicates over standard input/output.
-- **Streamable HTTP** — connects to a remote server over HTTP.
+- **HTTP** — connects to a remote server over HTTP (**Streamable HTTP** by default, or **Auto Detect** / legacy **SSE**).
 
 <Callout type="warning" title="SSE">
-HTTP+SSE Support has been deprecated in favor of Streamable HTTP. Please use Streamable HTTP for new servers.
+HTTP+SSE support has been deprecated in favor of Streamable HTTP. Please use Streamable HTTP for new servers.
 </Callout>
 
-On the **Chat Tools** page, open the **MCP Server** section. You can **Add** a server manually, or **Import** from an existing MCP configuration (JSON).
+On the **Tools** page, open the **MCP Server** tab. You can **Add** a server manually, or **Import from JSON**.
 
 ## Adding a Server
 
 Click **Add** to open the configuration dialog. Fields marked with `*` are required.
 
 <HorizontalImg
-    src="/chat-tools/mcp-en.webp"
-    alt="Add MCP Server Dialog"
-    width="550px"
-  />
+  src="/chat-tools/mcp-en.webp"
+  alt="Add MCP Server configured for DeepWiki with its URL and Streamable HTTP transport."
+  width="min(100%, 640px)"
+/>
+
+When you click **OK**, Everywhere verifies the server connection inline and shows live startup progress. You can press `Escape` or click **Cancel** to abort verification; if initial verification fails, the server is still saved with a warning so you can edit or start it later.
 
 ### Stdio
 
@@ -43,7 +45,7 @@ Click **Add** to open the configuration dialog. Fields marked with `*` are requi
     <tr>
       <td>Name</td>
       <td>Yes</td>
-      <td>A unique name used to identify the server.</td>
+      <td>A unique display name used to identify the server.</td>
     </tr>
     <tr>
       <td>Description</td>
@@ -53,27 +55,27 @@ Click **Add** to open the configuration dialog. Fields marked with `*` are requi
     <tr>
       <td>Scheme</td>
       <td>Yes</td>
-      <td>Stdio</td>
+      <td>Select <code>Stdio</code>.</td>
     </tr>
     <tr>
       <td>Command</td>
       <td>Yes</td>
-      <td>The executable to launch, e.g. <code>npx</code>, <code>uvx</code>, or an absolute path.</td>
+      <td>The executable to launch, e.g. <code>npx</code>, <code>uvx</code>, <code>bunx</code>, or an absolute path.</td>
     </tr>
     <tr>
-      <td>Command-line Arguments (one per line)</td>
+      <td>Command-line Arguments</td>
       <td>No</td>
-      <td>Arguments passed to the command, added one entry at a time.</td>
+      <td>Arguments passed to the command, added and reordered one entry at a time.</td>
     </tr>
     <tr>
       <td>Working Directory</td>
       <td>No</td>
-      <td>The directory the command runs in. Leave blank to use the default.</td>
+      <td>The directory the command runs in (includes a folder picker). Leave blank to use the plugin's default data directory.</td>
     </tr>
     <tr>
       <td>Environment Variables</td>
       <td>No</td>
-      <td>Key-value pairs injected into the process environment, e.g. for API keys.</td>
+      <td>Key-value pairs passed to the process environment, such as API keys.</td>
     </tr>
   </tbody>
 </Table>
@@ -92,7 +94,7 @@ Click **Add** to open the configuration dialog. Fields marked with `*` are requi
     <tr>
       <td>Name</td>
       <td>Yes</td>
-      <td>A unique name used to identify the server.</td>
+      <td>A unique display name used to identify the server.</td>
     </tr>
     <tr>
       <td>Description</td>
@@ -102,25 +104,45 @@ Click **Add** to open the configuration dialog. Fields marked with `*` are requi
     <tr>
       <td>Scheme</td>
       <td>Yes</td>
-      <td>The transport: <code>Stdio</code> or <code>HTTP</code> (Streamable HTTP). The remaining fields change based on this choice.</td>
+      <td>Select <code>HTTP</code>.</td>
     </tr>
     <tr>
       <td>URL</td>
       <td>Yes</td>
-      <td>The URL of the MCP server.</td>
+      <td>The absolute HTTP/HTTPS endpoint URL of the MCP server.</td>
     </tr>
     <tr>
       <td>Transport Mode</td>
       <td>No</td>
-      <td>Auto Detect by default. You can also choose <code>Streamable HTTP</code> or <code>SSE</code> explicitly.</td>
+      <td><code>Auto Detect</code> by default. You can also choose <code>Streamable HTTP</code> or <code>SSE</code> explicitly.</td>
     </tr>
     <tr>
       <td>Request Headers</td>
       <td>No</td>
-      <td>Optional headers for the HTTP request.</td>
+      <td>Optional HTTP headers such as <code>Authorization</code> tokens.</td>
     </tr>
   </tbody>
 </Table>
+
+## Importing from JSON
+
+Click the **Import from JSON** icon next to **Add** to paste a JSON configuration or click **Open** to load a `.json` file. Comments (`//`) and trailing commas are supported.
+
+Supported JSON formats:
+* `{ "mcpServers": { "name": { ... } } }`
+* `{ "server1": { ... }, "server2": { ... } }`
+* `[ { "name": "...", "command": "..." }, ... ]`
+* A single server object `{ "command": "...", ... }` or `{ "type": "sse", "url": "..." }`
+
+Recognized properties include `name`, `command`, `args` / `arguments`, `env` / `environmentVariables`, `url`, `headers`, and `type` (`"stdio"`, `"http"` / `"streamable-http"`, `"sse"`). *(Note: `Working Directory` is configured in the Edit dialog.)*
+
+## Managing Servers, Runtimes & Approval
+
+* **Status & Lifecycle**: Each MCP entry shows a status indicator (**Gray** = Not Running, **Green** = Running) and **Run**, **Stop**, **Edit**, and **Remove** actions. Enabled MCP servers also start automatically when a chat begins; if one server fails to start, the conversation continues with the remaining available tools and shows a warning.
+* **Tools & Logs Tabs**: Discovered tools are cached locally so they remain visible and configurable before starting the server. The **Logs** tab shows recent server output and errors, with **Show Timestamp** and **Copy all logs to clipboard** controls.
+* **Automatic Runtime Dependency Resolution**: If a Stdio server uses `uv` / `uvx`, `node` / `npm` / `npx`, `bun` / `bunx`, or `docker` and the runtime is missing on your system, Everywhere shows a warning with a **Resolve** button to automatically download and install `uv`, `Node.js` (LTS), or `Bun` (or open the Docker setup guide).
+* **Approval Controls**: MCP tools require confirmation by default. You can toggle **Bypass approval for all tools** at the server level, toggle **Bypass Approval** per tool, or choose **Always allow all tools from “...”** directly from an approval prompt.
+* **Automatic Reconnection**: If a remote HTTP session expires during a conversation, Everywhere automatically reconnects when possible.
 
 ## Examples
 
@@ -136,7 +158,7 @@ Grants access to a local directory via the official filesystem server, run throu
     <tr><td>Name</td><td>Filesystem</td></tr>
     <tr><td>Scheme</td><td>Stdio</td></tr>
     <tr><td>Command</td><td><code>npx</code></td></tr>
-    <tr><td>Command-line Arguments</td><td><code>-y</code> · <code>@modelcontextprotocol/server-filesystem</code> · <code>D:\Documents</code></td></tr>
+    <tr><td>Command-line Arguments</td><td><code>-y</code> & <code>@modelcontextprotocol/server-filesystem</code> & <code>D:\Documents</code></td></tr>
   </tbody>
 </Table>
 

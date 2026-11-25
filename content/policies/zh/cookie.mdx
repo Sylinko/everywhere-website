@@ -8,18 +8,22 @@ description: 查阅本站及 Sylinko Passport 使用的必要、功能和分析 
 </Callout>
 
 <Callout type="info" title="生效日期">
-2026年1月27日
+2026年11月25日
 </Callout>
 
 <Callout type="warning" title="与上一版本的变化">
+2026年11月25日：
+
+- 更正了 Passport Cookie 的名称，说明如何拒绝分析、撤回同意，以及全球隐私控制（GPC）如何生效。
+
 2026年6月14日：
 
-- 将 `__Secure-sylinko_passport.session_data` 加入**严格必要的 Cookie** 列表，用于维持登录状态和保障会话安全。
+- 将 `__Secure-sylinko-passport.session_data` 加入**严格必要的 Cookie** 列表，用于维持登录状态和保障会话安全。
 
 2026年5月5日：
 
-- 新增 **Google Analytics** 的用途说明：我们使用它进行匿名网站流量分析。
-- 我们采用了基于 Cloudflare Zaraz 的**同意管理平台**。您首次访问时，除严格必要的 Cookie 外，所有分析和性能技术（如 Google Analytics）均处于停用状态。只有在您通过同意横幅表示接受后，我们才会加载这些分析工具。
+- 新增 **Google Analytics** 的用途说明：我们使用它进行网站流量分析。
+- 我们采用了基于 Cloudflare Zaraz 的**同意管理平台**。在您同意前，可选分析工具（如 Google Analytics）均保持关闭。
 </Callout>
 
 ## 1. 简介 [#1-introduction]
@@ -55,45 +59,48 @@ Cookie 是您访问网站时存放在您的设备（电脑、智能手机或平�
 
 | Cookie 名称 | 提供方 | 用途 |
 | --- | --- | --- |
-| `__Secure-sylinko_passport.session_token` | Sylinko Passport | **身份验证。** 维持登录状态并保障会话安全。 |
-| `__Secure-sylinko_passport.session_data` | Sylinko Passport | **身份验证。** 维持登录状态并保障会话安全。 |
-| `__Secure-sylinko_passport.state` | Sylinko Passport | **身份验证。** 在登录过程中防止跨站请求伪造（CSRF）攻击。 |
-| `better-auth.last_used_login_method` | Sylinko Passport | **身份验证。** 记住您上次使用的登录方式（如电子邮件、Google 或 GitHub），方便下次登录。 |
-| `cf_clearance` / `cf_uvid` | Cloudflare | **安全。** Cloudflare Turnstile 用于验证访问者是人而非机器人。 |
+| `__Secure-sylinko-passport.session_token` | Sylinko Passport | **身份验证。** 保持登录状态，每次续期后最长有效 7 天。 |
+| `__Secure-sylinko-passport.session_data` | Sylinko Passport | **身份验证。** 缓存加密的会话数据，最长 30 秒。 |
+| `__Secure-sylinko-passport.state` | Sylinko Passport | **身份验证。** 在第三方登录时防止跨站请求伪造（CSRF），5 分钟后过期。 |
+| `cf_clearance` / `_cfuvid` | Cloudflare | **安全。** 记录已通过安全验证；启用按访客限流时，区分共用 IP 地址的访客。 |
 | `cf_consent` | Cloudflare | **同意管理。** Cloudflare Zaraz 用于管理您的 Cookie 同意偏好。 |
 
 ### 4.2 功能性 Cookie（偏好设置） [#42-functional-cookies-preferences]
 
-- **语言。** Everywhere 官网以页面网址中的语言为准。如果网址没有指定语言，官网会按浏览器的语言偏好选择中文或英文，默认使用英文。Sylinko Passport 账户网站使用 Cookie 记住您选择的语言。
+- **语言。** Everywhere 官网以页面网址中的语言为准。如果网址没有指定语言，官网会按浏览器的语言偏好选择中文或英文，默认使用英文。Sylinko Passport 账户网站通过 `NEXT_LOCALE` Cookie 记住您选择的语言，最长 1 年。
 - **外观。** 本地存储中的 `theme` 设置用来记住您选择的浅色或深色模式。
+- **Passport 偏好。** `sidebar_state` 保存侧边栏展开或收起的状态 7 天；`better-auth.last_used_login_method` 保存上次登录方式 30 天。
 
 ### 4.3 性能与分析 Cookie [#43-performance--analytics-cookies]
 
 这些 Cookie 用于统计访问次数和流量来源，以衡量并改善网站性能。
 
-| Cookie 名称 | 提供方 | 用途 |
+| 名称 | 提供方 | 用途 |
 | --- | --- | --- |
-| `sentryReplaySession` | Sentry | **错误跟踪。** 在应用发生错误时识别不同的用户会话，帮助我们更快定位和修复问题。 |
-| `_ga`、`_ga_<container-id>` | Google Analytics | **分析。** 以匿名跟踪 Cookie 区分用户并分析网站流量模式。 |
-| `cfz_google-analytics_v4` | Cloudflare Zaraz | **分析。** 管理您对 Google Analytics 的同意偏好。 |
-| `cfzs_google-analytics_v4` | Cloudflare Zaraz | **分析。** 管理您对 Google Analytics 的同意偏好。 |
+| `sentryReplaySession` | Sentry | **会话回放。** 将遮盖敏感内容的 Passport 回放与当前标签页关联，使用会话存储而非 Cookie。 |
+| `_ga`、`_ga_<container-id>` | Google Analytics | **分析。** 区分 Everywhere 官网的浏览器和访问会话。 |
+| `cfz_google-analytics_v4` | Cloudflare Zaraz | **分析。** 为官网接入的 Google Analytics 保存统计标识。 |
+| `cfzs_google-analytics_v4` | Cloudflare Zaraz | **分析。** 为同一集成保存会话信息。 |
+
+Passport 默认不写入 `sentryReplaySession`。只有您通过 Zaraz 同意分析且浏览器未开启 GPC 时，才可能开始录制。回放会遮盖文字和表单输入、屏蔽媒体，并排除密码重置等敏感页面。撤回同意后，录制会停止，会话存储中的标记也会清除。
 
 ## 5. 第三方服务 [#5-third-party-services]
 
 除我们自己的 Cookie 外，我们还使用可信的第三方服务，这些服务可能会检查您设备上的 Cookie。具体包括：
 
-- **Stripe：** 我们使用 Stripe 处理付款。Stripe 设置 Cookie 以侦测欺诈并完成交易。见 [Stripe 隐私政策](https://stripe.com/zh-sg/privacy)。
+- **Stripe：** 我们使用 Stripe 处理付款。Stripe 设置 Cookie 以侦测欺诈并完成交易。见 [Stripe Cookie 政策](https://stripe.com/legal/cookies-policy)。
 - **Cloudflare：** 见 [Cloudflare 隐私政策](https://www.cloudflare.com/privacypolicy/)。
-  - 我们使用 Cloudflare Turnstile 提供安全保护。该服务设置 Cookie 以区分人与机器人。
+  - 我们使用 Cloudflare Turnstile 提供安全保护。通过 Cloudflare 安全验证后，浏览器可能收到验证 Cookie。
   - 我们还使用 Cloudflare Web Analytics 进行匿名网站流量分析。
-- **Sentry：** 我们使用 Sentry 进行匿名错误跟踪和性能监控。见 [Sentry 隐私政策](https://sentry.io/privacy/)。
-- **Google Analytics：** 我们使用 Google Analytics 进行匿名网站流量分析。见 [Google 隐私政策](https://policies.google.com/privacy)。
+- **Sentry：** 我们使用 Sentry 进行错误跟踪和性能监控，并对个人标识脱敏。见 [Sentry 隐私政策](https://sentry.io/privacy/)。
+- **Google Analytics：** 我们使用 Google Analytics 进行网站流量分析。见 [Google 隐私政策](https://policies.google.com/privacy)。
 
 ## 6. 管理 Cookie 偏好 [#6-managing-your-cookie-preferences]
 
 您有权决定接受或拒绝 Cookie。您可以通过 Cookie 同意管理工具或浏览器设置行使这项权利：
 
-- **Cloudflare Zaraz：** 我们使用它管理 Cookie 同意设置。首次访问时，所有非必要 Cookie（如 Google Analytics）默认停用。只有您在同意横幅上点击“接受”后，我们才会加载这些分析工具。
+- **Cloudflare Zaraz：** 我们使用它管理 Cookie 同意设置。首次访问时，分析默认停用，您可选择**全部接受**、**全部拒绝**或**偏好设置**。如需更改或撤回同意，请打开官网页脚的 **Cookie 偏好设置**或 Passport 页脚的 **Cookie 设置**。
+- **全球隐私控制（GPC）：** 如果浏览器发出 GPC 信号且您没有保存过选择，两站会自动拒绝非必要追踪，不弹出同意提示。您可以在页脚更改已保存的选择。只要 GPC 开启，Passport 就不会录制回放。
 - **浏览器设置：** 大多数浏览器允许您在“选项”或“偏好设置”菜单中管理 Cookie。
 - **禁用的影响：** 如果您禁用**严格必要的 Cookie**（如身份验证令牌），您可能无法使用网站的某些功能，例如登录 Sylinko Passport。
 

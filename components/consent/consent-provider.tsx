@@ -47,6 +47,7 @@ export function ConsentProvider({ children, lang }: ConsentProviderProps) {
         translation={translation.toast}
         lang={lang}
         onAccept={consent.acceptAll}
+        onReject={consent.rejectAll}
         onSettings={consent.openDialog}
       />
 
@@ -55,6 +56,7 @@ export function ConsentProvider({ children, lang }: ConsentProviderProps) {
         open={consent.dialogOpen}
         translation={translation.dialog}
         purposes={consent.purposes}
+        gpcActive={consent.gpcActive}
         purposeMeta={consent.purposeMeta}
         onAcceptAll={consent.acceptAll}
         onRejectAll={consent.rejectAll}

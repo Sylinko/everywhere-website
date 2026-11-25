@@ -1,96 +1,95 @@
 ---
 title: FAQ
-description: Find answers to common questions about Everywhere payments, cloud subscriptions, BYOK API keys, updates, and troubleshooting.
+description: Find answers to common questions about Everywhere payments, cloud services, BYOK configuration, permissions, and troubleshooting.
 icon: CircleQuestionMark
 ---
 
 import { HorizontalImg } from '@/components/common/horizontal-img';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
-## Payments
+## Payments & Accounts
 
-### I subscribed to ChatGPT Plus/Team/Pro or a similar service, why am I being told my balance is insufficient?
+### I subscribed to ChatGPT Plus/Team/Pro or a similar service—why am I told my balance is insufficient?
 
-ChatGPT Plus/Team/Pro or Google AI Pro subscription services are billed separately from the API services.
+Consumer web subscriptions such as ChatGPT Plus/Team/Pro or Google AI Pro are billed separately from developer APIs.
 
-**You need to top up your balance for the API services separately.**
+**You must top up API credits separately when using Bring Your Own Key (BYOK), or sign in with your Sylinko Passport to use Everywhere Cloud.**
 
 ## Model Providers
 
-### How to configure models when using a gateway provider (like OpenRouter)?
+### How do I configure gateway or local providers (such as Ollama, LM Studio, Qwen, or Doubao)?
 
-For example, if you are using the `openai/gpt-oss-20b:free` model within OpenRouter:
+First check **Preset Mode** under **Assistants**, which already includes 14 built-in providers (including OpenRouter, SiliconFlow, Mistral, ZhipuAI / Z.ai, OpenAI, Anthropic, Google, DeepSeek, MoonshotAI, and MiniMax).
+
+For **Ollama**, **LM Studio**, or other compatible endpoints not listed in Preset Mode, switch your assistant to **Advanced Mode** (*Custom Protocol*), select the matching **API Schema**, enter the endpoint URL and Model ID, and verify the normalized URL in the live preview below the URL field.
+
+See <DynamicLink href="/[lang]/docs/models#local-and-custom-endpoints">Models & Providers — Local & Custom Endpoints</DynamicLink> for details.
 
 <HorizontalImg
-    src="/faq/openrouter-model-config.webp"
-    alt="Gateway service configuration"
-    width="600px"
-  />
+  src="/faq/advanced-mode-custom-endpoint-en.webp"
+  alt="Advanced Mode previews the chat completions URL for a local LM Studio endpoint."
+  width="min(100%, 880px)"
+/>
 
-### Why isn't my (unofficially supported) model provider working?
+### Why isn't my unofficially supported model provider working?
 
-**Everywhere** supports a range of major model providers (e.g., OpenAI, Gemini, DeepSeek). **For these officially supported providers, we strive to ensure their compatibility and stability.**
+**Everywhere** ships built-in support for **Everywhere Cloud** and 14 **Preset Mode** providers, where we maintain compatibility and stability.
 
-For other mainstream model providers (such as LM Studio, Qwen, GLM, and Doubao) that are compatible with existing API schema, you can refer to the <DynamicLink href="/[lang]/docs/model-provider/other">Other Providers</DynamicLink> guide to manually configure and use them via Advanced Mode.
-
-However, there are many third-party or self-hosted model services that are compatible with the OpenAI API format. **Due to limited resources, we cannot test and adapt to all unofficially supported model providers.** If you encounter issues while using an unofficially supported provider, we recommend that you first contact the service provider for technical support or switch to an officially supported one.
+For other OpenAI/Anthropic/Google/Mistral/Ollama-compatible providers, configure them manually via **Advanced Mode** (see <DynamicLink href="/[lang]/docs/models#local-and-custom-endpoints">Models & Providers</DynamicLink>). Because there are many third-party and self-hosted API implementations, we cannot test every unofficially supported endpoint—if you encounter issues, check the live URL preview and contact your provider, or switch to a preset or cloud model.
 
 ### The AI gives no response
 
-If there is no response after asking a question (but status messages like **Analyze Context** are displayed), it might be due to an incorrect API Url configuration.
+If there is no response after asking a question (even though status indicators appear), check your **URL** and **API Schema** in Advanced Mode.
 
-For example, a common mistake is entering `https://api.openai.com` instead of `https://api.openai.com/v1`.
+A common mistake is omitting `/v1` on OpenAI-compatible URLs (e.g., entering `https://api.example.com` instead of `https://api.example.com/v1`).
 
-<Callout type="tip" title="How to find the correct API Url">
-1. If your model service provider is on **Everywhere**'s official support list, please keep the default Url.
-2. If you are using a third-party or self-hosted service, please refer to its official documentation to find the correct API Url (also known as "Endpoint").
-
-   For an OpenAI-compatible API, you need to find an address like `https://api.example.com/v1/chat/completions`, then remove the `/chat/completions` part at the end to get `https://api.example.com/v1`, and enter this into the `API Url` field in **Everywhere**.
+<Callout type="tip" title="Check the Live URL Preview">
+1. If your provider is available in **Preset Mode**, keep the preset configuration rather than manually overriding URLs.
+2. In **Advanced Mode**, check the live URL preview below the **URL** field—Everywhere automatically normalizes standard paths, and appending `#` at the end tells Everywhere to use your URL verbatim without adding suffixes.
 
 <HorizontalImg
     src="/faq/ai-no-answer-example.webp"
     alt="OpenAI API Url Example"
     width="400px"
   />
-
 </Callout>
 
 ### Why can't I read images?
 
-**Not all large language models support image input (i.e., "multimodal" capability).**
+**Not all models support image input.**
 
-If the model you are using (e.g., `DeepSeek-V3.2`) only supports text input, it cannot "see" or understand the images you send.
+If you attach or capture an image with a text-only model (or an Advanced Mode configuration without **Image** selected under **Input Modalities**), Everywhere displays: `"The current assistant does not support image input."`
 
-In this case, sending images usually results in an error saying "Model configuration is incorrect, model provider or model ID is missing or invalid, or the current model does not support image input/tool calls."
-
-If you need the AI to analyze image content, please switch to a model that supports visual capabilities.
+Switch to a vision-capable model (and ensure **Image** is selected under **Input Modalities** in Advanced Mode). If the assistant reads image files on disk using **View images**, make sure **Essential > View images** is enabled and check **Settings > System Assistant > Image Understanding Subagent**.
 
 ### Why can't I use web search?
 
-When using official platforms like ChatGPT, Gemini, or DeepSeek, web search is typically built-in. This is because these providers integrate search plugins directly into their web interfaces, allowing them to fetch real-time information before processing it with the language model.
+By default, model APIs do not include web search the way web apps like ChatGPT or DeepSeek do. Everywhere provides web search as a built-in tool:
 
-However, when accessing these models via **API**, you are utilizing their core content generation capabilities, which do not natively include web search functionality.
+- **Everywhere Cloud Search (Recommended)**: Use your account credits or the monthly search quota included in your [subscription plan](/en/pricing) with zero extra setup.
+- **Custom Search Engines**: Configure API keys for external providers (such as Google, Brave, Tavily, Bocha, etc.) under **Tools > Web** in the main window.
 
-**Everywhere** interacts with these models through their APIs. To empower your AI with web search capabilities, you can choose from the following two options:
+See <DynamicLink href="/[lang]/docs/chat-tools/web">Tools — Web</DynamicLink> for complete configuration details.
 
-* **Everywhere Cloud Search (Recommended):** We have officially launched the Everywhere Cloud Search service. You can enable web access instantly by using your account credits or the monthly search quota included in your [subscription plan](/en/pricing), with no complex configuration required.
-* **Custom Search Services:** You can also configure your own API keys from external search providers (such as Google, Brave, Tavily, Bocha, etc.).
-
-For more details, please navigate to the **Web Search** page in the main window to configure your settings.
-
-## Software Usage
+## Software Usage & Permissions
 
 ### Why can't I bring up the floating chat window?
 
-If you press the hotkey but don't see the **Everywhere** floating window, there are usually two possible reasons:
-1. **Hotkey Conflict**: The hotkey you set may be the same as another software on your system (e.g., screenshot tool, input method).
-    * **Solution**: Try changing the hotkey in Everywhere's `Settings > Shortcuts` and try again.
-2. **Administrator Permissions**: When you are active in a window running with administrator privileges (e.g., Task Manager, some installers), Everywhere also needs to run with administrator privileges to display on top of that window. This is due to Windows' User Account Control (UAC) mechanism, which uses "Integrity Levels" to isolate programs with different permissions, preventing lower-privilege applications from controlling higher-privilege ones.
-    * **Solution**: In Everywhere's `Settings > Common`, click the `Restart as Administrator` button and try again.
+1. **Hotkey Conflict or Disabled Hotkey**: Your global hotkey may conflict with another app (e.g., screenshot tools or input methods), or may have been disabled during setup or from the tray menu.
+   - **Solution**: Check **Settings > Shortcuts** (or the tray menu's **Chat Window Shortcut** toggle) and assign a non-conflicting shortcut.
+2. **Administrator Windows (Windows)**: When an elevated application (e.g., Task Manager or an installer) is focused, Windows UAC isolation prevents non-elevated apps from interacting with it.
+   - **Solution**: In **Settings > Common**, turn on **Install as a service** so Everywhere can recognize and interact with elevated apps cleanly.
+3. **macOS Accessibility / Screen Recording Permissions**: On macOS, grant **Accessibility** and **Screen Recording** permissions in **System Settings > Privacy & Security** so Everywhere can register global shortcuts, capture selections, and read screen context.
+4. **Linux Wayland Portal / Compositor Permissions**: On KDE Plasma 6 / GNOME, approve the system GlobalShortcuts permission prompt; on Niri, bind the launch command in your compositor configuration. See <DynamicLink href="/[lang]/docs/linux">Linux compatibility</DynamicLink>.
 
-### Why isn't PowerShell auto-approved?
+### How does tool approval work (e.g., Terminal / File Operations)?
 
-By default, **Everywhere** requires manual approval for PowerShell commands to ensure system security. However, you can adjust this:
+You can switch between three **Tool approval** modes directly in the chat window toolbar:
 
-* **Per-Conversation:** When an execution request pops up, you can expand the options on the **Allow Once** button to enable auto-approval for the current chat.
-* **Global Auto-Approval:** This can be enabled in `Chat Tools` settings. When enabled, all terminal operations will be automatically approved without manual confirmation. Improper use by the assistant may lead to serious system crashes or irreversible file loss. **Enabling this option means you have assessed and are willing to assume the risk**.
+- **Request approval** *(Default)*: Prompts you before running sensitive operations (such as terminal commands, modifying files outside your workspace, or calling MCP tools). You can select **Allow once**, **Allow in session**, **Always allow**, or deny.
+- **Approve for me**: Lets a designated review assistant (configured in **Settings > System Assistant > Tool approval**) evaluate the risk based on your task. High-risk operations are still denied automatically.
+- **Full access**: Allows all enabled tools to run without confirmation prompts (shows a warning banner; use only when you accept the risk).
+
+### How do I send a message while the AI is still replying?
+
+While a response is generating, you can set your default behavior under **Settings > Chat Window > Default Send Behavior When Busy**: **Queue** (waits until the current reply finishes) or **Send Immediately** (interrupts and steers the reply right away, shown as **Steer now**). While typing, you can also press `Ctrl/⌘ + Enter` (or `Ctrl/⌘ + Shift + Enter` in `Ctrl+Enter` mode) to send with the opposite mode, or edit, reorder, and remove queued messages above the input box.

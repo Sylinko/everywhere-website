@@ -72,7 +72,7 @@ export function softwareApplicationSchema(lang: string) {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: siteName,
-    operatingSystem: ['Windows', 'macOS'],
+    operatingSystem: ['Windows', 'macOS', 'Linux'],
     applicationCategory: 'UtilitiesApplication',
     description: EverywhereDescriptions[lang] ?? EverywhereDescriptions['en'],
     url: `${siteUrl}/${lang}/download`,

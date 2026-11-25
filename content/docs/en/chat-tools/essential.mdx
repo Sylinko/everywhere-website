@@ -1,14 +1,15 @@
 ---
 title: Essential
-description: Equip your assistant with core utilities to manage to-do lists, prompt users, and delegate tasks.
+description: Equip your assistant with core utilities to manage to-do lists, prompt users, view images, and delegate tasks.
 icon: ToolCase
 ---
 
-import { Table } from "@/components/common/table"
+import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table";
 
 ## Functions
 
-<Table columnWidths={['20%', '70%', '10%']}>
+<Table columnWidths={['22%', '62%', '16%']}>
   <thead>
     <tr>
       <th>Function</th>
@@ -19,18 +20,27 @@ import { Table } from "@/components/common/table"
   <tbody>
     <tr>
       <td>Assign New Assistant</td>
-      <td>Allowing the assistant to assign a brand-new assistant to execute subtasks helps conserve context within individual models while better handling complex tasks.</td>
+      <td>Delegates a subtask to a brand-new isolated subagent to save context in the main conversation and handle complex multi-step work. You can configure dedicated models for subagents and image understanding in <strong>Settings &gt; System Assistant</strong>. Long-running subagents can also continue in the background.</td>
       <td>None</td>
     </tr>
     <tr>
       <td>Manage To-do List</td>
-      <td>Allowing the assistant to maintain a concise to-do list, which proves highly useful when handling complex tasks. Note that this list is temporary and will disappear upon switching conversations or exiting Everywhere.</td>
+      <td>Maintains a concise temporary to-do list for the current conversation (create, update, read, or clear items). This list is temporary and disappears when switching conversations or exiting Everywhere.</td>
       <td>None</td>
     </tr>
     <tr>
-      <td>Ask User Question</td>
-      <td>Allowing the assistant to ask questions and gather input from the user through interactive dialogs.</td>
+      <td>Ask a Question</td>
+      <td>Prompts you for clarification through interactive dialogs supporting single-choice, multiple-choice, and free-form text input across one or more questions.</td>
       <td>None</td>
+    </tr>
+    <tr>
+      <td>View images</td>
+      <td>Loads and inspects local images on demand (up to 8 per call, with automatic resizing for large images). Only available when the active model supports image input.</td>
+      <td><PermissionBadge risk="low">Read File</PermissionBadge></td>
     </tr>
   </tbody>
 </Table>
+
+## Manage Background Jobs
+
+When long-running tasks from **Execute In Terminal** or **Assign New Assistant** move to the background, **Manage Background Jobs** becomes available so your assistant can check their live output or stop them on demand. You can also monitor or stop them anytime from the chat window.

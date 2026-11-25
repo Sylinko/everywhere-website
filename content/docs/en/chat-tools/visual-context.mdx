@@ -1,38 +1,73 @@
 ---
-title: Visual Context
+title: Screen Awareness
 description: Grant visual context to let your assistant perceive, analyze, and interact with on-screen UI.
 icon: Network
 ---
 
 import { PermissionBadge } from '@/components/common/permissions';
+import { Table } from "@/components/common/table";
+
+Listed in the app under **Tools > Built-in > Screen Awareness**.
 
 <Callout type="tip">
-Even if this tool is not enabled, Everywhere will attempt to retrieve the visual context if a visual element is included when sending a message in the chat window. This tool only provides additional functions.
+Even if this plugin is disabled, Everywhere still retrieves visual context when you attach a screen element in the chat window (respecting your assistant's **Screen Awareness Budget**). This tool exposes additional interactive functions to the model.
 </Callout>
 
 ## Functions
 
-| Function | Description | Permission(s) |
-| -------- | ----------- | ----------------- |
-| List Windows | Lists all windows on the screen. | <PermissionBadge risk="low">Read Screen</PermissionBadge> |
-| Capture UI Element | Capture a screenshot of a visual element. | <PermissionBadge risk="low">Read Screen</PermissionBadge> |
-| Read Visual Tree | Read the visual tree of a window or element on screen. | <PermissionBadge risk="low">Read Screen</PermissionBadge> |
-| Automate Actions | Execute a set of automated actions, such as clicks, inputs, or sending shortcuts. | <PermissionBadge risk="medium">Access Screen</PermissionBadge> |
+<Table columnWidths={['24%', '58%', '18%']}>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+      <th>Permission(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>List Windows</td>
+      <td>Lists all current top-level windows on the screen so the assistant can inspect, capture, or interact with them.</td>
+      <td><PermissionBadge risk="low">Read Screen</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>Screenshot</td>
+      <td>Captures an image of a specific window or on-screen element.</td>
+      <td><PermissionBadge risk="low">Read Screen</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>Query Visual Context <em>(Experimental)</em></td>
+      <td>Reads the surrounding UI layout and elements of an on-screen window or control, respecting your assistant's <strong>Screen Awareness Budget</strong>.</td>
+      <td><PermissionBadge risk="low">Read Screen</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>Reading visual text <em>(Experimental)</em></td>
+      <td>Reads additional text from an on-screen element when its initial preview is truncated.</td>
+      <td><PermissionBadge risk="low">Read Screen</PermissionBadge></td>
+    </tr>
+    <tr>
+      <td>Automate Actions <em>(Experimental)</em></td>
+      <td>Performs a sequence of UI actions on your behalf, such as clicking elements, entering text, sending keyboard shortcuts, and pausing between steps.</td>
+      <td><PermissionBadge risk="medium">Access Screen</PermissionBadge></td>
+    </tr>
+  </tbody>
+</Table>
 
 ## Notes
 
 ### Automate Actions
 
 <Callout type="warning">
-The "Automate Actions" feature is **experimental** and may not work as expected. Use it with caution.
+**Query Visual Context**, **Reading visual text**, and **Automate Actions** are marked **Experimental** and may change or behave unpredictably depending on the target app and model. Use automated actions with caution.
 </Callout>
 
-The decision to execute actions on UI elements is determined by the large model itself. In most cases, **the model may be reluctant to perform such actions**, and the execution results may sometimes be unsatisfactory.
+The decision to execute actions on UI elements is determined by the model itself. In some cases, the model may refuse to perform UI interactions or produce imprecise results.
 
-### Software Compatibility
+### Platform & Software Compatibility
 
-Since the visual context is obtained via UI automation, **content cannot be retrieved from software that does not support accessibility features (such as WeChat)**. Additionally, applications like games are not supported.
+Screen Awareness is supported across **Windows**, **macOS** (requires granting Accessibility and Screen Recording permissions in System Settings), and **Linux** (supported across major desktop environments and compositors).
+
+Because visual trees rely on OS accessibility features, **content cannot be retrieved from software that does not expose accessibility information (such as WeChat)**. Fullscreen games and DRM-protected windows are also unsupported.
 
 ### Real-time Capability
 
-The visual context acquisition works like a snapshot rather than a real-time stream, so tasks like real-time YouTube subtitle translation are not possible.
+Visual context acquisition works like a snapshot rather than a live video stream, so real-time tasks such as live subtitle translation are not possible.

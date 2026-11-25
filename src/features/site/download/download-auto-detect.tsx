@@ -13,13 +13,13 @@ interface Variant {
 }
 
 const osVariants: Record<
-  OSId,
+  Exclude<OSId, 'linux'>,
   { primary: Variant; others: Variant[] }
 > = {
   windows: {
     primary: {
       name: 'Installer',
-      note: '.msi',
+      note: '.exe',
       key: 'installer',
       link: DownloadLinks.windows.installer,
     },
@@ -56,6 +56,7 @@ export function DownloadAutoDetect({
   dictionary: {
     downloadFor: string;
     loading: string;
+    linuxInstall: string;
   };
 }) {
   const { os, mounted } = useDetectOS();
@@ -71,6 +72,22 @@ export function DownloadAutoDetect({
   }
 
   if (!os) return null;
+
+  if (os === 'linux') {
+    return (
+      <Link
+        href="#linux"
+        className={cn(
+          buttonVariants({ size: 'lg' }),
+          'h-14 gap-3 rounded-full px-8 text-lg'
+        )}
+      >
+        <span className="size-5">{platforms.linux.icon}</span>
+        {dictionary.linuxInstall}
+        <span className="text-xs">Canary</span>
+      </Link>
+    );
+  }
 
   const platform = platforms[os];
   const variants = osVariants[os];

@@ -381,7 +381,7 @@ export function ModelProviderSection({
             {description}
           </p>
           <DynamicLink
-            href="/[lang]/docs/model-provider"
+            href="/[lang]/docs/models"
             className={cn(buttonVariants(), 'mt-6 w-fit justify-start')}
           >
             <div className="inline-flex items-center gap-2">
@@ -636,7 +636,7 @@ export function CTASection({
           {description}
         </p>
         <DynamicLink
-          href="/[lang]/docs/quick-start"
+          href="/[lang]/docs/installation"
           data-track-event="docs_get_started_click"
           data-track-section="content"
           data-track-param-cta-id="home_bottom_cta"

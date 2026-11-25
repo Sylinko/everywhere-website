@@ -4,6 +4,7 @@ import { AlertTriangle } from 'lucide-react';
 import { cardVariants } from '@/components/common/variants';
 import { cn } from '@/lib/cn';
 import { DownloadLinks } from '@/lib/constants';
+import { LinuxCard } from './linux-card';
 
 interface Distro {
   name: string;
@@ -42,33 +43,31 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
       {/* Channel color overrides via CSS custom properties */}
       <style>{`
         /* Canary channel color overrides (light mode) */
-        [data-channel="canary"] .channel-card {
+        [data-channel="canary"] .channel-card, .linux-card {
           border-color: hsl(30, 90%, 55%);
         }
-        [data-channel="canary"] .channel-card:hover {
+        [data-channel="canary"] .channel-card:hover, .linux-card:hover {
           border-color: hsl(30, 85%, 65%) !important;
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
         }
         [data-channel="canary"] .channel-link {
-          background-color: hsla(30, 90%, 55%, 0.08);
-          --tw-ring-color: hsla(30, 90%, 55%, 0.25) !important;
+          background-color: color-mix(in srgb, var(--color-fd-muted) 88%, hsl(30, 90%, 55%));
         }
         [data-channel="canary"] .channel-link:hover {
-          background-color: hsla(30, 90%, 55%, 0.15) !important;
+          background-color: color-mix(in srgb, var(--color-fd-muted) 78%, hsl(30, 90%, 55%)) !important;
         }
         /* Canary channel color overrides (dark mode) */
-        .dark [data-channel="canary"] .channel-card {
+        .dark [data-channel="canary"] .channel-card, .dark .linux-card {
           border-color: hsl(30, 80%, 60%);
         }
-        .dark [data-channel="canary"] .channel-card:hover {
+        .dark [data-channel="canary"] .channel-card:hover, .dark .linux-card:hover {
           border-color: hsl(30, 80%, 72%) !important;
         }
         .dark [data-channel="canary"] .channel-link {
-          background-color: hsla(30, 80%, 60%, 0.1);
-          --tw-ring-color: hsla(30, 80%, 60%, 0.3) !important;
+          background-color: color-mix(in srgb, var(--color-fd-muted) 88%, hsl(30, 80%, 60%));
         }
         .dark [data-channel="canary"] .channel-link:hover {
-          background-color: hsla(30, 80%, 60%, 0.2) !important;
+          background-color: color-mix(in srgb, var(--color-fd-muted) 78%, hsl(30, 80%, 60%)) !important;
         }
         /* Transitions */
         .channel-indicator {
@@ -100,6 +99,7 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
           <div className="relative z-10 grid grid-cols-2">
             <button
               onClick={() => setChannel('stable')}
+              aria-pressed={!isCanary}
               className={cn(
                 'flex items-center justify-center rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-180',
                 !isCanary
@@ -111,6 +111,7 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
             </button>
             <button
               onClick={() => setChannel('canary')}
+              aria-pressed={isCanary}
               className={cn(
                 'flex items-center justify-center rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-180',
                 isCanary
@@ -124,10 +125,10 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
         </div>
 
         {/* Warning slot — fixed height to prevent layout shift */}
-        <div className="mt-4 mb-4 flex h-6 items-center justify-center">
+        <div className="mt-4 mb-4 flex min-h-12 items-center justify-center px-4 sm:min-h-6">
           {isCanary && (
             <div className="flex items-center gap-1.5 text-sm text-orange-500">
-              <AlertTriangle className="size-4" />
+              <AlertTriangle className="size-4 shrink-0" />
               <span>
                 {lang === 'zh'
                   ? 'Canary 通道包含实验性功能，可能不稳定，请谨慎使用。'
@@ -138,13 +139,13 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
         </div>
 
         {/* Platform cards */}
-        <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mx-auto grid w-full grid-cols-1 gap-6 md:grid-cols-2">
           {platforms.map((platform) => (
             <div
               key={platform.id}
               className={cn(
                 cardVariants(),
-                'channel-card hover:border-brand/50 relative flex flex-col overflow-hidden p-8 hover:shadow-lg'
+                'channel-card hover:border-brand/50 relative flex min-w-0 flex-col overflow-hidden rounded-3xl p-8 hover:shadow-lg'
               )}
             >
               <div className="bg-muted/50 mb-6 flex size-6 items-center justify-between">
@@ -194,7 +195,7 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
                         data-track-param-os={platform.id}
                         data-track-param-channel={channel}
                         data-track-param-variant={distro.key}
-                        className="channel-link bg-muted/50 ring-foreground/5 hover:bg-muted flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 ring-inset"
+                        className="channel-link bg-fd-muted hover:bg-fd-accent focus-visible:ring-fd-ring flex items-center justify-between rounded-lg px-3 py-2 text-sm focus-visible:ring-2 focus-visible:outline-none"
                       >
                         <span className="text-foreground/80 font-medium">
                           {distro.name}
@@ -210,6 +211,7 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
             </div>
           ))}
         </div>
+        <LinuxCard lang={lang} isCanary={isCanary} channel={channel} />
       </div>
     </>
   );

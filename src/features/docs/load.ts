@@ -16,21 +16,11 @@ function getDocSeoTitle(
   if (section !== 'docs') return title;
 
   const isZh = lang === 'zh';
-  if (slugs[0] === 'model-provider' && slugs.length > 1) {
-    if (slugs[1] === 'ollama') {
-      return isZh ? '配置 Ollama 本地模型' : 'Ollama Local Model Setup';
-    }
-    if (slugs[1] === 'other') {
-      return isZh ? '配置其他自定义模型提供商' : 'Custom AI Model Providers';
-    }
-    return isZh ? `配置 ${title} API 密钥` : `${title} API Key Setup`;
-  }
-
   const slugPath = slugs.join('/');
   if (slugPath === 'chat-tools/mcp') {
     return isZh ? 'MCP 工具集成配置' : 'MCP Tool Integration';
   }
-  if (slugPath === 'chat-tools/windows-specific/everything') {
+  if (slugPath === 'chat-tools/platform-specific/everything') {
     return isZh ? 'Everything 本地文件搜索工具' : 'Everything File Search Tool';
   }
 
