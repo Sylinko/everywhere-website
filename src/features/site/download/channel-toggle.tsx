@@ -43,10 +43,10 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
       {/* Channel color overrides via CSS custom properties */}
       <style>{`
         /* Canary channel color overrides (light mode) */
-        [data-channel="canary"] .channel-card, .linux-card {
+        [data-channel="canary"] .channel-card {
           border-color: hsl(30, 90%, 55%);
         }
-        [data-channel="canary"] .channel-card:hover, .linux-card:hover {
+        [data-channel="canary"] .channel-card:hover {
           border-color: hsl(30, 85%, 65%) !important;
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
         }
@@ -57,10 +57,10 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
           background-color: color-mix(in srgb, var(--color-fd-muted) 78%, hsl(30, 90%, 55%)) !important;
         }
         /* Canary channel color overrides (dark mode) */
-        .dark [data-channel="canary"] .channel-card, .dark .linux-card {
+        .dark [data-channel="canary"] .channel-card {
           border-color: hsl(30, 80%, 60%);
         }
-        .dark [data-channel="canary"] .channel-card:hover, .dark .linux-card:hover {
+        .dark [data-channel="canary"] .channel-card:hover {
           border-color: hsl(30, 80%, 72%) !important;
         }
         .dark [data-channel="canary"] .channel-link {
@@ -211,7 +211,7 @@ export function ChannelToggle({ platforms, lang, labels }: ChannelToggleProps) {
             </div>
           ))}
         </div>
-        <LinuxCard lang={lang} isCanary={isCanary} channel={channel} />
+        <LinuxCard lang={lang} channel={channel} />
       </div>
     </>
   );

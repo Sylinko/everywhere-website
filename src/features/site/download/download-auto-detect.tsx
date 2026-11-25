@@ -84,7 +84,6 @@ export function DownloadAutoDetect({
       >
         <span className="size-5">{platforms.linux.icon}</span>
         {dictionary.linuxInstall}
-        <span className="text-xs">Canary</span>
       </Link>
     );
   }

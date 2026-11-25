@@ -12,11 +12,9 @@ import {
 
 export function LinuxCard({
   lang,
-  isCanary,
   channel,
 }: {
   lang: string;
-  isCanary: boolean;
   channel: 'stable' | 'canary';
 }) {
   const zh = lang === 'zh';
@@ -46,8 +44,7 @@ export function LinuxCard({
       id="linux"
       className={cn(
         cardVariants(),
-        'channel-card linux-card relative mt-6 flex w-full min-w-0 scroll-mt-24 flex-col rounded-3xl p-8',
-        !isCanary && 'border-dashed'
+        'channel-card hover:border-brand/50 relative mt-6 flex w-full min-w-0 scroll-mt-24 flex-col rounded-3xl p-8 hover:shadow-lg'
       )}
     >
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -69,14 +66,14 @@ export function LinuxCard({
       <h3 className="mb-2 text-xl font-semibold">Linux</h3>
       <p className="text-muted-foreground mb-5 text-sm leading-relaxed">
         {zh
-          ? '仅提供 Canary 测试版，推荐使用 Hyprland。X11 和 Plasma、GNOME、Niri 的 Wayland 会话仅支持部分功能；其他 Wayland 桌面暂不支持。'
-          : 'Canary only. We recommend Hyprland. Support is limited on X11 and on Plasma, GNOME, or Niri under Wayland. Other Wayland desktops are unsupported.'}
+          ? '推荐使用 Hyprland。X11 和 Plasma、GNOME、Niri 的 Wayland 会话仅支持部分功能；其他 Wayland 桌面暂不支持。'
+          : 'We recommend Hyprland. Support is limited on X11 and on Plasma, GNOME, or Niri under Wayland. Other Wayland desktops are unsupported.'}
       </p>
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Command
           label="$"
-          command={LinuxInstallCommand}
+          command={`${LinuxInstallCommand} -s -- --channel ${channel}`}
           lang={lang}
           aria-label={zh ? 'Linux 安装命令' : 'Linux install command'}
           className="channel-link"
