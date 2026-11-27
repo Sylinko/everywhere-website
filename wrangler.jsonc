@@ -10,7 +10,13 @@
       "/en",
       "/en/*",
       "/zh",
-      "/zh/*"
+      "/zh/*",
+      "!/en/docs.md",
+      "!/en/docs/*.md",
+      "!/en/llms-full.txt",
+      "!/zh/docs.md",
+      "!/zh/docs/*.md",
+      "!/zh/llms-full.txt"
     ]
   },
   "compatibility_date": "2026-11-17",

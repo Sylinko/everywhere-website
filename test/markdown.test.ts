@@ -146,6 +146,33 @@ test('HEAD describes Markdown but has no body', async () => {
   assert.equal(await response.text(), '');
 });
 
+test('does not copy an incoming HEAD transport body into the internal GET', async () => {
+  // Incoming Workers requests can retain an empty stream for Content-Length: 0.
+  // Node's Request constructor disallows HEAD bodies, so model that input explicitly.
+  const req = new Request(url, {
+    method: 'POST',
+    headers: { Accept: 'text/markdown', 'Content-Length': '0' },
+    body: '',
+  });
+  Object.defineProperty(req, 'method', { value: 'HEAD' });
+  const response = await negotiateMarkdown(
+    req,
+    async (upstream) => {
+      assert.equal(upstream.method, 'GET');
+      assert.equal(upstream.body, null);
+      assert.equal(upstream.headers.get('Content-Length'), null);
+      return new Response(html, { headers: { 'Content-Type': 'text/html' } });
+    },
+    render
+  );
+  assert.equal(response.status, 200);
+  assert.equal(
+    response.headers.get('Content-Type'),
+    'text/markdown; charset=utf-8'
+  );
+  assert.equal(await response.text(), '');
+});
+
 test('keeps redirects, errors, JSON, exports and non-GET methods unchanged', async () => {
   for (const original of [
     Response.redirect(`${url}/docs`, 301),

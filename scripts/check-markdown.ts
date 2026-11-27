@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { request as httpRequest, type IncomingMessage } from 'node:http';
+import { request as httpsRequest } from 'node:https';
+import { parseConfigFileTextToJson } from 'typescript';
 import { staticPaths } from './static-paths';
 import { getPricingContent } from '../src/features/site/pricing/pricing-data';
 
@@ -13,6 +16,20 @@ const pages = [
 const get = (path: string, headers: HeadersInit = {}, method = 'GET') =>
   fetch(new URL(path, origin), { headers, method, redirect: 'manual' });
 const markdownHeaders = { Accept: 'text/markdown' };
+
+// Prerendering needs the Worker; the deployable config must restore asset bypasses.
+const { config: sourceConfig, error } = parseConfigFileTextToJson(
+  'wrangler.jsonc',
+  await readFile('wrangler.jsonc', 'utf8')
+);
+assert.equal(error, undefined);
+const outputConfig = JSON.parse(
+  await readFile('dist/server/wrangler.json', 'utf8')
+);
+assert.deepEqual(
+  outputConfig.assets.run_worker_first,
+  sourceConfig.assets.run_worker_first
+);
 
 // Discovery must survive redirects, static assets, Markdown and HEAD handling.
 const discoveryTargets = new Set<string>();
@@ -151,14 +168,25 @@ for (const path of [
   '/zh/policies/privacy',
   '/en/pricing',
 ]) {
-  const response = await get(path, markdownHeaders, 'HEAD');
-  assert.equal(response.status, 200, path);
-  assert.match(
-    response.headers.get('Content-Type') ?? '',
-    /^text\/markdown/,
-    path
-  );
-  assert.equal(await response.text(), '', path);
+  // Fetch omits Content-Length: 0 on HEAD; native clients can send it.
+  const target = new URL(path, origin);
+  const response = await new Promise<IncomingMessage>((resolve, reject) => {
+    const request = (target.protocol === 'https:' ? httpsRequest : httpRequest)(
+      target,
+      {
+        method: 'HEAD',
+        headers: { ...markdownHeaders, 'Content-Length': '0' },
+      },
+      resolve
+    );
+    request.on('error', reject);
+    request.end();
+  });
+  assert.equal(response.statusCode, 200, path);
+  assert.match(response.headers['content-type'] ?? '', /^text\/markdown/, path);
+  let body = '';
+  for await (const chunk of response) body += chunk;
+  assert.equal(body, '', path);
 }
 
 for (const [path, target, status] of [
@@ -180,7 +208,12 @@ for (const [path, target, status] of [
   await response.body?.cancel();
 }
 
-for (const path of ['/en/missing-page', '/en/docs/missing-page']) {
+for (const path of [
+  '/en/missing-page',
+  '/en/docs/missing-page',
+  '/en/docs/missing-page.md',
+  '/zh/docs/missing-page.md',
+]) {
   const response = await get(path, markdownHeaders);
   assert.equal(response.status, 404, path);
   await response.body?.cancel();

@@ -44,7 +44,13 @@ export async function negotiateMarkdown(
     ])
       headers.delete(name);
     headers.set('Accept', 'text/html');
-    upstream = new Request(request, { method: 'GET', headers });
+    headers.delete('Content-Length');
+    // Incoming HEAD requests can carry an empty stream; never copy it into a GET.
+    upstream = new Request(request.url, {
+      method: 'GET',
+      headers,
+      signal: request.signal,
+    });
   }
 
   const response = await respond(upstream);
