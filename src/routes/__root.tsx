@@ -94,6 +94,9 @@ function Document({ children }: { children: React.ReactNode }) {
             />
           </>
         )}
+        {process.env.NODE_ENV !== 'development' && (
+          <script src="/cdn-cgi/zaraz/i.js" referrerPolicy="origin" async />
+        )}
       </head>
       <body>
         {children}

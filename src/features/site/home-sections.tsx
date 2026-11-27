@@ -430,6 +430,9 @@ export function ModelProviderSection({
                     <Link
                       key={i}
                       href={model.link}
+                      data-markdown-ignore={
+                        rowIndex > 0 || i >= rotated.length || undefined
+                      }
                       target="_blank"
                       rel="noopener"
                     >

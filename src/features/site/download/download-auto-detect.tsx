@@ -63,7 +63,10 @@ export function DownloadAutoDetect({
 
   if (!mounted) {
     return (
-      <div className="flex h-24 items-center justify-center">
+      <div
+        data-markdown-ignore="true"
+        className="flex h-24 items-center justify-center"
+      >
         <span className="text-muted-foreground animate-pulse">
           {dictionary.loading}
         </span>

@@ -23,10 +23,12 @@
   },
   "include": [
     "app/global.css",
+    "cloudflare-env.d.ts",
     "components",
     "lib",
     "src",
     "scripts",
+    "test",
     "mdx-components.tsx",
     "source.config.ts",
     "vite.config.ts"
