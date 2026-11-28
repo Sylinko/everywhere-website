@@ -417,8 +417,8 @@ export function ModelSupportTable({
           />
           <p>
             {zh
-              ? '标注“起”的为基础单价，展开可查看长上下文价格或峰谷定价说明。模型、价格和限额适用范围可能随更新调整。'
-              : 'Prices marked “+” are base rates. Expand for long-context rates or variable-pricing details. Models, prices and applicable limits may change.'}
+              ? '标注“起”的为基础单价，展开可查看峰谷定价说明。模型、价格和限额适用范围可能随更新调整。'
+              : 'Prices marked “+” are base rates. Expand for variable-pricing details. Models, prices and applicable limits may change.'}
           </p>
         </div>
       </div>

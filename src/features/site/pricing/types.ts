@@ -87,11 +87,6 @@ export interface ModelConfig {
       input: Modality[];
       output: Modality[];
     };
-    limit: {
-      context: number; // Maximum context length in tokens
-      input?: number; // Maximum input length in tokens
-      output: number; // Maximum output length in tokens
-    };
   };
 }
 
