@@ -1,12 +1,19 @@
 import handler, { createServerEntry } from '@tanstack/react-start/server-entry';
 import { env } from 'cloudflare:workers';
 import { withAgentDiscovery } from '@/lib/agent-discovery';
+import { readFeedbackRequest } from '@/lib/feedback-request';
 import { negotiateMarkdown } from '@/lib/markdown-negotiation';
 import { renderPageMarkdown } from '@/src/features/markdown.server';
 
 export default createServerEntry({
   async fetch(request, options) {
     const { pathname } = new URL(request.url);
+    // Start deserializes server-function input before the feedback validator runs.
+    if (request.method === 'POST' && pathname.startsWith('/_serverFn/')) {
+      const bounded = await readFeedbackRequest(request);
+      if (bounded instanceof Response) return bounded;
+      request = bounded;
+    }
     if (
       !['GET', 'HEAD'].includes(request.method) ||
       !/^\/(en|zh)(?:\/|$)/.test(pathname) ||

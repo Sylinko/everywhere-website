@@ -7,11 +7,8 @@ export const repo = 'everywhere-docs';
 export const DocsCategory = 'Feedback'; // GitHub Discussion
 
 let instance: Octokit | undefined;
-let initError: Error | undefined;
 
-async function getOctokit(): Promise<Octokit | null> {
-  // If we already encountered an error, don't retry
-  if (initError) return null;
+async function getOctokit(): Promise<Octokit> {
   if (instance) return instance;
 
   const appId = process.env.GITHUB_APP_ID;
@@ -21,8 +18,7 @@ async function getOctokit(): Promise<Octokit | null> {
     console.warn(
       '[GitHub] No GitHub keys provided for GitHub app, docs feedback feature will not work.'
     );
-    initError = new Error('Missing GitHub App credentials');
-    return null;
+    throw new Error('Document feedback is not configured.');
   }
 
   try {
@@ -45,9 +41,9 @@ async function getOctokit(): Promise<Octokit | null> {
     instance = await app.getInstallationOctokit(data.id);
     return instance;
   } catch (error) {
-    console.error('[GitHub] Failed to initialize GitHub App:', error);
-    initError = error as Error;
-    return null;
+    const status = error && typeof error === 'object' && 'status' in error ? error.status : undefined;
+    console.error('[GitHub] Failed to initialize GitHub App.', { status });
+    throw new Error('Could not reach GitHub. Please retry.');
   }
 }
 
@@ -61,11 +57,9 @@ interface RepositoryInfo {
   };
 }
 
-let cachedDestination: RepositoryInfo | undefined;
-async function getFeedbackDestination(): Promise<RepositoryInfo | null> {
+let cachedDestination: { repositoryId: string; categoryId: string } | undefined;
+async function getFeedbackDestination(octokit: Octokit) {
   if (cachedDestination) return cachedDestination;
-  const octokit = await getOctokit();
-  if (!octokit) return null;
 
   const {
     repository,
@@ -82,7 +76,9 @@ async function getFeedbackDestination(): Promise<RepositoryInfo | null> {
   }
 `);
 
-  return (cachedDestination = repository);
+  const category = repository.discussionCategories.nodes.find((node) => node.name === DocsCategory);
+  if (!category) throw new Error('GitHub feedback category is unavailable.');
+  return (cachedDestination = { repositoryId: repository.id, categoryId: category.id });
 }
 
 export async function onRateAction(
@@ -90,29 +86,7 @@ export async function onRateAction(
   feedback: Feedback
 ): Promise<ActionResponse> {
   const octokit = await getOctokit();
-  const destination = await getFeedbackDestination();
-  if (!octokit || !destination) {
-    console.warn(
-      '[GitHub] GitHub integration is not configured, feedback will not be submitted.'
-    );
-    // Return a placeholder response instead of throwing an error
-    return {
-      githubUrl: `https://github.com/${owner}/${repo}/discussions`,
-    };
-  }
-
-  const category = destination.discussionCategories.nodes.find(
-    (category) => category.name === DocsCategory
-  );
-
-  if (!category) {
-    console.warn(
-      `[GitHub] Please create a "${DocsCategory}" category in GitHub Discussion`
-    );
-    return {
-      githubUrl: `https://github.com/${owner}/${repo}/discussions`,
-    };
-  }
+  const { repositoryId, categoryId } = await getFeedbackDestination(octokit);
 
   const title = `Feedback for ${url}`;
   const body = `[${feedback.opinion}] ${feedback.message}\n\n> Forwarded from user feedback.`;
@@ -146,7 +120,7 @@ export async function onRateAction(
       createDiscussion: { discussion: { id: string; url: string } };
     } = await octokit.graphql(`
             mutation {
-              createDiscussion(input: { repositoryId: "${destination.id}", categoryId: "${category!.id}", body: ${JSON.stringify(body)}, title: ${JSON.stringify(title)} }) {
+              createDiscussion(input: { repositoryId: "${repositoryId}", categoryId: "${categoryId}", body: ${JSON.stringify(body)}, title: ${JSON.stringify(title)} }) {
                 discussion { id, url }
               }
             }`);

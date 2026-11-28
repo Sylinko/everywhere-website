@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     '.source/**',
   ]),
   {
+    files: ['src/**/*.{ts,tsx}', 'lib/**/*.ts'],
+    languageOptions: { parserOptions: { projectService: true } },
+    rules: { '@typescript-eslint/no-floating-promises': 'error' },
+  },
+  {
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
